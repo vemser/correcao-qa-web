@@ -1,4 +1,4 @@
-package com.vemser.correcao.dto;
+package com.vemser.correcao.dto.compilador;
 
 import com.vemser.correcao.enums.Linguagem;
 import lombok.AllArgsConstructor;

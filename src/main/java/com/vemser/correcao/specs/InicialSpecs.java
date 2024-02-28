@@ -11,11 +11,22 @@ public class InicialSpecs {
 
     private InicialSpecs() {}
 
-    public static RequestSpecification setup() {
+    public static RequestSpecification setupCompilador() {
         ConfigProperties.initializePropertyFile();
 
         return new RequestSpecBuilder()
                 .setBaseUri(ConfigProperties.properties.getProperty("CopiladorURL"))
+                .setConfig(config().logConfig(
+                        logConfig().enableLoggingOfRequestAndResponseIfValidationFails()
+                ))
+                .build();
+    }
+
+    public static RequestSpecification setupApi() {
+        ConfigProperties.initializePropertyFile();
+
+        return new RequestSpecBuilder()
+                .setBaseUri(ConfigProperties.properties.getProperty("ApiURL"))
                 .setConfig(config().logConfig(
                         logConfig().enableLoggingOfRequestAndResponseIfValidationFails()
                 ))
