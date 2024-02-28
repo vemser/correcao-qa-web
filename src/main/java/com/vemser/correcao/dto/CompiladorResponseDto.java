@@ -10,7 +10,7 @@ import java.util.ArrayList;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CompiladorResponseDto {
-    private String mensagem;
+    private String retorno;
     private String timestamp;
     private Integer status;
     private ArrayList<String> errors;

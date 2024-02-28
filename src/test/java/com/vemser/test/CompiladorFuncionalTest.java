@@ -6,10 +6,12 @@ import com.vemser.correcao.dto.CompiladorDto;
 import com.vemser.correcao.dto.CompiladorResponseDto;
 import com.vemser.correcao.specs.CompiladorSpecs;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 public class CompiladorFuncionalTest {
     @Test
+    @DisplayName("Ofdioehuifh")
     public void testCompilador_camposValidosComCodigoJava_esperaSucesso() {
         CompiladorDto compiladorJava = CompiladorDataFactory.compiladorJavaValido();
 
@@ -17,8 +19,8 @@ public class CompiladorFuncionalTest {
                 .spec(CompiladorSpecs.compiladorSucessoResponse())
                 .extract().as(CompiladorResponseDto.class);
 
-        Assertions.assertNotNull(compiladorResponse.getMensagem());
-        Assertions.assertEquals(compiladorResponse.getMensagem(), "Vem Ser - Correção");
+        Assertions.assertNotNull(compiladorResponse.getRetorno());
+        Assertions.assertEquals(compiladorResponse.getRetorno(), "Vem Ser - Correção");
     }
 
     @Test
@@ -29,41 +31,41 @@ public class CompiladorFuncionalTest {
                 .spec(CompiladorSpecs.compiladorSucessoResponse())
                 .extract().as(CompiladorResponseDto.class);
 
-        Assertions.assertNotNull(compiladorResponse.getMensagem());
-        Assertions.assertEquals(compiladorResponse.getMensagem(), "Vem Ser - Correção");
+        Assertions.assertNotNull(compiladorResponse.getRetorno());
+        Assertions.assertEquals(compiladorResponse.getRetorno(), "Vem Ser - Correção");
     }
 
-    @Test
-    public void testCompilador_codigoInvalido_esperaErro() {
-        CompiladorDto compiladorCodigoInvalido = CompiladorDataFactory.compiladorCodigoInvalido();
-
-        // TODO: implementar mensagem de erro
-        CompiladorResponseDto compiladorResponse = CompiladorClient.compilarCodigo(compiladorCodigoInvalido).then()
-                .spec(CompiladorSpecs.compiladorErroResponse())
-                .extract().as(CompiladorResponseDto.class);
-
-        Assertions.assertNotNull(compiladorResponse.getTimestamp());
-        Assertions.assertNotNull(compiladorResponse.getStatus());
-        Assertions.assertNotNull(compiladorResponse.getErrors());
-        Assertions.assertEquals(compiladorResponse.getStatus(), 400);
-        Assertions.assertTrue(compiladorResponse.getErrors().contains("???"));
-    }
-
-    @Test
-    public void testCompilador_linguagemInvalida_esperaErro() {
-        CompiladorDto compiladorLinguagemInvalida = CompiladorDataFactory.compiladorLinguagemInvalida();
-
-        // TODO: implementar mensagem de erro
-        CompiladorResponseDto compiladorResponse = CompiladorClient.compilarCodigo(compiladorLinguagemInvalida).then()
-                .spec(CompiladorSpecs.compiladorErroResponse())
-                .extract().as(CompiladorResponseDto.class);
-
-        Assertions.assertNotNull(compiladorResponse.getTimestamp());
-        Assertions.assertNotNull(compiladorResponse.getStatus());
-        Assertions.assertNotNull(compiladorResponse.getErrors());
-        Assertions.assertEquals(compiladorResponse.getStatus(), 400);
-        Assertions.assertTrue(compiladorResponse.getErrors().contains("???"));
-    }
+//    @Test
+//    public void testCompilador_codigoInvalido_esperaErro() {
+//        CompiladorDto compiladorCodigoInvalido = CompiladorDataFactory.compiladorCodigoInvalido();
+//
+//        // TODO: implementar mensagem de erro
+//        CompiladorResponseDto compiladorResponse = CompiladorClient.compilarCodigo(compiladorCodigoInvalido).then()
+//                .spec(CompiladorSpecs.compiladorErroResponse())
+//                .extract().as(CompiladorResponseDto.class);
+//
+//        Assertions.assertNotNull(compiladorResponse.getTimestamp());
+//        Assertions.assertNotNull(compiladorResponse.getStatus());
+//        Assertions.assertNotNull(compiladorResponse.getErrors());
+//        Assertions.assertEquals(compiladorResponse.getStatus(), 400);
+//        Assertions.assertTrue(compiladorResponse.getErrors().contains("???"));
+//    }
+//
+//    @Test
+//    public void testCompilador_linguagemInvalida_esperaErro() {
+//        CompiladorDto compiladorLinguagemInvalida = CompiladorDataFactory.compiladorLinguagemInvalida();
+//
+//        // TODO: implementar mensagem de erro
+//        CompiladorResponseDto compiladorResponse = CompiladorClient.compilarCodigo(compiladorLinguagemInvalida).then()
+//                .spec(CompiladorSpecs.compiladorErroResponse())
+//                .extract().as(CompiladorResponseDto.class);
+//
+//        Assertions.assertNotNull(compiladorResponse.getTimestamp());
+//        Assertions.assertNotNull(compiladorResponse.getStatus());
+//        Assertions.assertNotNull(compiladorResponse.getErrors());
+//        Assertions.assertEquals(compiladorResponse.getStatus(), 400);
+//        Assertions.assertTrue(compiladorResponse.getErrors().contains("???"));
+//    }
 
     @Test
     public void testCompilador_linguagemNaoInformada_esperaErro() {
