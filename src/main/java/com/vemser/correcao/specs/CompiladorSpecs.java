@@ -12,7 +12,7 @@ import io.restassured.specification.ResponseSpecification;
 public class CompiladorSpecs {
     public static RequestSpecification compiladorRequest(CompiladorDto compiladorDto) {
         return new RequestSpecBuilder()
-                .addRequestSpecification(InicialSpecs.setUp())
+                .addRequestSpecification(InicialSpecs.setup())
                 .setContentType(ContentType.JSON)
                 .setBody(compiladorDto)
                 .log(LogDetail.BODY)
@@ -21,7 +21,7 @@ public class CompiladorSpecs {
 
     public static RequestSpecification compiladorRequest(String compiladorJson) {
         return new RequestSpecBuilder()
-                .addRequestSpecification(InicialSpecs.setUp())
+                .addRequestSpecification(InicialSpecs.setup())
                 .setContentType(ContentType.JSON)
                 .setBody(compiladorJson)
                 .log(LogDetail.BODY)
