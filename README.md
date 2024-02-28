@@ -26,6 +26,11 @@ Testes API Correção
 
 Esse projeto é dedicado à implementação e armazenamento de testes para a API do sistema Correção. Trata-se de testes funcionais e de integração destinados a verificar o comportamento e a robustez da API em diferentes cenários. Desde testes básicos de CRUD (Create, Read, Update, Delete) até casos mais complexos de autenticação, manipulação de dados e interações com outros sistemas, todos os aspectos da API são minuciosamente testados para garantir sua qualidade e confiabilidade. O projeto busca assegurar que a API opere de forma consistente e sem problemas, contribuindo para uma experiência de usuário fluida e satisfatória.
 
+## 📑Documentos
+
+- **[Plano de Teste](https://docs.google.com/document/d/1SxLgyNhLnXAYeXYCTrsq6NWP6tMdFnrjHGIxlEaN9G4/edit)**
+- **[Teste Exploratórios](https://docs.google.com/document/d/1SKQBuc9KmqkJDnJjGq9zEj3r1nSP5qJZxXwKIN-kibs/edit)**
+
 ## 🛠 Tecnologias
 
 - **[REST Assured](https://rest-assured.io/)**
