@@ -1,6 +1,6 @@
-package com.vemser.correcao.data.factory.compilador;
+package com.vemser.correcao.data.factory;
 
-import com.vemser.correcao.dto.compilador.CompiladorDto;
+import com.vemser.correcao.dto.CompiladorDto;
 import com.vemser.correcao.enums.Linguagem;
 
 public class CompiladorDataFactory {

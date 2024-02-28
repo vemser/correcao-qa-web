@@ -1,6 +1,6 @@
-package com.vemser.correcao.specs.compilador;
+package com.vemser.correcao.specs;
 
-import com.vemser.correcao.dto.compilador.CompiladorDto;
+import com.vemser.correcao.dto.CompiladorDto;
 import com.vemser.correcao.specs.InicialSpecs;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.builder.ResponseSpecBuilder;

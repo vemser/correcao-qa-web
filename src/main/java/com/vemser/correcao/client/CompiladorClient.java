@@ -1,7 +1,7 @@
-package com.vemser.correcao.client.compilador;
+package com.vemser.correcao.client;
 
-import com.vemser.correcao.dto.compilador.CompiladorDto;
-import com.vemser.correcao.specs.compilador.CompiladorSpecs;
+import com.vemser.correcao.dto.CompiladorDto;
+import com.vemser.correcao.specs.CompiladorSpecs;
 import io.restassured.response.Response;
 
 import static io.restassured.RestAssured.given;
