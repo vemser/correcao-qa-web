@@ -1,6 +1,7 @@
-package com.vemser.correcao.specs;
+package com.vemser.correcao.specs.compilador;
 
-import com.vemser.correcao.dto.CompiladorDto;
+import com.vemser.correcao.dto.compilador.CompiladorDto;
+import com.vemser.correcao.specs.InicialSpecs;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.builder.ResponseSpecBuilder;
 import io.restassured.filter.log.LogDetail;
@@ -12,7 +13,7 @@ import io.restassured.specification.ResponseSpecification;
 public class CompiladorSpecs {
     public static RequestSpecification compiladorRequest(CompiladorDto compiladorDto) {
         return new RequestSpecBuilder()
-                .addRequestSpecification(InicialSpecs.setUp())
+                .addRequestSpecification(InicialSpecs.setupCompilador())
                 .setContentType(ContentType.JSON)
                 .setBody(compiladorDto)
                 .log(LogDetail.BODY)
@@ -21,7 +22,7 @@ public class CompiladorSpecs {
 
     public static RequestSpecification compiladorRequest(String compiladorJson) {
         return new RequestSpecBuilder()
-                .addRequestSpecification(InicialSpecs.setUp())
+                .addRequestSpecification(InicialSpecs.setupCompilador())
                 .setContentType(ContentType.JSON)
                 .setBody(compiladorJson)
                 .log(LogDetail.BODY)

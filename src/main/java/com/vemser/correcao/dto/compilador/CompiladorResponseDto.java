@@ -1,4 +1,4 @@
-package com.vemser.correcao.dto;
+package com.vemser.correcao.dto.compilador;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

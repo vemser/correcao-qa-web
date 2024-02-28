@@ -1,10 +1,10 @@
-package com.vemser.test;
+package com.vemser.test.funcional.compilador;
 
-import com.vemser.correcao.client.CompiladorClient;
-import com.vemser.correcao.data.factory.CompiladorDataFactory;
-import com.vemser.correcao.dto.CompiladorDto;
-import com.vemser.correcao.dto.CompiladorResponseDto;
-import com.vemser.correcao.specs.CompiladorSpecs;
+import com.vemser.correcao.client.compilador.CompiladorClient;
+import com.vemser.correcao.data.factory.compilador.CompiladorDataFactory;
+import com.vemser.correcao.dto.compilador.CompiladorDto;
+import com.vemser.correcao.dto.compilador.CompiladorResponseDto;
+import com.vemser.correcao.specs.compilador.CompiladorSpecs;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
