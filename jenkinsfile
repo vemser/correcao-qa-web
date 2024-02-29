@@ -38,6 +38,10 @@ pipeline {
        stage('Send Discord Notifier') {
             steps {
                 script {
+                    def buildResult = currentBuild.currentResult
+                    def branchName = env.BRANCH_NAME
+                    def buildNumber = env.BUILD_NUMBER
+
                     def message = "# Relatorio de Testes/API Chronos\n"
                     message += "**Branch:** RELEASE\n"
                     message += "**Build:** ${buildNumber}\n"
