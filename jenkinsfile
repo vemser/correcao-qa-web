@@ -22,7 +22,7 @@ pipeline {
        stage('Publish Allure Report') {
            steps {
                script {
-                   bat 'mvn allure:report'
+                   bat 'allure generate target/allure-results -o target/allure-report'
 
                    archiveArtifacts 'target/allure-report/**'
                }
@@ -64,7 +64,7 @@ pipeline {
 
                discordSend description: message,
                    image: "${link}",
-                   webhookURL: "https://discord.com/api/webhooks/1212489472399118366/VtMuLFS2tdu_Qd7KWFiHDc3wSf3XF2E4bm6oSiEarIZk3hgV1Rne-VO-owSTeJiRLG0e"
+                   webhookURL: "https://discord.com/api/webhooks/1212851937758937209/o5j4_OPhUd-OVY4tJqCteJTbPFQrTHMaE967Ezmi1xzbsFbJdMh3H1IuNkCcpE3wLgBs"
            }
        }
    }
