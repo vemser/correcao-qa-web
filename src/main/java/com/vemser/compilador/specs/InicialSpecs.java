@@ -1,6 +1,6 @@
-package com.vemser.correcao.specs;
+package com.vemser.compilador.specs;
 
-import com.vemser.correcao.utils.Manipulation;
+import com.vemser.compilador.utils.Manipulation;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.specification.RequestSpecification;
 
@@ -10,9 +10,10 @@ import static io.restassured.config.LogConfig.logConfig;
 public class InicialSpecs {
 
     private InicialSpecs() {}
-    public static RequestSpecification setupApi() {
+
+    public static RequestSpecification setupCompilador() {
         return new RequestSpecBuilder()
-                .setBaseUri(Manipulation.getProps().getProperty("ApiURL"))
+                .setBaseUri(Manipulation.getProps().getProperty("CompiladorURL"))
                 .setConfig(config().logConfig(
                         logConfig().enableLoggingOfRequestAndResponseIfValidationFails()
                 ))
