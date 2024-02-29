@@ -1,0 +1,7 @@
+stage('Exemplo notificação Jenkins'){
+       discordSend description: "Uma notificacao de exemplo:",
+       footer: "Ambiente atualizado: https://ihul.com.br",
+       link: env.BUILD_URL, result: currentBuild.currentResult,
+       title: JOB_NAME,
+       webhookURL: "https://discord.com/api/webhooks/1212822920129282048/g0_nPIDGWOkl5_8ckQk0pm__ocOAVeGnCHcjq70Q8CdbW9vlBISB9qWINCktjizmT6TC"
+}
