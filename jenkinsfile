@@ -13,7 +13,7 @@ pipeline {
         stage('Test') {
             steps {
                 script {
-                    sh 'mvn -e clean test -Dmaven.test.failure.ignore=true'
+                    bat 'mvn -e clean test -Dmaven.test.failure.ignore=true'
                 }
             }
         }
@@ -21,7 +21,7 @@ pipeline {
         stage('Report') {
             steps {
                 script {
-                    sh 'mvn allure:report'
+                    bat 'mvn allure:report'
 
                     archiveArtifacts 'target/**'
 
@@ -51,9 +51,9 @@ pipeline {
     post {
         always {
             script {
-                sh 'start chrome "http://localhost:8080/job/correcao-qa-api-pipeline/allure/"'
+                bat 'start chrome "http://localhost:8080/job/correcao-qa-api-pipeline/allure/"'
 
-                sh 'nircmd.exe savescreenshot allure-serve-screenshot.png'
+                bat 'C:\\Users\\Sales\\nircmd.exe savescreenshot allure-serve-screenshot.png'
 
                 archiveArtifacts 'allure-serve-screenshot.png'
             }
