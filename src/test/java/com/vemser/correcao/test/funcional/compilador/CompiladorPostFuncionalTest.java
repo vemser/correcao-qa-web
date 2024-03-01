@@ -1,4 +1,4 @@
-package com.vemser.correcao.test;
+package com.vemser.correcao.test.funcional.compilador;
 
 import com.vemser.compilador.client.CompiladorClient;
 import com.vemser.compilador.data.factory.CompiladorDataFactory;
@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-public class CompiladorFuncionalTest {
+public class CompiladorPostFuncionalTest {
     @Test
     @DisplayName("Compilador - Informar Campos Válidos Com Código Java (Espera Sucesso)")
     public void testCompilador_camposValidosComCodigoJava_esperaSucesso() {
