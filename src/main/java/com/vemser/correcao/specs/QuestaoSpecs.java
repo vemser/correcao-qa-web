@@ -1,6 +1,7 @@
 package com.vemser.correcao.specs;
 
 import com.vemser.compilador.dto.CompiladorDto;
+import com.vemser.correcao.utils.Manipulation;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.builder.ResponseSpecBuilder;
 import io.restassured.filter.log.LogDetail;
@@ -14,6 +15,7 @@ public class QuestaoSpecs {
         return new RequestSpecBuilder()
                 .addRequestSpecification(InicialSpecs.setupApi())
                 .setContentType(ContentType.JSON)
+                .addHeader("Authorization", Manipulation.getProps().getProperty("TokenInstrutor"))
                 .build();
     }
 }

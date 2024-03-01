@@ -4,6 +4,8 @@ import com.vemser.correcao.client.QuestaoClient;
 import com.vemser.correcao.dto.QuestaoDto;
 import com.vemser.correcao.dto.QuestaoResponseDto;
 import com.vemser.correcao.factory.QuestaoDataFactory;
+import com.vemser.correcao.utils.Auth;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -29,4 +31,14 @@ public class QuestaoPostFuncionalTest {
         );
     }
 
+    @Test
+    @DisplayName("Questoes - Criar Questao Informando Titulo Vazio (Espera Erro)")
+    public void testQuestoes_informarTituloVazio_esperaErro() {
+        QuestaoDto questao = QuestaoDataFactory.questaoSemTitulo();
+        QuestaoResponseDto questaoResult = QuestaoClient.cadastrarQuestao(questao)
+                .then()
+                .statusCode(201)
+                .extract()
+                .as(QuestaoResponseDto.class);
+    }
 }

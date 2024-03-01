@@ -16,12 +16,13 @@ public class QuestaoClient {
 
     public QuestaoClient() {
     }
+
     public static Response cadastrarQuestao(QuestaoDto questao) {
         return given()
-                    .spec(QuestaoSpecs.questaoReqSpec())
-                    .body(questao)
+                .spec(QuestaoSpecs.questaoReqSpec())
+                .body(questao)
                 .when()
-                    .post(QUESTAO);
+                .post(QUESTAO);
     }
 
     public static Response buscarTodasQuestao() {
