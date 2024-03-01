@@ -35,6 +35,12 @@ pipeline {
             steps {
                 script {
                     bat 'mvn allure:serve'
+
+                    bat 'start chrome'
+
+                    bat 'nircmd.exe savescreenshot allure-serve-screenshot.png'
+
+                    archiveArtifacts 'allure-serve-screenshot.png'
                 }
             }
         }
