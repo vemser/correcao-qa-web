@@ -52,8 +52,8 @@ pipeline {
                     def branchName = env.BRANCH_NAME
                     def buildNumber = env.BUILD_NUMBER
 
-                    def message = "# Relatorio de Testes/API Chronos\n"
-                    message += "**Branch:** RELEASE\n"
+                    def message = "# API Correção | Relatório de Testes\n"
+                    message += "**Branch:** ${branchName}\n"
                     message += "**Build:** ${buildNumber}\n"
                     message += "**Status:** ${buildResult}\n"
 
