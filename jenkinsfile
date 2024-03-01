@@ -56,7 +56,7 @@ pipeline {
                 def buildNumber = env.BUILD_NUMBER
 
                 def message = "# API Correcao | Relatorio de Testes\n"
-                message += "**Branch:** ${branchName}\n"
+                message += "**Branch:** release\n"
                 message += "**Build:** ${buildNumber}\n"
                 message += "**Status:** ${buildResult}\n"
 
