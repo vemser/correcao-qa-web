@@ -34,9 +34,11 @@ pipeline {
         stage('Serve') {
             steps {
                 script {
-                    bat 'mvn allure:serve'
-
                     bat 'start chrome'
+
+                    sleep(time: 10, unit: 'SECONDS')
+
+                    bat 'mvn allure:serve'
 
                     bat 'nircmd.exe savescreenshot allure-serve-screenshot.png'
 
