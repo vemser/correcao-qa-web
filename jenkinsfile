@@ -41,8 +41,8 @@ pipeline {
                 def buildNumber = env.BUILD_NUMBER
                 def buildUrl = env.BUILD_URL
                 def buildResult = currentBuild.currentResult
-                def message = "**Branch:** release"
-                message += "**Allure Report: http://correcaojenkins.h5hxf2fqatg6aqbf.brazilsouth.azurecontainer.io:8080/job/correcao-qa-api-pipeline/allure/"
+                def message = "**Branch:** release\n"
+                message += "**Allure Report: http://correcaojenkins.h5hxf2fqatg6aqbf.brazilsouth.azurecontainer.io:8080/job/correcao-qa-api-pipeline/${buildNumber}/allure/"
 
                 discordSend(title: "Correcao - Testes API & UI | Build #${buildNumber}",
                 link: "${buildUrl}",
