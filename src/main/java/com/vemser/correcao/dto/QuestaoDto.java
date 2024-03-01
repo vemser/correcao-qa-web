@@ -22,4 +22,5 @@ public class QuestaoDto {
     private List<TesteDto> testes;
     private String criado;
     private String editado;
+    private String ativo;
 }

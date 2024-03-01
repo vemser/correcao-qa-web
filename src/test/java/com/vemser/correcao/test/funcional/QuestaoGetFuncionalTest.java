@@ -2,9 +2,6 @@ package com.vemser.correcao.test.funcional;
 
 import com.vemser.correcao.client.QuestaoClient;
 import com.vemser.correcao.dto.ListaTodasQuestaoResponseDto;
-import com.vemser.correcao.dto.QuestaoDto;
-import com.vemser.correcao.dto.QuestaoResponseDto;
-import com.vemser.correcao.factory.QuestaoDataFactory;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

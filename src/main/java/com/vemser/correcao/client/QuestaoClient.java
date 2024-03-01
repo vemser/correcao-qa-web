@@ -32,9 +32,8 @@ public class QuestaoClient {
 
         return
                 given()
-                    .spec(QuestaoSpecs.questaoReqSpec())
+                    .spec(QuestaoSpecs.questaoReqAuthInstrutorSpec())
                     .queryParams(parametrosMap)
-                        .log().all()
                 .when()
                     .get(LISTAR_QUESTAO_URL);
     }
