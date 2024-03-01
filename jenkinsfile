@@ -31,7 +31,7 @@ pipeline {
         stage('Test') {
             steps {
                 script {
-                    bat 'mvn -e clean test -Dmaven.test.failure.ignore=true'
+                    sh 'mvn -e clean test -Dmaven.test.failure.ignore=true'
                 }
             }
         }
@@ -39,7 +39,7 @@ pipeline {
         stage('Report') {
             steps {
                 script {
-                    bat 'mvn allure:report'
+                    sh 'mvn allure:report'
 
                     archiveArtifacts 'target/**'
 
@@ -60,17 +60,7 @@ pipeline {
                 message += "**Build:** ${buildNumber}\n"
                 message += "**Status:** ${buildResult}\n"
 
-                bat 'start chrome --new-window "http://localhost:8080/job/correcao-qa-api-pipeline/allure/"'
-
-                sleep(time: 2, unit: 'SECONDS')
-
-                bat 'C:\\Users\\Sales\\nircmd.exe savescreenshot allure-serve-screenshot.png'
-
-                archiveArtifacts 'allure-serve-screenshot.png'
-
-                discordSend description: message, webhookURL: "https://discord.com/api/webhooks/1212851937758937209/o5j4_OPhUd-OVY4tJqCteJTbPFQrTHMaE967Ezmi1xzbsFbJdMh3H1IuNkCcpE3wLgBs",
-                image: "https://s2-techtudo.glbimg.com/L9wb1xt7tjjL-Ocvos-Ju0tVmfc=/0x0:1200x800/984x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_08fbf48bc0524877943fe86e43087e7a/internal_photos/bs/2023/q/l/TIdfl2SA6J16XZAy56Mw/canvaai.png"
-//                 image: "http://localhost:8080/job/correcao-qa-api-pipeline/${buildNumber}/artifact/allure-serve-screenshot.png"
+                discordSend description: message, webhookURL: "https://discord.com/api/webhooks/1212851937758937209/o5j4_OPhUd-OVY4tJqCteJTbPFQrTHMaE967Ezmi1xzbsFbJdMh3H1IuNkCcpE3wLgBs"
             }
         }
     }
