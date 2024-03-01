@@ -1,15 +1,10 @@
-package com.vemser.correcao.factory;
+package com.vemser.correcao.data.factory;
 
-import com.vemser.compilador.dto.CompiladorDto;
 import com.vemser.compilador.enums.Linguagem;
 import com.vemser.correcao.dto.QuestaoDto;
 import com.vemser.correcao.enums.Dificuldade;
 import net.datafaker.Faker;
 
-import java.time.LocalDateTime;
-import java.time.OffsetDateTime;
-import java.time.ZoneOffset;
-import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
 public class QuestaoDataFactory {

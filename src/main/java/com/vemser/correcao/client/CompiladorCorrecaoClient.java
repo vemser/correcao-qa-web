@@ -9,14 +9,14 @@ import static io.restassured.RestAssured.given;
 public class CompiladorCorrecaoClient {
     public static Response compilarCodigo(CompiladorDto compiladorDto) {
         return given()
-                .spec(CompiladorCorrecaoSpecs.compiladorCorrecaoRequest(compiladorDto))
+                .spec(CompiladorCorrecaoSpecs.compiladorCorrecaoReqAuthInstrutor(compiladorDto))
                 .when()
                 .post("/compilador");
     }
 
     public static Response compilarCodigo(String compiladorJson) {
         return given()
-                .spec(CompiladorCorrecaoSpecs.compiladorCorrecaoRequest(compiladorJson))
+                .spec(CompiladorCorrecaoSpecs.compiladorCorrecaoReqAuthInstrutor(compiladorJson))
                 .when()
                 .post("/compilador");
     }

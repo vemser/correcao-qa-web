@@ -1,4 +1,4 @@
-package com.vemser.correcao.test.funcional.questoes;
+package com.vemser.correcao.test.funcional;
 
 import com.vemser.correcao.client.QuestaoClient;
 import com.vemser.correcao.dto.ListaTodasQuestaoResponseDto;

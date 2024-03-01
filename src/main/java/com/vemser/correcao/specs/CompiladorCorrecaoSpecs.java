@@ -1,6 +1,7 @@
 package com.vemser.correcao.specs;
 
 import com.vemser.compilador.dto.CompiladorDto;
+import com.vemser.correcao.utils.Auth;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.builder.ResponseSpecBuilder;
 import io.restassured.filter.log.LogDetail;
@@ -10,18 +11,24 @@ import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
 
 public class CompiladorCorrecaoSpecs {
-    public static RequestSpecification compiladorCorrecaoRequest(CompiladorDto compiladorDto) {
+    public static RequestSpecification compiladorCorrecaoReqAuthInstrutor(CompiladorDto compiladorDto) {
+        String token = Auth.obterTokenInstrutor();
+
         return new RequestSpecBuilder()
                 .addRequestSpecification(InicialSpecs.setupApi())
+                .addHeader("Authorization", token)
                 .setContentType(ContentType.JSON)
                 .setBody(compiladorDto)
                 .log(LogDetail.BODY)
                 .build();
     }
 
-    public static RequestSpecification compiladorCorrecaoRequest(String compiladorJson) {
+    public static RequestSpecification compiladorCorrecaoReqAuthInstrutor(String compiladorJson) {
+        String token = Auth.obterTokenInstrutor();
+
         return new RequestSpecBuilder()
                 .addRequestSpecification(InicialSpecs.setupApi())
+                .addHeader("Authorization", token)
                 .setContentType(ContentType.JSON)
                 .setBody(compiladorJson)
                 .log(LogDetail.BODY)
