@@ -15,8 +15,6 @@ pipeline {
             steps {
                 script {
                     bat 'mvn -e clean test -Dmaven.test.failure.ignore=true'
-
-                    archiveArtifacts 'target/allure-result/**'
                 }
             }
         }
@@ -26,10 +24,9 @@ pipeline {
                 script {
                     bat 'mvn allure:report'
 
-                    archiveArtifacts 'target/allure-report/**'
+                    archiveArtifacts 'target/**'
 
-                    allure(includeProperties: false, results: [[path: 'target/allure-results']]
-                    )
+                    allure(includeProperties: false, results: [[path: 'target/allure-results']])
                 }
             }
         }
