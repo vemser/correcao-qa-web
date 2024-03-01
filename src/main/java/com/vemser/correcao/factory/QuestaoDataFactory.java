@@ -20,6 +20,7 @@ public class QuestaoDataFactory {
     public static QuestaoDto questaoAleatoria(){
         return novaQuestaoAleatoria();
     }
+
     public static QuestaoDto novaQuestaoAleatoria(){
         QuestaoDto questaoDto = new QuestaoDto();
         questaoDto.setTitulo(faker.lorem().sentence());
@@ -32,6 +33,7 @@ public class QuestaoDataFactory {
 
         return questaoDto;
     }
+
     public static QuestaoDto questaoSemTitulo(){
         QuestaoDto questaoDto = new QuestaoDto();
         questaoDto.setTitulo("");

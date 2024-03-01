@@ -11,6 +11,11 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class QuestaoFuncionalTest {
+    // GET
+
+
+
+    // POST
     @Test
     @DisplayName("Questoes - Criar Questao Informando Campos Válidos (Espera Sucesso)")
     public void testQuestoes_cadastroComDadosValidos_esperaSucesso() {
@@ -30,4 +35,14 @@ public class QuestaoFuncionalTest {
         );
     }
 
+    @Test
+    @DisplayName("Questoes - Criar Questao Informando Titulo Vazio (Espera Erro)")
+    public void testQuestoes_informarTituloVazio_esperaErro() {
+        QuestaoDto questao = QuestaoDataFactory.questaoSemTitulo();
+        QuestaoResponseDto questaoResult = QuestaoClient.cadastrarQuestao(questao)
+                .then()
+                .statusCode(201)
+                .extract()
+                .as(QuestaoResponseDto.class);
+    }
 }
