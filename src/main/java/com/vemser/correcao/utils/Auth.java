@@ -3,7 +3,7 @@ package com.vemser.correcao.utils;
 import com.vemser.correcao.client.LoginClient;
 import com.vemser.correcao.dto.LoginDto;
 import com.vemser.correcao.dto.LoginResponseDto;
-import com.vemser.correcao.factory.LoginDataFactory;
+import com.vemser.correcao.data.factory.LoginDataFactory;
 
 public class Auth {
     public static String obterTokenInstrutor() {

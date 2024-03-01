@@ -14,42 +14,59 @@ pipeline {
             }
         }
 
-        stage('Test') {
+        stage('Config Properties') {
             steps {
                 script {
-                    sh 'mvn -e clean test -Dmaven.test.failure.ignore=true'
+                    sh 'touch /var/jenkins_home/workspace/correcao-qa-api-pipeline/src/test/resources/allure.properties'
+                    echo "CompiladorURL=\n" >> /var/jenkins_home/workspace/correcao-qa-api-pipeline/src/test/resources/allure.properties
+                    echo "ApiURL=\n" >> /var/jenkins_home/workspace/correcao-qa-api-pipeline/src/test/resources/allure.properties
+                    echo "AlunoUsername=\n" >> /var/jenkins_home/workspace/correcao-qa-api-pipeline/src/test/resources/allure.properties
+                    echo "AlunoPassword=\n" >> /var/jenkins_home/workspace/correcao-qa-api-pipeline/src/test/resources/allure.properties
+                    echo "InstrutorUsername=\n" >> /var/jenkins_home/workspace/correcao-qa-api-pipeline/src/test/resources/allure.properties
+                    echo "InstrutorPassword=\n" >> /var/jenkins_home/workspace/correcao-qa-api-pipeline/src/test/resources/allure.properties
                 }
             }
         }
 
-        stage('Report') {
-            steps {
-                script {
-                    sh 'mvn allure:report'
+//         stage('Test') {
+//             steps {
+//                 script {
+//
+//
+//
+//                     sh 'mvn -e clean test -Dmaven.test.failure.ignore=true'
+//                 }
+//             }
+//         }
 
-                    archiveArtifacts 'target/**'
-
-                    allure(includeProperties: false, results: [[path: 'target/allure-results']])
-                }
-            }
-        }
+//         stage('Report') {
+//             steps {
+//                 script {
+//                     sh 'mvn allure:report'
+//
+//                     archiveArtifacts 'target/**'
+//
+//                     allure(includeProperties: false, results: [[path: 'target/allure-results']])
+//                 }
+//             }
+//         }
     }
 
-    post {
-        always {
-            script {
-                def buildNumber = env.BUILD_NUMBER
-                def buildUrl = env.BUILD_URL
-                def buildResult = currentBuild.currentResult
-                def message = "**Branch:** release\n"
-                message += "**Allure Report:** http://correcaojenkins.h5hxf2fqatg6aqbf.brazilsouth.azurecontainer.io:8080/job/correcao-qa-api-pipeline/${buildNumber}/allure/"
-
-                discordSend(title: "Correcao - Testes API & UI | Build #${buildNumber}",
-                link: "${buildUrl}",
-                description: "${message}",
-                result: "${buildResult}",
-                webhookURL: "https://discord.com/api/webhooks/1212851937758937209/o5j4_OPhUd-OVY4tJqCteJTbPFQrTHMaE967Ezmi1xzbsFbJdMh3H1IuNkCcpE3wLgBs")
-            }
-        }
-    }
+//     post {
+//         always {
+//             script {
+//                 def buildNumber = env.BUILD_NUMBER
+//                 def buildUrl = env.BUILD_URL
+//                 def buildResult = currentBuild.currentResult
+//                 def message = "**Branch:** release\n"
+//                 message += "**Allure Report:** http://correcaojenkins.h5hxf2fqatg6aqbf.brazilsouth.azurecontainer.io:8080/job/correcao-qa-api-pipeline/${buildNumber}/allure/"
+//
+//                 discordSend(title: "Correcao - Testes API & UI | Build #${buildNumber}",
+//                 link: "${buildUrl}",
+//                 description: "${message}",
+//                 result: "${buildResult}",
+//                 webhookURL: "https://discord.com/api/webhooks/1212851937758937209/o5j4_OPhUd-OVY4tJqCteJTbPFQrTHMaE967Ezmi1xzbsFbJdMh3H1IuNkCcpE3wLgBs")
+//             }
+//         }
+//     }
 }

@@ -15,7 +15,7 @@ public class QuestaoClient {
 
     public static Response cadastrarQuestao(QuestaoDto questao) {
         return given()
-                .spec(QuestaoSpecs.questaoReqSpec())
+                .spec(QuestaoSpecs.questaoReqAuthInstrutorSpec())
                 .body(questao)
                 .when()
                 .post(QUESTAO);
