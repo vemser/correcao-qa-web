@@ -24,7 +24,7 @@ public class QuestaoDataFactory {
         questaoDto.setDificuldade(Dificuldade.values()[faker.random().nextInt(Dificuldade.values().length)]);
         questaoDto.setLinguagem(Linguagem.JAVA);
         questaoDto.setCodigo(faker.lorem().sentence());
-        questaoDto.setTestes(TesteDataFactory.criarListaDeTestesCorretos(3));
+        questaoDto.setTestes(TesteDataFactory.criarListaDeTestesCorretos(2));
 
         return questaoDto;
     }
@@ -36,13 +36,14 @@ public class QuestaoDataFactory {
         questaoDto.setDificuldade(Dificuldade.values()[faker.random().nextInt(Dificuldade.values().length)]);
         questaoDto.setLinguagem(Linguagem.JAVA);
         questaoDto.setCodigo(faker.lorem().sentence());
-        questaoDto.setTestes(TesteDataFactory.criarListaDeTestesCorretos(3));
+        questaoDto.setTestes(TesteDataFactory.criarListaDeTestesCorretos(2));
 
         return questaoDto;
     }
 
     public static QuestaoDto questaoInvalida(){
         return new QuestaoDto(
+                null,
                 null,
                 null,
                 null,

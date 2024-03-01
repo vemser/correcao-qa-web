@@ -8,7 +8,8 @@ import static io.restassured.RestAssured.given;
 
 public class QuestaoClient {
 
-    private static final String QUESTAO = "/questao/criar-questao-com-testes";
+    private static final String CADASTRAR_QUESTAO = "/questao/criar-questao-com-testes";
+    private static final String DELETAR_QUESTAO = "/questao/deletar-questao/{idQuestao}";
 
     public QuestaoClient() {
     }
@@ -17,8 +18,15 @@ public class QuestaoClient {
         return given()
                 .spec(QuestaoSpecs.questaoReqAuthInstrutorSpec())
                 .body(questao)
-                .when()
-                .post(QUESTAO);
+        .when()
+                .post(CADASTRAR_QUESTAO);
     }
 
+    public static Response excluirQuestao(Integer idQuestao) {
+        return given()
+                .spec(QuestaoSpecs.questaoReqAuthInstrutorSpec())
+                .pathParam("idQuestao", idQuestao)
+        .when()
+                .delete(DELETAR_QUESTAO);
+    }
 }
