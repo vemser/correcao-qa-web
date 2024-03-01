@@ -2,7 +2,6 @@ pipeline {
     agent any
 
     stages {
-
         stage('Checkout') {
             steps {
                 script {
@@ -31,36 +30,32 @@ pipeline {
             }
         }
 
-        stage('Serve') {
-            steps {
-                script {
-                    bat 'start chrome'
+//         stage('Send Discord Notifier') {
+//             steps {
+//                 script {
+//                     def buildResult = currentBuild.currentResult
+//                     def branchName = env.BRANCH_NAME
+//                     def buildNumber = env.BUILD_NUMBER
+//
+//                     def message = "# API Correção | Relatório de Testes\n"
+//                     message += "**Branch:** ${branchName}\n"
+//                     message += "**Build:** ${buildNumber}\n"
+//                     message += "**Status:** ${buildResult}\n"
+//
+//                     discordSend description: message, webhookURL: "https://discord.com/api/webhooks/1212851937758937209/o5j4_OPhUd-OVY4tJqCteJTbPFQrTHMaE967Ezmi1xzbsFbJdMh3H1IuNkCcpE3wLgBs"
+//                 }
+//             }
+//         }
+//     }
 
-                    sleep(time: 10, unit: 'SECONDS')
+    post {
+        always {
+            script {
+                bat 'start chrome "http://localhost:8080/job/correcao-qa-api-pipeline/allure/"'
 
-                    bat 'mvn allure:serve'
+                bat 'nircmd.exe savescreenshot allure-serve-screenshot.png'
 
-                    bat 'nircmd.exe savescreenshot allure-serve-screenshot.png'
-
-                    archiveArtifacts 'allure-serve-screenshot.png'
-                }
-            }
-        }
-
-        stage('Send Discord Notifier') {
-            steps {
-                script {
-                    def buildResult = currentBuild.currentResult
-                    def branchName = env.BRANCH_NAME
-                    def buildNumber = env.BUILD_NUMBER
-
-                    def message = "# API Correção | Relatório de Testes\n"
-                    message += "**Branch:** ${branchName}\n"
-                    message += "**Build:** ${buildNumber}\n"
-                    message += "**Status:** ${buildResult}\n"
-
-                    discordSend description: message, webhookURL: "https://discord.com/api/webhooks/1212851937758937209/o5j4_OPhUd-OVY4tJqCteJTbPFQrTHMaE967Ezmi1xzbsFbJdMh3H1IuNkCcpE3wLgBs"
-                }
+                archiveArtifacts 'allure-serve-screenshot.png'
             }
         }
     }
