@@ -33,7 +33,7 @@ public class CompiladorDataFactory {
     public static CompiladorDto compiladorCodigoJavascriptInvalido() {
         CompiladorDto compiladorCodigoInvalido = new CompiladorDto();
         compiladorCodigoInvalido.setCodigo(CODIGO_INVALIDO_JAVASCRIPT);
-        compiladorCodigoInvalido.setLinguagem(Linguagem.JAVA);
+        compiladorCodigoInvalido.setLinguagem(Linguagem.JAVASCRIPT);
         return compiladorCodigoInvalido;
     }
 

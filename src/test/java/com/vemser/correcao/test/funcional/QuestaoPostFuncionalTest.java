@@ -1,4 +1,4 @@
-package com.vemser.correcao.test.funcional.questoes;
+package com.vemser.correcao.test.funcional;
 
 import com.vemser.correcao.client.QuestaoClient;
 import com.vemser.correcao.dto.QuestaoDto;
@@ -17,6 +17,7 @@ public class QuestaoPostFuncionalTest {
         QuestaoResponseDto questaoResult = QuestaoClient.cadastrarQuestao(questao)
                 .then()
                 .statusCode(201)
+                .log().all()
                 .extract()
                 .as(QuestaoResponseDto.class);
 
