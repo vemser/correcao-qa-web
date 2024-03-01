@@ -1,4 +1,4 @@
-package com.vemser.correcao.test;
+package com.vemser.correcao.test.funcional;
 
 import com.vemser.compilador.client.CompiladorClient;
 import com.vemser.compilador.data.factory.CompiladorDataFactory;
