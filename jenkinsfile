@@ -44,14 +44,6 @@ pipeline {
                 def message = "**Branch:** release"
                 message += "**Allure Report: http://correcaojenkins.h5hxf2fqatg6aqbf.brazilsouth.azurecontainer.io:8080/job/correcao-qa-api-pipeline/allure/"
 
-                sh 'xdg-open http://correcaojenkins.h5hxf2fqatg6aqbf.brazilsouth.azurecontainer.io:8080/job/correcao-qa-api-pipeline/allure/'
-
-                sleep(time: 2, unit: 'SECONDS')
-
-                sh '/var/jenkins_home/workspace/correcao-qa-api-pipeline/nircmd.exe savescreenshot allure-report-screenshot.png'
-
-                archiveArtifacts 'allure-report-screenshot.png'
-
                 discordSend(title: "Correcao - Testes API & UI | Build #${buildNumber}",
                 link: "${buildUrl}",
                 description: "${message}",
