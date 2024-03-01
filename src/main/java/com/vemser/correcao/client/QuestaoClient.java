@@ -33,8 +33,7 @@ public class QuestaoClient {
         return
                 given()
                     .spec(QuestaoSpecs.questaoReqSpec())
-                    .auth("")
-                    .pathParams(parametrosMap)
+                    .queryParams(parametrosMap)
                         .log().all()
                 .when()
                     .get(LISTAR_QUESTAO_URL);

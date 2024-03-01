@@ -15,7 +15,8 @@ public class QuestaoGetFuncionalTest {
     public void testQuestoes_cadastroComDadosValidos_esperaSucesso() {
         QuestaoResponseDto questaoResult = QuestaoClient.buscarTodasQuestao()
                 .then()
-                    .statusCode(201)
+                    .statusCode(200)
+                .log().all()
                     .extract()
                     .as(QuestaoResponseDto.class);
 
