@@ -18,12 +18,12 @@ pipeline {
             steps {
                 script {
                     sh 'touch /var/jenkins_home/workspace/correcao-qa-api-pipeline/src/test/resources/allure.properties'
-                    echo "CompiladorURL=\n" >> /var/jenkins_home/workspace/correcao-qa-api-pipeline/src/test/resources/allure.properties
-                    echo "ApiURL=\n" >> /var/jenkins_home/workspace/correcao-qa-api-pipeline/src/test/resources/allure.properties
-                    echo "AlunoUsername=\n" >> /var/jenkins_home/workspace/correcao-qa-api-pipeline/src/test/resources/allure.properties
-                    echo "AlunoPassword=\n" >> /var/jenkins_home/workspace/correcao-qa-api-pipeline/src/test/resources/allure.properties
-                    echo "InstrutorUsername=\n" >> /var/jenkins_home/workspace/correcao-qa-api-pipeline/src/test/resources/allure.properties
-                    echo "InstrutorPassword=\n" >> /var/jenkins_home/workspace/correcao-qa-api-pipeline/src/test/resources/allure.properties
+                    sh 'echo "CompiladorURL=\n" >> /var/jenkins_home/workspace/correcao-qa-api-pipeline/src/test/resources/allure.properties'
+                    sh 'echo "ApiURL=\n" >> /var/jenkins_home/workspace/correcao-qa-api-pipeline/src/test/resources/allure.properties'
+                    sh 'echo "AlunoUsername=\n" >> /var/jenkins_home/workspace/correcao-qa-api-pipeline/src/test/resources/allure.properties'
+                    sh 'echo "AlunoPassword=\n" >> /var/jenkins_home/workspace/correcao-qa-api-pipeline/src/test/resources/allure.properties'
+                    sh 'echo "InstrutorUsername=\n" >> /var/jenkins_home/workspace/correcao-qa-api-pipeline/src/test/resources/allure.properties'
+                    sh 'echo "InstrutorPassword=\n" >> /var/jenkins_home/workspace/correcao-qa-api-pipeline/src/test/resources/allure.properties'
                 }
             }
         }
