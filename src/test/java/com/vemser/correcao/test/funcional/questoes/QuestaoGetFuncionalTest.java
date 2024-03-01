@@ -1,6 +1,7 @@
 package com.vemser.correcao.test.funcional.questoes;
 
 import com.vemser.correcao.client.QuestaoClient;
+import com.vemser.correcao.dto.ListaTodasQuestaoResponseDto;
 import com.vemser.correcao.dto.QuestaoDto;
 import com.vemser.correcao.dto.QuestaoResponseDto;
 import com.vemser.correcao.factory.QuestaoDataFactory;
@@ -13,12 +14,12 @@ public class QuestaoGetFuncionalTest {
     @Test
     @DisplayName("Questoes - Criar Questao Informando Campos Válidos (Espera Sucesso)")
     public void testQuestoes_cadastroComDadosValidos_esperaSucesso() {
-        QuestaoResponseDto questaoResult = QuestaoClient.buscarTodasQuestao()
+        ListaTodasQuestaoResponseDto questaoResult = QuestaoClient.buscarTodasQuestao()
                 .then()
                     .statusCode(200)
                 .log().all()
                     .extract()
-                    .as(QuestaoResponseDto.class);
+                    .as(ListaTodasQuestaoResponseDto.class);
 
 //        assertAll("Testes de criar questões com sucesso",
 //                () -> assertNotNull(questaoResult.getQuestaoDTO().getQuestaoId(), "Id da questão não deve ser nulo"),

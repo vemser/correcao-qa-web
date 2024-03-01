@@ -12,5 +12,12 @@ import java.util.List;
 public class ListaTodasQuestaoResponseDto {
     private List<QuestaoDto> content;
     private boolean empty;
-    private boolean
+    private boolean first;
+    private Integer number;
+    private Integer numberOfElements;
+    private PageableDto pageable;
+    private Integer size;
+    private SortDto sort;
+    private Integer totalElements;
+    private Integer totalPages;
 }
