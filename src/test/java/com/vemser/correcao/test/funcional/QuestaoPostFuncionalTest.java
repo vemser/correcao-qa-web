@@ -11,33 +11,34 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class QuestaoPostFuncionalTest {
     @Test
-    @DisplayName("Questoes - Criar Questao Informando Campos Válidos (Espera Sucesso)")
+    @DisplayName("Criar Questão - Informar Campos Válidos (Espera Sucesso)")
     public void testQuestoes_cadastroComDadosValidos_esperaSucesso() {
         QuestaoDto questao = QuestaoDataFactory.novaQuestaoAleatoria();
-        QuestaoResponseDto questaoResult = QuestaoClient.cadastrarQuestao(questao)
-                .then()
-                .statusCode(201)
-                .log().all()
-                .extract()
-                .as(QuestaoResponseDto.class);
+
+        QuestaoResponseDto questaoResult = QuestaoClient.cadastrarQuestao(questao).then()
+                .statusCode(200)
+                .extract().as(QuestaoResponseDto.class);
+
+        QuestaoClient.excluirQuestao(questaoResult.getQuestaoDTO().getQuestaoId());
 
         assertAll("Testes de criar questões com sucesso",
                 () -> assertNotNull(questaoResult.getQuestaoDTO().getQuestaoId(), "Id da questão não deve ser nulo"),
                 () -> assertEquals(questao.getTitulo(), questaoResult.getQuestaoDTO().getTitulo(), "Título da questão deve ser igual"),
                 () -> assertEquals(questao.getDificuldade(), questaoResult.getQuestaoDTO().getDificuldade(), "Dificuldade da questão deve ser igual"),
                 () -> assertEquals(questao.getLinguagem(), questaoResult.getQuestaoDTO().getLinguagem(), "Linguagem da questão deve ser igual"),
-                () -> assertEquals(questao.getTestes().size(), questaoResult.getQuestaoDTO().getTestes().size(), "Quantidade de testes da questão deve ser igual")
+                () -> assertEquals(questao.getTestes().size(), questaoResult.getTestes().size(), "Quantidade de testes da questão deve ser igual")
         );
     }
 
     @Test
-    @DisplayName("Questoes - Criar Questao Informando Titulo Vazio (Espera Erro)")
+    @DisplayName("Criar Questão - Informar Título Vazio (Espera Erro)")
     public void testQuestoes_informarTituloVazio_esperaErro() {
         QuestaoDto questao = QuestaoDataFactory.questaoSemTitulo();
-        QuestaoResponseDto questaoResult = QuestaoClient.cadastrarQuestao(questao)
-                .then()
-                .statusCode(201)
-                .extract()
-                .as(QuestaoResponseDto.class);
+
+        QuestaoResponseDto questaoResult = QuestaoClient.cadastrarQuestao(questao).then()
+                .statusCode(400)
+                .extract().as(QuestaoResponseDto.class);
+
+
     }
 }
