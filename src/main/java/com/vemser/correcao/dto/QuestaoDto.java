@@ -13,7 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class QuestaoDto {
-    private String questaoId;
+    private Integer questaoId;
     private String codigo;
     private String descricao;
     private Dificuldade dificuldade;

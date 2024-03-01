@@ -18,13 +18,16 @@ public class TesteDataFactory {
     //cria o numero de testes desejados + 1 teste visivel e 1 oculto
     public static List<TesteDto> criarListaDeTestesCorretos(int quantidade) {
         List<TesteDto> testes = new ArrayList<>();
+
         for (int i = 0; i < quantidade; i++) {
             testes.add(criarTesteAleatorioDeSoma());
         }
+
         testes.add(testeSomaExemplo());
         testes.add(testeSomaNaoExemplo());
         return testes;
     }
+
     public static TesteDto criarTesteAleatorioDeSoma() {
         String exemplo = faker.options().option("SIM", "NAO");
         int valor1 = faker.number().numberBetween(0, 100);
@@ -42,6 +45,7 @@ public class TesteDataFactory {
         }
         return testes;
     }
+
     public static TesteDto novosTestesAleatorios(){
         return new TesteDto(
                 faker.lorem().sentence(),
@@ -57,6 +61,7 @@ public class TesteDataFactory {
                 null
         );
     }
+
     public static TesteDto testeSomaNaoExemplo(){
         return new TesteDto(
                 "NAO",
@@ -64,6 +69,7 @@ public class TesteDataFactory {
                 "1 2"
         );
     }
+
     public static TesteDto testeSomaExemplo(){
         return new TesteDto(
                 "SIM",
@@ -71,6 +77,7 @@ public class TesteDataFactory {
                 "1 2"
         );
     }
+
     public static TesteDto testeComResultadoErrado(){
         return new TesteDto(
                 "SIM",
