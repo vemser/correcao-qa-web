@@ -1,9 +1,8 @@
-package com.vemser.correcao.test;
+package com.vemser.correcao.test.funcional.questoes;
 
 import com.vemser.correcao.client.QuestaoClient;
 import com.vemser.correcao.dto.QuestaoDto;
 import com.vemser.correcao.dto.QuestaoResponseDto;
-import com.vemser.correcao.enums.Dificuldade;
 import com.vemser.correcao.factory.QuestaoDataFactory;
 import com.vemser.correcao.utils.Auth;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,7 +11,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class QuestaoFuncionalTest {
+public class QuestaoPostFuncionalTest {
     @Test
     @DisplayName("Questoes - Criar Questao Informando Campos Válidos (Espera Sucesso)")
     public void testQuestoes_cadastroComDadosValidos_esperaSucesso() {
