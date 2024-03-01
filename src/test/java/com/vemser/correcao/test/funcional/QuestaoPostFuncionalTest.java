@@ -16,7 +16,7 @@ public class QuestaoPostFuncionalTest {
         QuestaoDto questao = QuestaoDataFactory.novaQuestaoAleatoria();
 
         QuestaoResponseDto questaoResult = QuestaoClient.cadastrarQuestao(questao).then()
-                .statusCode(200)
+                .statusCode(201)
                 .extract().as(QuestaoResponseDto.class);
 
         QuestaoClient.excluirQuestao(questaoResult.getQuestaoDTO().getQuestaoId());
