@@ -62,6 +62,8 @@ pipeline {
 
                 bat 'start chrome "http://localhost:8080/job/correcao-qa-api-pipeline/allure/"'
 
+                sleep(time: 10, unit: 'SECONDS')
+
                 bat 'C:\\Users\\Sales\\nircmd.exe savescreenshot allure-serve-screenshot.png'
 
                 archiveArtifacts 'allure-serve-screenshot.png'
