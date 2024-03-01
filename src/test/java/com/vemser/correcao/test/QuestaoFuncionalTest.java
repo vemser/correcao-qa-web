@@ -13,11 +13,6 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class QuestaoFuncionalTest {
-    @BeforeEach
-    public void setup() {
-        Auth.realizarLoginInstrutor();
-    }
-
     @Test
     @DisplayName("Questoes - Criar Questao Informando Campos Válidos (Espera Sucesso)")
     public void testQuestoes_cadastroComDadosValidos_esperaSucesso() {

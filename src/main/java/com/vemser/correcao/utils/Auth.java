@@ -6,19 +6,21 @@ import com.vemser.correcao.dto.LoginResponseDto;
 import com.vemser.correcao.factory.LoginDataFactory;
 
 public class Auth {
-    public static void realizarLoginInstrutor() {
+    public static String obterTokenInstrutor() {
         LoginDto login = LoginDataFactory.loginInstrutor();
 
         String token = LoginClient.autenticar(login).getBody().asString();
+        LoginResponseDto loginResponseDto = new LoginResponseDto(token);
 
-        Manipulation.setProp("TokenInstrutor", token);
+        return loginResponseDto.getToken();
     }
 
-    public static void realizarLoginAluno() {
+    public static String obterTokenAluno() {
         LoginDto login = LoginDataFactory.loginAluno();
 
         String token = LoginClient.autenticar(login).getBody().asString();
+        LoginResponseDto loginResponseDto = new LoginResponseDto(token);
 
-        Manipulation.setProp("TokenAluno", token);
+        return loginResponseDto.getToken();
     }
 }
