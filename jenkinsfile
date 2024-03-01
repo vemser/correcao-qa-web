@@ -44,9 +44,9 @@ pipeline {
                 def message = "**Branch:** release"
 
                 discordSend title: "Correcao - Testes API & UI | Build #${buildNumber}",
-                link: buildUrl,
-                description: message,
-                result: buildResult
+                link: "${buildUrl}",
+                description: "${message}",
+                result: "${buildResult}"
                 webhookURL: "https://discord.com/api/webhooks/1212851937758937209/o5j4_OPhUd-OVY4tJqCteJTbPFQrTHMaE967Ezmi1xzbsFbJdMh3H1IuNkCcpE3wLgBs"
             }
         }
