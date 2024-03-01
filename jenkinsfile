@@ -14,6 +14,23 @@ pipeline {
             }
         }
 
+        stage('Config Properties') {
+            steps {
+                script {
+                    sh 'touch /var/jenkins_home/workspace/correcao-qa-api-pipeline/src/main/resources/configSetting.properties'
+                    sh "echo \"CompiladorURL=${env.COMPILADOR_URL}\" >> /var/jenkins_home/workspace/correcao-qa-api-pipeline/src/main/resources/configSetting.properties"
+                    sh "echo \"ApiURL=${env.API_URL}\" >> /var/jenkins_home/workspace/correcao-qa-api-pipeline/src/main/resources/configSetting.properties"
+                    sh "echo \"AlunoUsername=${env.ALUNO_USERNAME}\" >> /var/jenkins_home/workspace/correcao-qa-api-pipeline/src/main/resources/configSetting.properties"
+                    sh "echo \"AlunoPassword=${env.ALUNO_PASSWORD}\" >> /var/jenkins_home/workspace/correcao-qa-api-pipeline/src/main/resources/configSetting.properties"
+                    sh "echo \"InstrutorUsername=${env.INSTRUTOR_USERNAME}\" >> /var/jenkins_home/workspace/correcao-qa-api-pipeline/src/main/resources/configSetting.properties"
+                    sh "echo \"InstrutorPassword=${env.INSTRUTOR_PASSWORD}\" >> /var/jenkins_home/workspace/correcao-qa-api-pipeline/src/main/resources/configSetting.properties"
+
+                    sh 'touch /var/jenkins_home/workspace/correcao-qa-api-pipeline/src/test/resources/allure.properties'
+                    sh "echo \"allure.results.directory=target/allure-results\" >> /var/jenkins_home/workspace/correcao-qa-api-pipeline/src/test/resources/allure.properties"
+                }
+            }
+        }
+
         stage('Test') {
             steps {
                 script {

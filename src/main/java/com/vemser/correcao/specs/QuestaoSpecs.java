@@ -1,21 +1,28 @@
 package com.vemser.correcao.specs;
 
-import com.vemser.compilador.dto.CompiladorDto;
-import com.vemser.correcao.utils.Manipulation;
+import com.vemser.correcao.utils.Auth;
 import io.restassured.builder.RequestSpecBuilder;
-import io.restassured.builder.ResponseSpecBuilder;
-import io.restassured.filter.log.LogDetail;
 import io.restassured.http.ContentType;
-import io.restassured.module.jsv.JsonSchemaValidator;
 import io.restassured.specification.RequestSpecification;
-import io.restassured.specification.ResponseSpecification;
 
 public class QuestaoSpecs {
-    public static RequestSpecification questaoReqSpec() {
+    public static RequestSpecification questaoReqAuthInstrutorSpec() {
+        String tokenInstrutor = Auth.obterTokenInstrutor();
+
         return new RequestSpecBuilder()
                 .addRequestSpecification(InicialSpecs.setupApi())
                 .setContentType(ContentType.JSON)
-                .addHeader("Authorization", Manipulation.getProps().getProperty("TokenInstrutor"))
+                .addHeader("Authorization", tokenInstrutor)
+                .build();
+    }
+
+    public static RequestSpecification questaoReqAuthAlunoSpec() {
+        String tokenAluno = Auth.obterTokenAluno();
+
+        return new RequestSpecBuilder()
+                .addRequestSpecification(InicialSpecs.setupApi())
+                .setContentType(ContentType.JSON)
+                .addHeader("Authorization", tokenAluno)
                 .build();
     }
 }

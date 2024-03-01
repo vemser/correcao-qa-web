@@ -1,4 +1,4 @@
-package com.vemser.correcao.factory;
+package com.vemser.correcao.data.factory;
 
 import com.vemser.compilador.enums.Linguagem;
 import com.vemser.correcao.dto.QuestaoDto;

@@ -1,11 +1,9 @@
-package com.vemser.correcao.test.funcional.questoes;
+package com.vemser.correcao.test.funcional;
 
 import com.vemser.correcao.client.QuestaoClient;
 import com.vemser.correcao.dto.QuestaoDto;
 import com.vemser.correcao.dto.QuestaoResponseDto;
-import com.vemser.correcao.factory.QuestaoDataFactory;
-import com.vemser.correcao.utils.Auth;
-import org.junit.jupiter.api.BeforeEach;
+import com.vemser.correcao.data.factory.QuestaoDataFactory;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -19,6 +17,7 @@ public class QuestaoPostFuncionalTest {
         QuestaoResponseDto questaoResult = QuestaoClient.cadastrarQuestao(questao)
                 .then()
                 .statusCode(201)
+                .log().all()
                 .extract()
                 .as(QuestaoResponseDto.class);
 
