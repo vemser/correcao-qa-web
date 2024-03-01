@@ -5,17 +5,19 @@ import com.vemser.correcao.dto.QuestaoDto;
 import com.vemser.correcao.dto.QuestaoResponseDto;
 import com.vemser.correcao.enums.Dificuldade;
 import com.vemser.correcao.factory.QuestaoDataFactory;
+import com.vemser.correcao.utils.Auth;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class QuestaoFuncionalTest {
-    // GET
+    @BeforeEach
+    public void setup() {
+        Auth.realizarLoginInstrutor();
+    }
 
-
-
-    // POST
     @Test
     @DisplayName("Questoes - Criar Questao Informando Campos Válidos (Espera Sucesso)")
     public void testQuestoes_cadastroComDadosValidos_esperaSucesso() {
