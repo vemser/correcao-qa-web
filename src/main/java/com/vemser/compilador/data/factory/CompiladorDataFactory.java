@@ -43,4 +43,18 @@ public class CompiladorDataFactory {
         compiladorLinguagemInvalida.setLinguagem(Linguagem.PYTHON);
         return compiladorLinguagemInvalida;
     }
+
+    public static CompiladorDto compiladorCodigoNulo() {
+        CompiladorDto compiladorCodigoNulo = new CompiladorDto();
+        compiladorCodigoNulo.setCodigo(null);
+        compiladorCodigoNulo.setLinguagem(Linguagem.JAVA);
+        return compiladorCodigoNulo;
+    }
+
+    public static CompiladorDto compiladorLinguagemNula() {
+        CompiladorDto compiladorLinguagemNula = new CompiladorDto();
+        compiladorLinguagemNula.setCodigo(CODIGO_VALIDO_JAVA);
+        compiladorLinguagemNula.setLinguagem(null);
+        return compiladorLinguagemNula;
+    }
 }

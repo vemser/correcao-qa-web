@@ -3,9 +3,8 @@ package com.vemser.correcao.test.funcional;
 import com.vemser.correcao.client.QuestaoClient;
 import com.vemser.correcao.data.factory.QuestaoDataFactory;
 import com.vemser.correcao.dto.*;
-import com.vemser.correcao.dto.ErrorDto;
+import com.vemser.correcao.dto.ErroDto;
 import io.qameta.allure.*;
-import io.restassured.common.mapper.TypeRef;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -70,11 +69,11 @@ public class QuestaoGetFuncionalTest {
         final String paginaSolicitada = "-1";
         final String tamanhoPagina = "10";
 
-        ErrorDto questaoResult = QuestaoClient.buscarTodasQuestao(paginaSolicitada, tamanhoPagina)
+        ErroDto questaoResult = QuestaoClient.buscarTodasQuestao(paginaSolicitada, tamanhoPagina)
                 .then()
                     .statusCode(404)
                     .extract()
-                    .as(ErrorDto.class);
+                    .as(ErroDto.class);
 
         assertAll("Verifica se retorna lista com tamnaho correto",
                 () -> assertEquals(questaoResult.getStatus(), 404),
@@ -117,10 +116,10 @@ public class QuestaoGetFuncionalTest {
     @Description("Teste que verifica se ao buscar uma questão com um ID inexistente a API retorna 400 e a mensagem ''")
     public void testQuestoes_buscarQuestaoComIDInexistente_esperaErro() {
 
-        ErrorDto erroDto = QuestaoClient.buscarQuestaoPorIdInexistente()
+        ErroDto erroDto = QuestaoClient.buscarQuestaoPorIdInexistente()
                 .then()
                 .statusCode(400)
-                .extract().as(ErrorDto.class);
+                .extract().as(ErroDto.class);
 
         //        TODO: Definir padrão de error para retorno
         assertAll("Testes de buscar questao informando ID inexistente",
@@ -138,10 +137,10 @@ public class QuestaoGetFuncionalTest {
     @Severity(SeverityLevel.NORMAL)
     @Description("Teste que verifica se ao buscar uma questão com um ID inexistente maior que o limite a API retorna 400 e a mensagem ''")
     public void testQuestoes_buscarQuestaoComIDMaiorQueOLimite_esperaErro() {
-        ErrorDto erro = QuestaoClient.buscarQuestaoPorIdMaiorQueOLimite()
+        ErroDto erro = QuestaoClient.buscarQuestaoPorIdMaiorQueOLimite()
                 .then()
                 .statusCode(400)
-                .extract().as(ErrorDto.class);
+                .extract().as(ErroDto.class);
 
         //        TODO: Definir padrão de error para retorno
         assertAll("Testes de buscar questao informando ID maior que o limite",
@@ -169,10 +168,10 @@ public class QuestaoGetFuncionalTest {
                 .then()
                 .statusCode(200);
 
-        ErrorDto erro = QuestaoClient.buscarQuestaoPorId(questaoCriada.getQuestaoDTO().getQuestaoId())
+        ErroDto erro = QuestaoClient.buscarQuestaoPorId(questaoCriada.getQuestaoDTO().getQuestaoId())
                 .then()
                 .statusCode(404)
-                .extract().as(ErrorDto.class);
+                .extract().as(ErroDto.class);
 
         //        TODO: Definir padrão de error para retorno
         assertAll("Testes de buscar questao informando ID inativo",
