@@ -4,7 +4,6 @@ import com.vemser.correcao.client.QuestaoClient;
 import com.vemser.correcao.data.factory.QuestaoDataFactory;
 import com.vemser.correcao.dto.*;
 import com.vemser.correcao.dto.ErrorDto;
-import io.restassured.common.mapper.TypeRef;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -12,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class QuestaoGetFuncionalTest {
     @Test
-    @DisplayName("Questoes - Listar Todas Questões (Espera Sucesso)")
+    @DisplayName("[CTAXXX] Listar Questões - Listar Todas Questões (Espera Sucesso)")
     public void testQuestoes_listarTodasQuestoes_esperaSucesso() {
         ListaTodasQuestaoResponseDto questaoResult = QuestaoClient.buscarTodasQuestao("0", "10")
                 .then()
@@ -28,29 +27,29 @@ public class QuestaoGetFuncionalTest {
     }
 
     @Test
-    @DisplayName("Questoes - Buscar por uma pagina que não existe (Espera Falha)")
+    @DisplayName("[CTAXXX] Listar Questões - Buscar por uma pagina que não existe (Espera Falha)")
     public void testQuestoes_buscarPorUmaPaginaQueNaoExiste_esperaFalha() {
         ListaTodasQuestaoResponseDto questao = QuestaoClient.buscarTodasQuestao("0", "10")
                                                                     .as(ListaTodasQuestaoResponseDto.class);
 
-        String paginaSolicitada = Integer.toString(questao.getPageable().getPageNumber() + 1);
+        String paginaSolicitada = Integer.toString(questao.getTotalPages() + 1);
 
-        ListaTodasQuestaoResponseDto questaoResult = QuestaoClient.buscarTodasQuestao(paginaSolicitada, "10")
+        ErrorDto questaoResult = QuestaoClient.buscarTodasQuestao(paginaSolicitada, "10")
                 .then()
                     .statusCode(404)
                     .extract()
-                    .as(ListaTodasQuestaoResponseDto.class);
+                    .as(ErrorDto.class);
 
-        //        TODO: Definir padrão de error para retorno
-        assertAll("Verifica se retorna lista com tamnaho correto",
-                () -> assertEquals(questaoResult.getNumberOfElements(), 0),
-                () -> assertEquals(questaoResult.getContent().size(), questaoResult.getNumberOfElements())
+        assertAll("Verifica se retorna error correto",
+                () -> assertNotNull(questaoResult.getTimestamp()),
+                () -> assertEquals(questaoResult.getStatus(), 404),
+                () -> assertEquals(questaoResult.getErrors().get("error"), "Página não encontrada")
         );
-        assertEquals(questaoResult.getPageable().getPageNumber(), 0,"Verifica se retorna pagina correta");
+
     }
 
     @Test
-    @DisplayName("Questoes - Buscar por uma pagina que não existe (Espera Falha)")
+    @DisplayName("[CTAXXX] Listar Questões - Buscar por uma pagina que não existe (Espera Falha)")
     public void testQuestoes_buscarPorUmaPaginaComValorNegativo_esperaFalha() {
         final String paginaSolicitada = "-1";
         final String tamanhoPagina = "10";
@@ -61,10 +60,44 @@ public class QuestaoGetFuncionalTest {
                     .extract()
                     .as(ErrorDto.class);
 
-        assertAll("Verifica se retorna lista com tamnaho correto",
+        assertAll("Verifica se retorna error correto",
                 () -> assertEquals(questaoResult.getStatus(), 404),
                 () -> assertNotNull(questaoResult.getTimestamp()),
-                () -> assertEquals(questaoResult.getErrors().get("Colocar Parametros"), "")
+                () -> assertEquals(questaoResult.getErrors().get("error"), "Página não encontrada")
+        );
+    }
+
+    @Test
+    @DisplayName("[CTAXXX] Listar Questões - Listar questões sem parâmetro de tamanho pagina (esperaFalha)")
+    public void testQuestoes_listarQuestoesSemParametroDeTamanhoPagina_esperaFalha() {
+        ErrorDto questaoResult = QuestaoClient.buscarTodasQuestao("0")
+                .then()
+                .statusCode(400)
+                .log().all()
+                .extract()
+                .as(ErrorDto.class);
+
+        assertAll("Verifica se retorna error correto",
+                () -> assertEquals(questaoResult.getStatus(), 400),
+                () -> assertNotNull(questaoResult.getTimestamp()),
+                () -> assertEquals(questaoResult.getErrors().get("tamanhoPagina"), "Não pode ser nulo")
+        );
+    }
+
+    @Test
+    @DisplayName("[CTAXXX] Listar Questões - Listar questões sem parâmetro de pagina solicitada (esperaFalha)")
+    public void testQuestoes_listarQuestoesSemParametroDePaginaSolicitada_esperaFalha() {
+        ErrorDto questaoResult = QuestaoClient.buscarTodasQuestao("0")
+                .then()
+                .statusCode(400)
+                .log().all()
+                .extract()
+                .as(ErrorDto.class);
+
+        assertAll("Verifica se retorna error correto",
+                () -> assertEquals(questaoResult.getStatus(), 400),
+                () -> assertNotNull(questaoResult.getTimestamp()),
+                () -> assertEquals(questaoResult.getErrors().get("paginaSolicitada"), "Não pode ser nulo")
         );
     }
     @Test
@@ -90,39 +123,34 @@ public class QuestaoGetFuncionalTest {
                 () -> assertEquals(questaoCriada.getQuestaoDTO().getTestes(), questaoBuscada.getQuestaoDTO().getTestes())
         );
     }
+
     @Test
     @DisplayName("[CTAXXX] Buscar Questão Por ID - Informar ID Inexistente (Espera Erro)")
     public void testQuestoes_buscarQuestaoComIDInexistente_esperaErro() {
 
         ErrorDto erroDto = QuestaoClient.buscarQuestaoPorIdInexistente()
                 .then()
-                .statusCode(400)
+                .statusCode(404)
                 .extract().as(ErrorDto.class);
 
-        //        TODO: Definir padrão de error para retorno
-        assertAll("Testes de buscar questao informando ID inexistente",
-                () -> assertNotNull(erroDto.getTimestamp(), "Timestamp do erro não deve ser nulo"),
-                () -> assertNotNull(erroDto.getStatus(), "Status da erro não deve ser nulo"),
-                () -> assertFalse(erroDto.getErrors().isEmpty(), "Lista de erros não deve está vazia"),
-                () -> assertEquals(erroDto.getStatus(), 400, "Status do erro deve ser igual ao esperado"),
-                () -> assertEquals(erroDto.getErrors().get("Colocar Parametros"), "")
+        assertAll("Verifica se retorna error correto",
+                () -> assertEquals(erroDto.getStatus(), 404),
+                () -> assertNotNull(erroDto.getTimestamp()),
+                () -> assertEquals(erroDto.getErrors().get("error"), "Questão não encontrada")
         );
     }
     @Test
     @DisplayName("[CTAXXX] Buscar Questão Por ID - Informar ID Maior Que O Limite (Espera Erro)")
     public void testQuestoes_buscarQuestaoComIDMaiorQueOLimite_esperaErro() {
-        ErrorDto erro = QuestaoClient.buscarQuestaoPorIdMaiorQueOLimite()
+        ErrorDto errorDto = QuestaoClient.buscarQuestaoPorIdMaiorQueOLimite()
                 .then()
-                .statusCode(400)
+                .statusCode(404)
                 .extract().as(ErrorDto.class);
 
-        //        TODO: Definir padrão de error para retorno
-        assertAll("Testes de buscar questao informando ID maior que o limite",
-                () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
-                () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
-                () -> assertFalse(erro.getErrors().isEmpty(), "Lista de erros não deve está vazia"),
-                () -> assertEquals(erro.getStatus(), 400, "Status do erro deve ser igual ao esperado"),
-                () -> assertEquals(erro.getErrors().get(""), "")
+        assertAll("Verifica se retorna error correto",
+                () -> assertEquals(errorDto.getStatus(), 404),
+                () -> assertNotNull(errorDto.getTimestamp()),
+                () -> assertEquals(errorDto.getErrors().get("error"), "Questão não encontrada")
         );
     }
     @Test
@@ -138,40 +166,15 @@ public class QuestaoGetFuncionalTest {
                 .then()
                 .statusCode(200);
 
-        ErrorDto erro = QuestaoClient.buscarQuestaoPorId(questaoCriada.getQuestaoDTO().getQuestaoId())
+        ErrorDto errorDto = QuestaoClient.buscarQuestaoPorId(questaoCriada.getQuestaoDTO().getQuestaoId())
                 .then()
                 .statusCode(404)
                 .extract().as(ErrorDto.class);
 
-        //        TODO: Definir padrão de error para retorno
-        assertAll("Testes de buscar questao informando ID inativo",
-                () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
-                () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
-                () -> assertFalse(erro.getErrors().isEmpty(), "Lista de erros não deve está vazia"),
-                () -> assertEquals(erro.getStatus(), 404, "Status do erro deve ser igual ao esperado"),
-                () -> assertEquals(erro.getErrors().get("Colocar Parametros"), "")
+        assertAll("Verifica se retorna error correto",
+                () -> assertEquals(errorDto.getStatus(), 404),
+                () -> assertNotNull(errorDto.getTimestamp()),
+                () -> assertEquals(errorDto.getErrors().get("error"), "Questão não encontrada")
         );
-    }
-
-    @Test
-    @DisplayName("Questoes - Listar questões sem parâmetro de tamanho pagina")
-    public void testQuestoes_listarQuestoesSemParametroDeTamanhoPagina_esperaFalha() {
-        ListaTodasQuestaoResponseDto questao = QuestaoClient.buscarTodasQuestao("0", "10")
-                .as(ListaTodasQuestaoResponseDto.class);
-
-        String paginaSolicitada = Integer.toString(questao.getPageable().getPageNumber() + 1);
-
-        ListaTodasQuestaoResponseDto questaoResult = QuestaoClient.buscarTodasQuestao(paginaSolicitada, "10")
-                .then()
-                .statusCode(404)
-                .extract()
-                .as(ListaTodasQuestaoResponseDto.class);
-
-        //        TODO: Definir padrão de error para retorno
-        assertAll("Verifica se retorna lista com tamnaho correto",
-                () -> assertEquals(questaoResult.getNumberOfElements(), 0),
-                () -> assertEquals(questaoResult.getContent().size(), questaoResult.getNumberOfElements())
-        );
-        assertEquals(questaoResult.getPageable().getPageNumber(), 0,"Verifica se retorna pagina correta");
     }
 }

@@ -42,6 +42,18 @@ public class QuestaoClient {
                     .get(LISTAR_QUESTAO_URL);
     }
 
+    public static Response buscarTodasQuestao(String paginaSolicitada) {
+        Map<String, String> parametrosMap = new HashMap<>();
+        parametrosMap.put("paginaSolicitada", paginaSolicitada);
+
+        return
+                given()
+                        .spec(QuestaoSpecs.questaoReqAuthInstrutorSpec())
+                        .queryParams(parametrosMap)
+                        .when()
+                        .get(LISTAR_QUESTAO_URL);
+    }
+
     public static Response cadastrarQuestao(String questao) {
         return given()
                 .spec(QuestaoSpecs.questaoReqAuthInstrutorSpec())
