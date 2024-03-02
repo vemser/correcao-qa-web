@@ -26,10 +26,10 @@ public class QuestaoClient {
                 .post(CADASTRAR_QUESTAO);
     }
 
-    public static Response buscarTodasQuestao() {
+    public static Response buscarTodasQuestao(String paginaSolicitada, String tamanhoPagina) {
         Map<String, String> parametrosMap = new HashMap<>();
-        parametrosMap.put("paginaSolicitada", "0");
-        parametrosMap.put("tamanhoPagina", "10");
+        parametrosMap.put("paginaSolicitada", paginaSolicitada);
+        parametrosMap.put("tamanhoPagina", tamanhoPagina);
 
         return
                 given()

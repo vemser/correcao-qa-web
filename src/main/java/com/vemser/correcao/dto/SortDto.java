@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SortDto {
-    private Integer empty;
-    private Integer sorted;
-    private Integer unsorted;
+    private boolean empty;
+    private boolean sorted;
+    private boolean unsorted;
 }

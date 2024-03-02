@@ -17,6 +17,7 @@ public class ListaTodasQuestaoResponseDto {
     private Integer numberOfElements;
     private PageableDto pageable;
     private Integer size;
+    private boolean last;
     private SortDto sort;
     private Integer totalElements;
     private Integer totalPages;

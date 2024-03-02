@@ -9,22 +9,20 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class QuestaoGetFuncionalTest {
     @Test
-    @DisplayName("Questoes - Criar Questao Informando Campos Válidos (Espera Sucesso)")
+    @DisplayName("Questoes - Listar Todas Questões (Espera Sucesso)")
     public void testQuestoes_cadastroComDadosValidos_esperaSucesso() {
-        ListaTodasQuestaoResponseDto questaoResult = QuestaoClient.buscarTodasQuestao()
+        ListaTodasQuestaoResponseDto questaoResult = QuestaoClient.buscarTodasQuestao("0", "10")
                 .then()
                     .statusCode(200)
                 .log().all()
                     .extract()
                     .as(ListaTodasQuestaoResponseDto.class);
 
-//        assertAll("Testes de criar questões com sucesso",
-//                () -> assertNotNull(questaoResult.getQuestaoDTO().getQuestaoId(), "Id da questão não deve ser nulo"),
-//                () -> assertEquals(questao.getTitulo(), questaoResult.getQuestaoDTO().getTitulo(), "Título da questão deve ser igual"),
-//                () -> assertEquals(questao.getDificuldade(), questaoResult.getQuestaoDTO().getDificuldade(), "Dificuldade da questão deve ser igual"),
-//                () -> assertEquals(questao.getLinguagem(), questaoResult.getQuestaoDTO().getLinguagem(), "Linguagem da questão deve ser igual"),
-//                () -> assertEquals(questao.getTestes().size(), questaoResult.getQuestaoDTO().getTestes().size(), "Quantidade de testes da questão deve ser igual")
-//        );
+        assertAll("Verifica se retorna lista com tamnaho correto",
+                () -> assertEquals(questaoResult.getNumberOfElements(), 10),
+                () -> assertEquals(questaoResult.getContent().size(), questaoResult.getNumberOfElements())
+        );
+        assertEquals(questaoResult.getPageable().getPageNumber(), 0,"Verifica se retorna pagina correta");
     }
 
 }
