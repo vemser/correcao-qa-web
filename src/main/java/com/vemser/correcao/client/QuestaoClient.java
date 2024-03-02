@@ -91,6 +91,20 @@ public class QuestaoClient {
         .when()
                 .get(GET_QUESTAO_ID);
     }
+    public static Response buscarQuestaoPorIdInexistente() {
+        return given()
+                .spec(QuestaoSpecs.questaoReqAuthInstrutorSpec())
+                .pathParam("idQuestao", 9999999)
+                .when()
+                .get(GET_QUESTAO_ID);
+    }
+    public static Response buscarQuestaoPorIdMaiorQueOLimite() {
+        return given()
+                .spec(QuestaoSpecs.questaoReqAuthInstrutorSpec())
+                .pathParam("idQuestao", "99993333999")
+                .when()
+                .get(GET_QUESTAO_ID);
+    }
     public static Response excluirTeste(Integer idTeste){
         return given()
                 .spec(QuestaoSpecs.questaoReqAuthInstrutorSpec())
