@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -19,7 +20,7 @@ public class QuestaoDto {
     private Dificuldade dificuldade;
     private Linguagem linguagem;
     private String titulo;
-    private List<TesteDto> testes;
+    private ArrayList<TesteDto> testes;
     private String criado;
     private String editado;
     private String ativo;
