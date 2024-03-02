@@ -13,10 +13,10 @@ public class QuestaoDataFactory {
     private QuestaoDataFactory() {}
 
     public static QuestaoDto questaoAleatoria(){
-        return novaQuestaoAleatoria();
+        return novaQuestaoAleatoria(2);
     }
 
-    public static QuestaoDto novaQuestaoAleatoria(){
+    public static QuestaoDto novaQuestaoAleatoria(int numeroTestes){
         QuestaoDto questaoDto = new QuestaoDto();
         questaoDto.setTitulo(faker.lorem().sentence());
         questaoDto.setDescricao(faker.lorem().paragraph());
@@ -24,7 +24,7 @@ public class QuestaoDataFactory {
         questaoDto.setDificuldade(Dificuldade.values()[faker.random().nextInt(Dificuldade.values().length)]);
         questaoDto.setLinguagem(Linguagem.JAVA);
         questaoDto.setCodigo(faker.lorem().sentence());
-        questaoDto.setTestes(TesteDataFactory.criarListaDeTestesCorretos(2));
+        questaoDto.setTestes(TesteDataFactory.criarListaDeTestesCorretos(numeroTestes));
 
         return questaoDto;
     }
@@ -37,6 +37,30 @@ public class QuestaoDataFactory {
         questaoDto.setLinguagem(Linguagem.JAVA);
         questaoDto.setCodigo(faker.lorem().sentence());
         questaoDto.setTestes(TesteDataFactory.criarListaDeTestesCorretos(2));
+
+        return questaoDto;
+    }
+
+    public static QuestaoDto questaoSemDescricao(){
+        QuestaoDto questaoDto = new QuestaoDto();
+        questaoDto.setTitulo(faker.lorem().sentence());
+        questaoDto.setDescricao("");
+        questaoDto.setDificuldade(Dificuldade.values()[faker.random().nextInt(Dificuldade.values().length)]);
+        questaoDto.setLinguagem(Linguagem.JAVA);
+        questaoDto.setCodigo(faker.lorem().sentence());
+        questaoDto.setTestes(TesteDataFactory.criarListaDeTestesCorretos(2));
+
+        return questaoDto;
+    }
+    public static QuestaoDto novaQuestaoLimiteMinimoTestes(){
+        QuestaoDto questaoDto = new QuestaoDto();
+        questaoDto.setTitulo(faker.lorem().sentence());
+        questaoDto.setDescricao(faker.lorem().paragraph());
+
+        questaoDto.setDificuldade(Dificuldade.values()[faker.random().nextInt(Dificuldade.values().length)]);
+        questaoDto.setLinguagem(Linguagem.JAVA);
+        questaoDto.setCodigo(faker.lorem().sentence());
+        questaoDto.setTestes(TesteDataFactory.limiteMinimoTestes());
 
         return questaoDto;
     }
