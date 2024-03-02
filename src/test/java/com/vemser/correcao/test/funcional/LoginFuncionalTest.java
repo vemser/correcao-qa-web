@@ -9,15 +9,22 @@ import com.vemser.correcao.dto.LoginDto;
 import com.vemser.correcao.dto.QuestaoDto;
 import com.vemser.correcao.dto.QuestaoResponseDto;
 import com.vemser.correcao.specs.LoginSpecs;
+import io.qameta.allure.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@Epic("Funcional Login - POST")
+@DisplayName("Login - POST")
+@Owner("Vitor Colombo")
 public class LoginFuncionalTest {
     // CENÁRIOS POSITIVOS
     @Test
-    @DisplayName("[CTAXXX] Login - Logar Como Instrutor Com Dados Válidos (Espera Sucesso)")
+    @Feature("Fazer Login")
+    @Story("[CTAXXX] Login - Logar Como Instrutor Com Dados Válidos")
+    @Severity(SeverityLevel.NORMAL)
+    @Description("Teste que verifica se o usuário logou como instrutor com as permissões devidas. A API deve permitir request de cadastro e delete a partir deste token")
     public void testLogin_logarInstrutor_esperaSucesso() {
         LoginDto login = LoginDataFactory.loginInstrutor();
         String token = LoginClient.autenticar(login)
@@ -41,7 +48,10 @@ public class LoginFuncionalTest {
     }
 
     @Test
-    @DisplayName("[CTAXXX] Login - Logar Como Aluno Com Dados Válidos (Espera Sucesso)")
+    @Feature("Fazer Login")
+    @Story("[CTAXXX] Login - Logar Como Aluno Com Dados Válidos")
+    @Severity(SeverityLevel.NORMAL)
+    @Description("Teste que verifica se o usuário logou como aluno com as permissões devidas.")
     public void testLogin_logarAluno_esperaSucesso() {
         LoginDto login = LoginDataFactory.loginAluno();
         String token = LoginClient.autenticar(login)
@@ -68,7 +78,10 @@ public class LoginFuncionalTest {
 
     // CENÁRIOS NEGATIVOS
     @Test
-    @DisplayName("[CTAXXX] Login - Informar Username Vazio (Espera Erro)")
+    @Feature("Espera Erro")
+    @Story("[CTAXXX] Login - Informar Username Vazio")
+    @Severity(SeverityLevel.NORMAL)
+    @Description("Teste que verifica se ao informar username vazio e password válido a API retorna 400 e a mensagem 'username: não deve estar em branco'")
     public void testLogin_informarUsernameVazio_esperaErro() {
         LoginDto login = LoginDataFactory.loginAluno();
         login.setUsername("");
@@ -88,7 +101,10 @@ public class LoginFuncionalTest {
     }
 
     @Test
-    @DisplayName("[CTAXXX] Login - Informar Password Vazio (Espera Erro)")
+    @Feature("Espera Erro")
+    @Story("[CTAXXX] Login - Informar Password Vazio")
+    @Severity(SeverityLevel.NORMAL)
+    @Description("Teste que verifica se ao informar username válido e password vazio a API retorna 400 e a mensagem 'password: não deve estar em branco'")
     public void testLogin_informarPasswordVazio_esperaErro() {
         LoginDto login = LoginDataFactory.loginAluno();
         login.setPassword("");
@@ -107,7 +123,10 @@ public class LoginFuncionalTest {
         );
     }
     @Test
-    @DisplayName("[CTAXXX] Login - Informar Campos Vazios (Espera Erro)")
+    @Feature("Espera Erro")
+    @Story("[CTAXXX] Login - Informar Campos Vazios")
+    @Severity(SeverityLevel.NORMAL)
+    @Description("Teste que verifica se ao informar campos vazios a API retorna 400 e as mensagens 'password: não deve estar em branco, username: não deve estar em branco'")
     public void testLogin_informarCamposVazios_esperaErro() {
         LoginDto login = LoginDataFactory.loginAluno();
         login.setUsername("");
@@ -129,7 +148,10 @@ public class LoginFuncionalTest {
     }
 
     @Test
-    @DisplayName("[CTAXXX] Login - Informar Senha Incorreta (Espera Erro)")
+    @Feature("Espera Erro")
+    @Story("[CTAXXX] Login - Informar Senha Incorreta")
+    @Severity(SeverityLevel.NORMAL)
+    @Description("Teste que verifica se ao informar username válido e senha incorreta a API retorna 400 e a mensagem 'login e senha inválidos!'")
     public void testCriarQuestao_informarSenhaIncorreta_esperaErro() {
         LoginDto login = LoginDataFactory.loginAluno();
         login.setPassword("senhaIncorreta");
