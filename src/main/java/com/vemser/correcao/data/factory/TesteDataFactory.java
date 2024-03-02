@@ -70,8 +70,8 @@ public class TesteDataFactory {
         return testes;
     }
 
-    public static List<TesteDto> limiteMinimoTestes() {
-        List<TesteDto> testes = new ArrayList<>();
+    public static ArrayList<TesteDto> limiteMinimoTestes() {
+        ArrayList<TesteDto> testes = new ArrayList<>();
         testes.add(testeSomaExemplo());
         testes.add(testeSomaNaoExemplo());
         return testes;
