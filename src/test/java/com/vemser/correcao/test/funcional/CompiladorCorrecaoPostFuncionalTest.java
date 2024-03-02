@@ -5,16 +5,20 @@ import com.vemser.compilador.dto.CompiladorDto;
 import com.vemser.compilador.dto.CompiladorResponseDto;
 import com.vemser.correcao.client.CompiladorCorrecaoClient;
 import com.vemser.correcao.specs.CompiladorCorrecaoSpecs;
-import io.qameta.allure.Epic;
+import io.qameta.allure.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 @Epic("Funcional Compilador Correção - POST")
+@DisplayName("Compilador Correção - POST")
+@Owner("Gabriel Sales")
 
 public class CompiladorCorrecaoPostFuncionalTest {
     @Test
-    @DisplayName("Compilador Correção - Informar Campos Válidos Com Código Java (Espera Sucesso)")
+    @Feature("Espera Sucesso")
+    @Severity(SeverityLevel.NORMAL)
+    @Story("Informar Campos Válidos Com Código Java")
     public void testCompiladorCorrecao_camposValidosComCodigoJava_esperaSucesso() {
         CompiladorDto compiladorJava = CompiladorDataFactory.compiladorJavaValido();
 
@@ -27,7 +31,9 @@ public class CompiladorCorrecaoPostFuncionalTest {
     }
 
     @Test
-    @DisplayName("Compilador Correção - Informar Campos Válidos Com Código JavaScript (Espera Sucesso)")
+    @Feature("Espera Sucesso")
+    @Severity(SeverityLevel.NORMAL)
+    @Story("Informar Campos Válidos Com Código JavaScript")
     public void testCompiladorCorrecao_camposValidosComCodigoJavascript_esperaSucesso() {
         CompiladorDto compiladorJavascript = CompiladorDataFactory.compiladorJavascriptValido();
 
@@ -40,7 +46,9 @@ public class CompiladorCorrecaoPostFuncionalTest {
     }
 
     @Test
-    @DisplayName("Compilador Correção - Informar Código Java Inválido (Espera Erro)")
+    @Feature("Espera Erro")
+    @Severity(SeverityLevel.NORMAL)
+    @Story("[CTAXXX] Informar Código Java Inválido")
     public void testCompiladorCorrecao_codigoJavaInvalido_esperaErro() {
         CompiladorDto compiladorCodigoInvalido = CompiladorDataFactory.compiladorCodigoJavaInvalido();
 
@@ -54,7 +62,9 @@ public class CompiladorCorrecaoPostFuncionalTest {
     }
 
     @Test
-    @DisplayName("Compilador Correção - Informar Código JavaScript Inválido (Espera Erro)")
+    @Feature("Espera Erro")
+    @Severity(SeverityLevel.NORMAL)
+    @Story("[CTAXXX] Informar Código JavaScript Inválido")
     public void testCompiladorCorrecao_codigoJavascriptInvalido_esperaErro() {
         CompiladorDto compiladorCodigoInvalido = CompiladorDataFactory.compiladorCodigoJavascriptInvalido();
 
@@ -68,7 +78,9 @@ public class CompiladorCorrecaoPostFuncionalTest {
     }
 
     @Test
-    @DisplayName("Compilador Correção - Informar Linguagem Inválida (Espera Erro)")
+    @Feature("Espera Erro")
+    @Severity(SeverityLevel.NORMAL)
+    @Story("[CTAXXX] Informar Linguagem Inválida")
     public void testCompiladorCorrecao_linguagemInvalida_esperaErro() {
         CompiladorDto compiladorLinguagemInvalida = CompiladorDataFactory.compiladorLinguagemInvalida();
 
@@ -85,7 +97,9 @@ public class CompiladorCorrecaoPostFuncionalTest {
     }
 
     @Test
-    @DisplayName("Compilador Correção - Não Informar Linguagem (Espera Erro)")
+    @Feature("Espera Erro")
+    @Severity(SeverityLevel.NORMAL)
+    @Story("[CTAXXX] Não Informar Linguagem")
     public void testCompiladorCorrecao_linguagemNaoInformada_esperaErro() {
         CompiladorDto compilador = CompiladorDataFactory.compiladorJavaValido();
         String compiladorJson = String.format("""
@@ -106,7 +120,9 @@ public class CompiladorCorrecaoPostFuncionalTest {
     }
 
     @Test
-    @DisplayName("Compilador Correção - Não Informar Código (Espera Erro)")
+    @Feature("Espera Erro")
+    @Severity(SeverityLevel.NORMAL)
+    @Story("[CTAXXX] Não Informar Código")
     public void testCompiladorCorrecao_codigoNaoInformado_esperaErro() {
         CompiladorDto compilador = CompiladorDataFactory.compiladorJavaValido();
         String compiladorJson = String.format("""

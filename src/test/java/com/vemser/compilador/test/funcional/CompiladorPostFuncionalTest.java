@@ -16,7 +16,8 @@ import org.junit.jupiter.api.Test;
 public class CompiladorPostFuncionalTest {
     @Test
     @Feature("Espera Sucesso")
-    @Story("Informar Campos Válidos Com Código Java")
+    @Story("[CTAXXX] Informar Campos Válidos Com Código Java")
+    @Severity(SeverityLevel.NORMAL)
     @Description("Teste que verifica se ao enviar um código válido com a linguagem Java o compilador retorna 200 com uma string")
     public void testCompilador_camposValidosComCodigoJava_esperaSucesso() {
         CompiladorDto compiladorJava = CompiladorDataFactory.compiladorJavaValido();
@@ -31,7 +32,8 @@ public class CompiladorPostFuncionalTest {
 
     @Test
     @Feature("Espera Sucesso")
-    @Story("Informar Campos Válidos Com Código JavaScript")
+    @Story("[CTAXXX] Informar Campos Válidos Com Código JavaScript")
+    @Severity(SeverityLevel.NORMAL)
     @Description("Teste que verifica se ao enviar um código válido com a linguagem JavaScript o compilador retorna 200 com uma string")
     public void testCompilador_camposValidosComCodigoJavascript_esperaSucesso() {
         CompiladorDto compiladorJavascript = CompiladorDataFactory.compiladorJavascriptValido();
@@ -46,7 +48,8 @@ public class CompiladorPostFuncionalTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("Informar Código Java Inválido")
+    @Story("[CTAXXX] Informar Código Java Inválido")
+    @Severity(SeverityLevel.NORMAL)
     @Description("Teste que verifica se ao enviar um código inválido com a linguagem Java o compilador retorna a mensagem 'Erro ao compilar o arquivo'")
     public void testCompilador_codigoJavaInvalido_esperaErro() {
         CompiladorDto compiladorCodigoInvalido = CompiladorDataFactory.compiladorCodigoJavaInvalido();
@@ -62,7 +65,8 @@ public class CompiladorPostFuncionalTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("Informar Código JavaScript Inválido")
+    @Story("[CTAXXX] Informar Código JavaScript Inválido")
+    @Severity(SeverityLevel.NORMAL)
     @Description("Teste que verifica se ao enviar um código inválido com a linguagem JavaScript o compilador retorna a mensagem 'Erro ao compilar o arquivo'")
     public void testCompilador_codigoJavascriptInvalido_esperaErro() {
         CompiladorDto compiladorCodigoInvalido = CompiladorDataFactory.compiladorCodigoJavascriptInvalido();
@@ -78,7 +82,8 @@ public class CompiladorPostFuncionalTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("Informar Linguagem Inválida")
+    @Story("[CTAXXX] Informar Linguagem Inválida")
+    @Severity(SeverityLevel.NORMAL)
     @Description("Teste que verifica se ao enviar uma linguagem inválida o compilador retorna a mensagem ''")
     public void testCompilador_linguagemInvalida_esperaErro() {
         CompiladorDto compiladorLinguagemInvalida = CompiladorDataFactory.compiladorLinguagemInvalida();
@@ -97,7 +102,8 @@ public class CompiladorPostFuncionalTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("Não Informar Linguagem")
+    @Story("[CTAXXX] Não Informar Linguagem")
+    @Severity(SeverityLevel.NORMAL)
     @Description("Teste que verifica se ao enviar um código sem informar a linguagem o compilador retorna 400 e a mensagem 'linguagem: must not be null'")
     public void testCompilador_linguagemNaoInformada_esperaErro() {
         CompiladorDto compilador = CompiladorDataFactory.compiladorJavaValido();
@@ -121,7 +127,8 @@ public class CompiladorPostFuncionalTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("Não Informar Código")
+    @Story("[CTAXXX] Não Informar Código")
+    @Severity(SeverityLevel.NORMAL)
     @Description("Teste que verifica se ao informar a linguagem e não informar um código o compilador retorna 400 e a mensagem 'codigo: must not be blank'")
     public void testCompilador_codigoNaoInformado_esperaErro() {
         CompiladorDto compilador = CompiladorDataFactory.compiladorJavaValido();

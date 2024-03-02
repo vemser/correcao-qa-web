@@ -11,13 +11,13 @@ import org.junit.jupiter.api.Test;
 import static io.restassured.RestAssured.given;
 
 @Epic("Contrato Compilador - POST")
-@DisplayName("Contrato POST compilador")
+@DisplayName("Contrato compilador - POST")
 @Owner("Gabriel Sales")
 public class CompiladorPostContratoTest {
     @Test
     @Feature("Espera Sucesso")
-    @Story("Validar Contrato")
-    @Severity(SeverityLevel.BLOCKER)
+    @Story("[CTAXXX] Validar Contrato")
+    @Severity(SeverityLevel.NORMAL)
     @Description("Teste que verifica o contrato do POST do compilador")
     public void testCompilador_validarContrato_esperaSucesso() {
         CompiladorDto compiladorDto = CompiladorDataFactory.compiladorJavaValido();
