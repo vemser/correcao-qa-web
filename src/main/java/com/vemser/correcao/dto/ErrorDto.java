@@ -5,12 +5,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ErroDto {
+public class ErrorDto {
     private String timestamp;
     private Integer status;
-    private ArrayList<String> errors;
+    private Map<String, String> errors;
 }

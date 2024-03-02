@@ -2,11 +2,10 @@ package com.vemser.correcao.test.funcional;
 
 import com.vemser.correcao.client.QuestaoClient;
 import com.vemser.correcao.data.factory.QuestaoDataFactory;
-import com.vemser.correcao.dto.ErroDto;
+import com.vemser.correcao.dto.ErrorDto;
 import com.vemser.correcao.dto.QuestaoDto;
 import com.vemser.correcao.dto.QuestaoResponseDto;
 import com.vemser.correcao.dto.TesteResponseDto;
-import io.restassured.response.Response;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -73,10 +72,10 @@ public class QuestaoDeleteFuncionalTest {
                 .statusCode(201)
                 .extract().as(QuestaoResponseDto.class);
 
-        ErroDto erro = QuestaoClient.excluirQuestaoSemPermissao(questaoResult.getQuestaoDTO().getQuestaoId())
+        ErrorDto erro = QuestaoClient.excluirQuestaoSemPermissao(questaoResult.getQuestaoDTO().getQuestaoId())
             .then()
                 .statusCode(403)
-                .extract().as(ErroDto.class);
+                .extract().as(ErrorDto.class);
 
         QuestaoClient.excluirQuestao(questaoResult.getQuestaoDTO().getQuestaoId())
                 .then()
@@ -85,9 +84,8 @@ public class QuestaoDeleteFuncionalTest {
         assertAll("Testes de deletar questão informando id existente com permissão de aluno",
                 () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
                 () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
-                () -> assertFalse(erro.getErrors().isEmpty(), "Lista de erros não deve está vazia"),
                 () -> assertEquals(erro.getStatus(), 403, "Status do erro deve ser igual ao esperado"),
-                () -> assertTrue(erro.getErrors().contains("????????"), "Mensagem de erro deve ser igual ao esperado")
+                () -> assertEquals(erro.getErrors().get(""), "","Mensagem de erro deve ser igual ao esperado")
         );
     }
 
@@ -101,10 +99,10 @@ public class QuestaoDeleteFuncionalTest {
                 .statusCode(201)
                 .extract().as(QuestaoResponseDto.class);
 
-        ErroDto erro = QuestaoClient.excluirQuestaoSemToken(questaoResult.getQuestaoDTO().getQuestaoId())
+        ErrorDto erro = QuestaoClient.excluirQuestaoSemToken(questaoResult.getQuestaoDTO().getQuestaoId())
             .then()
                 .statusCode(403)
-                .extract().as(ErroDto.class);
+                .extract().as(ErrorDto.class);
 
         QuestaoClient.excluirQuestao(questaoResult.getQuestaoDTO().getQuestaoId())
             .then()
@@ -115,7 +113,7 @@ public class QuestaoDeleteFuncionalTest {
                 () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
                 () -> assertFalse(erro.getErrors().isEmpty(), "Lista de erros não deve está vazia"),
                 () -> assertEquals(erro.getStatus(), 403, "Status do erro deve ser igual ao esperado"),
-                () -> assertTrue(erro.getErrors().contains("????????"), "Mensagem de erro deve ser igual ao esperado")
+                () -> assertEquals(erro.getErrors().get("Colocar Parametros"), "")
         );
     }
 
@@ -134,17 +132,17 @@ public class QuestaoDeleteFuncionalTest {
                 .statusCode(200)
                 .extract().asString();
 
-        ErroDto erro = QuestaoClient.excluirQuestao(questaoResult.getQuestaoDTO().getQuestaoId())
+        ErrorDto erro = QuestaoClient.excluirQuestao(questaoResult.getQuestaoDTO().getQuestaoId())
             .then()
                 .statusCode(404)
-                .extract().as(ErroDto.class);
+                .extract().as(ErrorDto.class);
 
         assertAll("Testes de deletar questão informando id de questão inativa",
                 () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
                 () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
                 () -> assertFalse(erro.getErrors().isEmpty(), "Lista de erros não deve está vazia"),
                 () -> assertEquals(erro.getStatus(), 404, "Status do erro deve ser igual ao esperado"),
-                () -> assertTrue(erro.getErrors().contains("Falha ao deletar a questão: Questão inativa."), "Mensagem de erro deve ser igual ao esperado")
+                () -> assertEquals(erro.getErrors().get("Colocar Parametros"), "")
         );
     }
 
@@ -152,17 +150,17 @@ public class QuestaoDeleteFuncionalTest {
     @DisplayName("[CTAXX] Questoes - Deletar Questao Com ID inexistente (Espera Erro)")
     public void testQuestoes_deletarQuestaoComIdInexistente_esperaErro() {
 
-        ErroDto erro = QuestaoClient.excluirQuestao(999999999)
+        ErrorDto erro = QuestaoClient.excluirQuestao(999999999)
             .then()
                 .statusCode(404)
-                .extract().as(ErroDto.class);
+                .extract().as(ErrorDto.class);
 
         assertAll("Testes de deletar questão informando id inexistente",
                 () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
                 () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
                 () -> assertFalse(erro.getErrors().isEmpty(), "Lista de erros não deve está vazia"),
                 () -> assertEquals(erro.getStatus(), 404, "Status do erro deve ser igual ao esperado"),
-                () -> assertTrue(erro.getErrors().contains("Falha ao deletar a questão: Questão não encontrada com o ID fornecido"), "Mensagem de erro deve ser igual ao esperado")
+                () -> assertEquals(erro.getErrors().get("Colocar Parametros"), "")
         );
     }
 
@@ -170,17 +168,17 @@ public class QuestaoDeleteFuncionalTest {
     @DisplayName("[CTAXX] Questoes - Deletar Questao Com ID Nulo (Espera Erro)")
     public void testQuestoes_deletarQuestaoComIdNulo_esperaErro() {
 
-        ErroDto erro = QuestaoClient.excluirQuestaoSemParam()
+        ErrorDto erro = QuestaoClient.excluirQuestaoSemParam()
             .then()
                 .statusCode(404)
-                .extract().as(ErroDto.class);
+                .extract().as(ErrorDto.class);
 
         assertAll("Testes de deletar questão não informando id",
                 () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
                 () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
                 () -> assertFalse(erro.getErrors().isEmpty(), "Lista de erros não deve está vazia"),
                 () -> assertEquals(erro.getStatus(), 404, "Status do erro deve ser igual ao esperado"),
-                () -> assertTrue(erro.getErrors().contains("Falha ao deletar a questão: Questão não encontrada com o ID fornecido"), "Mensagem de erro deve ser igual ao esperado")
+                () -> assertEquals(erro.getErrors().get("Colocar Parametros"), "")
         );
     }
 
@@ -188,18 +186,18 @@ public class QuestaoDeleteFuncionalTest {
     @DisplayName("[CTAXX] Questoes - Deletar Questao Com ID invalido (Espera Erro)")
     public void testQuestoes_deletarQuestaoComIdInvalido_esperaErro() {
 
-        ErroDto erro = QuestaoClient.excluirQuestaoComIdInvalido()
+        ErrorDto erro = QuestaoClient.excluirQuestaoComIdInvalido()
             .then()
                 .statusCode(400)
                 .log().all()
-                .extract().as(ErroDto.class);
+                .extract().as(ErrorDto.class);
 
         assertAll("Testes de deletar questão informando id inválido",
                 () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
                 () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
                 () -> assertFalse(erro.getErrors().isEmpty(), "Lista de erros não deve está vazia"),
                 () -> assertEquals(erro.getStatus(), 400, "Status do erro deve ser igual ao esperado"),
-                () -> assertTrue(erro.getErrors().contains("????????"), "Mensagem de erro deve ser igual ao esperado")
+                () -> assertEquals(erro.getErrors().get("Colocar Parametros"), "")
         );
     }
 
@@ -223,17 +221,17 @@ public class QuestaoDeleteFuncionalTest {
             .then()
                 .statusCode(200);
 
-        ErroDto erro = QuestaoClient.excluirTeste(testes.get(0).getTesteId())
+        ErrorDto erro = QuestaoClient.excluirTeste(testes.get(0).getTesteId())
             .then()
                 .statusCode(404)
-                .extract().as(ErroDto.class);
+                .extract().as(ErrorDto.class);
 
         assertAll("Testes de deletar questão informando id inválido",
                 () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
                 () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
                 () -> assertFalse(erro.getErrors().isEmpty(), "Lista de erros não deve está vazia"),
                 () -> assertEquals(erro.getStatus(), 404, "Status do erro deve ser igual ao esperado"),
-                () -> assertTrue(erro.getErrors().contains("???????????"), "Mensagem de erro deve ser igual ao esperado")
+                () -> assertEquals(erro.getErrors().get("Colocar Parametros"), "")
         );
     }
 
@@ -254,11 +252,11 @@ public class QuestaoDeleteFuncionalTest {
 
         List<TesteResponseDto> testes = questaoResult.getTestes();
 
-        ErroDto erro = QuestaoClient.excluirTeste(testes.get(0).getTesteId())
+        ErrorDto erro = QuestaoClient.excluirTeste(testes.get(0).getTesteId())
             .then()
                 .statusCode(400)
                 .log().all()
-                .extract().as(ErroDto.class);
+                .extract().as(ErrorDto.class);
 
         QuestaoClient.excluirQuestao(questaoResult.getQuestaoDTO().getQuestaoId())
             .then()
@@ -269,58 +267,58 @@ public class QuestaoDeleteFuncionalTest {
                 () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
                 () -> assertFalse(erro.getErrors().isEmpty(), "Lista de erros não deve está vazia"),
                 () -> assertEquals(erro.getStatus(), 400, "Status do erro deve ser igual ao esperado"),
-                () -> assertTrue(erro.getErrors().contains("Falha ao deletar a teste: Teste não encontrado com o ID fornecido"), "Mensagem de erro deve ser igual ao esperado")
+                () -> assertEquals(erro.getErrors().get("Colocar Parametros"), "")
         );
     }
 
     @Test
     @DisplayName("[CTAXX] Testes - Deletar Testes Com Permissao De Aluno (Espera Erro)")
     public void testTestes_deletarTestesSemPermissao_esperaErro() {
-        ErroDto erro = QuestaoClient.excluirTesteSemPermissao(123)
+        ErrorDto erro = QuestaoClient.excluirTesteSemPermissao(123)
             .then()
                 .statusCode(403)
-                .extract().as(ErroDto.class);
+                .extract().as(ErrorDto.class);
 
         assertAll("Testes de deletar questão informando id inválido",
                 () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
                 () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
                 () -> assertFalse(erro.getErrors().isEmpty(), "Lista de erros não deve está vazia"),
                 () -> assertEquals(erro.getStatus(), 403, "Status do erro deve ser igual ao esperado"),
-                () -> assertTrue(erro.getErrors().contains("???????????"), "Mensagem de erro deve ser igual ao esperado")
+                () -> assertEquals(erro.getErrors().get("Colocar Parametros"), "")
         );
     }
 
     @Test
     @DisplayName("[CTAXX] Testes - Deletar Testes Com ID Inválido (Espera Erro)")
     public void testTestes_deletarTestesComIDInvalido_esperaErro() {
-        ErroDto erro = QuestaoClient.excluirTesteComIDInvalido()
+        ErrorDto erro = QuestaoClient.excluirTesteComIDInvalido()
             .then()
                 .statusCode(400)
-                .extract().as(ErroDto.class);
+                .extract().as(ErrorDto.class);
 
         assertAll("Testes de deletar questão informando id inválido",
                 () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
                 () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
                 () -> assertFalse(erro.getErrors().isEmpty(), "Lista de erros não deve está vazia"),
                 () -> assertEquals(erro.getStatus(), 400, "Status do erro deve ser igual ao esperado"),
-                () -> assertTrue(erro.getErrors().contains("???????????"), "Mensagem de erro deve ser igual ao esperado")
+                () -> assertEquals(erro.getErrors().get("Colocar Parametros"), "")
         );
     }
 
     @Test
     @DisplayName("[CTAXX] Testes - Deletar Testes Com ID Inexistente (Espera Erro)")
     public void testTestes_deletarTestesComIDInexistente_esperaErro() {
-        ErroDto erro = QuestaoClient.excluirTesteComIDInexistente()
+        ErrorDto erro = QuestaoClient.excluirTesteComIDInexistente()
             .then()
                 .statusCode(404)
-                .extract().as(ErroDto.class);
+                .extract().as(ErrorDto.class);
 
         assertAll("Testes de deletar questão informando id inválido",
                 () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
                 () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
                 () -> assertFalse(erro.getErrors().isEmpty(), "Lista de erros não deve está vazia"),
                 () -> assertEquals(erro.getStatus(), 404, "Status do erro deve ser igual ao esperado"),
-                () -> assertTrue(erro.getErrors().contains("Falha ao deletar a teste: Teste não encontrado com o ID fornecido"), "Mensagem de erro deve ser igual ao esperado")
+                () -> assertEquals(erro.getErrors().get("Colocar Parametros"), "")
         );
     }
 }
