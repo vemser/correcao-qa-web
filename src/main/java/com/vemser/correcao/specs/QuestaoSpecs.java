@@ -25,4 +25,12 @@ public class QuestaoSpecs {
                 .addHeader("Authorization", tokenAluno)
                 .build();
     }
+
+    public static RequestSpecification questaoReqSemTokenSpec() {
+
+        return new RequestSpecBuilder()
+                .addRequestSpecification(InicialSpecs.setupApi())
+                .setContentType(ContentType.JSON)
+                .build();
+    }
 }

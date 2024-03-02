@@ -212,6 +212,30 @@ public class QuestaoDataFactory {
         return questaoDto;
     }
 
+    public static QuestaoDto questaoSemDescricao(){
+        QuestaoDto questaoDto = new QuestaoDto();
+        questaoDto.setTitulo(faker.lorem().sentence());
+        questaoDto.setDescricao("");
+        questaoDto.setDificuldade(Dificuldade.values()[faker.random().nextInt(Dificuldade.values().length)]);
+        questaoDto.setLinguagem(Linguagem.JAVA);
+        questaoDto.setCodigo(faker.lorem().sentence());
+        questaoDto.setTestes(TesteDataFactory.criarListaDeTestesCorretos(2));
+
+        return questaoDto;
+    }
+    public static QuestaoDto novaQuestaoLimiteMinimoTestes(){
+        QuestaoDto questaoDto = new QuestaoDto();
+        questaoDto.setTitulo(faker.lorem().sentence());
+        questaoDto.setDescricao(faker.lorem().paragraph());
+
+        questaoDto.setDificuldade(Dificuldade.values()[faker.random().nextInt(Dificuldade.values().length)]);
+        questaoDto.setLinguagem(Linguagem.JAVA);
+        questaoDto.setCodigo(faker.lorem().sentence());
+        questaoDto.setTestes(TesteDataFactory.limiteMinimoTestes());
+
+        return questaoDto;
+    }
+
     public static QuestaoDto questaoInvalida(){
         return new QuestaoDto(
                 null,
