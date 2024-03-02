@@ -46,6 +46,13 @@ public class TesteDataFactory {
         return testes;
     }
 
+    public static List<TesteDto> limiteMinimoTestes() {
+        List<TesteDto> testes = new ArrayList<>();
+        testes.add(testeSomaExemplo());
+        testes.add(testeSomaNaoExemplo());
+        return testes;
+    }
+
     public static TesteDto novosTestesAleatorios(){
         return new TesteDto(
                 faker.lorem().sentence(),
