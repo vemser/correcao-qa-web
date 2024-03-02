@@ -35,7 +35,7 @@ public class QuestaoGetByIDFuncionalTest {
     }
     @Test
     @DisplayName("[CTAXXX] Buscar Questão Por ID - Informar ID Inexistente (Espera Erro)")
-    public void testQuestoes_buscarQuestaoComIDInexistente_esperaFalha() {
+    public void testQuestoes_buscarQuestaoComIDInexistente_esperaErro() {
 
         QuestaoResponseDto questaoBuscada = QuestaoClient.buscarQuestaoPorIdInexistente()
             .then()
@@ -45,13 +45,13 @@ public class QuestaoGetByIDFuncionalTest {
     }
     @Test
     @DisplayName("[CTAXXX] Buscar Questão Por ID - Informar ID Maior Que O Limite (Espera Erro)")
-    public void testQuestoes_buscarQuestaoComIDValido_esperaFalha() {
+    public void testQuestoes_buscarQuestaoComIDMaiorQueOLimite_esperaErro() {
 
 
     }
     @Test
     @DisplayName("[CTAXXX] Buscar Questão Por ID - Informar ID Inativo (Espera Erro)")
-    public void testQuestoes_buscarQuestaoComIDValido_esperaFalha() {
+    public void testQuestoes_buscarQuestaoComIDInativo_esperaErro() {
 
 
     }
