@@ -16,7 +16,7 @@ public class QuestaoPostFuncionalTest {
     @DisplayName("[CTAXXX] Criar Questão - Informar Campos Válidos (Espera Sucesso)")
     public void testCriarQuestao_informarCamposValidos_esperaSucesso() {
         QuestaoDto questao = QuestaoDataFactory.questaoDadosValidos(2);
-
+  
         QuestaoResponseDto questaoResult = QuestaoClient.cadastrarQuestao(questao).then()
                 .statusCode(201)
                 .extract().as(QuestaoResponseDto.class);
