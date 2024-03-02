@@ -22,6 +22,14 @@ public class QuestaoClient {
                 .post(CADASTRAR_QUESTAO);
     }
 
+    public static Response cadastrarQuestao(String questao) {
+        return given()
+                .spec(QuestaoSpecs.questaoReqAuthInstrutorSpec())
+                .body(questao)
+        .when()
+                .post(CADASTRAR_QUESTAO);
+    }
+
     public static Response excluirQuestao(Integer idQuestao) {
         return given()
                 .spec(QuestaoSpecs.questaoReqAuthInstrutorSpec())
