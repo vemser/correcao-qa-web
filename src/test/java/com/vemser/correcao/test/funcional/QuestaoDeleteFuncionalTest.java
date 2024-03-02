@@ -14,9 +14,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class QuestaoDeleteFuncionalTest {
     @Test
-    @DisplayName("Questoes - Deletar Questao Existente Com Sucesso (Espera Sucesso)")
+    @DisplayName("CTAXX - Questoes - Deletar Questao Existente Com Sucesso (Espera Sucesso)")
     public void testQuestoes_deletarQuestaoExistente_esperaSucesso() {
-        QuestaoDto questao = QuestaoDataFactory.novaQuestaoAleatoria();
+        QuestaoDto questao = QuestaoDataFactory.novaQuestaoAleatoria(2);
 
         QuestaoResponseDto questaoResult = QuestaoClient.cadastrarQuestao(questao)
             .then()
@@ -31,9 +31,9 @@ public class QuestaoDeleteFuncionalTest {
     }
 
     @Test
-    @DisplayName("Questoes - Deletar Questao Existente Com Permissao De Aluno (Espera Falha)")
+    @DisplayName("CTAXX - Questoes - Deletar Questao Existente Com Permissao De Aluno (Espera Falha)")
     public void testQuestoes_deletarQuestaoExistenteComoAluno_esperaFalha() {
-        QuestaoDto questao = QuestaoDataFactory.novaQuestaoAleatoria();
+        QuestaoDto questao = QuestaoDataFactory.novaQuestaoAleatoria(2);
 
         QuestaoResponseDto questaoResult = QuestaoClient.cadastrarQuestao(questao)
             .then()
@@ -53,9 +53,9 @@ public class QuestaoDeleteFuncionalTest {
     }
 
     @Test
-    @DisplayName("Questoes - Deletar Questao Existente Sem Token (Espera Falha)")
+    @DisplayName("CTAXX - Questoes - Deletar Questao Existente Sem Token (Espera Falha)")
     public void testQuestoes_deletarQuestaoExistenteSemToken_esperaFalha() {
-        QuestaoDto questao = QuestaoDataFactory.novaQuestaoAleatoria();
+        QuestaoDto questao = QuestaoDataFactory.novaQuestaoAleatoria(2);
 
         QuestaoResponseDto questaoResult = QuestaoClient.cadastrarQuestao(questao)
             .then()
@@ -75,9 +75,9 @@ public class QuestaoDeleteFuncionalTest {
     }
 
     @Test
-    @DisplayName("Questoes - Deletar Questao Já Deletada (Espera Falha)")
+    @DisplayName("CTAXX - Questoes - Deletar Questao Já Deletada (Espera Falha)")
     public void testQuestoes_deletarQuestaoJaDeletada_esperaFalha() {
-        QuestaoDto questao = QuestaoDataFactory.novaQuestaoAleatoria();
+        QuestaoDto questao = QuestaoDataFactory.novaQuestaoAleatoria(2);
 
         QuestaoResponseDto questaoResult = QuestaoClient.cadastrarQuestao(questao)
                 .then()
@@ -98,7 +98,7 @@ public class QuestaoDeleteFuncionalTest {
     }
 
     @Test
-    @DisplayName("Questoes - Deletar Questao Com ID inexistente (Espera Falha)")
+    @DisplayName("CTAXX - Questoes - Deletar Questao Com ID inexistente (Espera Falha)")
     public void testQuestoes_deletarQuestaoComIdInexistente_esperaFalha() {
 
         String response = QuestaoClient.excluirQuestao(999999999)
@@ -110,7 +110,7 @@ public class QuestaoDeleteFuncionalTest {
     }
 
     @Test
-    @DisplayName("Questoes - Deletar Questao Com ID Nulo (Espera Falha)")
+    @DisplayName("CTAXX - Questoes - Deletar Questao Com ID Nulo (Espera Falha)")
     public void testQuestoes_deletarQuestaoComIdNulo_esperaFalha() {
 
         String response = QuestaoClient.excluirQuestaoSemParam()
@@ -120,7 +120,7 @@ public class QuestaoDeleteFuncionalTest {
     }
 
     @Test
-    @DisplayName("Questoes - Deletar Questao Com ID invalido (Espera Falha)")
+    @DisplayName("CTAXX - Questoes - Deletar Questao Com ID invalido (Espera Falha)")
     public void testQuestoes_deletarQuestaoComIdInvalido_esperaFalha() {
 
         String response = QuestaoClient.excluirQuestaoComIdInvalido()
@@ -130,9 +130,9 @@ public class QuestaoDeleteFuncionalTest {
     }
 
     @Test
-    @DisplayName("Questoes - Deletar Testes Quando Deleta Questao (Espera Sucesso)")
+    @DisplayName("CTAXX - Questoes - Deletar Testes Quando Deleta Questao (Espera Sucesso)")
     public void testQuestoes_deletarQuestaoExistenteComTestes_esperaSucesso() {
-        QuestaoDto questao = QuestaoDataFactory.novaQuestaoAleatoria();
+        QuestaoDto questao = QuestaoDataFactory.novaQuestaoAleatoria(2);
 
         QuestaoResponseDto questaoResult = QuestaoClient.cadastrarQuestao(questao)
                 .then()
@@ -145,7 +145,7 @@ public class QuestaoDeleteFuncionalTest {
                 .extract().asString();
         assertEquals("Questão deletada com sucesso!", response, "Mensagem de sucesso deve ser igual");
         //TODO: Verificar se os testes foram deletados usando endpoint de deletar testes ->caso delete, falhou
-
+        //posso excluir os testes de uma questao e deixar ela com 0 testes?
     }
 
 }

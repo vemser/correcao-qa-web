@@ -13,7 +13,7 @@ public class QuestaoPostFuncionalTest {
     @Test
     @DisplayName("Criar Questão - Informar Campos Válidos (Espera Sucesso)")
     public void testQuestoes_cadastroComDadosValidos_esperaSucesso() {
-        QuestaoDto questao = QuestaoDataFactory.novaQuestaoAleatoria();
+        QuestaoDto questao = QuestaoDataFactory.novaQuestaoAleatoria(2);
 
         QuestaoResponseDto questaoResult = QuestaoClient.cadastrarQuestao(questao).then()
                 .statusCode(201)
