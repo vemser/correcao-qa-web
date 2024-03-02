@@ -1,11 +1,15 @@
 package com.vemser.correcao.data.factory;
 
 import com.vemser.compilador.enums.Linguagem;
+import com.vemser.correcao.dto.ListaTodasQuestaoResponseDto;
 import com.vemser.correcao.dto.QuestaoDto;
 import com.vemser.correcao.enums.Dificuldade;
+import com.vemser.correcao.specs.QuestaoSpecs;
 import net.datafaker.Faker;
 
 import java.util.Locale;
+
+import static io.restassured.RestAssured.given;
 
 public class QuestaoDataFactory {
     private static Faker faker = new Faker(new Locale("PT-BR"));
