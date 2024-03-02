@@ -5,9 +5,12 @@ import com.vemser.compilador.dto.CompiladorDto;
 import com.vemser.compilador.dto.CompiladorResponseDto;
 import com.vemser.correcao.client.CompiladorCorrecaoClient;
 import com.vemser.correcao.specs.CompiladorCorrecaoSpecs;
+import io.qameta.allure.Epic;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+@Epic("Funcional Compilador Correção - POST")
 
 public class CompiladorCorrecaoPostFuncionalTest {
     @Test
