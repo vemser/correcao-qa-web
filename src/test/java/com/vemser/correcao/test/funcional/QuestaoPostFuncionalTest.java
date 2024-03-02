@@ -5,18 +5,24 @@ import com.vemser.correcao.dto.ErrorDto;
 import com.vemser.correcao.dto.QuestaoDto;
 import com.vemser.correcao.dto.QuestaoResponseDto;
 import com.vemser.correcao.data.factory.QuestaoDataFactory;
+import io.qameta.allure.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@Epic("Funcional Questão - POST")
+@DisplayName("Questão - POST")
+@Owner("Gabriel Sales")
 public class QuestaoPostFuncionalTest {
-    // CENÁRIOS POSITIVOS
     @Test
-    @DisplayName("[CTAXXX] Criar Questão - Informar Campos Válidos (Espera Sucesso)")
+    @Feature("Espera Sucesso")
+    @Story("[CTAXXX] Informar Campos Válidos")
+    @Severity(SeverityLevel.NORMAL)
+    @Description("Teste que verifica se ao criar uma questão com todos os campos válidos a API retorna 201 e a todos os dados da questão criada no body")
     public void testCriarQuestao_informarCamposValidos_esperaSucesso() {
         QuestaoDto questao = QuestaoDataFactory.questaoDadosValidos(2);
-  
+
         QuestaoResponseDto questaoResult = QuestaoClient.cadastrarQuestao(questao).then()
                 .statusCode(201)
                 .extract().as(QuestaoResponseDto.class);
@@ -33,7 +39,10 @@ public class QuestaoPostFuncionalTest {
     }
 
     @Test
-    @DisplayName("[CTAXXX] Criar Questão - Informar Código Prévio Vazio (Espera Sucesso)")
+    @Feature("Espera Sucesso")
+    @Story("[CTAXXX] Informar Código Prévio Vazio")
+    @Description("Teste que verifica se ao criar uma questão com todos os campos válidos menos o código prévio a API retorna 201 e a todos os dados da questão criada no body")
+    @Severity(SeverityLevel.NORMAL)
     public void testCriarQuestao_informarCodigoPrevioVazio_esperaSucesso() {
         QuestaoDto questao = QuestaoDataFactory.questaoCodigoVazio();
 
@@ -52,9 +61,11 @@ public class QuestaoPostFuncionalTest {
         );
     }
 
-    // CENÁRIOS NEGATIVO
     @Test
-    @DisplayName("[CTAXXX] Criar Questão - Informar Título Vazio (Espera Erro)")
+    @Feature("Espera Erro")
+    @Story("[CTAXXX] Informar Título Vazio")
+    @Severity(SeverityLevel.NORMAL)
+    @Description("Teste que verifica se ao criar uma questão com o título vazio a API retorna 400 e a mensagem ''")
     public void testCriarQuestao_informarTituloVazio_esperaErro() {
         QuestaoDto questao = QuestaoDataFactory.questaoTituloVazio();
 
@@ -72,7 +83,10 @@ public class QuestaoPostFuncionalTest {
     }
 
     @Test
-    @DisplayName("[CTAXXX] Criar Questão - Informar Descrição Vazia (Espera Erro)")
+    @Feature("Espera Erro")
+    @Story("[CTAXXX] Informar Descrição Vazia")
+    @Severity(SeverityLevel.NORMAL)
+    @Description("Teste que verifica se ao criar uma questão com a descrição vazia a API retorna 400 e a mensagem ''")
     public void testCriarQuestao_informarDescricaoVazia_esperaErro() {
         QuestaoDto questao = QuestaoDataFactory.questaoDescricaoVazia();
 
@@ -90,7 +104,10 @@ public class QuestaoPostFuncionalTest {
     }
 
     @Test
-    @DisplayName("[CTAXXX] Criar Questão - Informar Dificuldade Vazia (Espera Erro)")
+    @Feature("Espera Erro")
+    @Story("[CTAXXX] Informar Dificuldade Vazia")
+    @Severity(SeverityLevel.NORMAL)
+    @Description("Teste que verifica se ao criar uma questão com a dificuldade vazia a API retorna 400 e a mensagem ''")
     public void testCriarQuestao_informarDificuldadeVazia_esperaErro() {
         String questao = QuestaoDataFactory.questaoDificuldadeVazia();
 
@@ -110,7 +127,10 @@ public class QuestaoPostFuncionalTest {
     }
 
     @Test
-    @DisplayName("[CTAXXX] Criar Questão - Informar Linguagem Vazia (Espera Erro)")
+    @Feature("Espera Erro")
+    @Story("[CTAXXX] Informar Linguagem Vazia")
+    @Description("Teste que verifica se ao criar uma questão com a linguagem vazia a API retorna 400 e a mensagem ''")
+    @Severity(SeverityLevel.NORMAL)
     public void testCriarQuestao_informarLinguagemVazia_esperaErro() {
         String questao = QuestaoDataFactory.questaoLinguagemVazia();
 
@@ -128,7 +148,10 @@ public class QuestaoPostFuncionalTest {
     }
 
     @Test
-    @DisplayName("[CTAXXX] Criar Questão - Não Informar Teste Oculto (Espera Erro)")
+    @Feature("Espera Erro")
+    @Story("[CTAXXX] Não Informar Teste Oculto")
+    @Severity(SeverityLevel.NORMAL)
+    @Description("Teste que verifica se ao criar uma questão sem testes ocultos a API retorna 400 e a mensagem ''")
     public void testCriarQuestao_naoInformarTesteOculto_esperaErro() {
         QuestaoDto questao = QuestaoDataFactory.questaoSemTesteOculto();
 
@@ -146,7 +169,10 @@ public class QuestaoPostFuncionalTest {
     }
 
     @Test
-    @DisplayName("[CTAXXX] Criar Questão - Não Informar Teste De Exemplo (Espera Erro)")
+    @Feature("Espera Erro")
+    @Story("[CTAXXX] Não Informar Teste De Exemplo")
+    @Severity(SeverityLevel.NORMAL)
+    @Description("Teste que verifica se ao criar uma questão sem teste de exemplo a API retorna 400 e a mensagem ''")
     public void testCriarQuestao_naoInformarTesteDeExemplo_esperaErro() {
         QuestaoDto questao = QuestaoDataFactory.questaoSemTesteExemplo();
 
@@ -164,7 +190,10 @@ public class QuestaoPostFuncionalTest {
     }
 
     @Test
-    @DisplayName("[CTAXXX] Criar Questão - Informar 4 Testes De Exemplo (Espera Erro)")
+    @Feature("Espera Erro")
+    @Story("[CTAXXX] Informar 4 Testes De Exemplo")
+    @Severity(SeverityLevel.NORMAL)
+    @Description("Teste que verifica se ao criar uma questão com quatro testes de exemplo a API retorna 400 e a mensagem ''")
     public void testCriarQuestao_informar4TestesDeExemplo_esperaErro() {
         QuestaoDto questao = QuestaoDataFactory.questaoCom4TestesExemplos();
 
@@ -182,7 +211,10 @@ public class QuestaoPostFuncionalTest {
     }
 
     @Test
-    @DisplayName("[CTAXXX] Criar Questão - Informar 8 Testes Ocultos (Espera Erro)")
+    @Feature("Espera Erro")
+    @Story("[CTAXXX] Informar 8 Testes Ocultos")
+    @Severity(SeverityLevel.NORMAL)
+    @Description("Teste que verifica se ao criar uma questão com oito testes ocultos a API retorna 400 e a mensagem ''")
     public void testCriarQuestao_informar8TestesOcultos_esperaErro() {
         QuestaoDto questao = QuestaoDataFactory.questaoCom8TestesOcultos();
 
@@ -200,7 +232,10 @@ public class QuestaoPostFuncionalTest {
     }
 
     @Test
-    @DisplayName("[CTAXXX] Criar Questão - Informar Apenas Um Teste (Espera Erro)")
+    @Feature("Espera Erro")
+    @Story("[CTAXXX] Informar Apenas Um Teste")
+    @Severity(SeverityLevel.NORMAL)
+    @Description("Teste que verifica se ao criar uma questão com apenas um teste a API retorna 400 e a mensagem ''")
     public void testCriarQuestao_informarApenasUmTeste_esperaErro() {
         QuestaoDto questao = QuestaoDataFactory.questaoComApenasUmTeste();
 
@@ -218,7 +253,10 @@ public class QuestaoPostFuncionalTest {
     }
 
     @Test
-    @DisplayName("[CTAXXX] Criar Questão - Informar Testes Com Valor De Entrada Vazio (Espera Erro)")
+    @Feature("Espera Erro")
+    @Story("[CTAXXX] Informar Testes Com Valor De Entrada Vazio")
+    @Severity(SeverityLevel.NORMAL)
+    @Description("Teste que verifica se ao criar uma questão com testes com entrada vazia a API retorna 400 e a mensagem ''")
     public void testCriarQuestao_informarTestesComValorDeEntradaVazio_esperaErro() {
         QuestaoDto questao = QuestaoDataFactory.questaoComTesteValorDeEntradaVazio();
 
@@ -236,7 +274,10 @@ public class QuestaoPostFuncionalTest {
     }
 
     @Test
-    @DisplayName("[CTAXXX] Criar Questão - Informar Testes Com Retorno Esperado Vazio (Espera Erro)")
+    @Feature("Espera Erro")
+    @Story("[CTAXXX] Informar Testes Com Retorno Esperado Vazio")
+    @Severity(SeverityLevel.NORMAL)
+    @Description("Teste que verifica se ao criar uma questão com testes com retorno vazio a API retorna 400 e a mensagem ''")
     public void testCriarQuestao_informarTestesComRetornoEsperadoVazio_esperaErro() {
         QuestaoDto questao = QuestaoDataFactory.questaoComTesteRetornoEsperadoVazio();
 

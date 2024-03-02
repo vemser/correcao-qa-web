@@ -4,15 +4,22 @@ import com.vemser.correcao.client.QuestaoClient;
 import com.vemser.correcao.data.factory.QuestaoDataFactory;
 import com.vemser.correcao.dto.*;
 import com.vemser.correcao.dto.ErrorDto;
+import io.qameta.allure.*;
 import io.restassured.common.mapper.TypeRef;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@Epic("Funcional Questão - GET")
+@DisplayName("Questão - GET")
 public class QuestaoGetFuncionalTest {
     @Test
-    @DisplayName("Questoes - Listar Todas Questões (Espera Sucesso)")
+    @Owner("Italo Lacerda")
+    @Feature("Listar Todas Questões")
+    @Story("[CTAXXX] Listar Todas Questões (Espera Sucesso)")
+    @Severity(SeverityLevel.NORMAL)
+    @Description("Teste que verifica se ao listar todas as questões API retorna 200 e todas as questões cadastradas no body")
     public void testQuestoes_listarTodasQuestoes_esperaSucesso() {
         ListaTodasQuestaoResponseDto questaoResult = QuestaoClient.buscarTodasQuestao("0", "10")
                 .then()
@@ -28,7 +35,11 @@ public class QuestaoGetFuncionalTest {
     }
 
     @Test
-    @DisplayName("Questoes - Buscar por uma pagina que não existe (Espera Falha)")
+    @Owner("Italo Lacerda")
+    @Feature("Listar Todas Questões")
+    @Story("[CTAXXX] Buscar por uma pagina que não existe (Espera Erro)")
+    @Severity(SeverityLevel.NORMAL)
+    @Description("Teste que verifica se ao listar todas as questões passando uma página que não existe a API retorna 404 e a mensagem ''")
     public void testQuestoes_buscarPorUmaPaginaQueNaoExiste_esperaFalha() {
         ListaTodasQuestaoResponseDto questao = QuestaoClient.buscarTodasQuestao("0", "10")
                                                                     .as(ListaTodasQuestaoResponseDto.class);
@@ -50,7 +61,11 @@ public class QuestaoGetFuncionalTest {
     }
 
     @Test
-    @DisplayName("Questoes - Buscar por uma pagina que não existe (Espera Falha)")
+    @Owner("Italo Lacerda")
+    @Feature("Listar Todas Questões")
+    @Story("[CTAXXX] Buscar por uma pagina que não existe (Espera Erro)")
+    @Severity(SeverityLevel.NORMAL)
+    @Description("Teste que verifica se ao listar todas as questões passando uma página negativa a API retorna 404 e a mensagem ''")
     public void testQuestoes_buscarPorUmaPaginaComValorNegativo_esperaFalha() {
         final String paginaSolicitada = "-1";
         final String tamanhoPagina = "10";
@@ -68,7 +83,11 @@ public class QuestaoGetFuncionalTest {
         );
     }
     @Test
-    @DisplayName("[CTAXXX] Buscar Questão Por ID - Informar ID Existente (Espera Sucesso)")
+    @Owner("Vitor Colombo")
+    @Feature("Listar Questões Por ID")
+    @Story("[CTAXXX] Informar ID Existente (Espera Sucesso)")
+    @Severity(SeverityLevel.NORMAL)
+    @Description("Teste que verifica se ao buscar uma questão válida por ID a API retorna 200 e todos os dados da questão no body")
     public void testQuestoes_buscarQuestaoComIDValido_esperaSucesso() {
         QuestaoDto questao = QuestaoDataFactory.questaoDadosValidos(2);
 
@@ -91,7 +110,11 @@ public class QuestaoGetFuncionalTest {
         );
     }
     @Test
-    @DisplayName("[CTAXXX] Buscar Questão Por ID - Informar ID Inexistente (Espera Erro)")
+    @Owner("Vitor Colombo")
+    @Feature("Listar Questões Por ID")
+    @Story("[CTAXXX] Informar ID Inexistente (Espera Erro)")
+    @Severity(SeverityLevel.NORMAL)
+    @Description("Teste que verifica se ao buscar uma questão com um ID inexistente a API retorna 400 e a mensagem ''")
     public void testQuestoes_buscarQuestaoComIDInexistente_esperaErro() {
 
         ErrorDto erroDto = QuestaoClient.buscarQuestaoPorIdInexistente()
@@ -109,7 +132,11 @@ public class QuestaoGetFuncionalTest {
         );
     }
     @Test
-    @DisplayName("[CTAXXX] Buscar Questão Por ID - Informar ID Maior Que O Limite (Espera Erro)")
+    @Owner("Vitor Colombo")
+    @Feature("Listar Questões Por ID")
+    @Story("[CTAXXX] Informar ID Maior Que O Limite (Espera Erro)")
+    @Severity(SeverityLevel.NORMAL)
+    @Description("Teste que verifica se ao buscar uma questão com um ID inexistente maior que o limite a API retorna 400 e a mensagem ''")
     public void testQuestoes_buscarQuestaoComIDMaiorQueOLimite_esperaErro() {
         ErrorDto erro = QuestaoClient.buscarQuestaoPorIdMaiorQueOLimite()
                 .then()
@@ -126,7 +153,11 @@ public class QuestaoGetFuncionalTest {
         );
     }
     @Test
-    @DisplayName("[CTAXXX] Buscar Questão Por ID - Informar ID Inativo (Espera Erro)")
+    @Owner("Vitor Colombo")
+    @Feature("Listar Questões Por ID")
+    @Story("[CTAXXX] Informar ID Inativo (Espera Erro)")
+    @Severity(SeverityLevel.NORMAL)
+    @Description("Teste que verifica se ao buscar uma questão com um ID inativo a API retorna 404 e a mensagem ''")
     public void testQuestoes_buscarQuestaoComIDInativo_esperaErro() {
         QuestaoDto questao = QuestaoDataFactory.questaoDadosValidos(2);
 
@@ -154,7 +185,11 @@ public class QuestaoGetFuncionalTest {
     }
 
     @Test
-    @DisplayName("Questoes - Listar questões sem parâmetro de tamanho pagina")
+    @Owner("Italo Lacerda")
+    @Feature("Listar Todas Questões")
+    @Story("[CTAXXX] Listar questões sem parâmetro de tamanho pagina (Espera Erro)")
+    @Severity(SeverityLevel.NORMAL)
+    @Description("Teste que verifica se ao listar todas as questões sem o tamanho da página a API retorna 404 e a mensagem ''")
     public void testQuestoes_listarQuestoesSemParametroDeTamanhoPagina_esperaFalha() {
         ListaTodasQuestaoResponseDto questao = QuestaoClient.buscarTodasQuestao("0", "10")
                 .as(ListaTodasQuestaoResponseDto.class);
