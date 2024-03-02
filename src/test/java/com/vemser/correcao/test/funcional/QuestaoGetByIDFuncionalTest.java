@@ -11,8 +11,47 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class QuestaoGetByIDFuncionalTest {
     @Test
-    @DisplayName("[CTAXXX] Questão - Buscar Questao com ID Válido (Espera Sucesso)")
+    @DisplayName("[CTAXXX] Buscar Questão Por ID - Informar ID Existente (Espera Sucesso)")
     public void testQuestoes_buscarQuestaoComIDValido_esperaSucesso() {
+        QuestaoDto questao = QuestaoDataFactory.novaQuestaoAleatoria(2);
+
+        QuestaoResponseDto questaoCriada = QuestaoClient.cadastrarQuestao(questao)
+            .then()
+                .extract().as(QuestaoResponseDto.class);
+
+        QuestaoResponseDto questaoBuscada = QuestaoClient.buscarQuestaoPorId(questaoCriada.getQuestaoDTO().getQuestaoId())
+            .then()
+                .statusCode(200)
+                .extract().as(QuestaoResponseDto.class);
+
+        assertAll(
+                () -> assertNotNull(questaoBuscada),
+                () -> assertEquals(questaoCriada.getQuestaoDTO().getQuestaoId(), questaoBuscada.getQuestaoDTO().getQuestaoId()),
+                () -> assertEquals(questaoCriada.getQuestaoDTO().getTitulo(), questaoBuscada.getQuestaoDTO().getTitulo()),
+                () -> assertEquals(questaoCriada.getQuestaoDTO().getDescricao(), questaoBuscada.getQuestaoDTO().getDescricao()),
+                () -> assertEquals(questaoCriada.getQuestaoDTO().getDificuldade(), questaoBuscada.getQuestaoDTO().getDificuldade()),
+                () -> assertEquals(questaoCriada.getQuestaoDTO().getTestes(), questaoBuscada.getQuestaoDTO().getTestes())
+        );
+    }
+    @Test
+    @DisplayName("[CTAXXX] Buscar Questão Por ID - Informar ID Inexistente (Espera Erro)")
+    public void testQuestoes_buscarQuestaoComIDInexistente_esperaFalha() {
+
+        QuestaoResponseDto questaoBuscada = QuestaoClient.buscarQuestaoPorIdInexistente()
+            .then()
+                .statusCode(404)
+                .extract().as(QuestaoResponseDto.class);
+
+    }
+    @Test
+    @DisplayName("[CTAXXX] Buscar Questão Por ID - Informar ID Maior Que O Limite (Espera Erro)")
+    public void testQuestoes_buscarQuestaoComIDValido_esperaFalha() {
+
+
+    }
+    @Test
+    @DisplayName("[CTAXXX] Buscar Questão Por ID - Informar ID Inativo (Espera Erro)")
+    public void testQuestoes_buscarQuestaoComIDValido_esperaFalha() {
 
 
     }
