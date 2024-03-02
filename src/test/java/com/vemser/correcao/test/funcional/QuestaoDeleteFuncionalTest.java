@@ -6,6 +6,7 @@ import com.vemser.correcao.dto.ErrorDto;
 import com.vemser.correcao.dto.QuestaoDto;
 import com.vemser.correcao.dto.QuestaoResponseDto;
 import com.vemser.correcao.dto.TesteResponseDto;
+import io.qameta.allure.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -13,10 +14,17 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@Epic("Funcional Questão - DELETE")
+@DisplayName("Questão - DELETE")
+@Owner("Vitor Colombo")
+
 public class QuestaoDeleteFuncionalTest {
-    // CENÁRIOS POSITIVOS
+
     @Test
-    @DisplayName("[CTAXXX] Deletar Questão - Informar ID Existente (Espera Sucesso)")
+    @Feature("Deletar Questão Por ID")
+    @Story("[CTAXXX] Informar ID Existente (Espera Sucesso)")
+    @Severity(SeverityLevel.NORMAL)
+    @Description("Teste que verifica se ao deletar uma questão existente por ID a API retorna 200 e a mensagem 'Questão deletada com sucesso!'")
     public void testQuestoes_deletarQuestaoExistente_esperaSucesso() {
         QuestaoDto questao = QuestaoDataFactory.questaoDadosValidos(2);
 
@@ -33,7 +41,10 @@ public class QuestaoDeleteFuncionalTest {
     }
 
     @Test
-    @DisplayName("[CTAXXX] Deletar Teste - Informar ID Existente (Espera Sucesso)")
+    @Feature("Deletar Teste Por ID")
+    @Story("[CTAXXX] Informar ID Existente (Espera Sucesso)")
+    @Severity(SeverityLevel.NORMAL)
+    @Description("Teste que verifica se ao deletar um teste existente por ID a API retorna 200 e a mensagem 'Questão deletada com sucesso!'")
     public void testTestes_deletarTesteExistente_esperaSucesso() {
         QuestaoDto questao = QuestaoDataFactory.questaoDadosValidos(2);
 
@@ -61,9 +72,11 @@ public class QuestaoDeleteFuncionalTest {
         assertEquals("Teste deletado com sucesso!", response, "Mensagem de sucesso deve ser igual ao esperado");
     }
 
-    // CENÁRIOS NEGATIVOS
     @Test
-    @DisplayName("[CTAXXX] Deletar Questão - Informar ID Existente Com Permissao De Aluno (Espera Erro)")
+    @Feature("Deletar Questão Por ID (Espera Erro)")
+    @Story("[CTAXXX] Informar ID Existente Com Permissao De Aluno")
+    @Severity(SeverityLevel.NORMAL)
+    @Description("Teste que verifica se ao deletar uma questão existente por ID como aluno a API retorna 403 e a mensagem ''")
     public void testQuestoes_deletarQuestaoExistenteComoAluno_esperaErro() {
         QuestaoDto questao = QuestaoDataFactory.questaoDadosValidos(2);
 
@@ -90,7 +103,10 @@ public class QuestaoDeleteFuncionalTest {
     }
 
     @Test
-    @DisplayName("[CTAXX] Questoes - Deletar Questao Existente Sem Token (Espera Erro)")
+    @Feature("Deletar Questão Por ID (Espera Erro)")
+    @Story("[CTAXX] Deletar Questao Existente Sem Token")
+    @Severity(SeverityLevel.NORMAL)
+    @Description("Teste que verifica se ao deletar uma questão existente por ID sem token de acesso a API retorna 403 e a mensagem ''")
     public void testQuestoes_deletarQuestaoExistenteSemToken_esperaErro() {
         QuestaoDto questao = QuestaoDataFactory.questaoDadosValidos(2);
 
@@ -118,7 +134,10 @@ public class QuestaoDeleteFuncionalTest {
     }
 
     @Test
-    @DisplayName("[CTAXX] Questoes - Deletar Questao Já Deletada (Espera Erro)")
+    @Feature("Deletar Questão Por ID (Espera Erro)")
+    @Story("[CTAXX] Deletar Questao Já Deletada")
+    @Severity(SeverityLevel.NORMAL)
+    @Description("Teste que verifica se ao deletar uma questão já deletada a API retorna 404 e a mensagem ''")
     public void testQuestoes_deletarQuestaoJaDeletada_esperaErro() {
         QuestaoDto questao = QuestaoDataFactory.questaoDadosValidos(2);
 
@@ -147,7 +166,10 @@ public class QuestaoDeleteFuncionalTest {
     }
 
     @Test
-    @DisplayName("[CTAXX] Questoes - Deletar Questao Com ID inexistente (Espera Erro)")
+    @Feature("Deletar Questão Por ID")
+    @Story("[CTAXX] Deletar Questao Com ID inexistente (Espera Erro)")
+    @Severity(SeverityLevel.NORMAL)
+    @Description("Teste que verifica se ao deletar uma questão com ID inexistente a API retorna 404 e a mensagem ''")
     public void testQuestoes_deletarQuestaoComIdInexistente_esperaErro() {
 
         ErrorDto erro = QuestaoClient.excluirQuestao(999999999)
@@ -165,7 +187,10 @@ public class QuestaoDeleteFuncionalTest {
     }
 
     @Test
-    @DisplayName("[CTAXX] Questoes - Deletar Questao Com ID Nulo (Espera Erro)")
+    @Feature("Deletar Questão Por ID")
+    @Story("[CTAXX] Questoes - Deletar Questao Com ID Nulo (Espera Erro)")
+    @Severity(SeverityLevel.NORMAL)
+    @Description("Teste que verifica se ao deletar uma questão com ID nulo a API retorna 404 e a mensagem ''")
     public void testQuestoes_deletarQuestaoComIdNulo_esperaErro() {
 
         ErrorDto erro = QuestaoClient.excluirQuestaoSemParam()
@@ -183,7 +208,10 @@ public class QuestaoDeleteFuncionalTest {
     }
 
     @Test
-    @DisplayName("[CTAXX] Questoes - Deletar Questao Com ID invalido (Espera Erro)")
+    @Feature("Deletar Questão Por ID")
+    @Story("[CTAXX] Questoes - Deletar Questao Com ID invalido (Espera Erro)")
+    @Severity(SeverityLevel.NORMAL)
+    @Description("Teste que verifica se ao deletar uma questão com ID inválido a API retorna 400 e a mensagem ''")
     public void testQuestoes_deletarQuestaoComIdInvalido_esperaErro() {
 
         ErrorDto erro = QuestaoClient.excluirQuestaoComIdInvalido()
@@ -202,7 +230,10 @@ public class QuestaoDeleteFuncionalTest {
     }
 
     @Test
-    @DisplayName("[CTAXX] Questoes - Deletar Testes Quando Deleta Questao (Espera Erro)")
+    @Feature("Deletar Questão Por ID")
+    @Story("[CTAXX] Deletar Testes Quando Deleta Questao (Espera Erro)")
+    @Severity(SeverityLevel.NORMAL)
+    @Description("Teste que verifica se ao deletar uma questão com ID inválido a API retorna 400 e a mensagem ''")
     public void testQuestoes_deletarQuestaoExistenteComTestes_esperaErro() {
         QuestaoDto questao = QuestaoDataFactory.questaoDadosValidos(2);
 
@@ -236,7 +267,10 @@ public class QuestaoDeleteFuncionalTest {
     }
 
     @Test
-    @DisplayName("[CTAXX] Testes - Deletar Testes Até Limite Mínimo (Espera Erro)")
+    @Feature("Deletar Teste Por ID")
+    @Story("[CTAXX] Deletar Testes Até Limite Mínimo (Espera Erro)")
+    @Severity(SeverityLevel.NORMAL)
+    @Description("Teste que verifica se ao deletar um teste ")
     public void testTestes_deletarTestesLimiteMinimo_esperaErro() {
         QuestaoDto questao = QuestaoDataFactory.novaQuestaoLimiteMinimoTestes();
 
@@ -272,7 +306,10 @@ public class QuestaoDeleteFuncionalTest {
     }
 
     @Test
-    @DisplayName("[CTAXX] Testes - Deletar Testes Com Permissao De Aluno (Espera Erro)")
+    @Feature("Deletar Teste Por ID")
+    @Story("[CTAXX] Deletar Testes Com Permissao De Aluno (Espera Erro)")
+    @Severity(SeverityLevel.NORMAL)
+    @Description("Teste que verifica se ao deletar um teste sem permissão a API retorna 403 e a mensagem ''")
     public void testTestes_deletarTestesSemPermissao_esperaErro() {
         ErrorDto erro = QuestaoClient.excluirTesteSemPermissao(123)
             .then()
@@ -289,7 +326,10 @@ public class QuestaoDeleteFuncionalTest {
     }
 
     @Test
-    @DisplayName("[CTAXX] Testes - Deletar Testes Com ID Inválido (Espera Erro)")
+    @Feature("Deletar Teste Por ID")
+    @Story("[CTAXX] Deletar Testes Com ID Inválido (Espera Erro)")
+    @Severity(SeverityLevel.NORMAL)
+    @Description("Teste que verifica se ao deletar um teste com ID inválido a API retorna 404 e a mensagem ''")
     public void testTestes_deletarTestesComIDInvalido_esperaErro() {
         ErrorDto erro = QuestaoClient.excluirTesteComIDInvalido()
             .then()
@@ -306,7 +346,10 @@ public class QuestaoDeleteFuncionalTest {
     }
 
     @Test
-    @DisplayName("[CTAXX] Testes - Deletar Testes Com ID Inexistente (Espera Erro)")
+    @Feature("Deletar Teste Por ID")
+    @Story("[CTAXX] Deletar Testes Com ID Inexistente (Espera Erro)")
+    @Severity(SeverityLevel.NORMAL)
+    @Description("Teste que verifica se ao deletar um teste com ID inexistente a API retorna 404 e a mensagem ''")
     public void testTestes_deletarTestesComIDInexistente_esperaErro() {
         ErrorDto erro = QuestaoClient.excluirTesteComIDInexistente()
             .then()
