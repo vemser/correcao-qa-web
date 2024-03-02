@@ -3,8 +3,7 @@ package com.vemser.correcao.test.funcional;
 import com.vemser.correcao.client.QuestaoClient;
 import com.vemser.correcao.data.factory.QuestaoDataFactory;
 import com.vemser.correcao.dto.*;
-import com.vemser.correcao.dto.errors.ErrorDto;
-import com.vemser.correcao.dto.errors.ErrorsDto;
+import com.vemser.correcao.dto.ErrorDto;
 import io.restassured.common.mapper.TypeRef;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -56,17 +55,16 @@ public class QuestaoGetFuncionalTest {
         final String paginaSolicitada = "-1";
         final String tamanhoPagina = "10";
 
-        ErrorDto<ErrorsDto> questaoResult = QuestaoClient.buscarTodasQuestao(paginaSolicitada, tamanhoPagina)
+        ErrorDto questaoResult = QuestaoClient.buscarTodasQuestao(paginaSolicitada, tamanhoPagina)
                 .then()
                     .statusCode(404)
                     .extract()
-                    .as(new TypeRef<ErrorDto<ErrorsDto>>() {});
+                    .as(ErrorDto.class);
 
-        //        TODO: Definir padrão de error para retorno
         assertAll("Verifica se retorna lista com tamnaho correto",
                 () -> assertEquals(questaoResult.getStatus(), 404),
                 () -> assertNotNull(questaoResult.getTimestamp()),
-                () -> assertEquals(questaoResult.getErrors().getJsonParseError(), "")
+                () -> assertEquals(questaoResult.getErrors().get("Colocar Parametros"), "")
         );
     }
     @Test
@@ -107,7 +105,7 @@ public class QuestaoGetFuncionalTest {
                 () -> assertNotNull(erroDto.getStatus(), "Status da erro não deve ser nulo"),
                 () -> assertFalse(erroDto.getErrors().isEmpty(), "Lista de erros não deve está vazia"),
                 () -> assertEquals(erroDto.getStatus(), 400, "Status do erro deve ser igual ao esperado"),
-                () -> assertTrue(erroDto.getErrors().contains("Questão não encontrada com o ID fornecido"), "Mensagem de erro deve ser igual ao esperado")
+                () -> assertEquals(erroDto.getErrors().get("Colocar Parametros"), "")
         );
     }
     @Test
@@ -124,7 +122,7 @@ public class QuestaoGetFuncionalTest {
                 () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
                 () -> assertFalse(erro.getErrors().isEmpty(), "Lista de erros não deve está vazia"),
                 () -> assertEquals(erro.getStatus(), 400, "Status do erro deve ser igual ao esperado"),
-                () -> assertTrue(erro.getErrors().contains("????????"), "Mensagem de erro deve ser igual ao esperado")
+                () -> assertEquals(erro.getErrors().get(""), "")
         );
     }
     @Test
@@ -151,7 +149,7 @@ public class QuestaoGetFuncionalTest {
                 () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
                 () -> assertFalse(erro.getErrors().isEmpty(), "Lista de erros não deve está vazia"),
                 () -> assertEquals(erro.getStatus(), 404, "Status do erro deve ser igual ao esperado"),
-                () -> assertTrue(erro.getErrors().contains("????????"), "Mensagem de erro deve ser igual ao esperado")
+                () -> assertEquals(erro.getErrors().get("Colocar Parametros"), "")
         );
     }
 

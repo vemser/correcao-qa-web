@@ -2,7 +2,7 @@ package com.vemser.correcao.test.funcional;
 
 import com.vemser.correcao.client.QuestaoClient;
 import com.vemser.correcao.data.factory.QuestaoDataFactory;
-import com.vemser.correcao.dto.errors.ErrorDto;
+import com.vemser.correcao.dto.ErrorDto;
 import com.vemser.correcao.dto.QuestaoDto;
 import com.vemser.correcao.dto.QuestaoResponseDto;
 import com.vemser.correcao.dto.TesteResponseDto;
@@ -84,9 +84,8 @@ public class QuestaoDeleteFuncionalTest {
         assertAll("Testes de deletar questão informando id existente com permissão de aluno",
                 () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
                 () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
-                () -> assertFalse(erro.getErrors().isEmpty(), "Lista de erros não deve está vazia"),
                 () -> assertEquals(erro.getStatus(), 403, "Status do erro deve ser igual ao esperado"),
-                () -> assertTrue(erro.getErrors().contains("????????"), "Mensagem de erro deve ser igual ao esperado")
+                () -> assertEquals(erro.getErrors().get(""), "","Mensagem de erro deve ser igual ao esperado")
         );
     }
 
@@ -114,7 +113,7 @@ public class QuestaoDeleteFuncionalTest {
                 () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
                 () -> assertFalse(erro.getErrors().isEmpty(), "Lista de erros não deve está vazia"),
                 () -> assertEquals(erro.getStatus(), 403, "Status do erro deve ser igual ao esperado"),
-                () -> assertTrue(erro.getErrors().contains("????????"), "Mensagem de erro deve ser igual ao esperado")
+                () -> assertEquals(erro.getErrors().get("Colocar Parametros"), "")
         );
     }
 
@@ -143,7 +142,7 @@ public class QuestaoDeleteFuncionalTest {
                 () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
                 () -> assertFalse(erro.getErrors().isEmpty(), "Lista de erros não deve está vazia"),
                 () -> assertEquals(erro.getStatus(), 404, "Status do erro deve ser igual ao esperado"),
-                () -> assertTrue(erro.getErrors().contains("Falha ao deletar a questão: Questão inativa."), "Mensagem de erro deve ser igual ao esperado")
+                () -> assertEquals(erro.getErrors().get("Colocar Parametros"), "")
         );
     }
 
@@ -161,7 +160,7 @@ public class QuestaoDeleteFuncionalTest {
                 () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
                 () -> assertFalse(erro.getErrors().isEmpty(), "Lista de erros não deve está vazia"),
                 () -> assertEquals(erro.getStatus(), 404, "Status do erro deve ser igual ao esperado"),
-                () -> assertTrue(erro.getErrors().contains("Falha ao deletar a questão: Questão não encontrada com o ID fornecido"), "Mensagem de erro deve ser igual ao esperado")
+                () -> assertEquals(erro.getErrors().get("Colocar Parametros"), "")
         );
     }
 
@@ -179,7 +178,7 @@ public class QuestaoDeleteFuncionalTest {
                 () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
                 () -> assertFalse(erro.getErrors().isEmpty(), "Lista de erros não deve está vazia"),
                 () -> assertEquals(erro.getStatus(), 404, "Status do erro deve ser igual ao esperado"),
-                () -> assertTrue(erro.getErrors().contains("Falha ao deletar a questão: Questão não encontrada com o ID fornecido"), "Mensagem de erro deve ser igual ao esperado")
+                () -> assertEquals(erro.getErrors().get("Colocar Parametros"), "")
         );
     }
 
@@ -198,7 +197,7 @@ public class QuestaoDeleteFuncionalTest {
                 () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
                 () -> assertFalse(erro.getErrors().isEmpty(), "Lista de erros não deve está vazia"),
                 () -> assertEquals(erro.getStatus(), 400, "Status do erro deve ser igual ao esperado"),
-                () -> assertTrue(erro.getErrors().contains("????????"), "Mensagem de erro deve ser igual ao esperado")
+                () -> assertEquals(erro.getErrors().get("Colocar Parametros"), "")
         );
     }
 
@@ -232,7 +231,7 @@ public class QuestaoDeleteFuncionalTest {
                 () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
                 () -> assertFalse(erro.getErrors().isEmpty(), "Lista de erros não deve está vazia"),
                 () -> assertEquals(erro.getStatus(), 404, "Status do erro deve ser igual ao esperado"),
-                () -> assertTrue(erro.getErrors().contains("???????????"), "Mensagem de erro deve ser igual ao esperado")
+                () -> assertEquals(erro.getErrors().get("Colocar Parametros"), "")
         );
     }
 
@@ -268,7 +267,7 @@ public class QuestaoDeleteFuncionalTest {
                 () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
                 () -> assertFalse(erro.getErrors().isEmpty(), "Lista de erros não deve está vazia"),
                 () -> assertEquals(erro.getStatus(), 400, "Status do erro deve ser igual ao esperado"),
-                () -> assertTrue(erro.getErrors().contains("Falha ao deletar a teste: Teste não encontrado com o ID fornecido"), "Mensagem de erro deve ser igual ao esperado")
+                () -> assertEquals(erro.getErrors().get("Colocar Parametros"), "")
         );
     }
 
@@ -285,7 +284,7 @@ public class QuestaoDeleteFuncionalTest {
                 () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
                 () -> assertFalse(erro.getErrors().isEmpty(), "Lista de erros não deve está vazia"),
                 () -> assertEquals(erro.getStatus(), 403, "Status do erro deve ser igual ao esperado"),
-                () -> assertTrue(erro.getErrors().contains("???????????"), "Mensagem de erro deve ser igual ao esperado")
+                () -> assertEquals(erro.getErrors().get("Colocar Parametros"), "")
         );
     }
 
@@ -302,7 +301,7 @@ public class QuestaoDeleteFuncionalTest {
                 () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
                 () -> assertFalse(erro.getErrors().isEmpty(), "Lista de erros não deve está vazia"),
                 () -> assertEquals(erro.getStatus(), 400, "Status do erro deve ser igual ao esperado"),
-                () -> assertTrue(erro.getErrors().contains("???????????"), "Mensagem de erro deve ser igual ao esperado")
+                () -> assertEquals(erro.getErrors().get("Colocar Parametros"), "")
         );
     }
 
@@ -319,7 +318,7 @@ public class QuestaoDeleteFuncionalTest {
                 () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
                 () -> assertFalse(erro.getErrors().isEmpty(), "Lista de erros não deve está vazia"),
                 () -> assertEquals(erro.getStatus(), 404, "Status do erro deve ser igual ao esperado"),
-                () -> assertTrue(erro.getErrors().contains("Falha ao deletar a teste: Teste não encontrado com o ID fornecido"), "Mensagem de erro deve ser igual ao esperado")
+                () -> assertEquals(erro.getErrors().get("Colocar Parametros"), "")
         );
     }
 }

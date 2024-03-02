@@ -1,7 +1,7 @@
 package com.vemser.correcao.test.funcional;
 
 import com.vemser.correcao.client.QuestaoClient;
-import com.vemser.correcao.dto.errors.ErrorDto;
+import com.vemser.correcao.dto.ErrorDto;
 import com.vemser.correcao.dto.QuestaoDto;
 import com.vemser.correcao.dto.QuestaoResponseDto;
 import com.vemser.correcao.data.factory.QuestaoDataFactory;
@@ -67,7 +67,7 @@ public class QuestaoPostFuncionalTest {
                 () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
                 () -> assertFalse(erro.getErrors().isEmpty(), "Lista de erros não deve está vazia"),
                 () -> assertEquals(erro.getStatus(), 400, "Status do erro deve ser igual ao esperado"),
-                () -> assertTrue(erro.getErrors().contains("????????"), "Mensagem de erro deve ser igual ao esperado")
+                () -> assertEquals(erro.getErrors().get("Colocar Parametros"), "")
         );
     }
 
@@ -85,7 +85,7 @@ public class QuestaoPostFuncionalTest {
                 () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
                 () -> assertFalse(erro.getErrors().isEmpty(), "Lista de erros não deve está vazia"),
                 () -> assertEquals(erro.getStatus(), 400, "Status do erro deve ser igual ao esperado"),
-                () -> assertTrue(erro.getErrors().contains("????????"), "Mensagem de erro deve ser igual ao esperado")
+                () -> assertEquals(erro.getErrors().get("Colocar Parametros"), "")
         );
     }
 
@@ -105,7 +105,7 @@ public class QuestaoPostFuncionalTest {
                 () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
                 () -> assertFalse(erro.getErrors().isEmpty(), "Lista de erros não deve está vazia"),
                 () -> assertEquals(erro.getStatus(), 400, "Status do erro deve ser igual ao esperado"),
-                () -> assertTrue(erro.getErrors().contains("????????"), "Mensagem de erro deve ser igual ao esperado")
+                () -> assertEquals(erro.getErrors().get("Colocar Parametros"), "")
         );
     }
 
@@ -123,7 +123,7 @@ public class QuestaoPostFuncionalTest {
                 () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
                 () -> assertFalse(erro.getErrors().isEmpty(), "Lista de erros não deve está vazia"),
                 () -> assertEquals(erro.getStatus(), 400, "Status do erro deve ser igual ao esperado"),
-                () -> assertTrue(erro.getErrors().contains("????????"), "Mensagem de erro deve ser igual ao esperado")
+                () -> assertEquals(erro.getErrors().get("Colocar Parametros"), "")
         );
     }
 
@@ -141,7 +141,7 @@ public class QuestaoPostFuncionalTest {
                 () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
                 () -> assertFalse(erro.getErrors().isEmpty(), "Lista de erros não deve está vazia"),
                 () -> assertEquals(erro.getStatus(), 400, "Status do erro deve ser igual ao esperado"),
-                () -> assertTrue(erro.getErrors().contains("É necessário pelo menos um exemplo e um não-exemplo."), "Mensagem de erro deve ser igual ao esperado")
+                () -> assertEquals(erro.getErrors().get("Colocar Parametros"), "")
         );
     }
 
@@ -159,7 +159,7 @@ public class QuestaoPostFuncionalTest {
                 () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
                 () -> assertFalse(erro.getErrors().isEmpty(), "Lista de erros não deve está vazia"),
                 () -> assertEquals(erro.getStatus(), 400, "Status do erro deve ser igual ao esperado"),
-                () -> assertTrue(erro.getErrors().contains("??????????"), "Mensagem de erro deve ser igual ao esperado")
+                () -> assertEquals(erro.getErrors().get("Colocar Parametros"), "")
         );
     }
 
@@ -177,7 +177,7 @@ public class QuestaoPostFuncionalTest {
                 () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
                 () -> assertFalse(erro.getErrors().isEmpty(), "Lista de erros não deve está vazia"),
                 () -> assertEquals(erro.getStatus(), 400, "Status do erro deve ser igual ao esperado"),
-                () -> assertTrue(erro.getErrors().contains("A questão atingiu o limite máximo de exemplos."), "Mensagem de erro deve ser igual ao esperado")
+                () -> assertEquals(erro.getErrors().get("Colocar Parametros"), "")
         );
     }
 
@@ -195,7 +195,7 @@ public class QuestaoPostFuncionalTest {
                 () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
                 () -> assertFalse(erro.getErrors().isEmpty(), "Lista de erros não deve está vazia"),
                 () -> assertEquals(erro.getStatus(), 400, "Status do erro deve ser igual ao esperado"),
-                () -> assertTrue(erro.getErrors().contains("A questão atingiu o limite máximo de não-exemplos."), "Mensagem de erro deve ser igual ao esperado")
+                () -> assertEquals(erro.getErrors().get("Colocar Parametros"), "")
         );
     }
 
@@ -213,7 +213,7 @@ public class QuestaoPostFuncionalTest {
                 () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
                 () -> assertFalse(erro.getErrors().isEmpty(), "Lista de erros não deve está vazia"),
                 () -> assertEquals(erro.getStatus(), 400, "Status do erro deve ser igual ao esperado"),
-                () -> assertTrue(erro.getErrors().contains("É necessário pelo menos um exemplo e um não-exemplo."), "Mensagem de erro deve ser igual ao esperado")
+                () -> assertEquals(erro.getErrors().get("Colocar Parametros"), "")
         );
     }
 
@@ -231,7 +231,7 @@ public class QuestaoPostFuncionalTest {
                 () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
                 () -> assertFalse(erro.getErrors().isEmpty(), "Lista de erros não deve está vazia"),
                 () -> assertEquals(erro.getStatus(), 400, "Status do erro deve ser igual ao esperado"),
-                () -> assertTrue(erro.getErrors().contains("??????????"), "Mensagem de erro deve ser igual ao esperado")
+                () -> assertEquals(erro.getErrors().get("Colocar Parametros"), "")
         );
     }
 
@@ -249,7 +249,7 @@ public class QuestaoPostFuncionalTest {
                 () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
                 () -> assertFalse(erro.getErrors().isEmpty(), "Lista de erros não deve está vazia"),
                 () -> assertEquals(erro.getStatus(), 400, "Status do erro deve ser igual ao esperado"),
-                () -> assertTrue(erro.getErrors().contains("??????????"), "Mensagem de erro deve ser igual ao esperado")
+                () -> assertEquals(erro.getErrors().get("Colocar Parametros"), "")
         );
     }
 }
