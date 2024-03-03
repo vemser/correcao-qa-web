@@ -5,8 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.lang.reflect.Array;
-import java.util.List;
+import java.util.ArrayList;
 
 @Data
 @NoArgsConstructor
@@ -16,7 +15,7 @@ public class CriarAtividadeDto {
     private String descricao;
     private String edicaoVemSer;
     private String prazoEntrega;
-    private List<Integer> questoes;
+    private ArrayList<Integer> questoes;
     private String titulo;
     private Trilha trilha;
 }
