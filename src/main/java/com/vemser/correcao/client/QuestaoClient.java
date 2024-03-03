@@ -29,6 +29,14 @@ public class QuestaoClient {
                 .post(CADASTRAR_QUESTAO);
     }
 
+    public static Response cadastrarQuestaoPorLogin(QuestaoDto questao, String token) {
+        return given()
+                .spec(QuestaoSpecs.questaoPorLogin(token))
+                .body(questao)
+        .when()
+                .post(CADASTRAR_QUESTAO);
+    }
+
     public static Response buscarTodasQuestao(String paginaSolicitada, String tamanhoPagina) {
         Map<String, String> parametrosMap = new HashMap<>();
         parametrosMap.put("paginaSolicitada", paginaSolicitada);

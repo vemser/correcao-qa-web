@@ -5,7 +5,6 @@ import com.vemser.correcao.data.factory.QuestaoDataFactory;
 import com.vemser.correcao.dto.*;
 import com.vemser.correcao.dto.ErrorDto;
 import io.qameta.allure.*;
-import io.restassured.common.mapper.TypeRef;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -93,12 +92,12 @@ public class QuestaoGetFuncionalTest {
 
         QuestaoResponseDto questaoCriada = QuestaoClient.cadastrarQuestao(questao)
                 .then()
-                .extract().as(QuestaoResponseDto.class);
+                .   extract().as(QuestaoResponseDto.class);
 
         QuestaoResponseDto questaoBuscada = QuestaoClient.buscarQuestaoPorId(questaoCriada.getQuestaoDTO().getQuestaoId())
                 .then()
-                .statusCode(200)
-                .extract().as(QuestaoResponseDto.class);
+                    .statusCode(200)
+                    .extract().as(QuestaoResponseDto.class);
 
         assertAll("Testes de buscar questao informando ID existente",
                 () -> assertNotNull(questaoBuscada),
@@ -117,18 +116,18 @@ public class QuestaoGetFuncionalTest {
     @Description("Teste que verifica se ao buscar uma questão com um ID inexistente a API retorna 400 e a mensagem ''")
     public void testQuestoes_buscarQuestaoComIDInexistente_esperaErro() {
 
-        ErrorDto erroDto = QuestaoClient.buscarQuestaoPorIdInexistente()
+        ErrorDto errorDto = QuestaoClient.buscarQuestaoPorIdInexistente()
                 .then()
                 .statusCode(400)
                 .extract().as(ErrorDto.class);
 
         //        TODO: Definir padrão de error para retorno
         assertAll("Testes de buscar questao informando ID inexistente",
-                () -> assertNotNull(erroDto.getTimestamp(), "Timestamp do erro não deve ser nulo"),
-                () -> assertNotNull(erroDto.getStatus(), "Status da erro não deve ser nulo"),
-                () -> assertFalse(erroDto.getErrors().isEmpty(), "Lista de erros não deve está vazia"),
-                () -> assertEquals(erroDto.getStatus(), 400, "Status do erro deve ser igual ao esperado"),
-                () -> assertEquals(erroDto.getErrors().get("Colocar Parametros"), "")
+                () -> assertNotNull(errorDto.getTimestamp(), "Timestamp do erro não deve ser nulo"),
+                () -> assertNotNull(errorDto.getStatus(), "Status da erro não deve ser nulo"),
+                () -> assertFalse(errorDto.getErrors().isEmpty(), "Lista de erros não deve está vazia"),
+                () -> assertEquals(errorDto.getStatus(), 400, "Status do erro deve ser igual ao esperado"),
+                () -> assertEquals(errorDto.getErrors().get("Colocar Parametros"), "")
         );
     }
     @Test
@@ -163,11 +162,11 @@ public class QuestaoGetFuncionalTest {
 
         QuestaoResponseDto questaoCriada = QuestaoClient.cadastrarQuestao(questao)
                 .then()
-                .extract().as(QuestaoResponseDto.class);
+                    .extract().as(QuestaoResponseDto.class);
 
         QuestaoClient.excluirQuestao(questaoCriada.getQuestaoDTO().getQuestaoId())
                 .then()
-                .statusCode(200);
+                    .statusCode(200);
 
         ErrorDto erro = QuestaoClient.buscarQuestaoPorId(questaoCriada.getQuestaoDTO().getQuestaoId())
                 .then()
@@ -198,9 +197,9 @@ public class QuestaoGetFuncionalTest {
 
         ListaTodasQuestaoResponseDto questaoResult = QuestaoClient.buscarTodasQuestao(paginaSolicitada, "10")
                 .then()
-                .statusCode(404)
-                .extract()
-                .as(ListaTodasQuestaoResponseDto.class);
+                    .statusCode(404)
+                    .extract()
+                    .as(ListaTodasQuestaoResponseDto.class);
 
         //        TODO: Definir padrão de error para retorno
         assertAll("Verifica se retorna lista com tamnaho correto",

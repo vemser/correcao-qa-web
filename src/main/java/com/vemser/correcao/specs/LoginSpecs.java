@@ -5,8 +5,8 @@ import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
 
-public class QuestaoSpecs {
-    public static RequestSpecification questaoReqAuthInstrutorSpec() {
+public class LoginSpecs {
+    public static RequestSpecification loginInstrutorReqSpec() {
         String tokenInstrutor = Auth.obterTokenInstrutor();
 
         return new RequestSpecBuilder()
@@ -16,7 +16,7 @@ public class QuestaoSpecs {
                 .build();
     }
 
-    public static RequestSpecification questaoReqAuthAlunoSpec() {
+    public static RequestSpecification loginAlunoReqSpec() {
         String tokenAluno = Auth.obterTokenAluno();
 
         return new RequestSpecBuilder()
@@ -26,19 +26,4 @@ public class QuestaoSpecs {
                 .build();
     }
 
-    public static RequestSpecification questaoReqSemTokenSpec() {
-
-        return new RequestSpecBuilder()
-                .addRequestSpecification(InicialSpecs.setupApi())
-                .setContentType(ContentType.JSON)
-                .build();
-    }
-    public static RequestSpecification questaoPorLogin(String token) {
-
-        return new RequestSpecBuilder()
-                .addRequestSpecification(InicialSpecs.setupApi())
-                .setContentType(ContentType.JSON)
-                .addHeader("Authorization", token)
-                .build();
-    }
 }
