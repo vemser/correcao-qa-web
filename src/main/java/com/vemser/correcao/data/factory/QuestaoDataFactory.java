@@ -1,6 +1,7 @@
 package com.vemser.correcao.data.factory;
 
 import com.vemser.compilador.enums.Linguagem;
+import com.vemser.correcao.dto.EditarQuestaoDto;
 import com.vemser.correcao.dto.ListaTodasQuestaoResponseDto;
 import com.vemser.correcao.dto.QuestaoDto;
 import com.vemser.correcao.enums.Dificuldade;
@@ -241,5 +242,15 @@ public class QuestaoDataFactory {
                 null,
                 null
         );
+    }
+
+    public static EditarQuestaoDto questaoEditada(){
+        EditarQuestaoDto editarQuestaoDto = new EditarQuestaoDto();
+        editarQuestaoDto.setCodigo(codigoFaker());
+        editarQuestaoDto.setDescricao(descricaoFaker());
+        editarQuestaoDto.setDificuldade(dificuldadeFaker());
+        editarQuestaoDto.setLinguagem(linguagemFaker());
+        editarQuestaoDto.setTitulo(tituloFaker());
+        return editarQuestaoDto;
     }
 }

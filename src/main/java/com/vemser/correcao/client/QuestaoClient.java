@@ -1,5 +1,6 @@
 package com.vemser.correcao.client;
 
+import com.vemser.correcao.dto.EditarQuestaoDto;
 import com.vemser.correcao.dto.QuestaoDto;
 import com.vemser.correcao.specs.QuestaoSpecs;
 import io.restassured.response.Response;
@@ -17,6 +18,8 @@ public class QuestaoClient {
     private static final String DELETAR_QUESTAO_SEM_PARAM = "/questao/deletar-questao/";
     private static final String GET_QUESTAO_ID = "/questao/questao-com-testes-publico/{idQuestao}";
     private static final String DELETE_TESTE_ID = "/questao/deletar-teste/{idTeste}";
+    public static final String EDITAR_QUESTAO_ID = "/questao/editar-questao/{idTeste}";
+    public static final String EDITAR_QUESTAO_SEM_PARAM = "/questao/editar-questao/";
 
     public QuestaoClient() {
     }
@@ -170,5 +173,14 @@ public class QuestaoClient {
                 .pathParam("idTeste", 9999999)
         .when()
                 .delete(DELETE_TESTE_ID);
+    }
+
+    public static Response editarQuestao(EditarQuestaoDto questaoEditada, Integer questaoId){
+        return given()
+                .spec(QuestaoSpecs.questaoReqAuthInstrutorSpec())
+                .pathParam("idQuestao", questaoId)
+                .body(questaoEditada)
+            .when()
+                .put(EDITAR_QUESTAO_ID);
     }
 }
