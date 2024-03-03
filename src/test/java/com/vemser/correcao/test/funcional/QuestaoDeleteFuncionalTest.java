@@ -17,7 +17,6 @@ import static org.junit.jupiter.api.Assertions.*;
 @Epic("Funcional Questão - DELETE")
 @DisplayName("Questão - DELETE")
 @Owner("Vitor Colombo")
-
 public class QuestaoDeleteFuncionalTest {
 
     @Test
