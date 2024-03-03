@@ -4,11 +4,10 @@ import com.vemser.correcao.client.LoginClient;
 import com.vemser.correcao.client.QuestaoClient;
 import com.vemser.correcao.data.factory.LoginDataFactory;
 import com.vemser.correcao.data.factory.QuestaoDataFactory;
-import com.vemser.correcao.dto.ErrorDto;
+import com.vemser.correcao.dto.ErroDto;
 import com.vemser.correcao.dto.LoginDto;
 import com.vemser.correcao.dto.QuestaoDto;
 import com.vemser.correcao.dto.QuestaoResponseDto;
-import com.vemser.correcao.specs.LoginSpecs;
 import io.qameta.allure.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -61,11 +60,11 @@ public class LoginFuncionalTest {
 
         assertNotNull(token);
         QuestaoDto questao = QuestaoDataFactory.questaoDadosValidos(3);
-        ErrorDto erro = QuestaoClient.cadastrarQuestaoPorLogin(questao, token)
+        ErroDto erro = QuestaoClient.cadastrarQuestaoPorLogin(questao, token)
             .then()
                 .statusCode(403)
                 .extract()
-                .as(ErrorDto.class);
+                .as(ErroDto.class);
 
         assertAll("Testar se o usuário foi barrado por falta de permissão",
                 () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
@@ -84,11 +83,11 @@ public class LoginFuncionalTest {
     public void testLogin_informarUsernameVazio_esperaErro() {
         LoginDto login = LoginDataFactory.loginAluno();
         login.setUsername("");
-        ErrorDto erro = LoginClient.autenticar(login)
+        ErroDto erro = LoginClient.autenticar(login)
             .then()
                 .statusCode(400)
                 .extract()
-                .as(ErrorDto.class);
+                .as(ErroDto.class);
 
         assertAll("Testar erro de login invalido",
                 () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
@@ -107,11 +106,11 @@ public class LoginFuncionalTest {
     public void testLogin_informarPasswordVazio_esperaErro() {
         LoginDto login = LoginDataFactory.loginAluno();
         login.setPassword("");
-        ErrorDto erro = LoginClient.autenticar(login)
+        ErroDto erro = LoginClient.autenticar(login)
             .then()
                 .statusCode(400)
                 .extract()
-                .as(ErrorDto.class);
+                .as(ErroDto.class);
 
         assertAll("Testar erro de login invalido",
                 () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
@@ -131,11 +130,11 @@ public class LoginFuncionalTest {
         LoginDto login = LoginDataFactory.loginAluno();
         login.setUsername("");
         login.setPassword("");
-        ErrorDto erro = LoginClient.autenticar(login)
+        ErroDto erro = LoginClient.autenticar(login)
             .then()
                 .statusCode(400)
                 .extract()
-                .as(ErrorDto.class);
+                .as(ErroDto.class);
 
         assertAll("Testar erro de login invalido",
                 () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
@@ -155,11 +154,11 @@ public class LoginFuncionalTest {
     public void testCriarQuestao_informarSenhaIncorreta_esperaErro() {
         LoginDto login = LoginDataFactory.loginAluno();
         login.setPassword("senhaIncorreta");
-        ErrorDto erro = LoginClient.autenticar(login)
+        ErroDto erro = LoginClient.autenticar(login)
             .then()
                 .statusCode(400)
                 .extract()
-                .as(ErrorDto.class);
+                .as(ErroDto.class);
 
         assertAll("Testar erro de login invalido",
                 () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
