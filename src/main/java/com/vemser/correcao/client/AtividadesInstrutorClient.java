@@ -12,7 +12,7 @@ public class AtividadesInstrutorClient {
     private static final String LISTAR_TODAS_ATIVIDADES = "/atividades";
     private static final String CRIAR_ATIVIDADE = "/atividades/criar";
     private static final String CORRIGIR_ATIVIDADE = "/atividades/retorno-do-professor";
-    private static final String EDITAR_ATIVIDADE = "/atividades/editar";
+    private static final String EDITAR_ATIVIDADE = "/atividades/editar/{idAtividade}";
 
     public AtividadesInstrutorClient(){}
 
@@ -46,5 +46,14 @@ public class AtividadesInstrutorClient {
                 .pathParam("id", atividadeId)
                 .when()
                 .delete(DELETAR_ATIVIDADE_POR_ID);
+    }
+
+    public static Response editarAtividade(Integer atividadeId, CriarAtividadeDto atividadeEditada) {
+        return given()
+                .spec(AtividadesSpecs.atividadeInstrutorSpec())
+                .pathParam("idAtividade", atividadeId)
+                .body(atividadeEditada)
+            .when()
+                .put(EDITAR_ATIVIDADE);
     }
 }

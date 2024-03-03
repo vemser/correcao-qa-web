@@ -25,7 +25,7 @@ public class AtividadeInstrutorPostFuncionalTest {
 
         CriarAtividadeResponseDto atividadeResult = AtividadesInstrutorClient.criarAtividade(atividade)
                 .then()
-                .statusCode(200)
+                .statusCode(201)
                 .extract().as(CriarAtividadeResponseDto.class);
 
         AtividadesInstrutorClient.excluirAtividade(atividadeResult.getAtividadeId());

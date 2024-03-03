@@ -26,7 +26,7 @@ public class AtividadeInstrutorDeleteFuncionalTest {
         CriarAtividadeDto atividade = CriarAtividadeDataFactory.atividadeComDadosValidos();
         CriarAtividadeResponseDto atividadeResult = AtividadesInstrutorClient.criarAtividade(atividade)
                 .then()
-                .statusCode(200)
+                .statusCode(201)
                 .extract().as(CriarAtividadeResponseDto.class);
 
         DeletarAtividadeResponseDto response = AtividadesInstrutorClient.excluirAtividade(atividadeResult.getAtividadeId())
@@ -46,7 +46,7 @@ public class AtividadeInstrutorDeleteFuncionalTest {
         CriarAtividadeDto atividade = CriarAtividadeDataFactory.atividadeComDadosValidos();
         CriarAtividadeResponseDto atividadeResult = AtividadesInstrutorClient.criarAtividade(atividade)
                 .then()
-                .statusCode(200)
+                .statusCode(201)
                 .extract().as(CriarAtividadeResponseDto.class);
 
         AtividadesInstrutorClient.excluirAtividade(atividadeResult.getAtividadeId());
