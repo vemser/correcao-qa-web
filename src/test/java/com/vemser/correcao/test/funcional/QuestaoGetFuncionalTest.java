@@ -12,51 +12,51 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @Epic("Funcional Questão - GET")
 @DisplayName("Questão - GET")
+@Owner("Italo Lacer | Vitor Nunes")
 public class QuestaoGetFuncionalTest {
     @Test
-    @Owner("Italo Lacerda")
-    @Feature("Listar Todas Questões")
-    @Story("[CTAXXX] Listar Todas Questões (Espera Sucesso)")
+    @Feature("Espera Sucesso")
+    @Story("[CTAXXX] Listar Questões Ao Informar Página e Tamanho Válidos")
     @Severity(SeverityLevel.NORMAL)
-    @Description("Teste que verifica se ao listar todas as questões API retorna 200 e todas as questões cadastradas no body")
-    public void testQuestoes_listarTodasQuestoes_esperaSucesso() {
+    @Description("Teste que verifica se ao listar as questões informando página e tamanho válido retorna 200 e todas as questões cadastradas no body")
+    public void testQuestoes_listarQuestoesAoInformarPaginaETamanhoValidos_esperaSucesso() {
         ListaTodasQuestaoResponseDto questaoResult = QuestaoClient.buscarTodasQuestao("0", "10")
                 .then()
                     .statusCode(200)
                     .extract()
                     .as(ListaTodasQuestaoResponseDto.class);
 
-        assertAll("Verifica se retorna lista com tamnaho correto",
+        assertAll("Testes de listar questão informando página e tamanho válido",
                 () -> assertEquals(questaoResult.getNumberOfElements(), 10),
-                () -> assertEquals(questaoResult.getContent().size(), questaoResult.getNumberOfElements())
+                () -> assertEquals(questaoResult.getContent().size(), questaoResult.getNumberOfElements()),
+                () -> assertEquals(questaoResult.getPageable().getPageNumber(), 0,"Verifica se retorna pagina correta")
         );
-        assertEquals(questaoResult.getPageable().getPageNumber(), 0,"Verifica se retorna pagina correta");
     }
 
     @Test
-    @Owner("Italo Lacerda")
-    @Feature("Listar Todas Questões")
-    @Story("[CTAXXX] Buscar por uma pagina que não existe (Espera Erro)")
+    @Feature("Espera Erro")
+    @Story("[CTAXXX] Listar Questões Ao Informar Página Que Não Existe")
     @Severity(SeverityLevel.NORMAL)
-    @Description("Teste que verifica se ao listar todas as questões passando uma página que não existe a API retorna 404 e a mensagem ''")
-    public void testQuestoes_buscarPorUmaPaginaQueNaoExiste_esperaFalha() {
+    @Description("Teste que verifica se ao listar as questões passando uma página que não existe retorna 404 e a mensagem ''")
+    public void testQuestoes_listarQuestoesAoInformarPaginaQueNaoExiste_esperaErro() {
         ListaTodasQuestaoResponseDto questao = QuestaoClient.buscarTodasQuestao("0", "10")
                                                                     .as(ListaTodasQuestaoResponseDto.class);
 
         String paginaSolicitada = Integer.toString(questao.getPageable().getPageNumber() + 1);
 
-        ListaTodasQuestaoResponseDto questaoResult = QuestaoClient.buscarTodasQuestao(paginaSolicitada, "10")
+        ErroDto erro = QuestaoClient.buscarTodasQuestao(paginaSolicitada, "10")
                 .then()
                     .statusCode(404)
                     .extract()
-                    .as(ListaTodasQuestaoResponseDto.class);
+                    .as(ErroDto.class);
 
-        //        TODO: Definir padrão de error para retorno
-        assertAll("Verifica se retorna lista com tamnaho correto",
-                () -> assertEquals(questaoResult.getNumberOfElements(), 0),
-                () -> assertEquals(questaoResult.getContent().size(), questaoResult.getNumberOfElements())
+        assertAll("Testes de listar questão informando página que não existe",
+                () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
+                () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
+                () -> assertFalse(erro.getErrors().isEmpty(), "Lista de erros não deve está vazia"),
+                () -> assertEquals(400, erro.getStatus(), "Status do erro deve ser igual ao esperado"),
+                () -> assertEquals("Erro ao compilar o arquivo", erro.getErrors().get("codigo"), "Mensagem de erro deve ser igual a esperada")
         );
-        assertEquals(questaoResult.getPageable().getPageNumber(), 0,"Verifica se retorna pagina correta");
     }
 
     @Test
