@@ -3,6 +3,8 @@ package com.vemser.correcao.data.factory;
 import com.vemser.correcao.dto.CriarAtividadeDto;
 import com.vemser.correcao.enums.Trilha;
 import net.datafaker.Faker;
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -162,6 +164,31 @@ public class CriarAtividadeDataFactory {
 
         criarAtividadeValida.setDescricao(faker.lorem().paragraph());
         criarAtividadeValida.setEdicaoVemSer("Invalido");
+        criarAtividadeValida.setPrazoEntrega("2025-03-01T13:01:41.065Z");
+        criarAtividadeValida.setQuestoes(questoes);
+        criarAtividadeValida.setTitulo(faker.book().title());
+        criarAtividadeValida.setTrilha(Trilha.BACK);
+
+        return criarAtividadeValida;
+    }
+
+    public static CriarAtividadeDto atividadeComDadosValidosTrilhaQA(ArrayList<Integer> questoes) {
+        CriarAtividadeDto criarAtividadeValida = new CriarAtividadeDto();
+
+        criarAtividadeValida.setDescricao(faker.lorem().paragraph());
+        criarAtividadeValida.setEdicaoVemSer("13");
+        criarAtividadeValida.setPrazoEntrega("2025-03-01T13:01:41.065Z");
+        criarAtividadeValida.setQuestoes(questoes);
+        criarAtividadeValida.setTitulo(faker.book().title());
+        criarAtividadeValida.setTrilha(Trilha.QA);
+
+        return criarAtividadeValida;
+    }
+    public static CriarAtividadeDto atividadeComDadosValidosTrilhaBack(ArrayList<Integer> questoes) {
+        CriarAtividadeDto criarAtividadeValida = new CriarAtividadeDto();
+
+        criarAtividadeValida.setDescricao(faker.lorem().paragraph());
+        criarAtividadeValida.setEdicaoVemSer("13");
         criarAtividadeValida.setPrazoEntrega("2025-03-01T13:01:41.065Z");
         criarAtividadeValida.setQuestoes(questoes);
         criarAtividadeValida.setTitulo(faker.book().title());
