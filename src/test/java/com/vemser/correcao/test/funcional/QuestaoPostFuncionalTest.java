@@ -1,7 +1,7 @@
 package com.vemser.correcao.test.funcional;
 
 import com.vemser.correcao.client.QuestaoClient;
-import com.vemser.correcao.dto.ErrorDto;
+import com.vemser.correcao.dto.ErroDto;
 import com.vemser.correcao.dto.QuestaoDto;
 import com.vemser.correcao.dto.QuestaoResponseDto;
 import com.vemser.correcao.data.factory.QuestaoDataFactory;
@@ -69,9 +69,9 @@ public class QuestaoPostFuncionalTest {
     public void testCriarQuestao_informarTituloVazio_esperaErro() {
         QuestaoDto questao = QuestaoDataFactory.questaoTituloVazio();
 
-        ErrorDto erro = QuestaoClient.cadastrarQuestao(questao).then()
+        ErroDto erro = QuestaoClient.cadastrarQuestao(questao).then()
                 .statusCode(400)
-                .extract().as(ErrorDto.class);
+                .extract().as(ErroDto.class);
 
         assertAll("Testes de criar questão informando título vazio",
                 () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
@@ -90,9 +90,9 @@ public class QuestaoPostFuncionalTest {
     public void testCriarQuestao_informarDescricaoVazia_esperaErro() {
         QuestaoDto questao = QuestaoDataFactory.questaoDescricaoVazia();
 
-        ErrorDto erro = QuestaoClient.cadastrarQuestao(questao).then()
+        ErroDto erro = QuestaoClient.cadastrarQuestao(questao).then()
                 .statusCode(400)
-                .extract().as(ErrorDto.class);
+                .extract().as(ErroDto.class);
 
         assertAll("Testes de criar questão informando descrição vazia",
                 () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
@@ -113,9 +113,9 @@ public class QuestaoPostFuncionalTest {
 
         System.out.println(questao);
 
-        ErrorDto erro = QuestaoClient.cadastrarQuestao(questao).then()
+        ErroDto erro = QuestaoClient.cadastrarQuestao(questao).then()
                 .statusCode(400)
-                .extract().as(ErrorDto.class);
+                .extract().as(ErroDto.class);
 
         assertAll("Testes de criar questão informando dificuldade vazia",
                 () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
@@ -134,9 +134,9 @@ public class QuestaoPostFuncionalTest {
     public void testCriarQuestao_informarLinguagemVazia_esperaErro() {
         String questao = QuestaoDataFactory.questaoLinguagemVazia();
 
-        ErrorDto erro = QuestaoClient.cadastrarQuestao(questao).then()
+        ErroDto erro = QuestaoClient.cadastrarQuestao(questao).then()
                 .statusCode(400)
-                .extract().as(ErrorDto.class);
+                .extract().as(ErroDto.class);
 
         assertAll("Testes de criar questão informando linguagem vazia",
                 () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
@@ -155,9 +155,9 @@ public class QuestaoPostFuncionalTest {
     public void testCriarQuestao_naoInformarTesteOculto_esperaErro() {
         QuestaoDto questao = QuestaoDataFactory.questaoSemTesteOculto();
 
-        ErrorDto erro = QuestaoClient.cadastrarQuestao(questao).then()
+        ErroDto erro = QuestaoClient.cadastrarQuestao(questao).then()
                 .statusCode(400)
-                .extract().as(ErrorDto.class);
+                .extract().as(ErroDto.class);
 
         assertAll("Testes de criar questão não informando teste oculto",
                 () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
@@ -176,9 +176,9 @@ public class QuestaoPostFuncionalTest {
     public void testCriarQuestao_naoInformarTesteDeExemplo_esperaErro() {
         QuestaoDto questao = QuestaoDataFactory.questaoSemTesteExemplo();
 
-        ErrorDto erro = QuestaoClient.cadastrarQuestao(questao).then()
+        ErroDto erro = QuestaoClient.cadastrarQuestao(questao).then()
                 .statusCode(400)
-                .extract().as(ErrorDto.class);
+                .extract().as(ErroDto.class);
 
         assertAll("Testes de criar questão não informando teste de exemplo",
                 () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
@@ -197,9 +197,9 @@ public class QuestaoPostFuncionalTest {
     public void testCriarQuestao_informar4TestesDeExemplo_esperaErro() {
         QuestaoDto questao = QuestaoDataFactory.questaoCom4TestesExemplos();
 
-        ErrorDto erro = QuestaoClient.cadastrarQuestao(questao).then()
+        ErroDto erro = QuestaoClient.cadastrarQuestao(questao).then()
                 .statusCode(400)
-                .extract().as(ErrorDto.class);
+                .extract().as(ErroDto.class);
 
         assertAll("Testes de criar questão informando 4 testes de exemplo",
                 () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
@@ -218,9 +218,9 @@ public class QuestaoPostFuncionalTest {
     public void testCriarQuestao_informar8TestesOcultos_esperaErro() {
         QuestaoDto questao = QuestaoDataFactory.questaoCom8TestesOcultos();
 
-        ErrorDto erro = QuestaoClient.cadastrarQuestao(questao).then()
+        ErroDto erro = QuestaoClient.cadastrarQuestao(questao).then()
                 .statusCode(400)
-                .extract().as(ErrorDto.class);
+                .extract().as(ErroDto.class);
 
         assertAll("Testes de criar questão informando 8 testes oculto",
                 () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
@@ -239,9 +239,9 @@ public class QuestaoPostFuncionalTest {
     public void testCriarQuestao_informarApenasUmTeste_esperaErro() {
         QuestaoDto questao = QuestaoDataFactory.questaoComApenasUmTeste();
 
-        ErrorDto erro = QuestaoClient.cadastrarQuestao(questao).then()
+        ErroDto erro = QuestaoClient.cadastrarQuestao(questao).then()
                 .statusCode(400)
-                .extract().as(ErrorDto.class);
+                .extract().as(ErroDto.class);
 
         assertAll("Testes de criar questão informando apenas um teste",
                 () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
@@ -260,9 +260,9 @@ public class QuestaoPostFuncionalTest {
     public void testCriarQuestao_informarTestesComValorDeEntradaVazio_esperaErro() {
         QuestaoDto questao = QuestaoDataFactory.questaoComTesteValorDeEntradaVazio();
 
-        ErrorDto erro = QuestaoClient.cadastrarQuestao(questao).then()
+        ErroDto erro = QuestaoClient.cadastrarQuestao(questao).then()
                 .statusCode(400)
-                .extract().as(ErrorDto.class);
+                .extract().as(ErroDto.class);
 
         assertAll("Testes de criar questão informando teste com valor de entrada vazio",
                 () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
@@ -281,9 +281,9 @@ public class QuestaoPostFuncionalTest {
     public void testCriarQuestao_informarTestesComRetornoEsperadoVazio_esperaErro() {
         QuestaoDto questao = QuestaoDataFactory.questaoComTesteRetornoEsperadoVazio();
 
-        ErrorDto erro = QuestaoClient.cadastrarQuestao(questao).then()
+        ErroDto erro = QuestaoClient.cadastrarQuestao(questao).then()
                 .statusCode(400)
-                .extract().as(ErrorDto.class);
+                .extract().as(ErroDto.class);
 
         assertAll("Testes de criar questão informando teste com retorno esperado vazio",
                 () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),

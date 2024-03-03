@@ -30,6 +30,30 @@ public class QuestaoClient {
                 .post(CADASTRAR_QUESTAO);
     }
 
+    public static Response buscarTodasQuestao(HashMap<String, String> queryParams) {
+        return given()
+                .spec(QuestaoSpecs.questaoReqAuthInstrutorSpec())
+                .queryParams(queryParams)
+        .when()
+                .get(LISTAR_QUESTAO_URL);
+    }
+
+    public static Response cadastrarQuestao(String questao) {
+        return given()
+                .spec(QuestaoSpecs.questaoReqAuthInstrutorSpec())
+                .body(questao)
+        .when()
+                .post(CADASTRAR_QUESTAO);
+    }
+
+    public static Response cadastrarQuestaoPorLogin(QuestaoDto questao, String token) {
+        return given()
+                .spec(QuestaoSpecs.questaoPorLogin(token))
+                .body(questao)
+        .when()
+                .post(CADASTRAR_QUESTAO);
+    }
+
     public static Response buscarTodasQuestao(String paginaSolicitada, String tamanhoPagina) {
         Map<String, String> parametrosMap = new HashMap<>();
         parametrosMap.put("page", paginaSolicitada);
@@ -81,14 +105,6 @@ public class QuestaoClient {
                         .get(LISTAR_QUESTAO_URL);
     }
 
-    public static Response cadastrarQuestao(String questao) {
-        return given()
-                .spec(QuestaoSpecs.questaoReqAuthInstrutorSpec())
-                .body(questao)
-        .when()
-                .post(CADASTRAR_QUESTAO);
-    }
-
     public static Response excluirQuestao(Integer idQuestao) {
         return given()
                 .spec(QuestaoSpecs.questaoReqAuthInstrutorSpec())
@@ -105,7 +121,7 @@ public class QuestaoClient {
     public static Response excluirQuestaoComIdInvalido() {
         return given()
                 .spec(QuestaoSpecs.questaoReqAuthInstrutorSpec())
-                .pathParam("idQuestao", "idInvalido")
+                .pathParam("idQuestao", "idQuestaoInvalido")
         .when()
                 .delete(DELETAR_QUESTAO);
     }
