@@ -4,7 +4,7 @@ import com.vemser.correcao.client.AtividadesInstrutorClient;
 import com.vemser.correcao.data.factory.CriarAtividadeDataFactory;
 import com.vemser.correcao.dto.CriarAtividadeDto;
 import com.vemser.correcao.dto.CriarAtividadeResponseDto;
-import com.vemser.correcao.dto.ErrorDto;
+import com.vemser.correcao.dto.ErroDto;
 import io.qameta.allure.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -48,10 +48,10 @@ public class AtividadeInstrutorPostFuncionalTest {
     public void testCriarAtividade_comQuestoesInativas_esperaErro() {
         CriarAtividadeDto atividade = CriarAtividadeDataFactory.atividadeComQuestoesInativas();
 
-        ErrorDto erro = AtividadesInstrutorClient.criarAtividade(atividade)
+        ErroDto erro = AtividadesInstrutorClient.criarAtividade(atividade)
                 .then()
                 .statusCode(404)
-                .extract().as(ErrorDto.class);
+                .extract().as(ErroDto.class);
 
         assertAll("Testes de criar atividade informando questões inativas",
                 () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
@@ -70,10 +70,10 @@ public class AtividadeInstrutorPostFuncionalTest {
     public void testCriarAtividade_comDataInvalida_esperaErro() {
         CriarAtividadeDto atividade = CriarAtividadeDataFactory.atividadeComDataInvalida();
 
-        ErrorDto erro = AtividadesInstrutorClient.criarAtividade(atividade)
+        ErroDto erro = AtividadesInstrutorClient.criarAtividade(atividade)
                 .then()
                 .statusCode(400)
-                .extract().as(ErrorDto.class);
+                .extract().as(ErroDto.class);
 
         assertAll("Testes de criar atividade informando prazo de entrega inválido",
                 () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
@@ -92,10 +92,10 @@ public class AtividadeInstrutorPostFuncionalTest {
     public void testCriarAtividade_semAtribuirQuestoes_esperaErro() {
         CriarAtividadeDto atividade = CriarAtividadeDataFactory.atividadeSemAtribuirQuestoes();
 
-        ErrorDto erro = AtividadesInstrutorClient.criarAtividade(atividade)
+        ErroDto erro = AtividadesInstrutorClient.criarAtividade(atividade)
                 .then()
                 .statusCode(400)
-                .extract().as(ErrorDto.class);
+                .extract().as(ErroDto.class);
 
         assertAll("Testes de criar atividade sem atribuir questões",
                 () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
@@ -114,10 +114,10 @@ public class AtividadeInstrutorPostFuncionalTest {
     public void testCriarAtividade_semPreencherTitulo_esperaErro() {
         CriarAtividadeDto atividade = CriarAtividadeDataFactory.atividadeSemPreencherTitulo();
 
-        ErrorDto erro = AtividadesInstrutorClient.criarAtividade(atividade)
+        ErroDto erro = AtividadesInstrutorClient.criarAtividade(atividade)
                 .then()
                 .statusCode(400)
-                .extract().as(ErrorDto.class);
+                .extract().as(ErroDto.class);
 
         assertAll("Testes de criar atividade sem preencher título",
                 () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
@@ -136,10 +136,10 @@ public class AtividadeInstrutorPostFuncionalTest {
     public void testCriarAtividade_semPreencherDescricao_esperaErro() {
         CriarAtividadeDto atividade = CriarAtividadeDataFactory.atividadeSemPreencherDescricao();
 
-        ErrorDto erro = AtividadesInstrutorClient.criarAtividade(atividade)
+        ErroDto erro = AtividadesInstrutorClient.criarAtividade(atividade)
                 .then()
                 .statusCode(400)
-                .extract().as(ErrorDto.class);
+                .extract().as(ErroDto.class);
 
         assertAll("Testes de criar atividade sem preencher descrição",
                 () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
@@ -158,10 +158,10 @@ public class AtividadeInstrutorPostFuncionalTest {
     public void testCriarAtividade_semPreencherEdicao_esperaErro() {
         CriarAtividadeDto atividade = CriarAtividadeDataFactory.atividadeSemPreencherEdicao();
 
-        ErrorDto erro = AtividadesInstrutorClient.criarAtividade(atividade)
+        ErroDto erro = AtividadesInstrutorClient.criarAtividade(atividade)
                 .then()
                 .statusCode(400)
-                .extract().as(ErrorDto.class);
+                .extract().as(ErroDto.class);
 
         assertAll("Testes de criar atividade sem preencher edição",
                 () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
@@ -180,10 +180,10 @@ public class AtividadeInstrutorPostFuncionalTest {
     public void testCriarAtividade_semPreencherTrilha_esperaErro() {
         String atividade = CriarAtividadeDataFactory.atividadeSemPreencherTrilha();
 
-        ErrorDto erro = AtividadesInstrutorClient.criarAtividadeString(atividade)
+        ErroDto erro = AtividadesInstrutorClient.criarAtividadeString(atividade)
                 .then()
                 .statusCode(400)
-                .extract().as(ErrorDto.class);
+                .extract().as(ErroDto.class);
 
         assertAll("Testes de criar atividade sem preencher trilha",
                 () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
@@ -202,10 +202,10 @@ public class AtividadeInstrutorPostFuncionalTest {
     public void testCriarAtividade_PreenchendoTrilhaInvalida_esperaErro() {
         String atividade = CriarAtividadeDataFactory.atividadePreenchendoTrilhaInvalido();
 
-        ErrorDto erro = AtividadesInstrutorClient.criarAtividadeString(atividade)
+        ErroDto erro = AtividadesInstrutorClient.criarAtividadeString(atividade)
                 .then()
                 .statusCode(400)
-                .extract().as(ErrorDto.class);
+                .extract().as(ErroDto.class);
 
         assertAll("Testes de criar atividade preenchendo trilha inválida",
                 () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
@@ -224,10 +224,10 @@ public class AtividadeInstrutorPostFuncionalTest {
     public void testCriarAtividade_PreenchendoEdicaoInvalida_esperaErro() {
         CriarAtividadeDto atividade = CriarAtividadeDataFactory.atividadeComEdicaoInvalida();
 
-        ErrorDto erro = AtividadesInstrutorClient.criarAtividade(atividade)
+        ErroDto erro = AtividadesInstrutorClient.criarAtividade(atividade)
                 .then()
                 .statusCode(400)
-                .extract().as(ErrorDto.class);
+                .extract().as(ErroDto.class);
 
         assertAll("Testes de criar atividade sem preencher edição",
                 () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
