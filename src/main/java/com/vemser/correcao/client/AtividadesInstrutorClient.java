@@ -20,9 +20,9 @@ public class AtividadesInstrutorClient {
 
     public static Response criarAtividade(CriarAtividadeDto atividade) {
         return given()
-                .spec(AtividadesSpecs.atividadeInstrutorSpec())
-                .body(atividade)
+                    .spec(AtividadesSpecs.atividadeInstrutorSpec())
+                    .body(atividade)
                 .when()
-                .post(CRIAR_ATIVIDADE);
+                    .post(CRIAR_ATIVIDADE);
     }
 }
