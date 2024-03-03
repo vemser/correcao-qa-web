@@ -93,12 +93,12 @@ public class QuestaoGetFuncionalTest {
 
         QuestaoResponseDto questaoCriada = QuestaoClient.cadastrarQuestao(questao)
                 .then()
-                .extract().as(QuestaoResponseDto.class);
+                .   extract().as(QuestaoResponseDto.class);
 
         QuestaoResponseDto questaoBuscada = QuestaoClient.buscarQuestaoPorId(questaoCriada.getQuestaoDTO().getQuestaoId())
                 .then()
-                .statusCode(200)
-                .extract().as(QuestaoResponseDto.class);
+                    .statusCode(200)
+                    .extract().as(QuestaoResponseDto.class);
 
         assertAll("Testes de buscar questao informando ID existente",
                 () -> assertNotNull(questaoBuscada),
@@ -119,8 +119,8 @@ public class QuestaoGetFuncionalTest {
 
         ErrorDto erroDto = QuestaoClient.buscarQuestaoPorIdInexistente()
                 .then()
-                .statusCode(400)
-                .extract().as(ErrorDto.class);
+                    .statusCode(400)
+                    .extract().as(ErrorDto.class);
 
         //        TODO: Definir padrão de error para retorno
         assertAll("Testes de buscar questao informando ID inexistente",
@@ -140,8 +140,8 @@ public class QuestaoGetFuncionalTest {
     public void testQuestoes_buscarQuestaoComIDMaiorQueOLimite_esperaErro() {
         ErrorDto erro = QuestaoClient.buscarQuestaoPorIdMaiorQueOLimite()
                 .then()
-                .statusCode(400)
-                .extract().as(ErrorDto.class);
+                    .statusCode(400)
+                    .extract().as(ErrorDto.class);
 
         //        TODO: Definir padrão de error para retorno
         assertAll("Testes de buscar questao informando ID maior que o limite",
@@ -163,16 +163,16 @@ public class QuestaoGetFuncionalTest {
 
         QuestaoResponseDto questaoCriada = QuestaoClient.cadastrarQuestao(questao)
                 .then()
-                .extract().as(QuestaoResponseDto.class);
+                    .extract().as(QuestaoResponseDto.class);
 
         QuestaoClient.excluirQuestao(questaoCriada.getQuestaoDTO().getQuestaoId())
                 .then()
-                .statusCode(200);
+                    .statusCode(200);
 
         ErrorDto erro = QuestaoClient.buscarQuestaoPorId(questaoCriada.getQuestaoDTO().getQuestaoId())
                 .then()
-                .statusCode(404)
-                .extract().as(ErrorDto.class);
+                    .statusCode(404)
+                    .extract().as(ErrorDto.class);
 
         //        TODO: Definir padrão de error para retorno
         assertAll("Testes de buscar questao informando ID inativo",
@@ -198,9 +198,9 @@ public class QuestaoGetFuncionalTest {
 
         ListaTodasQuestaoResponseDto questaoResult = QuestaoClient.buscarTodasQuestao(paginaSolicitada, "10")
                 .then()
-                .statusCode(404)
-                .extract()
-                .as(ListaTodasQuestaoResponseDto.class);
+                    .statusCode(404)
+                    .extract()
+                    .as(ListaTodasQuestaoResponseDto.class);
 
         //        TODO: Definir padrão de error para retorno
         assertAll("Verifica se retorna lista com tamnaho correto",
