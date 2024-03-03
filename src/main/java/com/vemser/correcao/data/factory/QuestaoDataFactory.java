@@ -278,4 +278,44 @@ public class QuestaoDataFactory {
         editarQuestaoDto.setTitulo(tituloFaker());
         return editarQuestaoDto;
     }
+
+    public static EditarQuestaoDto questaoEditadaCamposVazios(){
+        EditarQuestaoDto editarQuestaoDto = new EditarQuestaoDto();
+        editarQuestaoDto.setCodigo("");
+        editarQuestaoDto.setDescricao("");
+        editarQuestaoDto.setDificuldade(null);
+        editarQuestaoDto.setLinguagem(null);
+        editarQuestaoDto.setTitulo("");
+        return editarQuestaoDto;
+    }
+
+    public static EditarQuestaoDto questaoEditadaTituloVazio(){
+        EditarQuestaoDto editarQuestaoDto = new EditarQuestaoDto();
+        editarQuestaoDto.setCodigo(codigoFaker());
+        editarQuestaoDto.setDescricao(descricaoFaker());
+        editarQuestaoDto.setDificuldade(dificuldadeFaker());
+        editarQuestaoDto.setLinguagem(linguagemFaker());
+        editarQuestaoDto.setTitulo("");
+        return editarQuestaoDto;
+    }
+
+    public static EditarQuestaoDto questaoEditadaCodigoVazio(){
+        EditarQuestaoDto editarQuestaoDto = new EditarQuestaoDto();
+        editarQuestaoDto.setCodigo("");
+        editarQuestaoDto.setDescricao(descricaoFaker());
+        editarQuestaoDto.setDificuldade(dificuldadeFaker());
+        editarQuestaoDto.setLinguagem(linguagemFaker());
+        editarQuestaoDto.setTitulo(tituloFaker());
+        return editarQuestaoDto;
+    }
+
+    public static EditarQuestaoDto questaoEditadaDescricaoVazia(){
+        EditarQuestaoDto editarQuestaoDto = new EditarQuestaoDto();
+        editarQuestaoDto.setCodigo(codigoFaker());
+        editarQuestaoDto.setDescricao("");
+        editarQuestaoDto.setDificuldade(dificuldadeFaker());
+        editarQuestaoDto.setLinguagem(linguagemFaker());
+        editarQuestaoDto.setTitulo(tituloFaker());
+        return editarQuestaoDto;
+    }
 }
