@@ -9,6 +9,7 @@ import com.vemser.correcao.specs.QuestaoSpecs;
 import net.datafaker.Faker;
 
 import java.util.Locale;
+import java.util.Random;
 
 import static io.restassured.RestAssured.given;
 
@@ -30,7 +31,7 @@ public class QuestaoDataFactory {
     }
 
     public static Linguagem linguagemFaker() {
-        return Linguagem.values()[faker.random().nextInt(Linguagem.values().length)];
+        return Linguagem.values()[faker.number().numberBetween(0, 1)];
     }
 
     public static String codigoFaker() {

@@ -5,7 +5,6 @@ import com.vemser.compilador.dto.CompiladorDto;
 import com.vemser.compilador.dto.CompiladorResponseDto;
 import com.vemser.correcao.client.CompiladorCorrecaoClient;
 import com.vemser.correcao.dto.ErroDto;
-import com.vemser.correcao.specs.CompiladorCorrecaoSpecs;
 import io.qameta.allure.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
