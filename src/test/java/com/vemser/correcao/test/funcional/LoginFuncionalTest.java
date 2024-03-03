@@ -23,7 +23,7 @@ public class LoginFuncionalTest {
     @Test
     @Feature("Fazer Login")
     @Story("[CTAXXX] Login - Logar Como Instrutor Com Dados Válidos")
-    @Severity(SeverityLevel.NORMAL)
+    @Severity(SeverityLevel.BLOCKER)
     @Description("Teste que verifica se o usuário logou como instrutor com as permissões devidas. A API deve permitir request de cadastro e delete a partir deste token")
     public void testLogin_logarInstrutor_esperaSucesso() {
         LoginDto login = LoginDataFactory.loginInstrutor();
@@ -44,13 +44,12 @@ public class LoginFuncionalTest {
         QuestaoClient.excluirQuestao(questaoResponseDto.getQuestaoDTO().getQuestaoId())
             .then()
                 .statusCode(200);
-
     }
 
     @Test
     @Feature("Fazer Login")
     @Story("[CTAXXX] Login - Logar Como Aluno Com Dados Válidos")
-    @Severity(SeverityLevel.NORMAL)
+    @Severity(SeverityLevel.BLOCKER)
     @Description("Teste que verifica se o usuário logou como aluno com as permissões devidas.")
     public void testLogin_logarAluno_esperaSucesso() {
         LoginDto login = LoginDataFactory.loginAluno();
@@ -80,7 +79,7 @@ public class LoginFuncionalTest {
     @Test
     @Feature("Espera Erro")
     @Story("[CTAXXX] Login - Informar Username Vazio")
-    @Severity(SeverityLevel.NORMAL)
+    @Severity(SeverityLevel.BLOCKER)
     @Description("Teste que verifica se ao informar username vazio e password válido a API retorna 400 e a mensagem 'username: não deve estar em branco'")
     public void testLogin_informarUsernameVazio_esperaErro() {
         LoginDto login = LoginDataFactory.loginAluno();
@@ -96,14 +95,14 @@ public class LoginFuncionalTest {
                 () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
                 () -> assertFalse(erro.getErrors().isEmpty(), "Lista de erros não deve está vazia"),
                 () -> assertEquals(erro.getStatus(), 400, "Status do erro deve ser igual ao esperado"),
-                () -> assertEquals(erro.getErrors().get("username"), "não deve estar em branco")
+                () -> assertEquals(erro.getErrors().get("username"), "O campo username é obrigatório")
         );
     }
 
     @Test
     @Feature("Espera Erro")
     @Story("[CTAXXX] Login - Informar Password Vazio")
-    @Severity(SeverityLevel.NORMAL)
+    @Severity(SeverityLevel.BLOCKER)
     @Description("Teste que verifica se ao informar username válido e password vazio a API retorna 400 e a mensagem 'password: não deve estar em branco'")
     public void testLogin_informarPasswordVazio_esperaErro() {
         LoginDto login = LoginDataFactory.loginAluno();
@@ -119,13 +118,14 @@ public class LoginFuncionalTest {
                 () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
                 () -> assertFalse(erro.getErrors().isEmpty(), "Lista de erros não deve está vazia"),
                 () -> assertEquals(erro.getStatus(), 400, "Status do erro deve ser igual ao esperado"),
-                () -> assertEquals(erro.getErrors().get("password"), "não deve estar em branco")
+                () -> assertEquals(erro.getErrors().get("password"), "O campo password é obrigatório")
         );
     }
+
     @Test
     @Feature("Espera Erro")
     @Story("[CTAXXX] Login - Informar Campos Vazios")
-    @Severity(SeverityLevel.NORMAL)
+    @Severity(SeverityLevel.BLOCKER)
     @Description("Teste que verifica se ao informar campos vazios a API retorna 400 e as mensagens 'password: não deve estar em branco, username: não deve estar em branco'")
     public void testLogin_informarCamposVazios_esperaErro() {
         LoginDto login = LoginDataFactory.loginAluno();
@@ -142,15 +142,15 @@ public class LoginFuncionalTest {
                 () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
                 () -> assertFalse(erro.getErrors().isEmpty(), "Lista de erros não deve está vazia"),
                 () -> assertEquals(erro.getStatus(), 400, "Status do erro deve ser igual ao esperado"),
-                () -> assertEquals(erro.getErrors().get("password"), "não deve estar em branco"),
-                () -> assertEquals(erro.getErrors().get("username"), "não deve estar em branco")
+                () -> assertEquals(erro.getErrors().get("password"), "O campo password é obrigatório"),
+                () -> assertEquals(erro.getErrors().get("username"), "O campo username é obrigatório")
         );
     }
 
     @Test
     @Feature("Espera Erro")
     @Story("[CTAXXX] Login - Informar Senha Incorreta")
-    @Severity(SeverityLevel.NORMAL)
+    @Severity(SeverityLevel.BLOCKER)
     @Description("Teste que verifica se ao informar username válido e senha incorreta a API retorna 400 e a mensagem 'login e senha inválidos!'")
     public void testCriarQuestao_informarSenhaIncorreta_esperaErro() {
         LoginDto login = LoginDataFactory.loginAluno();
@@ -166,7 +166,7 @@ public class LoginFuncionalTest {
                 () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
                 () -> assertFalse(erro.getErrors().isEmpty(), "Lista de erros não deve está vazia"),
                 () -> assertEquals(erro.getStatus(), 400, "Status do erro deve ser igual ao esperado"),
-                () -> assertEquals(erro.getErrors().get("error"), "login e senha inválidos!")
+                () -> assertEquals(erro.getErrors().get("error"), "Usuário ou senha incorretos!")
         );
     }
 }
