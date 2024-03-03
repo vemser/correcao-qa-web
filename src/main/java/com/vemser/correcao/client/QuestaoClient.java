@@ -66,7 +66,7 @@ public class QuestaoClient {
     public static Response excluirQuestaoComIdInvalido() {
         return given()
                 .spec(QuestaoSpecs.questaoReqAuthInstrutorSpec())
-                .pathParam("idQuestao", "idInvalido")
+                .pathParam("idQuestao", "idQuestaoInvalido")
         .when()
                 .delete(DELETAR_QUESTAO);
     }
