@@ -36,6 +36,46 @@ public class QuestaoGetFuncionalTest {
     @Test
     @Owner("Italo Lacerda")
     @Feature("Listar Todas Questões")
+    @Story("[CTAXXX] Listar Questões - Listar questões sem estar logado na aplicação (Espera Falha)")
+    @Severity(SeverityLevel.NORMAL)
+    @Description("Teste que verifica se ŕ possivel listar todas as questões sem estar logado")
+    public void testQuestoes_listarQuestoesSemEstarLogado_esperaFalha() {
+        ErrorDto questaoResult = QuestaoClient.buscarTodasQuestaoSemEstarLogado("0", "10")
+                .then()
+                .statusCode(403)
+                .extract()
+                .as(ErrorDto.class);
+
+        assertAll("Verifica se retorna lista com tamnaho correto",
+                () -> assertEquals(questaoResult.getStatus(), 403),
+                () -> assertNotNull(questaoResult.getTimestamp()),
+                () -> assertEquals(questaoResult.getErrors().get("error"),"Forbidden" )
+        );
+    }
+
+    @Test
+    @Owner("Italo Lacerda")
+    @Feature("Listar Todas Questões")
+    @Story("[CTAXXX] Listar Questões - Listar questões logado na aplicação como aluno (Espera Falha)")
+    @Severity(SeverityLevel.NORMAL)
+    @Description("Teste que verifica se ŕ possivel listar todas as questões logado como aluno")
+    public void testQuestoes_listarQuestoesLogadoComoAluno_esperaFalha() {
+        ErrorDto questaoResult = QuestaoClient.buscarTodasQuestaoLogadoComoAluno("0", "10")
+                .then()
+                .statusCode(403)
+                .extract()
+                .as(ErrorDto.class);
+
+        assertAll("Verifica se retorna lista com tamnaho correto",
+                () -> assertEquals(questaoResult.getStatus(), 403),
+                () -> assertNotNull(questaoResult.getTimestamp()),
+                () -> assertEquals(questaoResult.getErrors().get("error"),"Forbidden" )
+        );
+    }
+
+    @Test
+    @Owner("Italo Lacerda")
+    @Feature("Listar Todas Questões")
     @Story("[CTAXXX] Listar Questões - Buscar por uma pagina que não existe (Espera Falha)")
     @Severity(SeverityLevel.NORMAL)
     @Description("Teste que verifica se ao listar todas as questões passando uma página que não existe a API retorna 404 e a mensagem ''")
@@ -104,7 +144,11 @@ public class QuestaoGetFuncionalTest {
     }
 
     @Test
-    @DisplayName("[CTAXXX] Listar Questões - Listar questões sem parâmetro de pagina solicitada (esperaFalha)")
+    @Owner("Italo Lacerda")
+    @Feature("Listar Todas Questões")
+    @Story("[CTAXXX] Listar Questões - Listar questões sem parâmetro de pagina solicitada (esperaFalha)")
+    @Severity(SeverityLevel.NORMAL)
+    @Description("Teste que verifica se ao listar todas as questões sem o tamanho da página a API retorna 404 e a mensagem ''")
     public void testQuestoes_listarQuestoesSemParametroDePaginaSolicitada_esperaFalha() {
         ErrorDto questaoResult = QuestaoClient.buscarTodasQuestao("0")
                 .then()

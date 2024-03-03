@@ -42,6 +42,32 @@ public class QuestaoClient {
                     .get(LISTAR_QUESTAO_URL);
     }
 
+    public static Response buscarTodasQuestaoSemEstarLogado(String paginaSolicitada, String tamanhoPagina) {
+        Map<String, String> parametrosMap = new HashMap<>();
+        parametrosMap.put("paginaSolicitada", paginaSolicitada);
+        parametrosMap.put("tamanhoPagina", tamanhoPagina);
+
+        return
+                given()
+                    .spec(QuestaoSpecs.questaoReqSemTokenSpec())
+                    .queryParams(parametrosMap)
+                .when()
+                    .get(LISTAR_QUESTAO_URL);
+    }
+
+    public static Response buscarTodasQuestaoLogadoComoAluno(String paginaSolicitada, String tamanhoPagina) {
+        Map<String, String> parametrosMap = new HashMap<>();
+        parametrosMap.put("paginaSolicitada", paginaSolicitada);
+        parametrosMap.put("tamanhoPagina", tamanhoPagina);
+
+        return
+                given()
+                        .spec(QuestaoSpecs.questaoReqAuthAlunoSpec())
+                        .queryParams(parametrosMap)
+                        .when()
+                        .get(LISTAR_QUESTAO_URL);
+    }
+
     public static Response buscarTodasQuestao(String paginaSolicitada) {
         Map<String, String> parametrosMap = new HashMap<>();
         parametrosMap.put("paginaSolicitada", paginaSolicitada);
