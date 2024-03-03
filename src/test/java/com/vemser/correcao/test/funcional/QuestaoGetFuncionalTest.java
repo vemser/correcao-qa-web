@@ -40,16 +40,17 @@ public class QuestaoGetFuncionalTest {
     @Severity(SeverityLevel.NORMAL)
     @Description("Teste que verifica se ŕ possivel listar todas as questões sem estar logado")
     public void testListarQuestoes_listarQuestoesSemEstarLogado_esperaFalha() {
-        ErroDto questaoResult = QuestaoClient.buscarTodasQuestaoSemEstarLogado("0", "10")
+        ErroForbiddenDto questaoResult = QuestaoClient.buscarTodasQuestaoSemEstarLogado("0", "10")
                 .then()
                 .statusCode(403)
                 .extract()
-                .as(ErroDto.class);
+                .as(ErroForbiddenDto.class);
 
-        assertAll("Verifica se retorna lista com tamnaho correto",
+        assertAll("Verifica se retorna error correto",
                 () -> assertEquals(questaoResult.getStatus(), 403),
                 () -> assertNotNull(questaoResult.getTimestamp()),
-                () -> assertEquals(questaoResult.getErrors().get("error"),"Forbidden" )
+                () -> assertNotNull(questaoResult.getPath()),
+                () -> assertEquals(questaoResult.getError(),"Forbidden" )
         );
     }
 
@@ -60,16 +61,17 @@ public class QuestaoGetFuncionalTest {
     @Severity(SeverityLevel.NORMAL)
     @Description("Teste que verifica se ŕ possivel listar todas as questões logado como aluno")
     public void testListarQuestoes_listarQuestoesLogadoComoAluno_esperaFalha() {
-        ErroDto questaoResult = QuestaoClient.buscarTodasQuestaoLogadoComoAluno("0", "10")
+        ErroForbiddenDto questaoResult = QuestaoClient.buscarTodasQuestaoLogadoComoAluno("0", "10")
                 .then()
                 .statusCode(403)
                 .extract()
-                .as(ErroDto.class);
+                .as(ErroForbiddenDto.class);
 
-        assertAll("Verifica se retorna lista com tamnaho correto",
+        assertAll("Verifica se retorna error correto",
                 () -> assertEquals(questaoResult.getStatus(), 403),
                 () -> assertNotNull(questaoResult.getTimestamp()),
-                () -> assertEquals(questaoResult.getErrors().get("error"),"Forbidden" )
+                () -> assertNotNull(questaoResult.getPath()),
+                () -> assertEquals(questaoResult.getError(),"Forbidden" )
         );
     }
 
@@ -217,15 +219,15 @@ public class QuestaoGetFuncionalTest {
     public void testBuscarQuestaoPorId_informarIDMaiorQueOLimite_esperaErro() {
         ErroDto erro = QuestaoClient.buscarQuestaoPorIdMaiorQueOLimite()
                 .then()
-                .statusCode(404)
+                .statusCode(400)
                 .extract().as(ErroDto.class);
 
         assertAll("Testes de buscar questão informando ID maior que o limite",
                 () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
                 () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
                 () -> assertFalse(erro.getErrors().isEmpty(), "Lista de erros não deve está vazia"),
-                () -> assertEquals(404, erro.getStatus(), "Status do erro deve ser igual ao esperado"),
-                () -> assertEquals("Questão não encontrada", erro.getErrors().get("error"), "Mensagem de erro deve ser igual a esperada")
+                () -> assertEquals(400, erro.getStatus(), "Status do erro deve ser igual ao esperado"),
+                () -> assertEquals("Houve um erro em um conversão. Verifique se os valores estão corretos.", erro.getErrors().get("error"), "Mensagem de erro deve ser igual a esperada")
         );
     }
 
