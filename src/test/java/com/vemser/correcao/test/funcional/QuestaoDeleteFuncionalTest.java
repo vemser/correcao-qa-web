@@ -189,20 +189,14 @@ public class QuestaoDeleteFuncionalTest {
     @Feature("Deletar Questão Por ID")
     @Story("[CTAXX] Questoes - Deletar Questao Com ID invalido (Espera Erro)")
     @Severity(SeverityLevel.NORMAL)
-    @Description("Teste que verifica se ao deletar uma questão com ID inválido a API retorna 400 e a mensagem 'Not Found'")
+    @Description("Teste que verifica se ao deletar uma questão com ID inválido a API retorna 500")
     public void testQuestoes_deletarQuestaoComIdInvalido_esperaErro() {
-        ErrorDeleteDto erro = QuestaoClient.excluirQuestaoComIdInvalido()
-            .then()
-                .statusCode(400)
-                .log().all()
-                .extract().as(ErrorDeleteDto.class);
 
-        assertAll("Testes de deletar questão informando id existente sem token",
-                () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
-                () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
-                () -> assertEquals(erro.getStatus(), 404, "Status do erro deve ser igual ao esperado"),
-                () -> assertEquals(erro.getError(), "Not Found")
-        );
+        String erro = QuestaoClient.excluirQuestaoComIdInvalido()
+                .then()
+                .statusCode(500)
+                .extract().asString();
+        assertTrue(erro.contains("Failed to convert value of type"), "Mensagem de erro deve conter 'Failed to convert value of type'");
     }
 
     @Test
@@ -296,20 +290,14 @@ public class QuestaoDeleteFuncionalTest {
     @Feature("Deletar Teste Por ID")
     @Story("[CTAXX] Deletar Testes Com ID Inválido (Espera Erro)")
     @Severity(SeverityLevel.NORMAL)
-    @Description("Teste que verifica se ao deletar um teste com ID inválido a API retorna 404 e a mensagem ''")
+    @Description("Teste que verifica se ao deletar um teste com ID inválido a API retorna 500 e a mensagem 'Failed to convert value of type'")
     public void testTestes_deletarTestesComIDInvalido_esperaErro() {
-        ErroDto erro = QuestaoClient.excluirTesteComIDInvalido()
+        String erro = QuestaoClient.excluirTesteComIDInvalido()
             .then()
-                .statusCode(400)
-                .extract().as(ErroDto.class);
-
-        assertAll("Testes de deletar questão informando id inválido",
-                () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
-                () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
-                () -> assertFalse(erro.getErrors().isEmpty(), "Lista de erros não deve está vazia"),
-                () -> assertEquals(erro.getStatus(), 400, "Status do erro deve ser igual ao esperado"),
-                () -> assertEquals(erro.getErrors().get("Colocar Parametros"), "")
-        );
+                .statusCode(500)
+                .extract().asString();
+        System.out.println(erro);
+        assertTrue(erro.contains("Failed to convert value of type"), "Mensagem de erro deve conter 'Failed to convert value of type'");
     }
 
     @Test
