@@ -1,6 +1,7 @@
 package com.vemser.correcao.client;
 
 import com.vemser.correcao.dto.QuestaoDto;
+import com.vemser.correcao.enums.QuestoesParametro;
 import com.vemser.correcao.specs.QuestaoSpecs;
 import io.restassured.response.Response;
 
@@ -29,10 +30,34 @@ public class QuestaoClient {
                 .post(CADASTRAR_QUESTAO);
     }
 
+    public static Response buscarTodasQuestao(HashMap<String, String> queryParams) {
+        return given()
+                .spec(QuestaoSpecs.questaoReqAuthInstrutorSpec())
+                .queryParams(queryParams)
+        .when()
+                .get(LISTAR_QUESTAO_URL);
+    }
+
+    public static Response cadastrarQuestao(String questao) {
+        return given()
+                .spec(QuestaoSpecs.questaoReqAuthInstrutorSpec())
+                .body(questao)
+        .when()
+                .post(CADASTRAR_QUESTAO);
+    }
+
+    public static Response cadastrarQuestaoPorLogin(QuestaoDto questao, String token) {
+        return given()
+                .spec(QuestaoSpecs.questaoPorLogin(token))
+                .body(questao)
+        .when()
+                .post(CADASTRAR_QUESTAO);
+    }
+
     public static Response buscarTodasQuestao(String paginaSolicitada, String tamanhoPagina) {
         Map<String, String> parametrosMap = new HashMap<>();
-        parametrosMap.put("paginaSolicitada", paginaSolicitada);
-        parametrosMap.put("tamanhoPagina", tamanhoPagina);
+        parametrosMap.put("page", paginaSolicitada);
+        parametrosMap.put("size", tamanhoPagina);
 
         return
                 given()
@@ -42,12 +67,42 @@ public class QuestaoClient {
                     .get(LISTAR_QUESTAO_URL);
     }
 
-    public static Response cadastrarQuestao(String questao) {
-        return given()
-                .spec(QuestaoSpecs.questaoReqAuthInstrutorSpec())
-                .body(questao)
-        .when()
-                .post(CADASTRAR_QUESTAO);
+    public static Response buscarTodasQuestao(QuestoesParametro parametro, String value) {
+        Map<String, String> parametrosMap = new HashMap<>();
+        parametrosMap.put(String.valueOf(parametro), value);
+
+        return
+                given()
+                        .spec(QuestaoSpecs.questaoReqAuthInstrutorSpec())
+                        .queryParams(parametrosMap)
+                        .when()
+                        .get(LISTAR_QUESTAO_URL);
+    }
+
+    public static Response buscarTodasQuestaoSemEstarLogado(String paginaSolicitada, String tamanhoPagina) {
+        Map<String, String> parametrosMap = new HashMap<>();
+        parametrosMap.put("page", paginaSolicitada);
+        parametrosMap.put("size", tamanhoPagina);
+
+        return
+                given()
+                    .spec(QuestaoSpecs.questaoReqSemTokenSpec())
+                    .queryParams(parametrosMap)
+                .when()
+                    .get(LISTAR_QUESTAO_URL);
+    }
+
+    public static Response buscarTodasQuestaoLogadoComoAluno(String paginaSolicitada, String tamanhoPagina) {
+        Map<String, String> parametrosMap = new HashMap<>();
+        parametrosMap.put("page", paginaSolicitada);
+        parametrosMap.put("size", tamanhoPagina);
+
+        return
+                given()
+                        .spec(QuestaoSpecs.questaoReqAuthAlunoSpec())
+                        .queryParams(parametrosMap)
+                        .when()
+                        .get(LISTAR_QUESTAO_URL);
     }
 
     public static Response excluirQuestao(Integer idQuestao) {
@@ -66,7 +121,7 @@ public class QuestaoClient {
     public static Response excluirQuestaoComIdInvalido() {
         return given()
                 .spec(QuestaoSpecs.questaoReqAuthInstrutorSpec())
-                .pathParam("idQuestao", "idInvalido")
+                .pathParam("idQuestao", "idQuestaoInvalido")
         .when()
                 .delete(DELETAR_QUESTAO);
     }

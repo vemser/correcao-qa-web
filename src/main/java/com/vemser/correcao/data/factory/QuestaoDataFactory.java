@@ -8,6 +8,7 @@ import com.vemser.correcao.specs.QuestaoSpecs;
 import net.datafaker.Faker;
 
 import java.util.Locale;
+import java.util.Random;
 
 import static io.restassured.RestAssured.given;
 
@@ -25,11 +26,11 @@ public class QuestaoDataFactory {
     }
 
     public static Dificuldade dificuldadeFaker() {
-        return Dificuldade.values()[faker.random().nextInt(Dificuldade.values().length)];
+        return Dificuldade.values()[faker.number().numberBetween(0, 2)];
     }
 
     public static Linguagem linguagemFaker() {
-        return Linguagem.values()[faker.random().nextInt(Linguagem.values().length)];
+        return Linguagem.values()[faker.number().numberBetween(0, 1)];
     }
 
     public static String codigoFaker() {
@@ -78,6 +79,30 @@ public class QuestaoDataFactory {
         questaoDto.setDescricao("");
         questaoDto.setDificuldade(dificuldadeFaker());
         questaoDto.setLinguagem(linguagemFaker());
+        questaoDto.setCodigo(codigoFaker());
+        questaoDto.setTestes(TesteDataFactory.testesCorretos(2));
+
+        return questaoDto;
+    }
+
+    public static QuestaoDto questaoDificuldadeInvalida(){
+        QuestaoDto questaoDto = new QuestaoDto();
+        questaoDto.setTitulo(tituloFaker());
+        questaoDto.setDescricao(descricaoFaker());
+        questaoDto.setDificuldade(Dificuldade.IMPOSSIVEL);
+        questaoDto.setLinguagem(linguagemFaker());
+        questaoDto.setCodigo(codigoFaker());
+        questaoDto.setTestes(TesteDataFactory.testesCorretos(2));
+
+        return questaoDto;
+    }
+
+    public static QuestaoDto questaoLinguagemInvalida(){
+        QuestaoDto questaoDto = new QuestaoDto();
+        questaoDto.setTitulo(tituloFaker());
+        questaoDto.setDescricao(descricaoFaker());
+        questaoDto.setDificuldade(dificuldadeFaker());
+        questaoDto.setLinguagem(Linguagem.PYTHON);
         questaoDto.setCodigo(codigoFaker());
         questaoDto.setTestes(TesteDataFactory.testesCorretos(2));
 
