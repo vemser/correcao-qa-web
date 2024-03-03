@@ -1,0 +1,72 @@
+pipeline {
+    agent any
+
+    tools {
+        maven "MAVEN"
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                script {
+                    checkout scm
+                }
+            }
+        }
+
+        stage('Config Properties') {
+            steps {
+                script {
+                    sh 'touch /var/jenkins_home/workspace/correcao-qa-api-pipeline/src/main/resources/configSetting.properties'
+                    sh "echo \"CompiladorURL=${env.COMPILADOR_URL}\" >> /var/jenkins_home/workspace/correcao-qa-api-pipeline/src/main/resources/configSetting.properties"
+                    sh "echo \"ApiURL=${env.API_URL}\" >> /var/jenkins_home/workspace/correcao-qa-api-pipeline/src/main/resources/configSetting.properties"
+                    sh "echo \"AlunoUsername=${env.ALUNO_USERNAME}\" >> /var/jenkins_home/workspace/correcao-qa-api-pipeline/src/main/resources/configSetting.properties"
+                    sh "echo \"AlunoPassword=${env.ALUNO_PASSWORD}\" >> /var/jenkins_home/workspace/correcao-qa-api-pipeline/src/main/resources/configSetting.properties"
+                    sh "echo \"InstrutorUsername=${env.INSTRUTOR_USERNAME}\" >> /var/jenkins_home/workspace/correcao-qa-api-pipeline/src/main/resources/configSetting.properties"
+                    sh "echo \"InstrutorPassword=${env.INSTRUTOR_PASSWORD}\" >> /var/jenkins_home/workspace/correcao-qa-api-pipeline/src/main/resources/configSetting.properties"
+
+                    sh 'touch /var/jenkins_home/workspace/correcao-qa-api-pipeline/src/test/resources/allure.properties'
+                    sh "echo \"allure.results.directory=target/allure-results\" >> /var/jenkins_home/workspace/correcao-qa-api-pipeline/src/test/resources/allure.properties"
+                }
+            }
+        }
+
+        stage('Test') {
+            steps {
+                script {
+                    sh 'mvn -e clean test -Dmaven.test.failure.ignore=true'
+                }
+            }
+        }
+
+        stage('Report') {
+            steps {
+                script {
+                    sh 'mvn allure:report'
+
+                    archiveArtifacts 'target/**'
+
+                    allure(includeProperties: false, results: [[path: 'target/allure-results']])
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            script {
+                def buildNumber = env.BUILD_NUMBER
+                def buildUrl = env.BUILD_URL
+                def buildResult = currentBuild.currentResult
+                def message = "**Branch:** release\n"
+                message += "**Allure Report:** http://correcaojenkins.h5hxf2fqatg6aqbf.brazilsouth.azurecontainer.io:8080/job/correcao-qa-api-pipeline/${buildNumber}/allure/"
+
+                discordSend(title: "Correcao - Testes API & UI | Build #${buildNumber}",
+                link: "${buildUrl}",
+                description: "${message}",
+                result: "${buildResult}",
+                webhookURL: "https://discord.com/api/webhooks/1212851937758937209/o5j4_OPhUd-OVY4tJqCteJTbPFQrTHMaE967Ezmi1xzbsFbJdMh3H1IuNkCcpE3wLgBs")
+            }
+        }
+    }
+}
