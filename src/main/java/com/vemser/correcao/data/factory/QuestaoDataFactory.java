@@ -318,4 +318,44 @@ public class QuestaoDataFactory {
         editarQuestaoDto.setTitulo(tituloFaker());
         return editarQuestaoDto;
     }
+
+    public static EditarQuestaoDto questaoEditadaDificuldadeVazia(){
+        EditarQuestaoDto editarQuestaoDto = new EditarQuestaoDto();
+        editarQuestaoDto.setCodigo(codigoFaker());
+        editarQuestaoDto.setDescricao(descricaoFaker());
+        editarQuestaoDto.setDificuldade(null);
+        editarQuestaoDto.setLinguagem(linguagemFaker());
+        editarQuestaoDto.setTitulo(tituloFaker());
+        return editarQuestaoDto;
+    }
+
+    public static EditarQuestaoDto questaoEditadaDificuldadeInvalida(){
+        EditarQuestaoDto editarQuestaoDto = new EditarQuestaoDto();
+        editarQuestaoDto.setCodigo(codigoFaker());
+        editarQuestaoDto.setDescricao(descricaoFaker());
+        editarQuestaoDto.setDificuldade(Dificuldade.IMPOSSIVEL);
+        editarQuestaoDto.setLinguagem(linguagemFaker());
+        editarQuestaoDto.setTitulo(tituloFaker());
+        return editarQuestaoDto;
+    }
+
+    public static EditarQuestaoDto questaoEditadaLinguagemVazia(){
+        EditarQuestaoDto editarQuestaoDto = new EditarQuestaoDto();
+        editarQuestaoDto.setCodigo(codigoFaker());
+        editarQuestaoDto.setDescricao(descricaoFaker());
+        editarQuestaoDto.setDificuldade(dificuldadeFaker());
+        editarQuestaoDto.setLinguagem(null);
+        editarQuestaoDto.setTitulo(tituloFaker());
+        return editarQuestaoDto;
+    }
+
+    public static EditarQuestaoDto questaoEditadaLinguagemInvalida(){
+        EditarQuestaoDto editarQuestaoDto = new EditarQuestaoDto();
+        editarQuestaoDto.setCodigo(codigoFaker());
+        editarQuestaoDto.setDescricao(descricaoFaker());
+        editarQuestaoDto.setDificuldade(dificuldadeFaker());
+        editarQuestaoDto.setLinguagem(Linguagem.PYTHON);
+        editarQuestaoDto.setTitulo(tituloFaker());
+        return editarQuestaoDto;
+    }
 }
