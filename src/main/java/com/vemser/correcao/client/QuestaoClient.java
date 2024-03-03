@@ -18,7 +18,7 @@ public class QuestaoClient {
     private static final String DELETAR_QUESTAO_SEM_PARAM = "/questao/deletar-questao/";
     private static final String GET_QUESTAO_ID = "/questao/questao-com-testes-publico/{idQuestao}";
     private static final String DELETE_TESTE_ID = "/questao/deletar-teste/{idTeste}";
-    public static final String EDITAR_QUESTAO_ID = "/questao/editar-questao/{idTeste}";
+    public static final String EDITAR_QUESTAO_ID = "/questao/editar-questao/{idQuestao}";
     public static final String EDITAR_QUESTAO_SEM_PARAM = "/questao/editar-questao/";
 
     public QuestaoClient() {

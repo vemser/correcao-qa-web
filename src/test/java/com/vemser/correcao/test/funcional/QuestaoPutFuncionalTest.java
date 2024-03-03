@@ -3,12 +3,16 @@ package com.vemser.correcao.test.funcional;
 import com.vemser.correcao.client.QuestaoClient;
 import com.vemser.correcao.data.factory.QuestaoDataFactory;
 import com.vemser.correcao.dto.EditarQuestaoDto;
+import com.vemser.correcao.dto.EditarTesteDto;
 import com.vemser.correcao.dto.QuestaoDto;
 import com.vemser.correcao.dto.QuestaoResponseDto;
 import io.qameta.allure.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
@@ -24,7 +28,7 @@ public class QuestaoPutFuncionalTest {
     @Description("Teste que verifica se ao editar uma questão com todos os campos válidos a API retorna 200 e a todos os dados da questão editada no body")
     public void testEditarQuestao_informarCamposValidos_esperaSucesso() {
         QuestaoDto questao = QuestaoDataFactory.questaoDadosValidos(0);
-
+        EditarTesteDto testeDto = new EditarTesteDto();
         QuestaoResponseDto questaoResult = QuestaoClient.cadastrarQuestao(questao)
                 .then()
                 .statusCode(201)
@@ -32,12 +36,17 @@ public class QuestaoPutFuncionalTest {
 
         EditarQuestaoDto questaoEditada = QuestaoDataFactory.questaoEditada();
         Integer questaoId = questaoResult.getQuestaoDTO().getQuestaoId();
+
+        List<EditarTesteDto> listaTestesEditados = new ArrayList<>();
         for (int i=0; i<2; i++) {
-            questaoEditada.getTestes().get(i).setExemplo(questaoResult.getTestes().get(i).getExemplo());
-            questaoEditada.getTestes().get(i).setRetornoEsperado(questaoResult.getTestes().get(i).getRetornoEsperado());
-            questaoEditada.getTestes().get(i).setTesteId(questaoEditada.getTestes().get(i).getTesteId());
-            questaoEditada.getTestes().get(i).setValorEntrada(questaoEditada.getTestes().get(i).getValorEntrada());
+            testeDto.setExemplo(questaoResult.getTestes().get(i).getExemplo());
+            testeDto.setExemplo(questaoResult.getTestes().get(i).getExemplo());
+            testeDto.setRetornoEsperado(questaoResult.getTestes().get(i).getRetornoEsperado());
+            testeDto.setTesteId(questaoResult.getTestes().get(i).getTesteId());
+            testeDto.setValorEntrada(questaoResult.getTestes().get(i).getValorEntrada());
+            listaTestesEditados.add(testeDto);
         }
+        questaoEditada.setTestes(listaTestesEditados);
 
         QuestaoResponseDto response = QuestaoClient.editarQuestao(questaoEditada, questaoId)
             .then()
