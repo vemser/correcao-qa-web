@@ -11,7 +11,4 @@ import java.util.ArrayList;
 @AllArgsConstructor
 public class CompiladorResponseDto {
     private String retorno;
-    private String timestamp;
-    private Integer status;
-    private ArrayList<String> errors;
 }

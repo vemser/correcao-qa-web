@@ -27,22 +27,4 @@ public class CompiladorSpecs {
                 .log(LogDetail.BODY)
                 .build();
     }
-
-    public static ResponseSpecification compiladorSucessoResponse() {
-        return new ResponseSpecBuilder()
-                .expectContentType(ContentType.JSON)
-                .expectBody(JsonSchemaValidator.matchesJsonSchemaInClasspath("schemas/compiladorSucesso.json"))
-                .expectStatusCode(200)
-                .log(LogDetail.BODY)
-                .build();
-    }
-
-    public static ResponseSpecification compiladorErroResponse() {
-        return new ResponseSpecBuilder()
-                .expectContentType(ContentType.JSON)
-                .expectBody(JsonSchemaValidator.matchesJsonSchemaInClasspath("schemas/compiladorErro.json"))
-                .expectStatusCode(400)
-                .log(LogDetail.BODY)
-                .build();
-    }
 }

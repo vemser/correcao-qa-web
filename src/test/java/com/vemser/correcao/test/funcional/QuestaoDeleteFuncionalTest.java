@@ -2,7 +2,7 @@ package com.vemser.correcao.test.funcional;
 
 import com.vemser.correcao.client.QuestaoClient;
 import com.vemser.correcao.data.factory.QuestaoDataFactory;
-import com.vemser.correcao.dto.ErrorDto;
+import com.vemser.correcao.dto.ErroDto;
 import com.vemser.correcao.dto.QuestaoDto;
 import com.vemser.correcao.dto.QuestaoResponseDto;
 import com.vemser.correcao.dto.TesteResponseDto;
@@ -17,7 +17,6 @@ import static org.junit.jupiter.api.Assertions.*;
 @Epic("Funcional Questão - DELETE")
 @DisplayName("Questão - DELETE")
 @Owner("Vitor Colombo")
-
 public class QuestaoDeleteFuncionalTest {
 
     @Test
@@ -85,10 +84,10 @@ public class QuestaoDeleteFuncionalTest {
                 .statusCode(201)
                 .extract().as(QuestaoResponseDto.class);
 
-        ErrorDto erro = QuestaoClient.excluirQuestaoSemPermissao(questaoResult.getQuestaoDTO().getQuestaoId())
+        ErroDto erro = QuestaoClient.excluirQuestaoSemPermissao(questaoResult.getQuestaoDTO().getQuestaoId())
             .then()
                 .statusCode(403)
-                .extract().as(ErrorDto.class);
+                .extract().as(ErroDto.class);
 
         QuestaoClient.excluirQuestao(questaoResult.getQuestaoDTO().getQuestaoId())
                 .then()
@@ -115,10 +114,10 @@ public class QuestaoDeleteFuncionalTest {
                 .statusCode(201)
                 .extract().as(QuestaoResponseDto.class);
 
-        ErrorDto erro = QuestaoClient.excluirQuestaoSemToken(questaoResult.getQuestaoDTO().getQuestaoId())
+        ErroDto erro = QuestaoClient.excluirQuestaoSemToken(questaoResult.getQuestaoDTO().getQuestaoId())
             .then()
                 .statusCode(403)
-                .extract().as(ErrorDto.class);
+                .extract().as(ErroDto.class);
 
         QuestaoClient.excluirQuestao(questaoResult.getQuestaoDTO().getQuestaoId())
             .then()
@@ -151,10 +150,10 @@ public class QuestaoDeleteFuncionalTest {
                 .statusCode(200)
                 .extract().asString();
 
-        ErrorDto erro = QuestaoClient.excluirQuestao(questaoResult.getQuestaoDTO().getQuestaoId())
+        ErroDto erro = QuestaoClient.excluirQuestao(questaoResult.getQuestaoDTO().getQuestaoId())
             .then()
                 .statusCode(404)
-                .extract().as(ErrorDto.class);
+                .extract().as(ErroDto.class);
 
         assertAll("Testes de deletar questão informando id de questão inativa",
                 () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
@@ -172,10 +171,10 @@ public class QuestaoDeleteFuncionalTest {
     @Description("Teste que verifica se ao deletar uma questão com ID inexistente a API retorna 404 e a mensagem ''")
     public void testQuestoes_deletarQuestaoComIdInexistente_esperaErro() {
 
-        ErrorDto erro = QuestaoClient.excluirQuestao(999999999)
+        ErroDto erro = QuestaoClient.excluirQuestao(999999999)
             .then()
                 .statusCode(404)
-                .extract().as(ErrorDto.class);
+                .extract().as(ErroDto.class);
 
         assertAll("Testes de deletar questão informando id inexistente",
                 () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
@@ -193,10 +192,10 @@ public class QuestaoDeleteFuncionalTest {
     @Description("Teste que verifica se ao deletar uma questão com ID nulo a API retorna 404 e a mensagem ''")
     public void testQuestoes_deletarQuestaoComIdNulo_esperaErro() {
 
-        ErrorDto erro = QuestaoClient.excluirQuestaoSemParam()
+        ErroDto erro = QuestaoClient.excluirQuestaoSemParam()
             .then()
                 .statusCode(404)
-                .extract().as(ErrorDto.class);
+                .extract().as(ErroDto.class);
 
         assertAll("Testes de deletar questão não informando id",
                 () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
@@ -214,11 +213,11 @@ public class QuestaoDeleteFuncionalTest {
     @Description("Teste que verifica se ao deletar uma questão com ID inválido a API retorna 400 e a mensagem ''")
     public void testQuestoes_deletarQuestaoComIdInvalido_esperaErro() {
 
-        ErrorDto erro = QuestaoClient.excluirQuestaoComIdInvalido()
+        ErroDto erro = QuestaoClient.excluirQuestaoComIdInvalido()
             .then()
                 .statusCode(400)
                 .log().all()
-                .extract().as(ErrorDto.class);
+                .extract().as(ErroDto.class);
 
         assertAll("Testes de deletar questão informando id inválido",
                 () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
@@ -252,10 +251,10 @@ public class QuestaoDeleteFuncionalTest {
             .then()
                 .statusCode(200);
 
-        ErrorDto erro = QuestaoClient.excluirTeste(testes.get(0).getTesteId())
+        ErroDto erro = QuestaoClient.excluirTeste(testes.get(0).getTesteId())
             .then()
                 .statusCode(404)
-                .extract().as(ErrorDto.class);
+                .extract().as(ErroDto.class);
 
         assertAll("Testes de deletar questão informando id inválido",
                 () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
@@ -286,11 +285,11 @@ public class QuestaoDeleteFuncionalTest {
 
         List<TesteResponseDto> testes = questaoResult.getTestes();
 
-        ErrorDto erro = QuestaoClient.excluirTeste(testes.get(0).getTesteId())
+        ErroDto erro = QuestaoClient.excluirTeste(testes.get(0).getTesteId())
             .then()
                 .statusCode(400)
                 .log().all()
-                .extract().as(ErrorDto.class);
+                .extract().as(ErroDto.class);
 
         QuestaoClient.excluirQuestao(questaoResult.getQuestaoDTO().getQuestaoId())
             .then()
@@ -311,10 +310,10 @@ public class QuestaoDeleteFuncionalTest {
     @Severity(SeverityLevel.NORMAL)
     @Description("Teste que verifica se ao deletar um teste sem permissão a API retorna 403 e a mensagem ''")
     public void testTestes_deletarTestesSemPermissao_esperaErro() {
-        ErrorDto erro = QuestaoClient.excluirTesteSemPermissao(123)
+        ErroDto erro = QuestaoClient.excluirTesteSemPermissao(123)
             .then()
                 .statusCode(403)
-                .extract().as(ErrorDto.class);
+                .extract().as(ErroDto.class);
 
         assertAll("Testes de deletar questão informando id inválido",
                 () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
@@ -331,10 +330,10 @@ public class QuestaoDeleteFuncionalTest {
     @Severity(SeverityLevel.NORMAL)
     @Description("Teste que verifica se ao deletar um teste com ID inválido a API retorna 404 e a mensagem ''")
     public void testTestes_deletarTestesComIDInvalido_esperaErro() {
-        ErrorDto erro = QuestaoClient.excluirTesteComIDInvalido()
+        ErroDto erro = QuestaoClient.excluirTesteComIDInvalido()
             .then()
                 .statusCode(400)
-                .extract().as(ErrorDto.class);
+                .extract().as(ErroDto.class);
 
         assertAll("Testes de deletar questão informando id inválido",
                 () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
@@ -351,10 +350,10 @@ public class QuestaoDeleteFuncionalTest {
     @Severity(SeverityLevel.NORMAL)
     @Description("Teste que verifica se ao deletar um teste com ID inexistente a API retorna 404 e a mensagem ''")
     public void testTestes_deletarTestesComIDInexistente_esperaErro() {
-        ErrorDto erro = QuestaoClient.excluirTesteComIDInexistente()
+        ErroDto erro = QuestaoClient.excluirTesteComIDInexistente()
             .then()
                 .statusCode(404)
-                .extract().as(ErrorDto.class);
+                .extract().as(ErroDto.class);
 
         assertAll("Testes de deletar questão informando id inválido",
                 () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
