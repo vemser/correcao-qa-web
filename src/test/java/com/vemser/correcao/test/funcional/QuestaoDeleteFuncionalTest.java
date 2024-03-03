@@ -34,6 +34,7 @@ public class QuestaoDeleteFuncionalTest {
         String response = QuestaoClient.excluirQuestao(questaoResult.getQuestaoDTO().getQuestaoId())
             .then()
                 .statusCode(200)
+                .log().all()
                 .extract().asString();
         assertEquals("Questão deletada com sucesso!", response, "Mensagem de sucesso deve ser igual");
     }

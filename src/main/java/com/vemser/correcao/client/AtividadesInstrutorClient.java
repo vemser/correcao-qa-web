@@ -39,4 +39,12 @@ public class AtividadesInstrutorClient {
                 .when()
                 .delete(DELETAR_ATIVIDADE_POR_ID);
     }
+
+    public static Response excluirAtividadeString(String atividadeId) {
+        return given()
+                .spec(AtividadesSpecs.atividadeInstrutorSpec())
+                .pathParam("id", atividadeId)
+                .when()
+                .delete(DELETAR_ATIVIDADE_POR_ID);
+    }
 }
