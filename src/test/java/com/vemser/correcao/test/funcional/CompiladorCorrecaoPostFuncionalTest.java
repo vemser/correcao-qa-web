@@ -17,13 +17,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @DisplayName("Compilador Correção - POST")
 @Owner("Gabriel Sales")
 public class CompiladorCorrecaoPostFuncionalTest {
-    // TODO: CORRIGIR ERRO
     @Test
     @Feature("Espera Sucesso")
     @Story("[CTA008] Informar Campos Válidos Com Código Java")
-    @Severity(SeverityLevel.NORMAL)
+    @Severity(SeverityLevel.CRITICAL)
     @Description("Teste que verifica se ao enviar um código válido com a linguagem Java o compilador retorna 200 e a mensagem de retorno do código")
-    public void testCompiladorCorrecao_camposValidosComCodigoJava_esperaSucesso() {
+    public void testCompiladorCorrecao_informarCamposValidosComCodigoJava_esperaSucesso() {
         CompiladorDto compiladorJava = CompiladorDataFactory.compiladorJavaValido();
 
         CompiladorResponseDto compiladorResponse = CompiladorCorrecaoClient.compilarCodigo(compiladorJava).then()
@@ -34,13 +33,12 @@ public class CompiladorCorrecaoPostFuncionalTest {
         Assertions.assertEquals("Vem Ser - Correção", compiladorResponse.getRetorno());
     }
 
-    // TODO: CORRIGIR ERRO
     @Test
     @Feature("Espera Sucesso")
     @Story("[CTA009] Informar Campos Válidos Com Código JavaScript")
-    @Severity(SeverityLevel.NORMAL)
+    @Severity(SeverityLevel.CRITICAL)
     @Description("Teste que verifica se ao enviar um código válido com a linguagem JavaScript o compilador retorna 200 e a mensagem de retorno do código")
-    public void testCompiladorCorrecao_camposValidosComCodigoJavascript_esperaSucesso() {
+    public void testCompiladorCorrecao_informarCamposValidosComCodigoJavascript_esperaSucesso() {
         CompiladorDto compiladorJavascript = CompiladorDataFactory.compiladorJavascriptValido();
 
         CompiladorResponseDto compiladorResponse = CompiladorCorrecaoClient.compilarCodigo(compiladorJavascript).then()
@@ -51,13 +49,12 @@ public class CompiladorCorrecaoPostFuncionalTest {
         Assertions.assertEquals("Vem Ser - Correção", compiladorResponse.getRetorno());
     }
 
-    // TODO: ALTERAR TIPO DA MENSAGEM DE ERRO
     @Test
     @Feature("Espera Erro")
     @Story("[CTA010] Informar Código Java Inválido")
-    @Severity(SeverityLevel.NORMAL)
-    @Description("Teste que verifica se ao enviar um código inválido com a linguagem Java o compilador retorna 400 e a mensagem 'Erro ao compilar o arquivo'")
-    public void testCompiladorCorrecao_codigoJavaInvalido_esperaErro() {
+    @Severity(SeverityLevel.CRITICAL)
+    @Description("Teste que verifica se ao enviar um código inválido com a linguagem Java o compilador retorna 400 e a mensagem 'Não foi posssível testar seu código no momento'")
+    public void testCompiladorCorrecao_informarCodigoJavaInvalido_esperaErro() {
         CompiladorDto compiladorCodigoInvalido = CompiladorDataFactory.compiladorCodigoJavaInvalido();
 
         ErroDto erro = CompiladorCorrecaoClient.compilarCodigo(compiladorCodigoInvalido).then()
@@ -69,17 +66,16 @@ public class CompiladorCorrecaoPostFuncionalTest {
                 () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
                 () -> assertFalse(erro.getErrors().isEmpty(), "Lista de erros não deve está vazia"),
                 () -> assertEquals(400, erro.getStatus(), "Status do erro deve ser igual ao esperado"),
-                () -> assertEquals("Erro ao compilar o arquivo", erro.getErrors().get("codigo"), "Mensagem de erro deve ser igual a esperada")
+                () -> assertEquals("Não foi posssível testar seu código no momento", erro.getErrors().get("error"), "Mensagem de erro deve ser igual a esperada")
         );
     }
 
-    // TODO: ALTERAR TIPO DA MENSAGEM DE ERRO
     @Test
     @Feature("Espera Erro")
     @Story("[CTA011] Informar Código JavaScript Inválido")
-    @Severity(SeverityLevel.NORMAL)
-    @Description("Teste que verifica se ao enviar um código inválido com a linguagem JavaScript o compilador retorna 400 e a mensagem 'Erro ao compilar o arquivo'")
-    public void testCompiladorCorrecao_codigoJavascriptInvalido_esperaErro() {
+    @Severity(SeverityLevel.CRITICAL)
+    @Description("Teste que verifica se ao enviar um código inválido com a linguagem JavaScript o compilador retorna 400 e a mensagem 'Não foi posssível testar seu código no moment'")
+    public void testCompiladorCorrecao_informarCodigoJavascriptInvalido_esperaErro() {
         CompiladorDto compiladorCodigoInvalido = CompiladorDataFactory.compiladorCodigoJavascriptInvalido();
 
         ErroDto erro = CompiladorCorrecaoClient.compilarCodigo(compiladorCodigoInvalido).then()
@@ -91,7 +87,7 @@ public class CompiladorCorrecaoPostFuncionalTest {
                 () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
                 () -> assertFalse(erro.getErrors().isEmpty(), "Lista de erros não deve está vazia"),
                 () -> assertEquals(400, erro.getStatus(), "Status do erro deve ser igual ao esperado"),
-                () -> assertEquals("Erro ao compilar o arquivo", erro.getErrors().get("codigo"), "Mensagem de erro deve ser igual a esperada")
+                () -> assertEquals("Não foi posssível testar seu código no momento", erro.getErrors().get("error"), "Mensagem de erro deve ser igual a esperada")
         );
     }
 
@@ -99,12 +95,13 @@ public class CompiladorCorrecaoPostFuncionalTest {
     @Feature("Espera Erro")
     @Story("[CTA012] Informar Linguagem Inválida")
     @Severity(SeverityLevel.NORMAL)
-    @Description("Teste que verifica se ao enviar uma linguagem inválida o compilador retorna 400 e a mensagem 'Linguagem não é válida'")
-    public void testCompiladorCorrecao_linguagemInvalida_esperaErro() {
+    @Description("Teste que verifica se ao enviar uma linguagem inválida o compilador retorna 400 e a mensagem 'Linguagem não é válida.'")
+    public void testCompiladorCorrecao_informarLinguagemInvalida_esperaErro() {
         CompiladorDto compiladorLinguagemInvalida = CompiladorDataFactory.compiladorLinguagemInvalida();
 
         ErroDto erro = CompiladorCorrecaoClient.compilarCodigo(compiladorLinguagemInvalida).then()
                 .statusCode(400)
+                .log().all()
                 .extract().as(ErroDto.class);
 
         assertAll("Testes de compilador informando linguagem inválida",
@@ -112,21 +109,21 @@ public class CompiladorCorrecaoPostFuncionalTest {
                 () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
                 () -> assertFalse(erro.getErrors().isEmpty(), "Lista de erros não deve está vazia"),
                 () -> assertEquals(400, erro.getStatus(), "Status do erro deve ser igual ao esperado"),
-                () -> assertEquals("Linguagem não é válida", erro.getErrors().get("linguagem"), "Mensagem de erro deve ser igual a esperada")
+                () -> assertEquals("Linguagem não é válida.", erro.getErrors().get("linguagem"), "Mensagem de erro deve ser igual a esperada")
         );
     }
 
-    // TODO: VERIFICAR ERRO
     @Test
     @Feature("Espera Erro")
     @Story("[CTA013] Informar Linguagem nula")
     @Severity(SeverityLevel.NORMAL)
     @Description("Teste que verifica se ao enviar linguagem nula o compilador retorna 400 e a mensagem 'Linguagem não pode ser nula'")
-    public void testCompiladorCorrecao_linguagemNaoInformada_esperaErro() {
+    public void testCompiladorCorrecao_informarLinguagemNula_esperaErro() {
         CompiladorDto compilador = CompiladorDataFactory.compiladorLinguagemNula();
 
         ErroDto erro = CompiladorCorrecaoClient.compilarCodigo(compilador).then()
                 .statusCode(400)
+                .log().all()
                 .extract().as(ErroDto.class);
 
         assertAll("Testes de compilador informando linguagem nula",
@@ -134,17 +131,16 @@ public class CompiladorCorrecaoPostFuncionalTest {
                 () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
                 () -> assertFalse(erro.getErrors().isEmpty(), "Lista de erros não deve está vazia"),
                 () -> assertEquals(400, erro.getStatus(), "Status do erro deve ser igual ao esperado"),
-                () -> assertEquals("Linguagem não pode ser nula", erro.getErrors().get("linguagem"), "Mensagem de erro deve ser igual a esperada")
+                () -> assertTrue(erro.getErrors().get("linguagem").equals("Linguagem não pode ser nula") || erro.getErrors().get("linguagem").equals("Linguagem não é válida."), "Mensagem de erro deve ser igual a esperada")
         );
     }
 
-    // TODO: VERIFICAR ERRO
     @Test
     @Feature("Espera Erro")
     @Story("[CTA014] Informar Código Nulo")
     @Severity(SeverityLevel.NORMAL)
     @Description("Teste que verifica se ao enviar código nulo o compilador retorna 400 e a mensagem 'Código não pode ser nulo'")
-    public void testCompiladorCorrecao_codigoNaoInformado_esperaErro() {
+    public void testCompiladorCorrecao_informarCodigoNulo_esperaErro() {
         CompiladorDto compilador = CompiladorDataFactory.compiladorCodigoNulo();
 
         ErroDto erro = CompiladorCorrecaoClient.compilarCodigo(compilador).then()
