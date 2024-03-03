@@ -1,5 +1,7 @@
 package com.vemser.correcao.data.factory;
 
+import com.vemser.correcao.dto.EditarTesteDto;
+import com.vemser.correcao.dto.QuestaoResponseDto;
 import com.vemser.correcao.dto.TesteDto;
 import com.vemser.correcao.enums.Exemplo;
 import net.datafaker.Faker;
@@ -186,5 +188,29 @@ public class TesteDataFactory {
         teste.setRetornoEsperado(retornoEsperado(valor1, valor2));
 
         return teste;
+    }
+
+    public static List<EditarTesteDto> editarTesteValido(QuestaoResponseDto questaoResult, EditarTesteDto testeDto, int quantidadeDeTestes) {
+        List<EditarTesteDto> listaTestesEditados = new ArrayList<>();
+        for (int i=0; i<quantidadeDeTestes; i++) {
+            testeDto.setExemplo(questaoResult.getTestes().get(i).getExemplo());
+            testeDto.setRetornoEsperado(questaoResult.getTestes().get(i).getRetornoEsperado());
+            testeDto.setTesteId(questaoResult.getTestes().get(i).getTesteId());
+            testeDto.setValorEntrada(questaoResult.getTestes().get(i).getValorEntrada());
+            listaTestesEditados.add(testeDto);
+        }
+        return listaTestesEditados;
+    }
+
+    public static List<EditarTesteDto> editarTesteCamposVaziosExcetoId(QuestaoResponseDto questaoResult, EditarTesteDto testeDto, int quantidadeDeTestes) {
+        List<EditarTesteDto> listaTestesEditados = new ArrayList<>();
+        for (int i=0; i<quantidadeDeTestes; i++) {
+            testeDto.setExemplo("");
+            testeDto.setRetornoEsperado("");
+            testeDto.setTesteId(questaoResult.getTestes().get(i).getTesteId());
+            testeDto.setValorEntrada("");
+            listaTestesEditados.add(testeDto);
+        }
+        return listaTestesEditados;
     }
 }

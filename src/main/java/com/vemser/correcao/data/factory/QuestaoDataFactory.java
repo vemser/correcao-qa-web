@@ -1,6 +1,7 @@
 package com.vemser.correcao.data.factory;
 
 import com.vemser.compilador.enums.Linguagem;
+import com.vemser.correcao.dto.EditarQuestaoDto;
 import com.vemser.correcao.dto.ListaTodasQuestaoResponseDto;
 import com.vemser.correcao.dto.QuestaoDto;
 import com.vemser.correcao.enums.Dificuldade;
@@ -267,4 +268,95 @@ public class QuestaoDataFactory {
                 null
         );
     }
+
+    public static EditarQuestaoDto questaoEditada(){
+        EditarQuestaoDto editarQuestaoDto = new EditarQuestaoDto();
+        editarQuestaoDto.setCodigo(codigoFaker());
+        editarQuestaoDto.setDescricao(descricaoFaker());
+        editarQuestaoDto.setDificuldade(dificuldadeFaker());
+        editarQuestaoDto.setLinguagem(linguagemFaker());
+        editarQuestaoDto.setTitulo(tituloFaker());
+        return editarQuestaoDto;
+    }
+
+    public static EditarQuestaoDto questaoEditadaCamposVazios(){
+        EditarQuestaoDto editarQuestaoDto = new EditarQuestaoDto();
+        editarQuestaoDto.setCodigo("");
+        editarQuestaoDto.setDescricao("");
+        editarQuestaoDto.setDificuldade(null);
+        editarQuestaoDto.setLinguagem(null);
+        editarQuestaoDto.setTitulo("");
+        return editarQuestaoDto;
+    }
+
+    public static EditarQuestaoDto questaoEditadaTituloVazio(){
+        EditarQuestaoDto editarQuestaoDto = new EditarQuestaoDto();
+        editarQuestaoDto.setCodigo(codigoFaker());
+        editarQuestaoDto.setDescricao(descricaoFaker());
+        editarQuestaoDto.setDificuldade(dificuldadeFaker());
+        editarQuestaoDto.setLinguagem(linguagemFaker());
+        editarQuestaoDto.setTitulo("");
+        return editarQuestaoDto;
+    }
+
+    public static EditarQuestaoDto questaoEditadaCodigoVazio(){
+        EditarQuestaoDto editarQuestaoDto = new EditarQuestaoDto();
+        editarQuestaoDto.setCodigo("");
+        editarQuestaoDto.setDescricao(descricaoFaker());
+        editarQuestaoDto.setDificuldade(dificuldadeFaker());
+        editarQuestaoDto.setLinguagem(linguagemFaker());
+        editarQuestaoDto.setTitulo(tituloFaker());
+        return editarQuestaoDto;
+    }
+
+    public static EditarQuestaoDto questaoEditadaDescricaoVazia(){
+        EditarQuestaoDto editarQuestaoDto = new EditarQuestaoDto();
+        editarQuestaoDto.setCodigo(codigoFaker());
+        editarQuestaoDto.setDescricao("");
+        editarQuestaoDto.setDificuldade(dificuldadeFaker());
+        editarQuestaoDto.setLinguagem(linguagemFaker());
+        editarQuestaoDto.setTitulo(tituloFaker());
+        return editarQuestaoDto;
+    }
+
+    public static EditarQuestaoDto questaoEditadaDificuldadeVazia(){
+        EditarQuestaoDto editarQuestaoDto = new EditarQuestaoDto();
+        editarQuestaoDto.setCodigo(codigoFaker());
+        editarQuestaoDto.setDescricao(descricaoFaker());
+        editarQuestaoDto.setDificuldade(null);
+        editarQuestaoDto.setLinguagem(linguagemFaker());
+        editarQuestaoDto.setTitulo(tituloFaker());
+        return editarQuestaoDto;
+    }
+
+    public static EditarQuestaoDto questaoEditadaDificuldadeInvalida(){
+        EditarQuestaoDto editarQuestaoDto = new EditarQuestaoDto();
+        editarQuestaoDto.setCodigo(codigoFaker());
+        editarQuestaoDto.setDescricao(descricaoFaker());
+        editarQuestaoDto.setDificuldade(Dificuldade.IMPOSSIVEL);
+        editarQuestaoDto.setLinguagem(linguagemFaker());
+        editarQuestaoDto.setTitulo(tituloFaker());
+        return editarQuestaoDto;
+    }
+
+    public static EditarQuestaoDto questaoEditadaLinguagemVazia(){
+        EditarQuestaoDto editarQuestaoDto = new EditarQuestaoDto();
+        editarQuestaoDto.setCodigo(codigoFaker());
+        editarQuestaoDto.setDescricao(descricaoFaker());
+        editarQuestaoDto.setDificuldade(dificuldadeFaker());
+        editarQuestaoDto.setLinguagem(null);
+        editarQuestaoDto.setTitulo(tituloFaker());
+        return editarQuestaoDto;
+    }
+
+    public static EditarQuestaoDto questaoEditadaLinguagemInvalida(){
+        EditarQuestaoDto editarQuestaoDto = new EditarQuestaoDto();
+        editarQuestaoDto.setCodigo(codigoFaker());
+        editarQuestaoDto.setDescricao(descricaoFaker());
+        editarQuestaoDto.setDificuldade(dificuldadeFaker());
+        editarQuestaoDto.setLinguagem(Linguagem.PYTHON);
+        editarQuestaoDto.setTitulo(tituloFaker());
+        return editarQuestaoDto;
+    }
+
 }
