@@ -4,10 +4,7 @@ import com.vemser.correcao.client.LoginClient;
 import com.vemser.correcao.client.QuestaoClient;
 import com.vemser.correcao.data.factory.LoginDataFactory;
 import com.vemser.correcao.data.factory.QuestaoDataFactory;
-import com.vemser.correcao.dto.ErroDto;
-import com.vemser.correcao.dto.LoginDto;
-import com.vemser.correcao.dto.QuestaoDto;
-import com.vemser.correcao.dto.QuestaoResponseDto;
+import com.vemser.correcao.dto.*;
 import io.qameta.allure.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -33,7 +30,7 @@ public class LoginFuncionalTest {
                 .asString();
         assertNotNull(token);
 
-        QuestaoDto questao = QuestaoDataFactory.questaoDadosValidos(3);
+        QuestaoDto questao = QuestaoDataFactory.questaoDadosValidos(2);
         QuestaoResponseDto questaoResponseDto = QuestaoClient.cadastrarQuestaoPorLogin(questao, token)
             .then()
                 .statusCode(201)
@@ -60,17 +57,17 @@ public class LoginFuncionalTest {
 
         assertNotNull(token);
         QuestaoDto questao = QuestaoDataFactory.questaoDadosValidos(3);
-        ErroDto erro = QuestaoClient.cadastrarQuestaoPorLogin(questao, token)
+        ErrorDeleteDto erro = QuestaoClient.cadastrarQuestaoPorLogin(questao, token)
             .then()
                 .statusCode(403)
                 .extract()
-                .as(ErroDto.class);
+                .as(ErrorDeleteDto.class);
 
         assertAll("Testar se o usuário foi barrado por falta de permissão",
                 () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
                 () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
                 () -> assertEquals(erro.getStatus(), 403, "Status do erro deve ser igual ao esperado"),
-                () -> assertEquals(erro.getErrors().get("error"), "Acesso negado")
+                () -> assertEquals(erro.getError(), "Forbidden")
         );
     }
 
