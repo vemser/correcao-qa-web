@@ -1,14 +1,20 @@
 package com.vemser.correcao.dto;
 
-import java.util.List;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-public class PageDto<T> {
-    private List<T> content;
+import java.util.List;
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class PaginacaoAtividadeEnviadaDto {
+    private List<AtividadeEnviadaDto> content;
     private boolean empty;
     private boolean first;
     private Integer number;
     private Integer numberOfElements;
-    private PageableDto pageable;
+    private String pageable;
     private Integer size;
     private boolean last;
     private SortDto sort;

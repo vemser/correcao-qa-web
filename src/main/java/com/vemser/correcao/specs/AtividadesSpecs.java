@@ -16,4 +16,14 @@ public class AtividadesSpecs {
                 .addHeader("Authorization", tokenInstrutor)
                 .build();
     }
+
+    public static RequestSpecification atividadeAlunoSpec() {
+        String tokenAluno = Auth.obterTokenAluno();
+
+        return new RequestSpecBuilder()
+                .addRequestSpecification(InicialSpecs.setupApi())
+                .setContentType(ContentType.JSON)
+                .addHeader("Authorization", tokenAluno)
+                .build();
+    }
 }
