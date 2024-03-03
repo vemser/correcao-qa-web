@@ -40,16 +40,17 @@ public class QuestaoGetFuncionalTest {
     @Severity(SeverityLevel.NORMAL)
     @Description("Teste que verifica se ŕ possivel listar todas as questões sem estar logado")
     public void testListarQuestoes_listarQuestoesSemEstarLogado_esperaFalha() {
-        ErroDto questaoResult = QuestaoClient.buscarTodasQuestaoSemEstarLogado("0", "10")
+        ErroForbiddenDto questaoResult = QuestaoClient.buscarTodasQuestaoSemEstarLogado("0", "10")
                 .then()
                 .statusCode(403)
                 .extract()
-                .as(ErroDto.class);
+                .as(ErroForbiddenDto.class);
 
-        assertAll("Verifica se retorna lista com tamnaho correto",
+        assertAll("Verifica se retorna error correto",
                 () -> assertEquals(questaoResult.getStatus(), 403),
                 () -> assertNotNull(questaoResult.getTimestamp()),
-                () -> assertEquals(questaoResult.getErrors().get("error"),"Forbidden" )
+                () -> assertNotNull(questaoResult.getPath()),
+                () -> assertEquals(questaoResult.getError(),"Forbidden" )
         );
     }
 
@@ -60,16 +61,17 @@ public class QuestaoGetFuncionalTest {
     @Severity(SeverityLevel.NORMAL)
     @Description("Teste que verifica se ŕ possivel listar todas as questões logado como aluno")
     public void testListarQuestoes_listarQuestoesLogadoComoAluno_esperaFalha() {
-        ErroDto questaoResult = QuestaoClient.buscarTodasQuestaoLogadoComoAluno("0", "10")
+        ErroForbiddenDto questaoResult = QuestaoClient.buscarTodasQuestaoLogadoComoAluno("0", "10")
                 .then()
                 .statusCode(403)
                 .extract()
-                .as(ErroDto.class);
+                .as(ErroForbiddenDto.class);
 
-        assertAll("Verifica se retorna lista com tamnaho correto",
+        assertAll("Verifica se retorna error correto",
                 () -> assertEquals(questaoResult.getStatus(), 403),
                 () -> assertNotNull(questaoResult.getTimestamp()),
-                () -> assertEquals(questaoResult.getErrors().get("error"),"Forbidden" )
+                () -> assertNotNull(questaoResult.getPath()),
+                () -> assertEquals(questaoResult.getError(),"Forbidden" )
         );
     }
 
