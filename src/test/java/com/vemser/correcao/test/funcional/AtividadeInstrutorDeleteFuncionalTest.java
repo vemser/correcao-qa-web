@@ -41,7 +41,7 @@ public class AtividadeInstrutorDeleteFuncionalTest {
     @Feature("Espera Erro")
     @Story("[CTAXXX] Deletar Atividade Ao Informar ID Inativo")
     @Severity(SeverityLevel.CRITICAL)
-    @Description("Teste que verifica se ao deletar uma atividade inativa por ID a API retorna 400 e a mensagem 'Questão já se encontra excluída.'")
+    @Description("Teste que verifica se ao deletar uma atividade inativa por ID a API retorna 404 e a mensagem 'Questão já se encontra excluída.'")
     public void test_deletarAtividadePorIdInativo_esperaErro() {
         CriarAtividadeDto atividade = CriarAtividadeDataFactory.atividadeComDadosValidos();
         CriarAtividadeResponseDto atividadeResult = AtividadesInstrutorClient.criarAtividade(atividade)
@@ -89,7 +89,7 @@ public class AtividadeInstrutorDeleteFuncionalTest {
     @Feature("Espera Erro")
     @Story("[CTAXXX] Deletar Atividade Ao Informar ID Inexistente no Banco de Dados")
     @Severity(SeverityLevel.CRITICAL)
-    @Description("Teste que verifica se ao deletar uma atividade  por ID inexistente a API retorna 404 e a mensagem 'Houve um erro em um conversão. Verifique se os valores estão corretos.'")
+    @Description("Teste que verifica se ao deletar uma atividade  por ID inexistente a API retorna 404 e a mensagem 'Nenhuma atividade encontrada.'")
     public void test_deletarAtividadePorIdInexistente_esperaErro() {
         ErroDto erro = AtividadesInstrutorClient.excluirAtividade(1000000000)
                 .then()
