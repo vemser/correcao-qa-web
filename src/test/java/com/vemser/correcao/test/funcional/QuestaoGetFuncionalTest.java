@@ -3,13 +3,11 @@ package com.vemser.correcao.test.funcional;
 import com.vemser.correcao.client.QuestaoClient;
 import com.vemser.correcao.data.factory.QuestaoDataFactory;
 import com.vemser.correcao.dto.*;
+import com.vemser.correcao.enums.QuestoesParametro;
 import com.vemser.correcao.dto.ErroDto;
 import io.qameta.allure.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
-
-import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -34,7 +32,45 @@ public class QuestaoGetFuncionalTest {
                 () -> assertEquals(questaoResult.getContent().size(), questaoResult.getNumberOfElements(), "Tamanho do conteúdo deve ser igual ao número de elementos"),
                 () -> assertEquals(questaoResult.getPageable().getPageNumber(), 0,"Número da página deve ser igual ao esperado")
         );
-        assertEquals(questaoResult.getPageable().getPageNumber(), 0,"Verifica se retorna pagina correta");
+    }
+
+    @Test
+    @Feature("Listar Todas Questões")
+    @Story("[CTAXXX] Listar Questões - Listar questões sem estar logado na aplicação (Espera Falha)")
+    @Severity(SeverityLevel.NORMAL)
+    @Description("Teste que verifica se ŕ possivel listar todas as questões sem estar logado")
+    public void testListarQuestoes_listarQuestoesSemEstarLogado_esperaFalha() {
+        ErroDto questaoResult = QuestaoClient.buscarTodasQuestaoSemEstarLogado("0", "10")
+                .then()
+                .statusCode(403)
+                .extract()
+                .as(ErroDto.class);
+
+        assertAll("Verifica se retorna lista com tamnaho correto",
+                () -> assertEquals(questaoResult.getStatus(), 403),
+                () -> assertNotNull(questaoResult.getTimestamp()),
+                () -> assertEquals(questaoResult.getErrors().get("error"),"Forbidden" )
+        );
+    }
+
+    @Test
+    @Owner("Italo Lacerda")
+    @Feature("Listar Todas Questões")
+    @Story("[CTAXXX] Listar Questões - Listar questões logado na aplicação como aluno (Espera Falha)")
+    @Severity(SeverityLevel.NORMAL)
+    @Description("Teste que verifica se ŕ possivel listar todas as questões logado como aluno")
+    public void testListarQuestoes_listarQuestoesLogadoComoAluno_esperaFalha() {
+        ErroDto questaoResult = QuestaoClient.buscarTodasQuestaoLogadoComoAluno("0", "10")
+                .then()
+                .statusCode(403)
+                .extract()
+                .as(ErroDto.class);
+
+        assertAll("Verifica se retorna lista com tamnaho correto",
+                () -> assertEquals(questaoResult.getStatus(), 403),
+                () -> assertNotNull(questaoResult.getTimestamp()),
+                () -> assertEquals(questaoResult.getErrors().get("error"),"Forbidden" )
+        );
     }
 
     @Test
@@ -54,13 +90,12 @@ public class QuestaoGetFuncionalTest {
                     .extract()
                     .as(ErroDto.class);
 
-        assertAll("Testes de listar questão informando página que não existe",
+        assertAll("Verifica se retorna error correto",
                 () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
-                () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
-                () -> assertFalse(erro.getErrors().isEmpty(), "Lista de erros não deve está vazia"),
-                () -> assertEquals(400, erro.getStatus(), "Status do erro deve ser igual ao esperado"),
-                () -> assertEquals("?????", erro.getErrors().get("????"), "Mensagem de erro deve ser igual a esperada")
+                () -> assertEquals(erro.getStatus(), 404, "Status do erro deve ser igual ao esperado"),
+                () -> assertEquals(erro.getErrors().get("error"), "Página não encontrada", "Mensagem de erro deve ser igual a esperada")
         );
+
     }
 
     @Test
@@ -79,14 +114,53 @@ public class QuestaoGetFuncionalTest {
                     .as(ErroDto.class);
 
         assertAll("Testes de listar questão informando página inválida",
+                () -> assertEquals(erro.getStatus(), 404, "Status do erro deve ser igual ao esperado"),
                 () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
-                () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
                 () -> assertFalse(erro.getErrors().isEmpty(), "Lista de erros não deve está vazia"),
-                () -> assertEquals(400, erro.getStatus(), "Status do erro deve ser igual ao esperado"),
-                () -> assertEquals("?????", erro.getErrors().get("????"), "Mensagem de erro deve ser igual a esperada")
+                () -> assertEquals(erro.getErrors().get("error"), "Página não encontrada", "Mensagem de erro deve ser igual a esperada")
         );
     }
 
+
+    @Test
+    @Feature("Listar Todas Questões")
+    @Story("[CTAXXX] Listar Questões - Listar questões sem parâmetro de tamanho pagina (esperaSucesso)")
+    @Severity(SeverityLevel.NORMAL)
+    @Description("Teste que verifica se ao listar todas as questões sem o tamanho da página a  API retorna 200 e a tamanho da pagina 10  ''")
+    public void testQuestoes_listarQuestoesSemParametroDeTamanhoPagina_esperaSucesso() {
+        ListaTodasQuestaoResponseDto questaoResult = QuestaoClient.buscarTodasQuestao(QuestoesParametro.page ,"0")
+                .then()
+                .statusCode(200)
+                .log().all()
+                .extract()
+                .as(ListaTodasQuestaoResponseDto.class);
+
+        assertAll("Verifica se retorna lista com tamnaho correto",
+                () -> assertEquals(questaoResult.getNumberOfElements(), 10),
+                () -> assertEquals(questaoResult.getContent().size(), questaoResult.getNumberOfElements())
+        );
+        assertEquals(questaoResult.getPageable().getPageNumber(), 0,"Verifica se retorna pagina correta");
+    }
+
+    @Test
+    @Feature("Listar Todas Questões")
+    @Story("[CTAXXX] Listar Questões - Listar questões sem parâmetro de pagina solicitada (esperaSucesso)")
+    @Severity(SeverityLevel.NORMAL)
+    @Description("Teste que verifica se ao listar todas as questões sem a pagina solicitada a API retorna 200 e a pagina 0 ''")
+    public void testQuestoes_listarQuestoesSemParametroDePaginaSolicitada_esperaSucesso() {
+        ListaTodasQuestaoResponseDto questaoResult = QuestaoClient.buscarTodasQuestao(QuestoesParametro.size,"10")
+                .then()
+                .statusCode(200)
+                .log().all()
+                .extract()
+                .as(ListaTodasQuestaoResponseDto.class);
+
+        assertAll("Verifica se retorna lista com tamnaho correto",
+                () -> assertEquals(questaoResult.getNumberOfElements(), 10),
+                () -> assertEquals(questaoResult.getContent().size(), questaoResult.getNumberOfElements())
+        );
+        assertEquals(questaoResult.getPageable().getPageNumber(), 0,"Verifica se retorna pagina correta");
+    }
     @Test
     @Feature("Espera Sucesso")
     @Story("[CTAXXX] Buscar Questão Por ID Ao Informar ID Existente")
@@ -131,7 +205,7 @@ public class QuestaoGetFuncionalTest {
                 () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
                 () -> assertFalse(erro.getErrors().isEmpty(), "Lista de erros não deve está vazia"),
                 () -> assertEquals(404, erro.getStatus(), "Status do erro deve ser igual ao esperado"),
-                () -> assertEquals("Questão não encontrada com o ID fornecido", erro.getErrors().get("error"), "Mensagem de erro deve ser igual a esperada")
+                () -> assertEquals("Questão não encontrada", erro.getErrors().get("error"), "Mensagem de erro deve ser igual a esperada")
         );
     }
 
@@ -144,7 +218,6 @@ public class QuestaoGetFuncionalTest {
         ErroDto erro = QuestaoClient.buscarQuestaoPorIdMaiorQueOLimite()
                 .then()
                 .statusCode(400)
-                .log().all()
                 .extract().as(ErroDto.class);
 
         assertAll("Testes de buscar questão informando ID maior que o limite",
@@ -152,7 +225,7 @@ public class QuestaoGetFuncionalTest {
                 () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
                 () -> assertFalse(erro.getErrors().isEmpty(), "Lista de erros não deve está vazia"),
                 () -> assertEquals(400, erro.getStatus(), "Status do erro deve ser igual ao esperado"),
-                () -> assertEquals("??????", erro.getErrors().get("??????"), "Mensagem de erro deve ser igual a esperada")
+                () -> assertEquals("Houve um erro em um conversão. Verifique se os valores estão corretos.", erro.getErrors().get("error"), "Mensagem de erro deve ser igual a esperada")
         );
     }
 
@@ -182,55 +255,7 @@ public class QuestaoGetFuncionalTest {
                 () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
                 () -> assertFalse(erro.getErrors().isEmpty(), "Lista de erros não deve está vazia"),
                 () -> assertEquals(404, erro.getStatus(), "Status do erro deve ser igual ao esperado"),
-                () -> assertEquals("??????", erro.getErrors().get("??????"), "Mensagem de erro deve ser igual a esperada")
-        );
-    }
-
-    @Test
-    @Feature("Espera Erro")
-    @Story("[CTAXXX] Listar Questões Ao Não Informar Parâmetro De Tamanho Da Página")
-    @Severity(SeverityLevel.NORMAL)
-    @Description("Teste que verifica se ao buscar uma questão não informando parâmetro de tamanho de página retorna 400 e a mensagem '??????'")
-    public void testListarQuestoes_naoInformarParametroDeTamanhoPagina_esperaErro() {
-        HashMap<String, String> queryParams = new HashMap<>();
-        queryParams.put("paginaSolicitada", "0");
-
-        ErroDto erro = QuestaoClient.buscarTodasQuestao(queryParams)
-                .then()
-                    .statusCode(400)
-                    .extract()
-                    .as(ErroDto.class);
-
-        assertAll("Testes de buscar questão não informando parâmetro de tamanho da página",
-                () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
-                () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
-                () -> assertFalse(erro.getErrors().isEmpty(), "Lista de erros não deve está vazia"),
-                () -> assertEquals(404, erro.getStatus(), "Status do erro deve ser igual ao esperado"),
-                () -> assertEquals("??????", erro.getErrors().get("??????"), "Mensagem de erro deve ser igual a esperada")
-        );
-    }
-
-    @Test
-    @Feature("Espera Erro")
-    @Story("[CTAXXX] Listar Questões Ao Não Informar Parâmetro De Página Solicitada")
-    @Severity(SeverityLevel.NORMAL)
-    @Description("Teste que verifica se ao buscar uma questão não informando parâmetro de tamanho de página retorna 400 e a mensagem '??????'")
-    public void testListarQuestoes_naoInformarParametroDePaginaSolicitada_esperaErro() {
-        HashMap<String, String> queryParams = new HashMap<>();
-        queryParams.put("tamanhoPagina", "10");
-
-        ErroDto erro = QuestaoClient.buscarTodasQuestao(queryParams)
-                .then()
-                .statusCode(400)
-                .extract()
-                .as(ErroDto.class);
-
-        assertAll("Testes de buscar questão não informando parâmetro de página solicitada",
-                () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
-                () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
-                () -> assertFalse(erro.getErrors().isEmpty(), "Lista de erros não deve está vazia"),
-                () -> assertEquals(404, erro.getStatus(), "Status do erro deve ser igual ao esperado"),
-                () -> assertEquals("??????", erro.getErrors().get("??????"), "Mensagem de erro deve ser igual a esperada")
+                () -> assertEquals("Questão não encontrada", erro.getErrors().get("error"), "Mensagem de erro deve ser igual a esperada")
         );
     }
 }

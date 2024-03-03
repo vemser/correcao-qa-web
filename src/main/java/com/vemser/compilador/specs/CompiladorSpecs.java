@@ -10,21 +10,10 @@ import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
 
 public class CompiladorSpecs {
-    public static RequestSpecification compiladorRequest(CompiladorDto compiladorDto) {
+    public static RequestSpecification compiladorRequest() {
         return new RequestSpecBuilder()
                 .addRequestSpecification(InicialSpecs.setupCompilador())
                 .setContentType(ContentType.JSON)
-                .setBody(compiladorDto)
-                .log(LogDetail.BODY)
-                .build();
-    }
-
-    public static RequestSpecification compiladorRequest(String compiladorJson) {
-        return new RequestSpecBuilder()
-                .addRequestSpecification(InicialSpecs.setupCompilador())
-                .setContentType(ContentType.JSON)
-                .setBody(compiladorJson)
-                .log(LogDetail.BODY)
                 .build();
     }
 }
