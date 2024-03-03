@@ -8,6 +8,7 @@ import io.qameta.allure.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+
 import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -111,6 +112,7 @@ public class QuestaoGetFuncionalTest {
                 () -> assertEquals(questaoCriada.getQuestaoDTO().getTestes(), questaoBuscada.getQuestaoDTO().getTestes(), "Testes da questão buscada deve ser igual aos testes da questão criada")
         );
     }
+  
     @Test
     @Feature("Espera Erro")
     @Story("[CTAXXX] Buscar Questão Por ID Ao Informar ID Inexistente (Espera Erro)")
@@ -131,6 +133,7 @@ public class QuestaoGetFuncionalTest {
                 () -> assertEquals("Questão não encontrada com o ID fornecido", erro.getErrors().get("error"), "Mensagem de erro deve ser igual a esperada")
         );
     }
+  
     @Test
     @Feature("Espera Erro")
     @Story("[CTAXXX] Buscar Questão Por ID Ao Informar ID Maior Que O Limite")
@@ -151,6 +154,7 @@ public class QuestaoGetFuncionalTest {
                 () -> assertEquals("??????", erro.getErrors().get("??????"), "Mensagem de erro deve ser igual a esperada")
         );
     }
+  
     @Test
     @Feature("Espera Erro")
     @Story("[CTAXXX] Buscar Questão Por ID Ao Informar ID Inativo")

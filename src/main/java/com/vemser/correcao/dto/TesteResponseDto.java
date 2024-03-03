@@ -11,7 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TesteResponseDto {
-    private Long testeId;
+    private Integer testeId;
     private String valorEntrada;
     private String retornoEsperado;
     private String exemplo;

@@ -1,5 +1,6 @@
 package com.vemser.correcao.client;
 
+import com.vemser.correcao.data.factory.LoginDataFactory;
 import com.vemser.correcao.dto.LoginDto;
 import com.vemser.correcao.specs.InicialSpecs;
 import io.restassured.http.ContentType;
