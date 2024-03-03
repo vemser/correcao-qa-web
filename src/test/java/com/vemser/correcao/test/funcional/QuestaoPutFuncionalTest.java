@@ -37,7 +37,7 @@ public class QuestaoPutFuncionalTest {
         EditarQuestaoDto questaoEditada = QuestaoDataFactory.questaoEditada();
         Integer questaoId = questaoResult.getQuestaoDTO().getQuestaoId();
 
-        questaoEditada.setTestes(TesteDataFactory.editarTesteValido(questaoResult, testeDto, 2));
+        questaoEditada.setTestes(TesteDataFactory.editarTesteValido(questaoResult, testeDto, 0));
 
         QuestaoResponseDto response = QuestaoClient.editarQuestao(questaoEditada, questaoId)
             .then()
@@ -49,6 +49,38 @@ public class QuestaoPutFuncionalTest {
                 () -> assertEquals(response.getQuestaoDTO().getDificuldade(), questaoEditada.getDificuldade(), "Dificuldade da questão deve ser igual"),
                 () -> assertEquals(response.getQuestaoDTO().getLinguagem(), questaoEditada.getLinguagem(),"Linguagem da questão deve ser igual"),
                 () -> assertEquals(response.getTestes().size(), questaoEditada.getTestes().size(),"Quantidade de testes da questão deve ser igual")
+        );
+    }
+
+    @Test
+    @Feature("Espera Erro")
+    @Story("[CTAXXX] Informar Código Vazio")
+    @Severity(SeverityLevel.NORMAL)
+    @Description("Teste que verifica se ao editar uma questão com o campo código vazio a API retorna 400 e a mensagem 'Código não pode ser nulo'")
+    public void testEditarQuestao_informarCodigoVazio_esperaErro() {
+        QuestaoDto questao = QuestaoDataFactory.questaoDadosValidos(0);
+        EditarTesteDto testeDto = new EditarTesteDto();
+
+        QuestaoResponseDto questaoResult = QuestaoClient.cadastrarQuestao(questao)
+                .then()
+                .statusCode(201)
+                .extract().as(QuestaoResponseDto.class);
+
+        EditarQuestaoDto questaoEditada = QuestaoDataFactory.questaoEditadaCodigoVazio();
+        Integer questaoId = questaoResult.getQuestaoDTO().getQuestaoId();
+
+        questaoEditada.setTestes(TesteDataFactory.editarTesteValido(questaoResult, testeDto, 2));
+
+        ErroDto erro = QuestaoClient.editarQuestao(questaoEditada, questaoId)
+                .then()
+                .statusCode(400)
+                .extract().as(ErroDto.class);
+        assertAll("Testes de editar questão informando código vazio",
+                () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
+                () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
+                () -> assertFalse(erro.getErrors().isEmpty(), "Lista de erros não deve está vazia"),
+                () -> assertEquals(400, erro.getStatus(), "Status do erro deve ser igual ao esperado"),
+                () -> assertEquals("Código não pode ser nulo", erro.getErrors().get("codigo"), "Mensagem de erro deve ser igual a esperada")
         );
     }
 
