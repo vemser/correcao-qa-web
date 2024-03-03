@@ -1,6 +1,7 @@
 package com.vemser.correcao.client;
 
 import com.vemser.correcao.dto.QuestaoDto;
+import com.vemser.correcao.enums.QuestoesParametro;
 import com.vemser.correcao.specs.QuestaoSpecs;
 import io.restassured.response.Response;
 
@@ -31,8 +32,8 @@ public class QuestaoClient {
 
     public static Response buscarTodasQuestao(String paginaSolicitada, String tamanhoPagina) {
         Map<String, String> parametrosMap = new HashMap<>();
-        parametrosMap.put("paginaSolicitada", paginaSolicitada);
-        parametrosMap.put("tamanhoPagina", tamanhoPagina);
+        parametrosMap.put("page", paginaSolicitada);
+        parametrosMap.put("size", tamanhoPagina);
 
         return
                 given()
@@ -42,10 +43,22 @@ public class QuestaoClient {
                     .get(LISTAR_QUESTAO_URL);
     }
 
+    public static Response buscarTodasQuestao(QuestoesParametro parametro, String value) {
+        Map<String, String> parametrosMap = new HashMap<>();
+        parametrosMap.put(String.valueOf(parametro), value);
+
+        return
+                given()
+                        .spec(QuestaoSpecs.questaoReqAuthInstrutorSpec())
+                        .queryParams(parametrosMap)
+                        .when()
+                        .get(LISTAR_QUESTAO_URL);
+    }
+
     public static Response buscarTodasQuestaoSemEstarLogado(String paginaSolicitada, String tamanhoPagina) {
         Map<String, String> parametrosMap = new HashMap<>();
-        parametrosMap.put("paginaSolicitada", paginaSolicitada);
-        parametrosMap.put("tamanhoPagina", tamanhoPagina);
+        parametrosMap.put("page", paginaSolicitada);
+        parametrosMap.put("size", tamanhoPagina);
 
         return
                 given()
@@ -57,24 +70,12 @@ public class QuestaoClient {
 
     public static Response buscarTodasQuestaoLogadoComoAluno(String paginaSolicitada, String tamanhoPagina) {
         Map<String, String> parametrosMap = new HashMap<>();
-        parametrosMap.put("paginaSolicitada", paginaSolicitada);
-        parametrosMap.put("tamanhoPagina", tamanhoPagina);
+        parametrosMap.put("page", paginaSolicitada);
+        parametrosMap.put("size", tamanhoPagina);
 
         return
                 given()
                         .spec(QuestaoSpecs.questaoReqAuthAlunoSpec())
-                        .queryParams(parametrosMap)
-                        .when()
-                        .get(LISTAR_QUESTAO_URL);
-    }
-
-    public static Response buscarTodasQuestao(String paginaSolicitada) {
-        Map<String, String> parametrosMap = new HashMap<>();
-        parametrosMap.put("paginaSolicitada", paginaSolicitada);
-
-        return
-                given()
-                        .spec(QuestaoSpecs.questaoReqAuthInstrutorSpec())
                         .queryParams(parametrosMap)
                         .when()
                         .get(LISTAR_QUESTAO_URL);

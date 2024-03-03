@@ -4,6 +4,7 @@ import com.vemser.correcao.client.QuestaoClient;
 import com.vemser.correcao.data.factory.QuestaoDataFactory;
 import com.vemser.correcao.dto.*;
 import com.vemser.correcao.dto.ErrorDto;
+import com.vemser.correcao.enums.QuestoesParametro;
 import io.qameta.allure.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -125,43 +126,43 @@ public class QuestaoGetFuncionalTest {
     @Test
     @Owner("Italo Lacerda")
     @Feature("Listar Todas Questões")
-    @Story("[CTAXXX] Listar Questões - Listar questões sem parâmetro de tamanho pagina (esperaFalha)")
+    @Story("[CTAXXX] Listar Questões - Listar questões sem parâmetro de tamanho pagina (esperaSucesso)")
     @Severity(SeverityLevel.NORMAL)
-    @Description("Teste que verifica se ao listar todas as questões sem o tamanho da página a API retorna 404 e a mensagem ''")
-    public void testQuestoes_listarQuestoesSemParametroDeTamanhoPagina_esperaFalha() {
-        ErrorDto questaoResult = QuestaoClient.buscarTodasQuestao("0")
+    @Description("Teste que verifica se ao listar todas as questões sem o tamanho da página a  API retorna 200 e a tamanho da pagina 10  ''")
+    public void testQuestoes_listarQuestoesSemParametroDeTamanhoPagina_esperaSucesso() {
+        ListaTodasQuestaoResponseDto questaoResult = QuestaoClient.buscarTodasQuestao(QuestoesParametro.page ,"0")
                 .then()
-                .statusCode(400)
+                .statusCode(200)
                 .log().all()
                 .extract()
-                .as(ErrorDto.class);
+                .as(ListaTodasQuestaoResponseDto.class);
 
-        assertAll("Verifica se retorna error correto",
-                () -> assertEquals(questaoResult.getStatus(), 400),
-                () -> assertNotNull(questaoResult.getTimestamp()),
-                () -> assertEquals(questaoResult.getErrors().get("tamanhoPagina"), "Não pode ser nulo")
+        assertAll("Verifica se retorna lista com tamnaho correto",
+                () -> assertEquals(questaoResult.getNumberOfElements(), 10),
+                () -> assertEquals(questaoResult.getContent().size(), questaoResult.getNumberOfElements())
         );
+        assertEquals(questaoResult.getPageable().getPageNumber(), 0,"Verifica se retorna pagina correta");
     }
 
     @Test
     @Owner("Italo Lacerda")
     @Feature("Listar Todas Questões")
-    @Story("[CTAXXX] Listar Questões - Listar questões sem parâmetro de pagina solicitada (esperaFalha)")
+    @Story("[CTAXXX] Listar Questões - Listar questões sem parâmetro de pagina solicitada (esperaSucesso)")
     @Severity(SeverityLevel.NORMAL)
-    @Description("Teste que verifica se ao listar todas as questões sem o tamanho da página a API retorna 404 e a mensagem ''")
-    public void testQuestoes_listarQuestoesSemParametroDePaginaSolicitada_esperaFalha() {
-        ErrorDto questaoResult = QuestaoClient.buscarTodasQuestao("0")
+    @Description("Teste que verifica se ao listar todas as questões sem a pagina solicitada a API retorna 200 e a pagina 0 ''")
+    public void testQuestoes_listarQuestoesSemParametroDePaginaSolicitada_esperaSucesso() {
+        ListaTodasQuestaoResponseDto questaoResult = QuestaoClient.buscarTodasQuestao(QuestoesParametro.size,"10")
                 .then()
-                .statusCode(400)
+                .statusCode(200)
                 .log().all()
                 .extract()
-                .as(ErrorDto.class);
+                .as(ListaTodasQuestaoResponseDto.class);
 
-        assertAll("Verifica se retorna error correto",
-                () -> assertEquals(questaoResult.getStatus(), 400),
-                () -> assertNotNull(questaoResult.getTimestamp()),
-                () -> assertEquals(questaoResult.getErrors().get("paginaSolicitada"), "Não pode ser nulo")
+        assertAll("Verifica se retorna lista com tamnaho correto",
+                () -> assertEquals(questaoResult.getNumberOfElements(), 10),
+                () -> assertEquals(questaoResult.getContent().size(), questaoResult.getNumberOfElements())
         );
+        assertEquals(questaoResult.getPageable().getPageNumber(), 0,"Verifica se retorna pagina correta");
     }
     @Test
     @Owner("Vitor Colombo")
