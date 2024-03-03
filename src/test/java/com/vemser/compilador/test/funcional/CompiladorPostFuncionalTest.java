@@ -31,7 +31,7 @@ public class CompiladorPostFuncionalTest {
                 .extract().as(CompiladorResponseDto.class);
 
         Assertions.assertNotNull(compiladorResponse.getRetorno());
-        Assertions.assertEquals(compiladorResponse.getRetorno(), "Vem Ser - Correção");
+        Assertions.assertEquals("Vem Ser - Correção", compiladorResponse.getRetorno());
     }
 
     @Test
@@ -47,10 +47,10 @@ public class CompiladorPostFuncionalTest {
                 .extract().as(CompiladorResponseDto.class);
 
         Assertions.assertNotNull(compiladorResponse.getRetorno());
-        Assertions.assertEquals(compiladorResponse.getRetorno(), "Vem Ser - Correção");
+        Assertions.assertEquals("Vem Ser - Correção", compiladorResponse.getRetorno());
     }
 
-    // TODO: ALTERAR TIPO DA MENSAGEM DE ERRO
+    // TODO: ALTERAR FORMATO DA MENSAGEM DE ERRO
     @Test
     @Feature("Espera Erro")
     @Story("[CTA003] Informar Código Java Inválido")
@@ -67,12 +67,12 @@ public class CompiladorPostFuncionalTest {
                 () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
                 () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
                 () -> assertFalse(erro.getErrors().isEmpty(), "Lista de erros não deve está vazia"),
-                () -> assertEquals(erro.getStatus(), 400, "Status do erro deve ser igual ao esperado"),
-                () -> assertEquals(erro.getErrors().get("codigo"), "Erro ao compilar o arquivo")
+                () -> assertEquals(400, erro.getStatus(), "Status do erro deve ser igual ao esperado"),
+                () -> assertEquals("Erro ao compilar o arquivo", erro.getErrors().get("codigo"), "Mensagem de erro deve ser igual a esperada")
         );
     }
 
-    // TODO: ALTERAR TIPO DA MENSAGEM DE ERRO
+    // TODO: ALTERAR FORMATO DA MENSAGEM DE ERRO
     @Test
     @Feature("Espera Erro")
     @Story("[CTA004] Informar Código JavaScript Inválido")
@@ -83,14 +83,15 @@ public class CompiladorPostFuncionalTest {
 
         ErroDto erro = CompiladorClient.compilarCodigo(compiladorCodigoInvalido).then()
                 .statusCode(400)
+                .log().all()
                 .extract().as(ErroDto.class);
 
         assertAll("Testes de compilador informando código javascript inválido",
                 () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
                 () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
                 () -> assertFalse(erro.getErrors().isEmpty(), "Lista de erros não deve está vazia"),
-                () -> assertEquals(erro.getStatus(), 400, "Status do erro deve ser igual ao esperado"),
-                () -> assertEquals(erro.getErrors().get("codigo"), "Erro ao compilar o arquivo")
+                () -> assertEquals(400, erro.getStatus(), "Status do erro deve ser igual ao esperado"),
+                () -> assertEquals("Erro ao compilar o arquivo", erro.getErrors().get("codigo"), "Mensagem de erro deve ser igual a esperada")
         );
     }
 
@@ -110,8 +111,8 @@ public class CompiladorPostFuncionalTest {
                 () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
                 () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
                 () -> assertFalse(erro.getErrors().isEmpty(), "Lista de erros não deve está vazia"),
-                () -> assertEquals(erro.getStatus(), 400, "Status do erro deve ser igual ao esperado"),
-                () -> assertEquals(erro.getErrors().get("linguagem"), "Linguagem não é válida")
+                () -> assertEquals(400, erro.getStatus(), "Status do erro deve ser igual ao esperado"),
+                () -> assertEquals("Linguagem não é válida", erro.getErrors().get("linguagem"), "Mensagem de erro deve ser igual a esperada")
         );
     }
 
@@ -126,14 +127,15 @@ public class CompiladorPostFuncionalTest {
 
         ErroDto erro = CompiladorClient.compilarCodigo(compilador).then()
                 .statusCode(400)
+                .log().all()
                 .extract().as(ErroDto.class);
 
         assertAll("Testes de compilador informando linguagem nula",
                 () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
                 () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
                 () -> assertFalse(erro.getErrors().isEmpty(), "Lista de erros não deve está vazia"),
-                () -> assertEquals(erro.getStatus(), 400, "Status do erro deve ser igual ao esperado"),
-                () -> assertEquals(erro.getErrors().get("linguagem"), "Linguagem não pode ser nula")
+                () -> assertEquals(400, erro.getStatus(), "Status do erro deve ser igual ao esperado"),
+                () -> assertEquals("Linguagem não pode ser nula", erro.getErrors().get("linguagem"), "Mensagem de erro deve ser igual a esperada")
         );
     }
 
@@ -153,8 +155,8 @@ public class CompiladorPostFuncionalTest {
                 () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
                 () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
                 () -> assertFalse(erro.getErrors().isEmpty(), "Lista de erros não deve está vazia"),
-                () -> assertEquals(erro.getStatus(), 400, "Status do erro deve ser igual ao esperado"),
-                () -> assertEquals(erro.getErrors().get("codigo"), "Código não pode ser nulo")
+                () -> assertEquals(400, erro.getStatus(), "Status do erro deve ser igual ao esperado"),
+                () -> assertEquals("Código não pode ser nulo", erro.getErrors().get("codigo"), "Mensagem de erro deve ser igual a esperada")
         );
     }
 }

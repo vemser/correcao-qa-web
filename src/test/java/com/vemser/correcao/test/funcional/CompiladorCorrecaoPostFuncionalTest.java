@@ -18,6 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @DisplayName("Compilador Correção - POST")
 @Owner("Gabriel Sales")
 public class CompiladorCorrecaoPostFuncionalTest {
+    // TODO: CORRIGIR ERRO
     @Test
     @Feature("Espera Sucesso")
     @Story("[CTA008] Informar Campos Válidos Com Código Java")
@@ -31,9 +32,10 @@ public class CompiladorCorrecaoPostFuncionalTest {
                 .extract().as(CompiladorResponseDto.class);
 
         Assertions.assertNotNull(compiladorResponse.getRetorno());
-        Assertions.assertEquals(compiladorResponse.getRetorno(), "Vem Ser - Correção");
+        Assertions.assertEquals("Vem Ser - Correção", compiladorResponse.getRetorno());
     }
 
+    // TODO: CORRIGIR ERRO
     @Test
     @Feature("Espera Sucesso")
     @Story("[CTA009] Informar Campos Válidos Com Código JavaScript")
@@ -47,7 +49,7 @@ public class CompiladorCorrecaoPostFuncionalTest {
                 .extract().as(CompiladorResponseDto.class);
 
         Assertions.assertNotNull(compiladorResponse.getRetorno());
-        Assertions.assertEquals(compiladorResponse.getRetorno(), "Vem Ser - Correção");
+        Assertions.assertEquals("Vem Ser - Correção", compiladorResponse.getRetorno());
     }
 
     // TODO: ALTERAR TIPO DA MENSAGEM DE ERRO
@@ -67,8 +69,8 @@ public class CompiladorCorrecaoPostFuncionalTest {
                 () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
                 () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
                 () -> assertFalse(erro.getErrors().isEmpty(), "Lista de erros não deve está vazia"),
-                () -> assertEquals(erro.getStatus(), 400, "Status do erro deve ser igual ao esperado"),
-                () -> assertEquals(erro.getErrors().get("codigo"), "Erro ao compilar o arquivo")
+                () -> assertEquals(400, erro.getStatus(), "Status do erro deve ser igual ao esperado"),
+                () -> assertEquals("Erro ao compilar o arquivo", erro.getErrors().get("codigo"), "Mensagem de erro deve ser igual a esperada")
         );
     }
 
@@ -89,8 +91,8 @@ public class CompiladorCorrecaoPostFuncionalTest {
                 () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
                 () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
                 () -> assertFalse(erro.getErrors().isEmpty(), "Lista de erros não deve está vazia"),
-                () -> assertEquals(erro.getStatus(), 400, "Status do erro deve ser igual ao esperado"),
-                () -> assertEquals(erro.getErrors().get("codigo"), "Erro ao compilar o arquivo")
+                () -> assertEquals(400, erro.getStatus(), "Status do erro deve ser igual ao esperado"),
+                () -> assertEquals("Erro ao compilar o arquivo", erro.getErrors().get("codigo"), "Mensagem de erro deve ser igual a esperada")
         );
     }
 
@@ -110,8 +112,8 @@ public class CompiladorCorrecaoPostFuncionalTest {
                 () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
                 () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
                 () -> assertFalse(erro.getErrors().isEmpty(), "Lista de erros não deve está vazia"),
-                () -> assertEquals(erro.getStatus(), 400, "Status do erro deve ser igual ao esperado"),
-                () -> assertEquals(erro.getErrors().get("linguagem"), "Linguagem não é válida")
+                () -> assertEquals(400, erro.getStatus(), "Status do erro deve ser igual ao esperado"),
+                () -> assertEquals("Linguagem não é válida", erro.getErrors().get("linguagem"), "Mensagem de erro deve ser igual a esperada")
         );
     }
 
@@ -132,8 +134,8 @@ public class CompiladorCorrecaoPostFuncionalTest {
                 () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
                 () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
                 () -> assertFalse(erro.getErrors().isEmpty(), "Lista de erros não deve está vazia"),
-                () -> assertEquals(erro.getStatus(), 400, "Status do erro deve ser igual ao esperado"),
-                () -> assertEquals(erro.getErrors().get("linguagem"), "Linguagem não pode ser nula")
+                () -> assertEquals(400, erro.getStatus(), "Status do erro deve ser igual ao esperado"),
+                () -> assertEquals("Linguagem não pode ser nula", erro.getErrors().get("linguagem"), "Mensagem de erro deve ser igual a esperada")
         );
     }
 
@@ -154,8 +156,8 @@ public class CompiladorCorrecaoPostFuncionalTest {
                 () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
                 () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
                 () -> assertFalse(erro.getErrors().isEmpty(), "Lista de erros não deve está vazia"),
-                () -> assertEquals(erro.getStatus(), 400, "Status do erro deve ser igual ao esperado"),
-                () -> assertEquals(erro.getErrors().get("codigo"), "Código não pode ser nulo")
+                () -> assertEquals(400, erro.getStatus(), "Status do erro deve ser igual ao esperado"),
+                () -> assertEquals("Código não pode ser nulo", erro.getErrors().get("codigo"), "Mensagem de erro deve ser igual a esperada")
         );
     }
 }
