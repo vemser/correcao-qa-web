@@ -7,6 +7,6 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class AtividadeEnviadaDto {
+public class AtividadeEnviadaDto extends PageDto<>{
 
 }
