@@ -4,7 +4,7 @@ import com.vemser.compilador.client.CompiladorClient;
 import com.vemser.compilador.data.factory.CompiladorDataFactory;
 import com.vemser.compilador.dto.CompiladorDto;
 import com.vemser.compilador.dto.CompiladorResponseDto;
-import com.vemser.correcao.dto.ErrorDto;
+import com.vemser.correcao.dto.ErroDto;
 import org.junit.jupiter.api.Assertions;
 import io.qameta.allure.*;
 import org.junit.jupiter.api.DisplayName;
@@ -58,9 +58,9 @@ public class CompiladorPostFuncionalTest {
     public void testCompilador_codigoJavaInvalido_esperaErro() {
         CompiladorDto compiladorCodigoInvalido = CompiladorDataFactory.compiladorCodigoJavaInvalido();
 
-        ErrorDto erro = CompiladorClient.compilarCodigo(compiladorCodigoInvalido).then()
+        ErroDto erro = CompiladorClient.compilarCodigo(compiladorCodigoInvalido).then()
                 .statusCode(400)
-                .extract().as(ErrorDto.class);
+                .extract().as(ErroDto.class);
 
         assertAll("Testes de compilador informando código java inválido",
                 () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
@@ -80,10 +80,10 @@ public class CompiladorPostFuncionalTest {
     public void testCompilador_codigoJavascriptInvalido_esperaErro() {
         CompiladorDto compiladorCodigoInvalido = CompiladorDataFactory.compiladorCodigoJavascriptInvalido();
 
-        ErrorDto erro = CompiladorClient.compilarCodigo(compiladorCodigoInvalido).then()
+        ErroDto erro = CompiladorClient.compilarCodigo(compiladorCodigoInvalido).then()
                 .statusCode(400)
                 .log().all()
-                .extract().as(ErrorDto.class);
+                .extract().as(ErroDto.class);
 
         assertAll("Testes de compilador informando código javascript inválido",
                 () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
@@ -102,9 +102,9 @@ public class CompiladorPostFuncionalTest {
     public void testCompilador_linguagemInvalida_esperaErro() {
         CompiladorDto compiladorLinguagemInvalida = CompiladorDataFactory.compiladorLinguagemInvalida();
 
-        ErrorDto erro = CompiladorClient.compilarCodigo(compiladorLinguagemInvalida).then()
+        ErroDto erro = CompiladorClient.compilarCodigo(compiladorLinguagemInvalida).then()
                 .statusCode(400)
-                .extract().as(ErrorDto.class);
+                .extract().as(ErroDto.class);
 
         assertAll("Testes de compilador informando linguagem inválida",
                 () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
@@ -124,10 +124,10 @@ public class CompiladorPostFuncionalTest {
     public void testCompilador_linguagemNaoInformada_esperaErro() {
         CompiladorDto compilador = CompiladorDataFactory.compiladorLinguagemNula();
 
-        ErrorDto erro = CompiladorClient.compilarCodigo(compilador).then()
+        ErroDto erro = CompiladorClient.compilarCodigo(compilador).then()
                 .statusCode(400)
                 .log().all()
-                .extract().as(ErrorDto.class);
+                .extract().as(ErroDto.class);
 
         assertAll("Testes de compilador informando linguagem nula",
                 () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
@@ -146,9 +146,9 @@ public class CompiladorPostFuncionalTest {
     public void testCompilador_codigoNaoInformado_esperaErro() {
         CompiladorDto compilador = CompiladorDataFactory.compiladorCodigoNulo();
 
-        ErrorDto erro = CompiladorClient.compilarCodigo(compilador).then()
+        ErroDto erro = CompiladorClient.compilarCodigo(compilador).then()
                 .statusCode(400)
-                .extract().as(ErrorDto.class);
+                .extract().as(ErroDto.class);
 
         assertAll("Testes de compilador informando código nulo",
                 () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),

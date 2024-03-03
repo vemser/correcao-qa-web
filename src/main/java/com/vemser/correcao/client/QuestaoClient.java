@@ -29,6 +29,22 @@ public class QuestaoClient {
                 .post(CADASTRAR_QUESTAO);
     }
 
+    public static Response buscarTodasQuestao(HashMap<String, String> queryParams) {
+        return given()
+                .spec(QuestaoSpecs.questaoReqAuthInstrutorSpec())
+                .queryParams(queryParams)
+        .when()
+                .get(LISTAR_QUESTAO_URL);
+    }
+
+    public static Response cadastrarQuestao(String questao) {
+        return given()
+                .spec(QuestaoSpecs.questaoReqAuthInstrutorSpec())
+                .body(questao)
+        .when()
+                .post(CADASTRAR_QUESTAO);
+    }
+
     public static Response cadastrarQuestaoPorLogin(QuestaoDto questao, String token) {
         return given()
                 .spec(QuestaoSpecs.questaoPorLogin(token))
@@ -48,14 +64,6 @@ public class QuestaoClient {
                     .queryParams(parametrosMap)
         .when()
                     .get(LISTAR_QUESTAO_URL);
-    }
-
-    public static Response cadastrarQuestao(String questao) {
-        return given()
-                .spec(QuestaoSpecs.questaoReqAuthInstrutorSpec())
-                .body(questao)
-        .when()
-                .post(CADASTRAR_QUESTAO);
     }
 
     public static Response excluirQuestao(Integer idQuestao) {

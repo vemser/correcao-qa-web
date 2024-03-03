@@ -4,7 +4,7 @@ import com.vemser.compilador.data.factory.CompiladorDataFactory;
 import com.vemser.compilador.dto.CompiladorDto;
 import com.vemser.compilador.dto.CompiladorResponseDto;
 import com.vemser.correcao.client.CompiladorCorrecaoClient;
-import com.vemser.correcao.dto.ErrorDto;
+import com.vemser.correcao.dto.ErroDto;
 import io.qameta.allure.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -60,9 +60,9 @@ public class CompiladorCorrecaoPostFuncionalTest {
     public void testCompiladorCorrecao_codigoJavaInvalido_esperaErro() {
         CompiladorDto compiladorCodigoInvalido = CompiladorDataFactory.compiladorCodigoJavaInvalido();
 
-        ErrorDto erro = CompiladorCorrecaoClient.compilarCodigo(compiladorCodigoInvalido).then()
+        ErroDto erro = CompiladorCorrecaoClient.compilarCodigo(compiladorCodigoInvalido).then()
                 .statusCode(400)
-                .extract().as(ErrorDto.class);
+                .extract().as(ErroDto.class);
 
         assertAll("Testes de compilador informando código java inválido",
                 () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
@@ -82,9 +82,9 @@ public class CompiladorCorrecaoPostFuncionalTest {
     public void testCompiladorCorrecao_codigoJavascriptInvalido_esperaErro() {
         CompiladorDto compiladorCodigoInvalido = CompiladorDataFactory.compiladorCodigoJavascriptInvalido();
 
-        ErrorDto erro = CompiladorCorrecaoClient.compilarCodigo(compiladorCodigoInvalido).then()
+        ErroDto erro = CompiladorCorrecaoClient.compilarCodigo(compiladorCodigoInvalido).then()
                 .statusCode(400)
-                .extract().as(ErrorDto.class);
+                .extract().as(ErroDto.class);
 
         assertAll("Testes de compilador informando código javascript inválido",
                 () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
@@ -103,9 +103,9 @@ public class CompiladorCorrecaoPostFuncionalTest {
     public void testCompiladorCorrecao_linguagemInvalida_esperaErro() {
         CompiladorDto compiladorLinguagemInvalida = CompiladorDataFactory.compiladorLinguagemInvalida();
 
-        ErrorDto erro = CompiladorCorrecaoClient.compilarCodigo(compiladorLinguagemInvalida).then()
+        ErroDto erro = CompiladorCorrecaoClient.compilarCodigo(compiladorLinguagemInvalida).then()
                 .statusCode(400)
-                .extract().as(ErrorDto.class);
+                .extract().as(ErroDto.class);
 
         assertAll("Testes de compilador informando linguagem inválida",
                 () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
@@ -125,9 +125,9 @@ public class CompiladorCorrecaoPostFuncionalTest {
     public void testCompiladorCorrecao_linguagemNaoInformada_esperaErro() {
         CompiladorDto compilador = CompiladorDataFactory.compiladorLinguagemNula();
 
-        ErrorDto erro = CompiladorCorrecaoClient.compilarCodigo(compilador).then()
+        ErroDto erro = CompiladorCorrecaoClient.compilarCodigo(compilador).then()
                 .statusCode(400)
-                .extract().as(ErrorDto.class);
+                .extract().as(ErroDto.class);
 
         assertAll("Testes de compilador informando linguagem nula",
                 () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
@@ -147,9 +147,9 @@ public class CompiladorCorrecaoPostFuncionalTest {
     public void testCompiladorCorrecao_codigoNaoInformado_esperaErro() {
         CompiladorDto compilador = CompiladorDataFactory.compiladorCodigoNulo();
 
-        ErrorDto erro = CompiladorCorrecaoClient.compilarCodigo(compilador).then()
+        ErroDto erro = CompiladorCorrecaoClient.compilarCodigo(compilador).then()
                 .statusCode(400)
-                .extract().as(ErrorDto.class);
+                .extract().as(ErroDto.class);
 
         assertAll("Testes de compilador informando código nulo",
                 () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),

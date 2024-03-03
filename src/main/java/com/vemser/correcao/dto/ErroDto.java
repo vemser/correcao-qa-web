@@ -9,7 +9,7 @@ import java.util.Map;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ErrorDto {
+public class ErroDto {
     private String timestamp;
     private Integer status;
     private Map<String, String> errors;

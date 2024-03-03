@@ -17,7 +17,6 @@ import static org.junit.jupiter.api.Assertions.*;
 @Epic("Funcional Questão - DELETE")
 @DisplayName("Questão - DELETE")
 @Owner("Vitor Colombo")
-
 public class QuestaoDeleteFuncionalTest {
 
     @Test
@@ -255,11 +254,11 @@ public class QuestaoDeleteFuncionalTest {
 
         List<TesteResponseDto> testes = questaoResult.getTestes();
 
-        ErrorDto erro = QuestaoClient.excluirTeste(testes.get(0).getTesteId())
+        ErroDto erro = QuestaoClient.excluirTeste(testes.get(0).getTesteId())
             .then()
                 .statusCode(400)
                 .log().all()
-                .extract().as(ErrorDto.class);
+                .extract().as(ErroDto.class);
 
         QuestaoClient.excluirQuestao(questaoResult.getQuestaoDTO().getQuestaoId())
             .then()
@@ -299,10 +298,10 @@ public class QuestaoDeleteFuncionalTest {
     @Severity(SeverityLevel.NORMAL)
     @Description("Teste que verifica se ao deletar um teste com ID inválido a API retorna 404 e a mensagem ''")
     public void testTestes_deletarTestesComIDInvalido_esperaErro() {
-        ErrorDto erro = QuestaoClient.excluirTesteComIDInvalido()
+        ErroDto erro = QuestaoClient.excluirTesteComIDInvalido()
             .then()
                 .statusCode(400)
-                .extract().as(ErrorDto.class);
+                .extract().as(ErroDto.class);
 
         assertAll("Testes de deletar questão informando id inválido",
                 () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
