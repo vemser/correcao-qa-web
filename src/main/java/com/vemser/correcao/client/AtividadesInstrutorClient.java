@@ -23,6 +23,7 @@ public class AtividadesInstrutorClient {
                     .spec(AtividadesSpecs.atividadeInstrutorSpec())
                     .body(atividade)
                 .when()
+                .log().all()
                     .post(CRIAR_ATIVIDADE);
     }
 

@@ -141,8 +141,7 @@ public class QuestaoDeleteFuncionalTest {
                 .extract().as(QuestaoResponseDto.class);
         QuestaoClient.excluirQuestao(questaoResult.getQuestaoDTO().getQuestaoId())
             .then()
-                .statusCode(200)
-                .extract().asString();
+                .statusCode(200);
         ErroDto erro = QuestaoClient.excluirQuestao(questaoResult.getQuestaoDTO().getQuestaoId())
             .then()
                 .statusCode(404)
