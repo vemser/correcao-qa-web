@@ -7,7 +7,6 @@ import com.vemser.correcao.dto.questao.QuestaoResponseDto;
 import com.vemser.correcao.enums.Trilha;
 import net.datafaker.Faker;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Locale;
 

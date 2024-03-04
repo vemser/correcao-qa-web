@@ -3,7 +3,7 @@ package com.vemser.correcao.test.funcional;
 import com.vemser.correcao.client.AtividadesInstrutorClient;
 import com.vemser.correcao.data.factory.CorrigirAtividadeDataFactory;
 import com.vemser.correcao.data.factory.CriarAtividadeDataFactory;
-import com.vemser.correcao.dto.*;
+import com.vemser.correcao.dto.atividade.*;
 import io.qameta.allure.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
