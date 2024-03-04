@@ -26,4 +26,11 @@ public class LoginSpecs {
                 .build();
     }
 
+    public static RequestSpecification reqSemTokenSpec() {
+        return new RequestSpecBuilder()
+                .addRequestSpecification(InicialSpecs.setupApi())
+                .setContentType(ContentType.JSON)
+                .build();
+    }
+
 }

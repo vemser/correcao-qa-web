@@ -25,18 +25,18 @@ public class AtividadeInstrutorPostFuncionalTest {
 
         CriarAtividadeResponseDto atividadeResult = AtividadesInstrutorClient.criarAtividade(atividade)
                 .then()
-                .statusCode(200)
+                .statusCode(201)
                 .extract().as(CriarAtividadeResponseDto.class);
 
         AtividadesInstrutorClient.excluirAtividade(atividadeResult.getAtividadeId());
 
         assertAll("Testes de criar atividade informando campos validos",
-                () -> assertNotNull(atividadeResult.getAtividadeId()),
-                () -> assertEquals(atividade.getTitulo(),atividadeResult.getTitulo()),
-                () -> assertEquals(atividade.getDescricao(),atividadeResult.getDescricao()),
-                () -> assertEquals(atividade.getQuestoes(),atividadeResult.getQuestoes()),
-                () -> assertEquals(atividade.getTrilha().name(),atividadeResult.getTrilha()),
-                () -> assertTrue(atividadeResult.getPrazoEntrega().contains(atividade.getPrazoEntrega().replace("Z", "")))
+                () -> assertNotNull(atividadeResult.getAtividadeId(), "ID da Atividade não deve ser nulo"),
+                () -> assertEquals(atividade.getTitulo(), atividadeResult.getTitulo(), "Título deve ser igual ao esperado"),
+                () -> assertEquals(atividade.getDescricao(), atividadeResult.getDescricao(), "Descrição deve ser igual a esperada"),
+                () -> assertEquals(atividade.getQuestoes(), atividadeResult.getQuestoes(), "Questões devem ser iguais as esperadas"),
+                () -> assertEquals(atividade.getTrilha().name(), atividadeResult.getTrilha(), "Trilha deve ser igual a esperada"),
+                () -> assertTrue(atividadeResult.getPrazoEntrega().contains(atividade.getPrazoEntrega().replace("Z", "")), "Prazo de Entrega deve ser igual ao esperado")
         );
     }
 
@@ -45,7 +45,7 @@ public class AtividadeInstrutorPostFuncionalTest {
     @Story("[CTAXXX] Informar Questões Inativas")
     @Severity(SeverityLevel.NORMAL)
     @Description("Teste que verifica se ao criar uma atividade com questões inativas a API retorna 404 e uma mensagem de erro na resposta")
-    public void testCriarAtividade_comQuestoesInativas_esperaErro() {
+    public void testCriarAtividade_informarQuestoesInativas_esperaErro() {
         CriarAtividadeDto atividade = CriarAtividadeDataFactory.atividadeComQuestoesInativas();
 
         ErroDto erro = AtividadesInstrutorClient.criarAtividade(atividade)
@@ -67,7 +67,7 @@ public class AtividadeInstrutorPostFuncionalTest {
     @Story("[CTAXXX] Informar Data Inválida")
     @Severity(SeverityLevel.NORMAL)
     @Description("Teste que verifica se ao criar uma atividade com data inválida a API retorna 400 e uma mensagem de erro na resposta")
-    public void testCriarAtividade_comDataInvalida_esperaErro() {
+    public void testCriarAtividade_informarDataInvalida_esperaErro() {
         CriarAtividadeDto atividade = CriarAtividadeDataFactory.atividadeComDataInvalida();
 
         ErroDto erro = AtividadesInstrutorClient.criarAtividade(atividade)
@@ -86,10 +86,10 @@ public class AtividadeInstrutorPostFuncionalTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTAXXX] Não informar questões")
+    @Story("[CTAXXX] Não Informar Questões")
     @Severity(SeverityLevel.NORMAL)
     @Description("Teste que verifica se ao criar uma atividade sem atribuir questões a ela a API retorna 400 e uma mensagem de erro na resposta")
-    public void testCriarAtividade_semAtribuirQuestoes_esperaErro() {
+    public void testCriarAtividade_naoInformarQuestoes_esperaErro() {
         CriarAtividadeDto atividade = CriarAtividadeDataFactory.atividadeSemAtribuirQuestoes();
 
         ErroDto erro = AtividadesInstrutorClient.criarAtividade(atividade)
@@ -102,16 +102,16 @@ public class AtividadeInstrutorPostFuncionalTest {
                 () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
                 () -> assertFalse(erro.getErrors().isEmpty(), "Lista de erros não deve está vazia"),
                 () -> assertEquals(erro.getStatus(), 400, "Status do erro deve ser igual ao esperado"),
-                () -> assertEquals(erro.getErrors().get("questoes"), "A lista de questões não pode nula ou vazia.")
+                () -> assertEquals(erro.getErrors().get("questoes"), "A lista de questões não pode ser nula ou vazia.")
         );
     }
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTAXXX] Não informar título da atividade")
+    @Story("[CTAXXX] Não Informar Título Da Atividade")
     @Severity(SeverityLevel.NORMAL)
     @Description("Teste que verifica se ao criar uma atividade sem preencher título a ela a API retorna 400 e uma mensagem de erro na resposta")
-    public void testCriarAtividade_semPreencherTitulo_esperaErro() {
+    public void testCriarAtividade_naoInformarTituloDaAtividade_esperaErro() {
         CriarAtividadeDto atividade = CriarAtividadeDataFactory.atividadeSemPreencherTitulo();
 
         ErroDto erro = AtividadesInstrutorClient.criarAtividade(atividade)
@@ -130,10 +130,10 @@ public class AtividadeInstrutorPostFuncionalTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTAXXX] Não informar descrição da atividade")
+    @Story("[CTAXXX] Não Informar Descrição Da Atividade")
     @Severity(SeverityLevel.NORMAL)
     @Description("Teste que verifica se ao criar uma atividade sem preencher descrição a ela a API retorna 400 e uma mensagem de erro na resposta")
-    public void testCriarAtividade_semPreencherDescricao_esperaErro() {
+    public void testCriarAtividade_naoInformarDescricaoDaAtividade_esperaErro() {
         CriarAtividadeDto atividade = CriarAtividadeDataFactory.atividadeSemPreencherDescricao();
 
         ErroDto erro = AtividadesInstrutorClient.criarAtividade(atividade)
@@ -152,10 +152,10 @@ public class AtividadeInstrutorPostFuncionalTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTAXXX] Não informar edição do VemSer da atividade")
+    @Story("[CTAXXX] Não Informar Edição do Vem Ser Da Atividade")
     @Severity(SeverityLevel.NORMAL)
     @Description("Teste que verifica se ao criar uma atividade sem preencher a edição do VemSer a ela a API retorna 400 e uma mensagem de erro na resposta")
-    public void testCriarAtividade_semPreencherEdicao_esperaErro() {
+    public void testCriarAtividade_naoInformarEdicaoDoVemSerDaAtividade_esperaErro() {
         CriarAtividadeDto atividade = CriarAtividadeDataFactory.atividadeSemPreencherEdicao();
 
         ErroDto erro = AtividadesInstrutorClient.criarAtividade(atividade)
@@ -174,10 +174,10 @@ public class AtividadeInstrutorPostFuncionalTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTAXXX] Não informar trilha da atividade")
+    @Story("[CTAXXX] Não Informar Trilha Da Atividade")
     @Severity(SeverityLevel.NORMAL)
     @Description("Teste que verifica se ao criar uma atividade sem preencher a trilha da atividade a ela a API retorna 400 e uma mensagem de erro na resposta")
-    public void testCriarAtividade_semPreencherTrilha_esperaErro() {
+    public void testCriarAtividade_naoInformarTrilhaDaAtividade_esperaErro() {
         String atividade = CriarAtividadeDataFactory.atividadeSemPreencherTrilha();
 
         ErroDto erro = AtividadesInstrutorClient.criarAtividadeString(atividade)
@@ -196,11 +196,11 @@ public class AtividadeInstrutorPostFuncionalTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTAXXX] Informar trilha inválida")
+    @Story("[CTAXXX] Informar Trilha Inválida")
     @Severity(SeverityLevel.NORMAL)
     @Description("Teste que verifica se ao criar uma atividade preenchendo trilha inválida a ela a API retorna 400 e uma mensagem de erro na resposta")
-    public void testCriarAtividade_PreenchendoTrilhaInvalida_esperaErro() {
-        String atividade = CriarAtividadeDataFactory.atividadePreenchendoTrilhaInvalido();
+    public void testCriarAtividade_informarTrilhaInvalida_esperaErro() {
+        String atividade = CriarAtividadeDataFactory.atividadePreenchendoTrilhaInvalida();
 
         ErroDto erro = AtividadesInstrutorClient.criarAtividadeString(atividade)
                 .then()
@@ -218,10 +218,10 @@ public class AtividadeInstrutorPostFuncionalTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTAXXX] Informar edicao inválida")
+    @Story("[CTAXXX] Informar Edição Inválida")
     @Severity(SeverityLevel.NORMAL)
     @Description("Teste que verifica se ao criar uma atividade preenchendo edicao inválida a ela a API retorna 400 e uma mensagem de erro na resposta")
-    public void testCriarAtividade_PreenchendoEdicaoInvalida_esperaErro() {
+    public void testCriarAtividade_informarEdicaoInvalida_esperaErro() {
         CriarAtividadeDto atividade = CriarAtividadeDataFactory.atividadeComEdicaoInvalida();
 
         ErroDto erro = AtividadesInstrutorClient.criarAtividade(atividade)
