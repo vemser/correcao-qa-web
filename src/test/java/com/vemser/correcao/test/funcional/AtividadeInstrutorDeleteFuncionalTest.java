@@ -33,8 +33,8 @@ public class AtividadeInstrutorDeleteFuncionalTest {
                 .then()
                 .statusCode(200)
                 .extract().as(DeletarAtividadeResponseDto.class);
-        QuestaoClient.excluirQuestao(atividadeResult.getQuestoes().get(0));
-        QuestaoClient.excluirQuestao(atividadeResult.getQuestoes().get(1));
+        QuestaoClient.excluirQuestao(atividadeResult.getQuestoesInt().get(0));
+        QuestaoClient.excluirQuestao(atividadeResult.getQuestoesInt().get(1));
 
         assertEquals("Excluída com sucesso!", response.getMessage(), "Mensagem de sucesso deve ser igual ao esperado");
     }
@@ -52,8 +52,8 @@ public class AtividadeInstrutorDeleteFuncionalTest {
                 .extract().as(CriarAtividadeResponseDto.class);
 
         AtividadesInstrutorClient.excluirAtividade(atividadeResult.getAtividadeId());
-        QuestaoClient.excluirQuestao(atividadeResult.getQuestoes().get(0));
-        QuestaoClient.excluirQuestao(atividadeResult.getQuestoes().get(1));
+        QuestaoClient.excluirQuestao(atividadeResult.getQuestoesInt().get(0));
+        QuestaoClient.excluirQuestao(atividadeResult.getQuestoesInt().get(1));
 
         ErroDto erro = AtividadesInstrutorClient.excluirAtividade(atividadeResult.getAtividadeId())
                 .then()

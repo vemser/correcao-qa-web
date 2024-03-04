@@ -215,8 +215,8 @@ public class AtividadeInstrutorGetFuncionalTest {
                 .extract().as(PaginacaoListarAtividadePorIdEstagiarioDto.class);
 
         AtividadesInstrutorClient.excluirAtividade(atividadeResult.getAtividadeId());
-        QuestaoClient.excluirQuestao(atividadeResult.getQuestoes().get(0));
-        QuestaoClient.excluirQuestao(atividadeResult.getQuestoes().get(1));
+        QuestaoClient.excluirQuestao(atividadeResult.getQuestoesInt().get(0));
+        QuestaoClient.excluirQuestao(atividadeResult.getQuestoesInt().get(1));
 
         assertAll("Testes de buscar questão por ID informando ID existente",
                 () -> assertNotNull(questaoResult, "Questão buscada não deve ser nula"),
