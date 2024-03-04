@@ -2,9 +2,12 @@ package com.vemser.correcao.test.funcional;
 
 import com.vemser.correcao.client.QuestaoClient;
 import com.vemser.correcao.data.factory.QuestaoDataFactory;
-import com.vemser.correcao.dto.*;
+import com.vemser.correcao.dto.erro.ErroAlternativoDto;
+import com.vemser.correcao.dto.questao.ListaTodasQuestaoResponseDto;
+import com.vemser.correcao.dto.questao.QuestaoDto;
+import com.vemser.correcao.dto.questao.QuestaoResponseDto;
 import com.vemser.correcao.enums.QuestoesParametro;
-import com.vemser.correcao.dto.ErroDto;
+import com.vemser.correcao.dto.erro.ErroDto;
 import io.qameta.allure.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -38,7 +41,7 @@ public class QuestaoGetFuncionalTest {
     @Feature("Espera Sucesso")
     @Story("[CTAXXX] Listar Questões Ao Informar Página Inválida")
     @Severity(SeverityLevel.NORMAL)
-    @Description("Teste que verifica se ao listar as questões informando página inválida retorna 404 e a mensagem 'Página não encontrada'")
+    @Description("Teste que verifica se ao listar as questões informando página inválida retorna 200 e todas as questões cadastradas")
     public void testListarQuestoes_informarPaginaInvalida_esperaErro() {
         String paginaSolicitada = "-1";
         String tamanhoPagina = "10";
@@ -49,7 +52,29 @@ public class QuestaoGetFuncionalTest {
                 .extract()
                 .as(ListaTodasQuestaoResponseDto.class);
 
-        assertAll("Testes de listar questões informando página e tamanho válido",
+        assertAll("Testes de listar questões informando página inválida",
+                () -> assertEquals(10, questaoResult.getNumberOfElements(), "Número de elementos deve ser igual ao esperado"),
+                () -> assertEquals(questaoResult.getContent().size(), questaoResult.getNumberOfElements(), "Tamanho do conteúdo deve ser igual ao número de elementos"),
+                () -> assertEquals(questaoResult.getPageable().getPageNumber(), 0,"Número da página deve ser igual ao esperado")
+        );
+    }
+
+    @Test
+    @Feature("Espera Sucesso")
+    @Story("[CTAXXX] Listar Questões Ao Informar Tamanho Inválido")
+    @Severity(SeverityLevel.NORMAL)
+    @Description("Teste que verifica se ao listar as questões informando tamanho inválido retorna 404 e a mensagem 'Página não encontrada'")
+    public void testListarQuestoes_informarTamanhoInvalido_esperaErro() {
+        String paginaSolicitada = "0";
+        String tamanhoPagina = "-10";
+
+        ListaTodasQuestaoResponseDto questaoResult = QuestaoClient.buscarTodasQuestao(paginaSolicitada, tamanhoPagina)
+                .then()
+                .statusCode(200)
+                .extract()
+                .as(ListaTodasQuestaoResponseDto.class);
+
+        assertAll("Testes de listar questões informando tamanho inválido",
                 () -> assertEquals(10, questaoResult.getNumberOfElements(), "Número de elementos deve ser igual ao esperado"),
                 () -> assertEquals(questaoResult.getContent().size(), questaoResult.getNumberOfElements(), "Tamanho do conteúdo deve ser igual ao número de elementos"),
                 () -> assertEquals(questaoResult.getPageable().getPageNumber(), 0,"Número da página deve ser igual ao esperado")
@@ -100,10 +125,10 @@ public class QuestaoGetFuncionalTest {
     @Feature("Espera Erro")
     @Story("[CTAXXX] Listar Questões Ao Informar Página Que Não Existe")
     @Severity(SeverityLevel.NORMAL)
-    @Description("Teste que verifica se ao listar as questões passando uma página que não existe retorna 404 e a mensagem '?????????'")
+    @Description("Teste que verifica se ao listar as questões passando uma página que não existe retorna 404 e a mensagem 'Página não encontrada'")
     public void testListarQuestoes_informarPaginaQueNaoExiste_esperaErro() {
         ListaTodasQuestaoResponseDto questao = QuestaoClient.buscarTodasQuestao("0", "10")
-                                                                    .as(ListaTodasQuestaoResponseDto.class);
+                .as(ListaTodasQuestaoResponseDto.class);
 
         String paginaSolicitada = Integer.toString(questao.getTotalPages() + 1);
 
@@ -123,6 +148,25 @@ public class QuestaoGetFuncionalTest {
 
     @Test
     @Feature("Espera Sucesso")
+    @Story("[CTAXXX] Listar Questões Sem Passar Parâmetros")
+    @Severity(SeverityLevel.NORMAL)
+    @Description("Teste que verifica se ao listar todas as questões não informando parâmetros retorna 200 e todas as atividades cadastradas")
+    public void testQuestoes_listarQuestoesSemPassarParametro_esperaSucesso() {
+        ListaTodasQuestaoResponseDto questaoResult = QuestaoClient.buscarTodasQuestao()
+                .then()
+                .statusCode(200)
+                .extract()
+                .as(ListaTodasQuestaoResponseDto.class);
+
+        assertAll("Testes de listar questões sem passar parâmetros",
+                () -> assertEquals(10, questaoResult.getNumberOfElements(), "Número de elementos deve ser igual ao esperado"),
+                () -> assertEquals(questaoResult.getContent().size(), questaoResult.getNumberOfElements(), "Tamanho do conteúdo deve ser igual ao número de elementos"),
+                () -> assertEquals(0, questaoResult.getPageable().getPageNumber(),"Número da página deve ser igual ao esperado")
+        );
+    }
+
+    @Test
+    @Feature("Espera Sucesso")
     @Story("[CTAXXX] Listar Questões Ao Não Informar Parâmetro de Tamanho Da Página")
     @Severity(SeverityLevel.NORMAL)
     @Description("Teste que verifica se ao listar todas as questões sem o tamanho da página a API retorna 200 e a tamanho da página 10")
@@ -130,7 +174,6 @@ public class QuestaoGetFuncionalTest {
         ListaTodasQuestaoResponseDto questaoResult = QuestaoClient.buscarTodasQuestao(QuestoesParametro.page ,"0")
                 .then()
                 .statusCode(200)
-                .log().all()
                 .extract()
                 .as(ListaTodasQuestaoResponseDto.class);
 
@@ -150,7 +193,6 @@ public class QuestaoGetFuncionalTest {
         ListaTodasQuestaoResponseDto questaoResult = QuestaoClient.buscarTodasQuestao(QuestoesParametro.size,"10")
                 .then()
                 .statusCode(200)
-                .log().all()
                 .extract()
                 .as(ListaTodasQuestaoResponseDto.class);
 
@@ -160,6 +202,7 @@ public class QuestaoGetFuncionalTest {
                 () -> assertEquals(0, questaoResult.getPageable().getPageNumber(),"Número da página deve ser igual ao esperado")
         );
     }
+
     @Test
     @Feature("Espera Sucesso")
     @Story("[CTAXXX] Buscar Questão Por ID Ao Informar ID Existente")

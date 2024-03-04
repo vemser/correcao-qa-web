@@ -2,10 +2,11 @@ package com.vemser.correcao.test.funcional;
 
 import com.vemser.correcao.client.QuestaoClient;
 import com.vemser.correcao.data.factory.QuestaoDataFactory;
-import com.vemser.correcao.dto.*;
-import com.vemser.correcao.dto.QuestaoDto;
-import com.vemser.correcao.dto.QuestaoResponseDto;
-import com.vemser.correcao.dto.TesteResponseDto;
+import com.vemser.correcao.dto.erro.ErroAlternativoDto;
+import com.vemser.correcao.dto.erro.ErroDto;
+import com.vemser.correcao.dto.questao.QuestaoDto;
+import com.vemser.correcao.dto.questao.QuestaoResponseDto;
+import com.vemser.correcao.dto.teste.TesteResponseDto;
 import io.qameta.allure.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

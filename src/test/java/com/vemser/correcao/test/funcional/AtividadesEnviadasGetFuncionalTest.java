@@ -1,9 +1,9 @@
 package com.vemser.correcao.test.funcional;
 
 import com.vemser.correcao.client.AtividadesEnviadaClient;
-import com.vemser.correcao.dto.ErroDto;
-import com.vemser.correcao.dto.ErroForbiddenDto;
-import com.vemser.correcao.dto.PaginacaoAtividadeEnviadaDto;
+import com.vemser.correcao.dto.erro.ErroDto;
+import com.vemser.correcao.dto.erro.ErroForbiddenDto;
+import com.vemser.correcao.dto.atividade.PaginacaoAtividadeEnviadaDto;
 import com.vemser.correcao.enums.QuestoesParametro;
 import io.qameta.allure.*;
 import org.junit.jupiter.api.DisplayName;
@@ -19,9 +19,9 @@ public class AtividadesEnviadasGetFuncionalTest {
 
     @Test
     @Feature("Espera Sucesso")
-    @Story("[CTAXXX] Listar Todas as Atividades do Aluno Logado Sem Passar Parametros")
+    @Story("[CTAXXX] Listar Todas as Atividades do Aluno Logado Sem Passar Parâmetros")
     @Severity(SeverityLevel.NORMAL)
-    @Description("Teste que verifica listar todas as atividades do aluno logado sem passar parametros retorna 200 e paginação correta")
+    @Description("Teste que verifica listar todas as atividades do aluno logado sem passar parâmetros retorna 200 e paginação correta")
     public void testListarAtividadesEnviadas_semInformarParametros_esperaSucesso() {
         PaginacaoAtividadeEnviadaDto retorno = AtividadesEnviadaClient.listarAtividadesDoAluno()
                 .then()

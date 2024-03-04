@@ -1,16 +1,20 @@
 package com.vemser.correcao.client;
 
-import com.vemser.correcao.dto.CriarAtividadeDto;
+import com.vemser.correcao.dto.atividade.CriarAtividadeDto;
+import com.vemser.correcao.enums.QuestoesParametro;
 import com.vemser.correcao.specs.AtividadesSpecs;
 import com.vemser.correcao.specs.LoginSpecs;
 import io.restassured.response.Response;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import static io.restassured.RestAssured.given;
 
 public class AtividadesInstrutorClient {
 
     private static final String DELETAR_ATIVIDADE_POR_ID = "/atividades/deletar/{id}";
-    private static final String LISTAR_TODAS_ATIVIDADES = "/atividades";
+    private static final String LISTAR_TODAS_ATIVIDADES = "/atividades/listar-atividades-instrutor";
     private static final String CRIAR_ATIVIDADE = "/atividades/criar";
     private static final String CORRIGIR_ATIVIDADE = "/atividades/retorno-do-professor";
     private static final String EDITAR_ATIVIDADE = "/atividades/editar/{idAtividade}";
@@ -83,5 +87,49 @@ public class AtividadesInstrutorClient {
                 .body(atividadeEditada)
                 .when()
                 .put(EDITAR_ATIVIDADE);
+    }
+
+    public static Response listarAtividades(String page, String size) {
+        Map<String, String> parametrosMap = new HashMap<>();
+        parametrosMap.put("page", page);
+        parametrosMap.put("size", size);
+
+        return given()
+                .spec(LoginSpecs.loginInstrutorReqSpec())
+                .queryParams(parametrosMap)
+        .when()
+                .get(LISTAR_TODAS_ATIVIDADES);
+    }
+
+    public static Response listarAtividades(QuestoesParametro parametro, String valor) {
+        Map<String, String> parametrosMap = new HashMap<>();
+        parametrosMap.put(parametro.toString(), valor);
+
+        return given()
+                .spec(LoginSpecs.loginInstrutorReqSpec())
+                .queryParams(parametrosMap)
+                .when()
+                .get(LISTAR_TODAS_ATIVIDADES);
+    }
+
+    public static Response listarAtividades() {
+        return given()
+                .spec(LoginSpecs.loginInstrutorReqSpec())
+        .when()
+                .get(LISTAR_TODAS_ATIVIDADES);
+    }
+
+    public static Response listarAtividadesSemAutenticacao() {
+        return given()
+                .spec(LoginSpecs.reqSemTokenSpec())
+                .when()
+                .get(LISTAR_TODAS_ATIVIDADES);
+    }
+
+    public static Response listarAtividadesComoAluno() {
+        return given()
+                .spec(LoginSpecs.loginAlunoReqSpec())
+                .when()
+                .get(LISTAR_TODAS_ATIVIDADES);
     }
 }

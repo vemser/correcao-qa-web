@@ -1,8 +1,8 @@
 package com.vemser.correcao.data.factory;
 
-import com.vemser.correcao.dto.EditarTesteDto;
-import com.vemser.correcao.dto.QuestaoResponseDto;
-import com.vemser.correcao.dto.TesteDto;
+import com.vemser.correcao.dto.teste.EditarTesteDto;
+import com.vemser.correcao.dto.questao.QuestaoResponseDto;
+import com.vemser.correcao.dto.teste.TesteDto;
 import com.vemser.correcao.enums.Exemplo;
 import net.datafaker.Faker;
 

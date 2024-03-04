@@ -2,9 +2,9 @@ package com.vemser.correcao.test.contrato;
 
 import com.vemser.correcao.client.QuestaoClient;
 import com.vemser.correcao.data.factory.QuestaoDataFactory;
-import com.vemser.correcao.dto.ErroDto;
-import com.vemser.correcao.dto.QuestaoDto;
-import com.vemser.correcao.dto.QuestaoResponseDto;
+import com.vemser.correcao.dto.erro.ErroDto;
+import com.vemser.correcao.dto.questao.QuestaoDto;
+import com.vemser.correcao.dto.questao.QuestaoResponseDto;
 import io.qameta.allure.*;
 import io.restassured.module.jsv.JsonSchemaValidator;
 import org.junit.jupiter.api.Test;

@@ -1,15 +1,12 @@
 package com.vemser.correcao.data.factory;
 
 import com.vemser.compilador.enums.Linguagem;
-import com.vemser.correcao.dto.EditarQuestaoDto;
-import com.vemser.correcao.dto.ListaTodasQuestaoResponseDto;
-import com.vemser.correcao.dto.QuestaoDto;
+import com.vemser.correcao.dto.questao.EditarQuestaoDto;
+import com.vemser.correcao.dto.questao.QuestaoDto;
 import com.vemser.correcao.enums.Dificuldade;
-import com.vemser.correcao.specs.QuestaoSpecs;
 import net.datafaker.Faker;
 
 import java.util.Locale;
-import java.util.Random;
 
 import static io.restassured.RestAssured.given;
 
