@@ -42,4 +42,4 @@ build/
 *.properties
 
 ### Arquivos ###
-./allure-results
+allure-results/

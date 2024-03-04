@@ -1,12 +1,7 @@
 package com.vemser.correcao.data.factory;
 
-import com.vemser.correcao.client.AtividadesInstrutorClient;
 import com.vemser.correcao.dto.CorrigirAtividadeDto;
-import com.vemser.correcao.dto.CriarAtividadeDto;
-import com.vemser.correcao.dto.CriarAtividadeResponseDto;
-import com.vemser.correcao.dto.PaginacaoListarAtividadePorIdEstagiarioDto;
 import net.datafaker.Faker;
-import org.junit.jupiter.api.Test;
 
 public class CorrigirAtividadeDataFactory {
 
