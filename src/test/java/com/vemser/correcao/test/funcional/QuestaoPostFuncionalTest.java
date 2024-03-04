@@ -19,7 +19,7 @@ public class QuestaoPostFuncionalTest {
     @Feature("Espera Sucesso")
     @Story("[CTA015] Informar Campos Válidos")
     @Severity(SeverityLevel.CRITICAL)
-    @Description("Teste que verifica se ao criar uma questão informando campos válidos retorna 201 e a todos os dados da questão criada no body")
+    @Description("Teste que verifica se ao criar uma questão informando campos válidos retorna 201 e todos os dados da questão criada no body")
     public void testCriarQuestao_informarCamposValidos_esperaSucesso() {
         QuestaoDto questao = QuestaoDataFactory.questaoDadosValidos(2);
 
@@ -42,7 +42,7 @@ public class QuestaoPostFuncionalTest {
     @Feature("Espera Sucesso")
     @Story("[CTA016] Informar Testes Com Valor De Entrada Vazio")
     @Severity(SeverityLevel.CRITICAL)
-    @Description("Teste que verifica se ao criar uma questão informando testes com valor de entrada vazio retorna 400 e a mensagem 'É necessário pelo menos um exemplo e um não-exemplo.'")
+    @Description("Teste que verifica se ao criar uma questão informando testes com valor de entrada vazio retorna 201 e todos os dados da questão criada no body")
     public void testCriarQuestao_informarTestesComValorDeEntradaVazio_esperaErro() {
         QuestaoDto questao = QuestaoDataFactory.questaoComTesteValorDeEntradaVazio();
 
@@ -65,7 +65,7 @@ public class QuestaoPostFuncionalTest {
     @Feature("Espera Sucesso")
     @Story("[CTA017] Informar Testes Com Retorno Esperado Vazio")
     @Severity(SeverityLevel.CRITICAL)
-    @Description("Teste que verifica se ao criar uma questão informando testes com retorno vazio retorna 400 e a mensagem ''")
+    @Description("Teste que verifica se ao criar uma questão informando testes com retorno vazio retorna 201 e todos os dados da questão criada no body")
     public void testCriarQuestao_informarTestesComRetornoEsperadoVazio_esperaErro() {
         QuestaoDto questao = QuestaoDataFactory.questaoComTesteRetornoEsperadoVazio();
 
@@ -86,10 +86,10 @@ public class QuestaoPostFuncionalTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTA018] Informar Código Prévio Vazio")
-    @Description("Teste que verifica se ao criar uma questão informando código prévio vazio retorna 400 e a mensagem 'Código não pode ser vazio'")
+    @Story("[CTA018] Informar Código Vazio")
+    @Description("Teste que verifica se ao criar uma questão informando código vazio retorna 400 e a mensagem 'Código não pode ser vazio'")
     @Severity(SeverityLevel.CRITICAL)
-    public void testCriarQuestao_informarCodigoPrevioVazio_esperaSucesso() {
+    public void testCriarQuestao_informarCodigoVazio_esperaSucesso() {
         QuestaoDto questao = QuestaoDataFactory.questaoCodigoVazio();
 
         ErroDto erro = QuestaoClient.cadastrarQuestao(questao).then()
@@ -152,7 +152,7 @@ public class QuestaoPostFuncionalTest {
     @Feature("Espera Erro")
     @Story("[CTA021] Informar Dificuldade Vazia")
     @Severity(SeverityLevel.CRITICAL)
-    @Description("Teste que verifica se ao criar uma questão informando dificuldade vazia retorna 400 e a mensagem 'Houve um erro ao tentar ler a requisição. Verifique se o corpo da requisição está correto.'")
+    @Description("Teste que verifica se ao criar uma questão informando dificuldade vazia retorna 400 e a mensagem 'Dificuldade não é válida. Valores válidos: FACIL, MEDIO, DIFICIL'")
     public void testCriarQuestao_informarDificuldadeVazia_esperaErro() {
         String questao = QuestaoDataFactory.questaoDificuldadeVazia();
 
@@ -160,7 +160,6 @@ public class QuestaoPostFuncionalTest {
 
         ErroDto erro = QuestaoClient.cadastrarQuestao(questao).then()
                 .statusCode(400)
-                .log().all()
                 .extract().as(ErroDto.class);
 
         assertAll("Testes de criar questão informando dificuldade vazia",
@@ -168,14 +167,14 @@ public class QuestaoPostFuncionalTest {
                 () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
                 () -> assertFalse(erro.getErrors().isEmpty(), "Lista de erros não deve está vazia"),
                 () -> assertEquals(400, erro.getStatus(), "Status do erro deve ser igual ao esperado"),
-                () -> assertEquals("Houve um erro ao tentar ler a requisição. Verifique se o corpo da requisição está correto.", erro.getErrors().get("error"), "Mensagem de erro deve ser igual a esperada")
+                () -> assertEquals("Dificuldade não é válida. Valores válidos: FACIL, MEDIO, DIFICIL", erro.getErrors().get("dificuldade"), "Mensagem de erro deve ser igual a esperada")
         );
     }
 
     @Test
     @Feature("Espera Erro")
     @Story("[CTA022] Informar Linguagem Vazia")
-    @Description("Teste que verifica se ao criar uma questão informando linguagem vazia retorna 400 e a mensagem 'Houve um erro ao tentar ler a requisição. Verifique se o corpo da requisição está correto.'")
+    @Description("Teste que verifica se ao criar uma questão informando linguagem vazia retorna 400 e a mensagem 'Linguagem não é válida. Valores válidos: JAVA, JAVASCRIPT'")
     @Severity(SeverityLevel.CRITICAL)
     public void testCriarQuestao_informarLinguagemVazia_esperaErro() {
         String questao = QuestaoDataFactory.questaoLinguagemVazia();
@@ -189,7 +188,7 @@ public class QuestaoPostFuncionalTest {
                 () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
                 () -> assertFalse(erro.getErrors().isEmpty(), "Lista de erros não deve está vazia"),
                 () -> assertEquals(400, erro.getStatus(), "Status do erro deve ser igual ao esperado"),
-                () -> assertEquals("Houve um erro ao tentar ler a requisição. Verifique se o corpo da requisição está correto.", erro.getErrors().get("error"), "Mensagem de erro deve ser igual a esperada")
+                () -> assertEquals("Linguagem não é válida. Valores válidos: JAVA, JAVASCRIPT", erro.getErrors().get("linguagem"), "Mensagem de erro deve ser igual a esperada")
         );
     }
 
@@ -333,12 +332,76 @@ public class QuestaoPostFuncionalTest {
                 .log().all()
                 .extract().as(ErroDto.class);
 
-        assertAll("Testes de criar questão informando dificuldade inválida",
+        assertAll("Testes de criar questão informando linguagem inválida",
                 () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
                 () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
                 () -> assertFalse(erro.getErrors().isEmpty(), "Lista de erros não deve está vazia"),
                 () -> assertEquals(400, erro.getStatus(), "Status do erro deve ser igual ao esperado"),
                 () -> assertEquals("Linguagem não é válida. Valores válidos: JAVA, JAVASCRIPT", erro.getErrors().get("linguagem"), "Mensagem de erro deve ser igual a esperada")
+        );
+    }
+
+    @Test
+    @Feature("Espera Erro")
+    @Story("[CTA030] Informar Teste Com Exemplo Vazio")
+    @Severity(SeverityLevel.CRITICAL)
+    @Description("Teste que verifica se ao criar uma questão informando teste com exemplo vazio retorna 400 e a mensagem 'Exemplo não pode ser vazio'")
+    public void testCriarQuestao_informarTesteComExemploVazio_esperaErro() {
+        String questao = QuestaoDataFactory.questaoExemploTesteVazio();
+
+        ErroDto erro = QuestaoClient.cadastrarQuestao(questao).then()
+                .statusCode(400)
+                .extract().as(ErroDto.class);
+
+        assertAll("Testes de criar questão informando teste com exemplo vazio",
+                () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
+                () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
+                () -> assertFalse(erro.getErrors().isEmpty(), "Lista de erros não deve está vazia"),
+                () -> assertEquals(400, erro.getStatus(), "Status do erro deve ser igual ao esperado"),
+                // TODO: VERIFICAR MENSAGEM DE ERRO
+                () -> assertTrue(erro.getErrors().get("testes[0].exemplo").equals("Exemplo não pode ser vazio") || erro.getErrors().get("testes[0].exemplo").equals("Opção não é válida, digite SIM ou NAO"), "Mensagem de erro deve ser igual a esperada")
+        );
+    }
+
+    @Test
+    @Feature("Espera Erro")
+    @Story("[CTA031] Informar Teste Com Exemplo Inválido")
+    @Severity(SeverityLevel.CRITICAL)
+    @Description("Teste que verifica se ao criar uma questão informando teste com exemplo inválido retorna 400 e a mensagem 'Opção não é válida, digite SIM ou NAO'")
+    public void testCriarQuestao_informarTesteComExemploInvalido_esperaErro() {
+        QuestaoDto questao = QuestaoDataFactory.questaoExemploInvalido();
+
+        ErroDto erro = QuestaoClient.cadastrarQuestao(questao).then()
+                .statusCode(400)
+                .extract().as(ErroDto.class);
+
+        assertAll("Testes de criar questão informando teste com exemplo inválido",
+                () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
+                () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
+                () -> assertFalse(erro.getErrors().isEmpty(), "Lista de erros não deve está vazia"),
+                () -> assertEquals(400, erro.getStatus(), "Status do erro deve ser igual ao esperado"),
+                () -> assertEquals("Opção não é válida, digite SIM ou NAO", erro.getErrors().get("testes[0].exemplo"), "Mensagem de erro deve ser igual a esperada")
+        );
+    }
+
+    @Test
+    @Feature("Espera Erro")
+    @Story("[CTA031] Informar Testes Vazio")
+    @Severity(SeverityLevel.CRITICAL)
+    @Description("Teste que verifica se ao criar uma questão informando testes vazio retorna 400 e a mensagem 'É necessário pelo menos um exemplo e um não-exemplo.'")
+    public void testCriarQuestao_informarTestesVazio_esperaErro() {
+        QuestaoDto questao = QuestaoDataFactory.questaoTestesVazio();
+
+        ErroDto erro = QuestaoClient.cadastrarQuestao(questao).then()
+                .statusCode(400)
+                .extract().as(ErroDto.class);
+
+        assertAll("Testes de criar questão informando teste com exemplo inválido",
+                () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
+                () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
+                () -> assertFalse(erro.getErrors().isEmpty(), "Lista de erros não deve está vazia"),
+                () -> assertEquals(400, erro.getStatus(), "Status do erro deve ser igual ao esperado"),
+                () -> assertEquals("É necessário pelo menos um exemplo e um não-exemplo.", erro.getErrors().get("error"), "Mensagem de erro deve ser igual a esperada")
         );
     }
 }
