@@ -1,9 +1,9 @@
 package com.vemser.correcao.data.factory;
 
 import com.vemser.correcao.client.QuestaoClient;
-import com.vemser.correcao.dto.CriarAtividadeDto;
-import com.vemser.correcao.dto.QuestaoDto;
-import com.vemser.correcao.dto.QuestaoResponseDto;
+import com.vemser.correcao.dto.atividade.CriarAtividadeDto;
+import com.vemser.correcao.dto.questao.QuestaoDto;
+import com.vemser.correcao.dto.questao.QuestaoResponseDto;
 import com.vemser.correcao.enums.Trilha;
 import net.datafaker.Faker;
 

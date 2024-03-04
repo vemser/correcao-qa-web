@@ -40,3 +40,6 @@ build/
 
 ### Arquivos ###
 *.properties
+
+### Arquivos ###
+./allure-results

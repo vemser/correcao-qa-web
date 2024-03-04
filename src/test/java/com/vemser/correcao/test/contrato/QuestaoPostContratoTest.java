@@ -2,15 +2,19 @@ package com.vemser.correcao.test.contrato;
 
 import com.vemser.correcao.client.QuestaoClient;
 import com.vemser.correcao.data.factory.QuestaoDataFactory;
-import com.vemser.correcao.dto.ErroDto;
-import com.vemser.correcao.dto.QuestaoDto;
-import com.vemser.correcao.dto.QuestaoResponseDto;
+import com.vemser.correcao.dto.erro.ErroDto;
+import com.vemser.correcao.dto.questao.QuestaoDto;
+import com.vemser.correcao.dto.questao.QuestaoResponseDto;
 import io.qameta.allure.*;
 import io.restassured.module.jsv.JsonSchemaValidator;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@Epic("Contrato Questões - POST")
+@DisplayName("Questões - POST")
+@Owner("Gabriel Sales")
 public class QuestaoPostContratoTest {
     @Test
     @Feature("Espera Sucesso")

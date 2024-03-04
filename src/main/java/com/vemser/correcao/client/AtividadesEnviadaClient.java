@@ -1,6 +1,5 @@
 package com.vemser.correcao.client;
 
-import com.vemser.correcao.dto.CriarAtividadeDto;
 import com.vemser.correcao.enums.QuestoesParametro;
 import com.vemser.correcao.specs.AtividadesSpecs;
 import com.vemser.correcao.specs.LoginSpecs;
