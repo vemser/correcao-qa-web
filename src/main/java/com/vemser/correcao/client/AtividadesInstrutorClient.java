@@ -13,6 +13,7 @@ public class AtividadesInstrutorClient {
     private static final String CRIAR_ATIVIDADE = "/atividades/criar";
     private static final String CORRIGIR_ATIVIDADE = "/atividades/retorno-do-professor";
     private static final String EDITAR_ATIVIDADE = "/atividades/editar/{idAtividade}";
+    private static final String EDITAR_ATIVIDADE_SEM_ID = "/atividades/editar/";
 
     public AtividadesInstrutorClient(){}
 
@@ -55,5 +56,13 @@ public class AtividadesInstrutorClient {
                 .body(atividadeEditada)
             .when()
                 .put(EDITAR_ATIVIDADE);
+    }
+
+    public static Response editarAtividadeSemId(CriarAtividadeDto atividadeEditada) {
+        return given()
+                .spec(AtividadesSpecs.atividadeInstrutorSpec())
+                .body(atividadeEditada)
+                .when()
+                .put(EDITAR_ATIVIDADE_SEM_ID);
     }
 }
