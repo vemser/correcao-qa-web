@@ -358,8 +358,7 @@ public class QuestaoPostFuncionalTest {
                 () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
                 () -> assertFalse(erro.getErrors().isEmpty(), "Lista de erros não deve está vazia"),
                 () -> assertEquals(400, erro.getStatus(), "Status do erro deve ser igual ao esperado"),
-                // TODO: VERIFICAR MENSAGEM DE ERRO
-                () -> assertTrue(erro.getErrors().get("testes[0].exemplo").equals("Exemplo não pode ser vazio") || erro.getErrors().get("testes[0].exemplo").equals("Opção não é válida, digite SIM ou NAO"), "Mensagem de erro deve ser igual a esperada")
+                () -> assertEquals("Exemplo não pode ser vazio", erro.getErrors().get("testes[0].exemplo"), "Mensagem de erro deve ser igual a esperada")
         );
     }
 

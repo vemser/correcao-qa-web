@@ -211,15 +211,20 @@ public class TesteDataFactory {
         return teste;
     }
 
-    public static List<EditarTesteDto> editarTesteValido(QuestaoResponseDto questaoResult, EditarTesteDto testeDto, int quantidadeDeTestes) {
+    public static List<EditarTesteDto> editarTesteValido(QuestaoResponseDto questaoResult) {
         List<EditarTesteDto> listaTestesEditados = new ArrayList<>();
-        for (int i=0; i<quantidadeDeTestes; i++) {
+
+        for (int i=0; i < 2; i++) {
+            EditarTesteDto testeDto = new EditarTesteDto();
+
             testeDto.setExemplo(questaoResult.getTestes().get(i).getExemplo());
             testeDto.setRetornoEsperado(questaoResult.getTestes().get(i).getRetornoEsperado());
             testeDto.setTesteId(questaoResult.getTestes().get(i).getTesteId());
             testeDto.setValorEntrada(questaoResult.getTestes().get(i).getValorEntrada());
+
             listaTestesEditados.add(testeDto);
         }
+
         return listaTestesEditados;
     }
 

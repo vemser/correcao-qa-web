@@ -3,15 +3,7 @@
   "type": "object",
   "properties": {
     "errors": {
-      "type": "object",
-      "properties": {
-        "titulo": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "titulo"
-      ]
+      "type": "object"
     },
     "timestamp": {
       "type": "string"

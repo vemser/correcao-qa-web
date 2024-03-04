@@ -16,7 +16,8 @@ public class CompiladorCorrecaoSpecs {
 
         return new RequestSpecBuilder()
                 .addRequestSpecification(InicialSpecs.setupApi())
-                .addHeader("Authorization", token)
+//                .addHeader("Authorization", token)
+                .addHeader("Authorization", "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6Imluc3RydXRvci50ZXN0ZSIsImp0aSI6IjUiLCJjYXJnb3MiOlsiUk9MRV9JTlNUUlVUT1IiXSwiaWF0IjoxNzA5NTc3OTEzLCJleHAiOjE3MTIxNjk5MDh9.ZodW-s7MHGyTcVyaA6VOqxDEsaYSS7eB7BYQzIu20KI")
                 .setContentType(ContentType.JSON)
                 .setBody(compiladorDto)
                 .log(LogDetail.BODY)
@@ -28,27 +29,10 @@ public class CompiladorCorrecaoSpecs {
 
         return new RequestSpecBuilder()
                 .addRequestSpecification(InicialSpecs.setupApi())
-                .addHeader("Authorization", token)
+//                .addHeader("Authorization", token)
+                .addHeader("Authorization", "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6Imluc3RydXRvci50ZXN0ZSIsImp0aSI6IjUiLCJjYXJnb3MiOlsiUk9MRV9JTlNUUlVUT1IiXSwiaWF0IjoxNzA5NTc3OTEzLCJleHAiOjE3MTIxNjk5MDh9.ZodW-s7MHGyTcVyaA6VOqxDEsaYSS7eB7BYQzIu20KI")
                 .setContentType(ContentType.JSON)
                 .setBody(compiladorJson)
-                .log(LogDetail.BODY)
-                .build();
-    }
-
-    public static ResponseSpecification compiladorCorrecaoSucessoResponse() {
-        return new ResponseSpecBuilder()
-                .expectContentType(ContentType.JSON)
-                .expectBody(JsonSchemaValidator.matchesJsonSchemaInClasspath("schemas/compiladorSucesso.json"))
-                .expectStatusCode(200)
-                .log(LogDetail.BODY)
-                .build();
-    }
-
-    public static ResponseSpecification compiladorCorrecaoErroResponse() {
-        return new ResponseSpecBuilder()
-                .expectContentType(ContentType.JSON)
-                .expectBody(JsonSchemaValidator.matchesJsonSchemaInClasspath("schemas/compiladorErro.json"))
-                .expectStatusCode(400)
                 .log(LogDetail.BODY)
                 .build();
     }

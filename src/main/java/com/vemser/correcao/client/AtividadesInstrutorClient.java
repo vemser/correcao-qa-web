@@ -168,4 +168,12 @@ public class AtividadesInstrutorClient {
                 .when()
                 .get(LISTAR_ATIVIDADES_ESTAGIARIO_POR_ID);
     }
+
+    public static Response listarAtividadeEstagiarioPorId(String id) {
+        return given()
+                .spec(AtividadesSpecs.atividadeInstrutorSpec())
+                .pathParam("id", id)
+                .when()
+                .get(LISTAR_ATIVIDADES_ESTAGIARIO_POR_ID);
+    }
 }

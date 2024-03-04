@@ -199,35 +199,101 @@ public class AtividadeInstrutorGetFuncionalTest {
     @Feature("Espera Sucesso")
     @Story("[CTAXXX] Buscar Atividades Do Instrutor Por Id Ao Informar ID Existente")
     @Severity(SeverityLevel.NORMAL)
-    @Description("Teste que verifica se ao listar as atividades do instrutor informando ID existente retorna 200 e todos os dados da atividade")
-    public void testBuscarAtividadePorIdInstrutor_informarPaginaETamanhoValidos_esperaSucesso() {
+    @Description("Teste que verifica se ao buscar atividades do instrutor por ID informando ID existente retorna 200 e todos os dados da atividade")
+    public void testBuscarAtividadePorIdInstrutor_informarIDExistente_esperaSucesso() {
         CriarAtividadeDto atividade = CriarAtividadeDataFactory.atividadeComDadosValidos();
 
         CriarAtividadeResponseDto atividadeResult = AtividadesInstrutorClient.criarAtividade(atividade)
                 .then()
                 .statusCode(201)
-                .log().all()
                 .extract().as(CriarAtividadeResponseDto.class);
 
         PaginacaoListarAtividadePorIdEstagiarioDto questaoResult = AtividadesInstrutorClient.listarAtividadeEstagiarioPorId(atividadeResult.getAtividadeId()).then()
                 .statusCode(200)
-                .log().all()
                 .extract().as(PaginacaoListarAtividadePorIdEstagiarioDto.class);
 
         AtividadesInstrutorClient.excluirAtividade(atividadeResult.getAtividadeId());
         QuestaoClient.excluirQuestao(atividadeResult.getQuestoesInt().get(0));
         QuestaoClient.excluirQuestao(atividadeResult.getQuestoesInt().get(1));
 
-        assertAll("Testes de buscar questão por ID informando ID existente",
+        assertAll("Testes de buscar atividades do instrutor por ID informando ID existente",
                 () -> assertNotNull(questaoResult, "Questão buscada não deve ser nula"),
                 () -> assertEquals(atividadeResult.getAtividadeId(), questaoResult.getContent().get(0).getAtividadesId(), "ID da atividade buscada deve ser igual ao ID da atividade criada"),
                 () -> assertEquals(atividadeResult.getTitulo(), questaoResult.getContent().get(0).getAtividade().getTitulo(), "Titulo da atividade buscada deve ser igual ao titulo da atividade criada"),
                 () -> assertEquals(atividadeResult.getDescricao(), questaoResult.getContent().get(0).getAtividade().getDescricao(), "Descrição da atividade buscada deve ser igual ao descrição da atividade criada"),
                 () -> assertEquals(atividadeResult.getPrazoEntrega(), questaoResult.getContent().get(0).getAtividade().getPrazoEntrega(), "Prazo de entrega da atividade buscada deve ser igual ao prazo de entrega da atividade criada"),
-                () -> assertEquals(atividadeResult.getTrilha(), questaoResult.getContent().get(0).getAtividade().getTrilha(), "Trilha da atividade buscada deve ser igual ao trilha da atividade criada"),
-                () -> assertEquals(10, questaoResult.getNumberOfElements(), "Número de elementos deve ser igual ao esperado"),
+                () -> assertEquals(atividadeResult.getTrilha(), questaoResult.getContent().get(0).getAtividade().getTrilha().toString(), "Trilha da atividade buscada deve ser igual ao trilha da atividade criada"),
+                () -> assertEquals(4, questaoResult.getNumberOfElements(), "Número de elementos deve ser igual ao esperado"),
                 () -> assertEquals(questaoResult.getContent().size(), questaoResult.getNumberOfElements(), "Tamanho do conteúdo deve ser igual ao número de elementos"),
                 () -> assertEquals(0, questaoResult.getPageable().getPageNumber(),"Número da página deve ser igual ao esperado")
+        );
+    }
+
+    @Test
+    @Feature("Espera Sucesso")
+    @Story("[CTAXXX] Buscar Atividades Do Instrutor Por Id Ao Informar ID Inexistente")
+    @Severity(SeverityLevel.NORMAL)
+    @Description("Teste que verifica se ao buscar atividades do instrutor por ID informando ID inexistente retorna 200 e nenhuma atividade")
+    public void testBuscarAtividadePorIdInstrutor_informarPaginaETamanhoValidos_esperaSucesso() {
+        PaginacaoListarAtividadePorIdEstagiarioDto questaoResult = AtividadesInstrutorClient.listarAtividadeEstagiarioPorId(9999999).then()
+                .statusCode(200)
+                .log().all()
+                .extract().as(PaginacaoListarAtividadePorIdEstagiarioDto.class);
+
+        assertAll("Testes de buscar atividades do instrutor por ID informando ID inexistente",
+                () -> assertEquals(0, questaoResult.getNumberOfElements(), "Número de elementos deve ser igual ao esperado"),
+                () -> assertEquals(questaoResult.getContent().size(), questaoResult.getNumberOfElements(), "Tamanho do conteúdo deve ser igual ao número de elementos"),
+                () -> assertEquals(0, questaoResult.getPageable().getPageNumber(),"Número da página deve ser igual ao esperado")
+        );
+    }
+
+    @Test
+    @Feature("Espera Erro")
+    @Story("[CTAXXX] Buscar Atividades Do Instrutor Por Id Ao Informar ID Maior Que O Limite")
+    @Severity(SeverityLevel.NORMAL)
+    @Description("Teste que verifica se ao buscar atividades do instrutor por ID informando ID maior que o limite 400 e a mensagem 'Houve um erro em um conversão. Verifique se os valores estão corretos.'")
+    public void testBuscarAtividadePorIdInstrutor_informarIDMaiorQueOLimite_esperaSucesso() {
+        ErroDto erro = AtividadesInstrutorClient.listarAtividadeEstagiarioPorId("99993333999").then()
+                .statusCode(400)
+                .log().all()
+                .extract().as(ErroDto.class);
+
+        assertAll("Testes de buscar atividades do instrutor por ID informando ID maior que o limite",
+                () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
+                () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
+                () -> assertFalse(erro.getErrors().isEmpty(), "Lista de erros não deve está vazia"),
+                () -> assertEquals(400, erro.getStatus(), "Status do erro deve ser igual ao esperado"),
+                () -> assertEquals("Houve um erro em um conversão. Verifique se os valores estão corretos.", erro.getErrors().get("error"), "Mensagem de erro deve ser igual a esperada")
+        );
+    }
+
+    @Test
+    @Feature("Espera Erro")
+    @Story("[CTAXXX] Buscar Atividades Do Instrutor Por Id Ao Informar ID Inativo")
+    @Severity(SeverityLevel.NORMAL)
+    @Description("Teste que verifica se ao buscar atividades do instrutor por ID informando ID inativo retorna 404 e a mensagem 'Atividade não encontrada'")
+    public void testBuscarAtividadePorIdInstrutor_informarIDInativo_esperaSucesso() {
+        CriarAtividadeDto atividade = CriarAtividadeDataFactory.atividadeComDadosValidos();
+
+        CriarAtividadeResponseDto atividadeResult = AtividadesInstrutorClient.criarAtividade(atividade)
+                .then()
+                .statusCode(201)
+                .extract().as(CriarAtividadeResponseDto.class);
+
+        AtividadesInstrutorClient.excluirAtividade(atividadeResult.getAtividadeId());
+        QuestaoClient.excluirQuestao(atividadeResult.getQuestoesInt().get(0));
+        QuestaoClient.excluirQuestao(atividadeResult.getQuestoesInt().get(1));
+
+        ErroDto erro = AtividadesInstrutorClient.listarAtividadeEstagiarioPorId(atividadeResult.getAtividadeId()).then()
+                .statusCode(200)
+                .extract().as(ErroDto.class);
+
+        assertAll("Testes de buscar atividades do instrutor por ID informando ID inativo",
+                () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
+                () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
+                () -> assertFalse(erro.getErrors().isEmpty(), "Lista de erros não deve está vazia"),
+                () -> assertEquals(404, erro.getStatus(), "Status do erro deve ser igual ao esperado"),
+                () -> assertEquals("Atividade não encontrada", erro.getErrors().get("error"), "Mensagem de erro deve ser igual a esperada")
         );
     }
 }

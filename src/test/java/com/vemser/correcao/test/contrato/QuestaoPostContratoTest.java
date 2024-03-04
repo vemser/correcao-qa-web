@@ -6,6 +6,7 @@ import com.vemser.correcao.dto.erro.ErroDto;
 import com.vemser.correcao.dto.questao.QuestaoDto;
 import com.vemser.correcao.dto.questao.QuestaoResponseDto;
 import io.qameta.allure.*;
+import io.restassured.http.ContentType;
 import io.restassured.module.jsv.JsonSchemaValidator;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -26,6 +27,7 @@ public class QuestaoPostContratoTest {
 
         QuestaoResponseDto questaoResult = QuestaoClient.cadastrarQuestao(questao).then()
                 .statusCode(201)
+                .contentType(ContentType.JSON)
                 .body(JsonSchemaValidator.matchesJsonSchemaInClasspath("schemas/questao-post-sucesso.json"))
                 .extract().as(QuestaoResponseDto.class);
 
@@ -88,7 +90,8 @@ public class QuestaoPostContratoTest {
 
         QuestaoClient.cadastrarQuestao(questao).then()
                 .statusCode(400)
-                .body(JsonSchemaValidator.matchesJsonSchemaInClasspath("schemas/questao-post-erro.json"))
+                .contentType(ContentType.JSON)
+                .body(JsonSchemaValidator.matchesJsonSchemaInClasspath("schemas/erro.json"))
                 .extract().as(ErroDto.class);
     }
 
@@ -178,7 +181,7 @@ public class QuestaoPostContratoTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTAXXX] Não Informar Codigo")
+    @Story("[CTAXXX] Não Informar Código")
     @Description("Teste que verifica se ao criar uma questão não informando código retorna 400 e a mensagem 'Código não pode ser vazio'")
     @Severity(SeverityLevel.CRITICAL)
     public void testCriarQuestao_naoInformarCodigo_esperaErro() {
@@ -200,7 +203,7 @@ public class QuestaoPostContratoTest {
     @Test
     @Feature("Espera Erro")
     @Story("[CTAXXX] Não Informar Testes")
-    @Description("Teste que verifica se ao criar uma questão não informando testes retorna 400 e a mensagem 'Campo testes é obrigatório'")
+    @Description("Teste que verifica se ao criar uma questão não informando testes retorna 400 e a mensagem 'Testes não pode ser vazio'")
     @Severity(SeverityLevel.CRITICAL)
     public void testCriarQuestao_naoInformarTestes_esperaErro() {
         String questao = QuestaoDataFactory.questaoSemCampoTestes();
@@ -214,7 +217,7 @@ public class QuestaoPostContratoTest {
                 () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
                 () -> assertFalse(erro.getErrors().isEmpty(), "Lista de erros não deve está vazia"),
                 () -> assertEquals(400, erro.getStatus(), "Status do erro deve ser igual ao esperado"),
-                () -> assertEquals("Campo testes é obrigatório", erro.getErrors().get("testes"), "Mensagem de erro deve ser igual a esperada")
+                () -> assertEquals("Testes não pode ser vazio", erro.getErrors().get("testes"), "Mensagem de erro deve ser igual a esperada")
         );
     }
 
