@@ -19,7 +19,7 @@ public class QuestaoPostFuncionalTest {
     @Feature("Espera Sucesso")
     @Story("[CTA015] Informar Campos Válidos")
     @Severity(SeverityLevel.CRITICAL)
-    @Description("Teste que verifica se ao criar uma questão com todos os campos válidos a API retorna 201 e a todos os dados da questão criada no body")
+    @Description("Teste que verifica se ao criar uma questão informando campos válidos retorna 201 e a todos os dados da questão criada no body")
     public void testCriarQuestao_informarCamposValidos_esperaSucesso() {
         QuestaoDto questao = QuestaoDataFactory.questaoDadosValidos(2);
 
@@ -338,7 +338,7 @@ public class QuestaoPostFuncionalTest {
                 () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
                 () -> assertFalse(erro.getErrors().isEmpty(), "Lista de erros não deve está vazia"),
                 () -> assertEquals(400, erro.getStatus(), "Status do erro deve ser igual ao esperado"),
-                () -> assertEquals("Trilha não é válida. Valores válidos: JAVA, JAVASCRIPT", erro.getErrors().get("linguagem"), "Mensagem de erro deve ser igual a esperada")
+                () -> assertEquals("Linguagem não é válida. Valores válidos: JAVA, JAVASCRIPT", erro.getErrors().get("linguagem"), "Mensagem de erro deve ser igual a esperada")
         );
     }
 }
