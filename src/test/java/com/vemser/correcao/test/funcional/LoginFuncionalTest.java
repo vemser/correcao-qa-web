@@ -52,7 +52,7 @@ public class LoginFuncionalTest {
         LoginDto login = LoginDataFactory.loginAluno();
         String token = LoginClient.autenticar(login)
             .then()
-                .statusCode(200)
+                 .statusCode(200)
                 .extract()
                 .asString();
 

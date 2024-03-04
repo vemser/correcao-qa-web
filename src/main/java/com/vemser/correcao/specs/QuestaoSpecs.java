@@ -26,13 +26,6 @@ public class QuestaoSpecs {
                 .build();
     }
 
-    public static RequestSpecification questaoReqSemTokenSpec() {
-
-        return new RequestSpecBuilder()
-                .addRequestSpecification(InicialSpecs.setupApi())
-                .setContentType(ContentType.JSON)
-                .build();
-    }
     public static RequestSpecification questaoPorLogin(String token) {
 
         return new RequestSpecBuilder()
