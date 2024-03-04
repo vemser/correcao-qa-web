@@ -27,49 +27,72 @@ public class QuestaoGetFuncionalTest {
                     .extract()
                     .as(ListaTodasQuestaoResponseDto.class);
 
-        assertAll("Testes de listar questão informando página e tamanho válido",
-                () -> assertEquals(questaoResult.getNumberOfElements(), 10, "Número de elementos deve ser igual ao esperado"),
+        assertAll("Testes de listar questões informando página e tamanho válido",
+                () -> assertEquals(10, questaoResult.getNumberOfElements(), "Número de elementos deve ser igual ao esperado"),
+                () -> assertEquals(questaoResult.getContent().size(), questaoResult.getNumberOfElements(), "Tamanho do conteúdo deve ser igual ao número de elementos"),
+                () -> assertEquals(0, questaoResult.getPageable().getPageNumber(),"Número da página deve ser igual ao esperado")
+        );
+    }
+
+    @Test
+    @Feature("Espera Sucesso")
+    @Story("[CTAXXX] Listar Questões Ao Informar Página Inválida")
+    @Severity(SeverityLevel.NORMAL)
+    @Description("Teste que verifica se ao listar as questões informando página inválida retorna 404 e a mensagem 'Página não encontrada'")
+    public void testListarQuestoes_informarPaginaInvalida_esperaErro() {
+        String paginaSolicitada = "-1";
+        String tamanhoPagina = "10";
+
+        ListaTodasQuestaoResponseDto questaoResult = QuestaoClient.buscarTodasQuestao(paginaSolicitada, tamanhoPagina)
+                .then()
+                .statusCode(200)
+                .extract()
+                .as(ListaTodasQuestaoResponseDto.class);
+
+        assertAll("Testes de listar questões informando página e tamanho válido",
+                () -> assertEquals(10, questaoResult.getNumberOfElements(), "Número de elementos deve ser igual ao esperado"),
                 () -> assertEquals(questaoResult.getContent().size(), questaoResult.getNumberOfElements(), "Tamanho do conteúdo deve ser igual ao número de elementos"),
                 () -> assertEquals(questaoResult.getPageable().getPageNumber(), 0,"Número da página deve ser igual ao esperado")
         );
     }
 
     @Test
-    @Feature("Listar Todas Questões")
-    @Story("[CTAXXX] Listar Questões - Listar questões sem estar logado na aplicação (Espera Falha)")
+    @Feature("Espera Erro")
+    @Story("[CTAXXX] Listar Questões Ao Não Informar Token")
     @Severity(SeverityLevel.NORMAL)
-    @Description("Teste que verifica se ŕ possivel listar todas as questões sem estar logado")
-    public void testListarQuestoes_listarQuestoesSemEstarLogado_esperaFalha() {
-        ErroDto questaoResult = QuestaoClient.buscarTodasQuestaoSemEstarLogado("0", "10")
+    @Description("Teste que verifica se ao listar as questões não informando o token retorna 403 e a mensagem 'Forbidden'")
+    public void testListarQuestoes_naoInformarToken_esperaErro() {
+        ErroAlternativoDto erro = QuestaoClient.buscarTodasQuestaoSemEstarLogado("0", "10")
                 .then()
                 .statusCode(403)
                 .extract()
-                .as(ErroDto.class);
+                .as(ErroAlternativoDto.class);
 
-        assertAll("Verifica se retorna lista com tamnaho correto",
-                () -> assertEquals(questaoResult.getStatus(), 403),
-                () -> assertNotNull(questaoResult.getTimestamp()),
-                () -> assertEquals(questaoResult.getErrors().get("error"),"Forbidden" )
+        assertAll("Testes de listar questões não informando token",
+                () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
+                () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
+                () -> assertEquals(403, erro.getStatus(), "Status do erro deve ser igual ao esperado"),
+                () -> assertEquals("Forbidden", erro.getError(), "Mensagem de erro deve ser igual ao esperado")
         );
     }
 
     @Test
-    @Owner("Italo Lacerda")
-    @Feature("Listar Todas Questões")
-    @Story("[CTAXXX] Listar Questões - Listar questões logado na aplicação como aluno (Espera Falha)")
+    @Feature("Espera Erro")
+    @Story("[CTAXXX] Listar Questões Informando Token De Aluno")
     @Severity(SeverityLevel.NORMAL)
-    @Description("Teste que verifica se ŕ possivel listar todas as questões logado como aluno")
-    public void testListarQuestoes_listarQuestoesLogadoComoAluno_esperaFalha() {
-        ErroDto questaoResult = QuestaoClient.buscarTodasQuestaoLogadoComoAluno("0", "10")
+    @Description("Teste que verifica se é possivel listar todas as questões logado como aluno")
+    public void testListarQuestoes_informarTokenDeAluno_esperaErro() {
+        ErroAlternativoDto erro = QuestaoClient.buscarTodasQuestaoLogadoComoAluno("0", "10")
                 .then()
                 .statusCode(403)
                 .extract()
-                .as(ErroDto.class);
+                .as(ErroAlternativoDto.class);
 
-        assertAll("Verifica se retorna lista com tamnaho correto",
-                () -> assertEquals(questaoResult.getStatus(), 403),
-                () -> assertNotNull(questaoResult.getTimestamp()),
-                () -> assertEquals(questaoResult.getErrors().get("error"),"Forbidden" )
+        assertAll("Testes de listar questões não informando token",
+                () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
+                () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
+                () -> assertEquals(403, erro.getStatus(), "Status do erro deve ser igual ao esperado"),
+                () -> assertEquals("Forbidden", erro.getError(), "Mensagem de erro deve ser igual ao esperado")
         );
     }
 
@@ -90,43 +113,19 @@ public class QuestaoGetFuncionalTest {
                     .extract()
                     .as(ErroDto.class);
 
-        assertAll("Verifica se retorna error correto",
+        assertAll("Testes de listar questões informando página que não existe",
                 () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
                 () -> assertEquals(erro.getStatus(), 404, "Status do erro deve ser igual ao esperado"),
-                () -> assertEquals(erro.getErrors().get("error"), "Página não encontrada", "Mensagem de erro deve ser igual a esperada")
+                () -> assertEquals("Página não encontrada", erro.getErrors().get("error"), "Mensagem de erro deve ser igual a esperada")
         );
 
     }
 
     @Test
-    @Feature("Espera Erro")
-    @Story("[CTAXXX] Listar Questões Ao Informar Página Inválida (Espera Erro)")
+    @Feature("Espera Sucesso")
+    @Story("[CTAXXX] Listar Questões Ao Não Informar Parâmetro de Tamanho Da Página")
     @Severity(SeverityLevel.NORMAL)
-    @Description("Teste que verifica se ao listar as questões informando página inválida retorna 404 e a mensagem '?????????'")
-    public void testListarQuestoes_informarPaginaInvalida_esperaErro() {
-        String paginaSolicitada = "-1";
-        String tamanhoPagina = "10";
-
-        ErroDto erro = QuestaoClient.buscarTodasQuestao(paginaSolicitada, tamanhoPagina)
-                .then()
-                    .statusCode(404)
-                    .extract()
-                    .as(ErroDto.class);
-
-        assertAll("Testes de listar questão informando página inválida",
-                () -> assertEquals(erro.getStatus(), 404, "Status do erro deve ser igual ao esperado"),
-                () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
-                () -> assertFalse(erro.getErrors().isEmpty(), "Lista de erros não deve está vazia"),
-                () -> assertEquals(erro.getErrors().get("error"), "Página não encontrada", "Mensagem de erro deve ser igual a esperada")
-        );
-    }
-
-
-    @Test
-    @Feature("Listar Todas Questões")
-    @Story("[CTAXXX] Listar Questões - Listar questões sem parâmetro de tamanho pagina (esperaSucesso)")
-    @Severity(SeverityLevel.NORMAL)
-    @Description("Teste que verifica se ao listar todas as questões sem o tamanho da página a  API retorna 200 e a tamanho da pagina 10  ''")
+    @Description("Teste que verifica se ao listar todas as questões sem o tamanho da página a API retorna 200 e a tamanho da página 10")
     public void testQuestoes_listarQuestoesSemParametroDeTamanhoPagina_esperaSucesso() {
         ListaTodasQuestaoResponseDto questaoResult = QuestaoClient.buscarTodasQuestao(QuestoesParametro.page ,"0")
                 .then()
@@ -135,18 +134,18 @@ public class QuestaoGetFuncionalTest {
                 .extract()
                 .as(ListaTodasQuestaoResponseDto.class);
 
-        assertAll("Verifica se retorna lista com tamnaho correto",
-                () -> assertEquals(questaoResult.getNumberOfElements(), 10),
-                () -> assertEquals(questaoResult.getContent().size(), questaoResult.getNumberOfElements())
+        assertAll("Testes de listar questões não informando parâmetro de tamanho da página",
+                () -> assertEquals(10, questaoResult.getNumberOfElements(), "Número de elementos deve ser igual ao esperado"),
+                () -> assertEquals(questaoResult.getContent().size(), questaoResult.getNumberOfElements(), "Tamanho do conteúdo deve ser igual ao número de elementos"),
+                () -> assertEquals(0, questaoResult.getPageable().getPageNumber(),"Número da página deve ser igual ao esperado")
         );
-        assertEquals(questaoResult.getPageable().getPageNumber(), 0,"Verifica se retorna pagina correta");
     }
 
     @Test
-    @Feature("Listar Todas Questões")
-    @Story("[CTAXXX] Listar Questões - Listar questões sem parâmetro de pagina solicitada (esperaSucesso)")
+    @Feature("Espera Sucesso")
+    @Story("[CTAXXX] Listar Questões Ao Não Informar Parâmetro De Página Solicitada")
     @Severity(SeverityLevel.NORMAL)
-    @Description("Teste que verifica se ao listar todas as questões sem a pagina solicitada a API retorna 200 e a pagina 0 ''")
+    @Description("Teste que verifica se ao listar todas as questões sem a pagina solicitada a API retorna 200 e a página 0")
     public void testQuestoes_listarQuestoesSemParametroDePaginaSolicitada_esperaSucesso() {
         ListaTodasQuestaoResponseDto questaoResult = QuestaoClient.buscarTodasQuestao(QuestoesParametro.size,"10")
                 .then()
@@ -155,11 +154,11 @@ public class QuestaoGetFuncionalTest {
                 .extract()
                 .as(ListaTodasQuestaoResponseDto.class);
 
-        assertAll("Verifica se retorna lista com tamnaho correto",
-                () -> assertEquals(questaoResult.getNumberOfElements(), 10),
-                () -> assertEquals(questaoResult.getContent().size(), questaoResult.getNumberOfElements())
+        assertAll("Testes de listar questões não informando parâmetro de página solicitada",
+                () -> assertEquals(10, questaoResult.getNumberOfElements(), "Número de elementos deve ser igual ao esperado"),
+                () -> assertEquals(questaoResult.getContent().size(), questaoResult.getNumberOfElements(), "Tamanho do conteúdo deve ser igual ao número de elementos"),
+                () -> assertEquals(0, questaoResult.getPageable().getPageNumber(),"Número da página deve ser igual ao esperado")
         );
-        assertEquals(questaoResult.getPageable().getPageNumber(), 0,"Verifica se retorna pagina correta");
     }
     @Test
     @Feature("Espera Sucesso")
@@ -190,7 +189,7 @@ public class QuestaoGetFuncionalTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTAXXX] Buscar Questão Por ID Ao Informar ID Inexistente (Espera Erro)")
+    @Story("[CTAXXX] Buscar Questão Por ID Ao Informar ID Inexistente")
     @Severity(SeverityLevel.NORMAL)
     @Description("Teste que verifica se ao buscar uma questão informando ID inexistente retorna 400 e a mensagem 'Questão não encontrada com o ID fornecido'")
     public void testBuscarQuestaoPorID_informarIDInexistente_esperaErro() {
@@ -213,7 +212,7 @@ public class QuestaoGetFuncionalTest {
     @Feature("Espera Erro")
     @Story("[CTAXXX] Buscar Questão Por ID Ao Informar ID Maior Que O Limite")
     @Severity(SeverityLevel.NORMAL)
-    @Description("Teste que verifica se ao buscar uma questão informando ID maior que o limite retorna 400 e a mensagem '???????'")
+    @Description("Teste que verifica se ao buscar uma questão informando ID maior que o limite retorna 400 e a mensagem 'Houve um erro em um conversão. Verifique se os valores estão corretos.'")
     public void testBuscarQuestaoPorId_informarIDMaiorQueOLimite_esperaErro() {
         ErroDto erro = QuestaoClient.buscarQuestaoPorIdMaiorQueOLimite()
                 .then()
@@ -233,7 +232,7 @@ public class QuestaoGetFuncionalTest {
     @Feature("Espera Erro")
     @Story("[CTAXXX] Buscar Questão Por ID Ao Informar ID Inativo")
     @Severity(SeverityLevel.NORMAL)
-    @Description("Teste que verifica se ao buscar uma questão informando ID inativo retorna 404 e a mensagem '?????'")
+    @Description("Teste que verifica se ao buscar uma questão informando ID inativo retorna 404 e a mensagem 'Questão não encontrada'")
     public void testBuscarQuestaoPorID_informarIDInativo_esperaErro() {
         QuestaoDto questao = QuestaoDataFactory.questaoDadosValidos(2);
 

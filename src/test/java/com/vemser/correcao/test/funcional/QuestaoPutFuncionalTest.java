@@ -31,7 +31,7 @@ public class QuestaoPutFuncionalTest {
 
         QuestaoResponseDto questaoResult = QuestaoClient.cadastrarQuestao(questao)
                 .then()
-                .statusCode(200)
+                .statusCode(201)
                 .extract().as(QuestaoResponseDto.class);
 
         EditarQuestaoDto questaoEditada = QuestaoDataFactory.questaoEditada();
@@ -273,6 +273,37 @@ public class QuestaoPutFuncionalTest {
                 () -> assertFalse(erro.getErrors().isEmpty(), "Lista de erros não deve está vazia"),
                 () -> assertEquals(400, erro.getStatus(), "Status do erro deve ser igual ao esperado"),
                 () -> assertEquals("Linguagem não é válida", erro.getErrors().get("linguagem"), "Mensagem de erro deve ser igual a esperada")
+        );
+    }
+
+    @Test
+    @Feature("Espera Erro")
+    @Story("[CTAXXX] Editar Sem Autenticação")
+    @Severity(SeverityLevel.CRITICAL)
+    @Description("Teste que verifica se ao editar questão sem ter autenticação a API retorna 403 e erro 'Você não tem autorização para acessar este serviço'")
+    public void testEditarQuestao_naoInformarAutenticacao_esperaSucesso() {
+        QuestaoDto questao = QuestaoDataFactory.questaoDadosValidos(0);
+        EditarTesteDto testeDto = new EditarTesteDto();
+
+        QuestaoResponseDto questaoResult = QuestaoClient.cadastrarQuestao(questao)
+                .then()
+                .statusCode(201)
+                .extract().as(QuestaoResponseDto.class);
+
+        EditarQuestaoDto questaoEditada = QuestaoDataFactory.questaoEditada();
+        Integer questaoId = questaoResult.getQuestaoDTO().getQuestaoId();
+
+        questaoEditada.setTestes(TesteDataFactory.editarTesteValido(questaoResult, testeDto, 0));
+
+        ErroForbiddenDto erro = QuestaoClient.editarQuestaoSemAutenticacao(questaoEditada, questaoId)
+                .then()
+                .statusCode(403)
+                .extract().as(ErroForbiddenDto.class);
+        assertAll("Testes de editar atividade sem autenticação",
+                () -> assertEquals(erro.getStatus(), 403, "Status da erro não deve ser nulo"),
+                () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
+                () -> assertNotNull(erro.getPath()),
+                () -> assertEquals(erro.getError(),"Você não tem autorização para acessar este serviço" )
         );
     }
 }

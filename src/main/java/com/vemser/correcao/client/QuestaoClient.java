@@ -3,6 +3,7 @@ package com.vemser.correcao.client;
 import com.vemser.correcao.dto.EditarQuestaoDto;
 import com.vemser.correcao.dto.QuestaoDto;
 import com.vemser.correcao.enums.QuestoesParametro;
+import com.vemser.correcao.specs.LoginSpecs;
 import com.vemser.correcao.specs.QuestaoSpecs;
 import io.restassured.response.Response;
 
@@ -89,7 +90,7 @@ public class QuestaoClient {
 
         return
                 given()
-                    .spec(QuestaoSpecs.questaoReqSemTokenSpec())
+                    .spec(LoginSpecs.reqSemTokenSpec())
                     .queryParams(parametrosMap)
                 .when()
                     .get(LISTAR_QUESTAO_URL);
@@ -137,7 +138,7 @@ public class QuestaoClient {
     }
     public static Response excluirQuestaoSemToken(Integer idQuestao) {
         return given()
-                .spec(QuestaoSpecs.questaoReqSemTokenSpec())
+                .spec(LoginSpecs.reqSemTokenSpec())
                 .pathParam("idQuestao", idQuestao)
         .when()
                 .delete(DELETAR_QUESTAO);
@@ -198,6 +199,15 @@ public class QuestaoClient {
                 .pathParam("idQuestao", questaoId)
                 .body(questaoEditada)
             .when()
+                .put(EDITAR_QUESTAO_ID);
+    }
+
+    public static Response editarQuestaoSemAutenticacao(EditarQuestaoDto questaoEditada, Integer questaoId){
+        return given()
+                .spec(LoginSpecs.reqSemTokenSpec())
+                .pathParam("idQuestao", questaoId)
+                .body(questaoEditada)
+                .when()
                 .put(EDITAR_QUESTAO_ID);
     }
 }

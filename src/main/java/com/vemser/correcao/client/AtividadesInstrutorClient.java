@@ -3,6 +3,7 @@ package com.vemser.correcao.client;
 import com.vemser.correcao.dto.CorrigirAtividadeDto;
 import com.vemser.correcao.dto.CriarAtividadeDto;
 import com.vemser.correcao.specs.AtividadesSpecs;
+import com.vemser.correcao.specs.LoginSpecs;
 import io.restassured.response.Response;
 
 import static io.restassured.RestAssured.given;
@@ -13,7 +14,9 @@ public class AtividadesInstrutorClient {
     private static final String LISTAR_TODAS_ATIVIDADES = "/atividades";
     private static final String CRIAR_ATIVIDADE = "/atividades/criar";
     private static final String CORRIGIR_ATIVIDADE = "/atividades/retorno-do-professor";
-    private static final String EDITAR_ATIVIDADE = "/atividades/editar";
+    private static final String EDITAR_ATIVIDADE = "/atividades/editar/{idAtividade}";
+    private static final String EDITAR_ATIVIDADE_SEM_ID = "/atividades/editar/";
+    private static final String LISTAR_ATIVIDADES_ESTAGIARIO_POR_ID = "/atividades/listar-atividades-estagiario/{id}";
 
     public AtividadesInstrutorClient(){}
 
@@ -22,6 +25,7 @@ public class AtividadesInstrutorClient {
                     .spec(AtividadesSpecs.atividadeInstrutorSpec())
                     .body(atividade)
                 .when()
+                .log().all()
                     .post(CRIAR_ATIVIDADE);
     }
 
@@ -31,6 +35,14 @@ public class AtividadesInstrutorClient {
                 .body(atividade)
                 .when()
                 .post(CRIAR_ATIVIDADE);
+    }
+
+    public static Response corrigirAtividade(CorrigirAtividadeDto correcao) {
+        return given()
+                .spec(AtividadesSpecs.atividadeInstrutorSpec())
+                .body(correcao)
+                .when()
+                .post(CORRIGIR_ATIVIDADE);
     }
 
     public static Response excluirAtividade(Integer atividadeId) {
@@ -49,11 +61,46 @@ public class AtividadesInstrutorClient {
                 .delete(DELETAR_ATIVIDADE_POR_ID);
     }
 
-    public static Response corrigirAtividade(CorrigirAtividadeDto correcao) {
+    public static Response editarAtividade(Integer atividadeId, CriarAtividadeDto atividadeEditada) {
         return given()
-                    .spec(AtividadesSpecs.atividadeInstrutorSpec())
-                    .body(correcao)
+                .spec(AtividadesSpecs.atividadeInstrutorSpec())
+                .pathParam("idAtividade", atividadeId)
+                .body(atividadeEditada)
+            .when()
+                .put(EDITAR_ATIVIDADE);
+    }
+
+    public static Response editarAtividadeSemId(CriarAtividadeDto atividadeEditada) {
+        return given()
+                .spec(AtividadesSpecs.atividadeInstrutorSpec())
+                .body(atividadeEditada)
                 .when()
-                    .post(CORRIGIR_ATIVIDADE);
+                .put(EDITAR_ATIVIDADE_SEM_ID);
+    }
+
+    public static Response editarAtividadeComoString(Integer atividadeId, String atividadeEditada) {
+        return given()
+                .spec(AtividadesSpecs.atividadeInstrutorSpec())
+                .pathParam("idAtividade", atividadeId)
+                .body(atividadeEditada)
+                .when()
+                .put(EDITAR_ATIVIDADE);
+    }
+
+    public static Response editarAtividadeSemAutenticacao(Integer atividadeId, CriarAtividadeDto atividadeEditada) {
+        return given()
+                .spec(LoginSpecs.reqSemTokenSpec())
+                .pathParam("idAtividade", atividadeId)
+                .body(atividadeEditada)
+                .when()
+                .put(EDITAR_ATIVIDADE);
+    }
+
+    public static Response listarAtividadeEstagiarioPorId(Integer id) {
+        return given()
+                .spec(AtividadesSpecs.atividadeInstrutorSpec())
+                .pathParam("id", id)
+                .when()
+                .get(LISTAR_ATIVIDADES_ESTAGIARIO_POR_ID);
     }
 }
