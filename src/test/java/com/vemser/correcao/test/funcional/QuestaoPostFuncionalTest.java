@@ -358,6 +358,7 @@ public class QuestaoPostFuncionalTest {
                 () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
                 () -> assertFalse(erro.getErrors().isEmpty(), "Lista de erros não deve está vazia"),
                 () -> assertEquals(400, erro.getStatus(), "Status do erro deve ser igual ao esperado"),
+                // TODO: VERIFICAR MENSAGEM DE ERRO
                 () -> assertTrue(erro.getErrors().get("testes[0].exemplo").equals("Exemplo não pode ser vazio") || erro.getErrors().get("testes[0].exemplo").equals("Opção não é válida, digite SIM ou NAO"), "Mensagem de erro deve ser igual a esperada")
         );
     }
@@ -366,7 +367,7 @@ public class QuestaoPostFuncionalTest {
     @Feature("Espera Erro")
     @Story("[CTA031] Informar Teste Com Exemplo Inválido")
     @Severity(SeverityLevel.CRITICAL)
-    @Description("Teste que verifica se ao criar uma questão informando teste com exemplo inválido retorna 400 e a mensagem 'Exemplo não pode ser inválido'")
+    @Description("Teste que verifica se ao criar uma questão informando teste com exemplo inválido retorna 400 e a mensagem 'Opção não é válida, digite SIM ou NAO'")
     public void testCriarQuestao_informarTesteComExemploInvalido_esperaErro() {
         QuestaoDto questao = QuestaoDataFactory.questaoExemploInvalido();
 

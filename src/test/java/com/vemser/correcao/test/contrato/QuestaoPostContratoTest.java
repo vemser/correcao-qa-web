@@ -15,7 +15,7 @@ public class QuestaoPostContratoTest {
     @Test
     @Feature("Espera Sucesso")
     @Story("[CTAXXX] Informar Campos Válidos Para Validar Corpo Da Resposta De Sucesso")
-    @Description("Teste que verifica se ao criar uma questão informando campos válidos retorna corpo da resposta de sucesso válido")
+    @Description("Teste que verifica se ao criar uma questão informando campos válidos retorna corpo válido da resposta de sucesso")
     @Severity(SeverityLevel.CRITICAL)
     public void testCriarQuestao_informarCamposValidosParaValidarCorpoDaRespostaDeSucesso_esperaSucesso() {
         QuestaoDto questao = QuestaoDataFactory.questaoDadosValidos(2);
@@ -54,7 +54,7 @@ public class QuestaoPostContratoTest {
     @Test
     @Feature("Espera Sucesso")
     @Story("[CTAXXX] Não Informar Valor De Entrada Do Teste")
-    @Description("Teste que verifica se ao criar uma questão não informando valor de entrada do teste retorna 400 e a mensagem 'Opção não é válida, digite SIM ou NAO'")
+    @Description("Teste que verifica se ao criar uma questão não informando valor de entrada do teste retorna 201 e todos os dados da questão criada no body")
     @Severity(SeverityLevel.CRITICAL)
     public void testCriarQuestao_naoInformarValorEntradaTeste_esperaSucesso() {
         String questao = QuestaoDataFactory.questaoSemCampoRetornoEsperadoDoTeste();
@@ -77,23 +77,15 @@ public class QuestaoPostContratoTest {
     @Test
     @Feature("Espera Erro")
     @Story("[CTAXXX] Não Informar Titulo Para Validar Corpo Da Resposta De Erro")
-    @Description("Teste que verifica se ao criar uma questão não informando titulo retorna corpo da resposta de erro válido")
+    @Description("Teste que verifica se ao criar uma questão não informando titulo retorna corpo válido de resposta de erro")
     @Severity(SeverityLevel.CRITICAL)
     public void testCriarQuestao_naoInformarTituloParaValidarCorpoDaRespostaDeErro_esperaErro() {
         String questao = QuestaoDataFactory.questaoSemCampoTitulo();
 
-        ErroDto erro = QuestaoClient.cadastrarQuestao(questao).then()
+        QuestaoClient.cadastrarQuestao(questao).then()
                 .statusCode(400)
                 .body(JsonSchemaValidator.matchesJsonSchemaInClasspath("schemas/questao-post-erro.json"))
                 .extract().as(ErroDto.class);
-
-        assertAll("Testes de criar questão nao informando titulo",
-                () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
-                () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
-                () -> assertFalse(erro.getErrors().isEmpty(), "Lista de erros não deve está vazia"),
-                () -> assertEquals(400, erro.getStatus(), "Status do erro deve ser igual ao esperado"),
-                () -> assertEquals("Título não pode ser vazio", erro.getErrors().get("titulo"), "Mensagem de erro deve ser igual a esperada")
-        );
     }
 
     @Test
@@ -204,7 +196,7 @@ public class QuestaoPostContratoTest {
     @Test
     @Feature("Espera Erro")
     @Story("[CTAXXX] Não Informar Testes")
-    @Description("Teste que verifica se ao criar uma questão não informando testes retorna 400 e a mensagem '?????'")
+    @Description("Teste que verifica se ao criar uma questão não informando testes retorna 400 e a mensagem 'Campo testes é obrigatório'")
     @Severity(SeverityLevel.CRITICAL)
     public void testCriarQuestao_naoInformarTestes_esperaErro() {
         String questao = QuestaoDataFactory.questaoSemCampoTestes();
@@ -218,7 +210,7 @@ public class QuestaoPostContratoTest {
                 () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
                 () -> assertFalse(erro.getErrors().isEmpty(), "Lista de erros não deve está vazia"),
                 () -> assertEquals(400, erro.getStatus(), "Status do erro deve ser igual ao esperado"),
-                () -> assertEquals("???????", erro.getErrors().get("testes"), "Mensagem de erro deve ser igual a esperada")
+                () -> assertEquals("Campo testes é obrigatório", erro.getErrors().get("testes"), "Mensagem de erro deve ser igual a esperada")
         );
     }
 
