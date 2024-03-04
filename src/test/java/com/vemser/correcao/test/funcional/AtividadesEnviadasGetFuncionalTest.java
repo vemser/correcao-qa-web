@@ -1,14 +1,12 @@
 package com.vemser.correcao.test.funcional;
 
 import com.vemser.correcao.client.AtividadesEnviadaClient;
-import com.vemser.correcao.dto.atividade.CriarAtividadeDto;
-import com.vemser.correcao.dto.atividade.CriarAtividadeResponseDto;
+import com.vemser.correcao.data.factory.CorrigirAtividadeDataFactory;
+import com.vemser.correcao.dto.atividade.*;
 import com.vemser.correcao.dto.erro.ErroDto;
 import com.vemser.correcao.dto.erro.ErroForbiddenDto;
-import com.vemser.correcao.dto.atividade.PaginacaoAtividadeEnviadaDto;
 import com.vemser.correcao.client.AtividadesInstrutorClient;
 import com.vemser.correcao.data.factory.CriarAtividadeDataFactory;
-import com.vemser.correcao.dto.*;
 import com.vemser.correcao.enums.QuestoesParametro;
 import io.qameta.allure.*;
 import org.junit.jupiter.api.DisplayName;
@@ -209,8 +207,16 @@ public class AtividadesEnviadasGetFuncionalTest {
         CriarAtividadeDto atividade = CriarAtividadeDataFactory.atividadeComDadosValidos();
         CriarAtividadeResponseDto atividadeResult = AtividadesInstrutorClient.criarAtividade(atividade)
                 .then()
-                .statusCode(201)
                 .extract().as(CriarAtividadeResponseDto.class);
+
+        PaginacaoListarAtividadePorIdEstagiarioDto listarAtividadeAluno =
+                AtividadesInstrutorClient.listarAtividadeEstagiarioPorId(atividadeResult.getAtividadeId())
+                        .then()
+                        .extract().as(PaginacaoListarAtividadePorIdEstagiarioDto.class);
+
+        Integer idAtividadeEnviada = listarAtividadeAluno.getContent().get(0).getAtividadesEnviadasId();
+
+        System.out.println(idAtividadeEnviada);
 
 //        final String SIZE = "10";
 //        final String PAGE = "0";

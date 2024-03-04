@@ -41,7 +41,7 @@ public class AtividadeInstrutorPutFuncionalTest {
                 () -> assertEquals(response.getAtividadeId(), atividadeResult.getAtividadeId(), "ID da Atividade não deve ser nulo"),
                 () -> assertEquals(response.getTitulo(), atividadeEditada.getTitulo(), "Título deve ser igual ao esperado"),
                 () -> assertEquals(response.getDescricao(), atividadeEditada.getDescricao(), "Descrição deve ser igual a esperada"),
-                () -> assertEquals(response.getQuestoes(), atividadeEditada.getQuestoes(), "Trilha deve ser igual a esperada"),
+                () -> assertEquals(response.getQuestoesInt(), atividadeEditada.getQuestoesInt(), "Trilha deve ser igual a esperada"),
                 () -> assertTrue(response.getPrazoEntrega().contains(atividadeEditada.getPrazoEntrega().replace("Z", "")), "Prazo de Entrega deve ser igual ao esperado")
         );
     }
@@ -215,7 +215,7 @@ public class AtividadeInstrutorPutFuncionalTest {
                 () -> assertEquals(response.getAtividadeId(), atividadeResult.getAtividadeId(), "ID da Atividade não deve ser nulo"),
                 () -> assertEquals(response.getTitulo(), atividadeEditada.getTitulo(), "Título deve ser igual ao esperado"),
                 () -> assertEquals(response.getDescricao(), atividadeEditada.getDescricao(), "Descrição deve estar vazia"),
-                () -> assertEquals(response.getQuestoes(), atividadeEditada.getQuestoes(), "Questões devem ser iguais as esperadas"),
+                () -> assertEquals(response.getQuestoesInt(), atividadeEditada.getQuestoesInt(), "Questões devem ser iguais as esperadas"),
                 () -> assertEquals(response.getTrilha(), atividadeEditada.getTrilha(), "Trilha deve ser igual a esperada"),
                 () -> assertTrue(response.getPrazoEntrega().contains(atividadeEditada.getPrazoEntrega().replace("Z", "")), "Prazo de Entrega deve ser igual ao esperado")
                 );

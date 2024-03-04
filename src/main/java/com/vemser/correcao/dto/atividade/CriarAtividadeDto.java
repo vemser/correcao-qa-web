@@ -15,7 +15,7 @@ public class CriarAtividadeDto {
     private String descricao;
     private String edicaoVemSer;
     private String prazoEntrega;
-    private ArrayList<Integer> questoes;
+    private ArrayList<Integer> questoesInt;
     private String titulo;
     private Trilha trilha;
 }
