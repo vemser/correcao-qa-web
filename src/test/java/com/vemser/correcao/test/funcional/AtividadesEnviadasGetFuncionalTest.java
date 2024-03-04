@@ -21,7 +21,7 @@ public class AtividadesEnviadasGetFuncionalTest {
     @Feature("Espera Sucesso")
     @Story("[CTAXXX] Listar Todas as Atividades do Aluno Logado Sem Passar Parametros")
     @Severity(SeverityLevel.NORMAL)
-    @Description("Teste Listar Todas as Atividades do Aluno Logado Sem Passar Parametros")
+    @Description("Teste que verifica listar todas as atividades do aluno logado sem passar parametros retorna 200 e paginação correta")
     public void testListarAtividadesEnviadas_semInformarParametros_esperaSucesso() {
         PaginacaoAtividadeEnviadaDto retorno = AtividadesEnviadaClient.listarAtividadesDoAluno()
                 .then()
@@ -41,7 +41,7 @@ public class AtividadesEnviadasGetFuncionalTest {
     @Feature("Espera Sucesso")
     @Story("[CTAXXX] Listar todas as atividades do aluno logado sem passar o 'page' como parametro")
     @Severity(SeverityLevel.NORMAL)
-    @Description("Teste listar todas as atividades do aluno logado sem passar o 'page' como parametro")
+    @Description("Teste que verifica listar todas as atividades do aluno logado sem passar o 'page' como parametro retorna 200 e paginação correta")
     public void testListarAtividadesEnviadas_semInformarPageComoParametro_esperaSucesso() {
         PaginacaoAtividadeEnviadaDto retorno = AtividadesEnviadaClient.listarAtividadesDoAluno(QuestoesParametro.size, "2")
                 .then()
@@ -61,7 +61,7 @@ public class AtividadesEnviadasGetFuncionalTest {
     @Feature("Espera Sucesso")
     @Story("[CTAXXX] Listar todas as atividades do aluno logado sem passar o 'size' como parametro")
     @Severity(SeverityLevel.NORMAL)
-    @Description("Teste listar todas as atividades do aluno logado sem passar o 'size' como parametro")
+    @Description("Teste que verifica listar todas as atividades do aluno logado sem passar o 'size' como parametro retorna 200 e paginação correta")
     public void testListarAtividadesEnviadas_semInformarSizeComoParametro_esperaSucesso() {
         PaginacaoAtividadeEnviadaDto retorno = AtividadesEnviadaClient.listarAtividadesDoAluno(QuestoesParametro.page, "0")
                 .then()
@@ -81,7 +81,7 @@ public class AtividadesEnviadasGetFuncionalTest {
     @Feature("Espera Sucesso")
     @Story("[CTAXXX] Listar todas as atividades do aluno logado passando todos os parametros")
     @Severity(SeverityLevel.NORMAL)
-    @Description("Teste listar todas as atividades do aluno logado passando todos os parametros")
+    @Description("Teste que verifica listar todas as atividades do aluno passando todos os parametros retorna 200 e paginação correta")
     public void testListarAtividadesEnviadas_semInformarTodosOsParametros_esperaSucesso() {
         final String SIZE = "2";
         final String PAGE = "1";
@@ -103,7 +103,7 @@ public class AtividadesEnviadasGetFuncionalTest {
     @Feature("Espera Erro")
     @Story("[CTAXXX] Listar todas as atividades do aluno logado passando pagina invalida")
     @Severity(SeverityLevel.NORMAL)
-    @Description("Teste listar todas as atividades do aluno logado passando pagina invalida")
+    @Description("Teste que verifica se lista atividade ao informa um 'page' invalido retorna 404 e body com error correto")
     public void testListarAtividadesEnviadas_informarPaginaInvalida_esperaFalha() {
         final String SIZE = "10";
         final String PAGE = "-1";
@@ -126,7 +126,7 @@ public class AtividadesEnviadasGetFuncionalTest {
     @Feature("Espera Erro")
     @Story("[CTAXXX] Listar todas as atividades do aluno logado passando pagina invalida")
     @Severity(SeverityLevel.NORMAL)
-    @Description("Teste listar todas as atividades do aluno logado passando pagina invalida")
+    @Description("Teste que verifica se lista atividade ao informa uma pagina que não existe retorna 404 e body com error correto")
     public void testListarAtividadesEnviadas_informarPaginaQueNaoExiste_esperaErro() {
         PaginacaoAtividadeEnviadaDto atividadesEnvidas = AtividadesEnviadaClient.listarAtividadesDoAluno("0","10")
                 .as(PaginacaoAtividadeEnviadaDto.class);
@@ -151,8 +151,8 @@ public class AtividadesEnviadasGetFuncionalTest {
     @Test
     @Feature("Espera Erro")
     @Story("[CTAXXX] listar todas as atividades sem estar logado")
-    @Severity(SeverityLevel.NORMAL)
-    @Description("Teste listar todas as atividades sem estar logado")
+    @Severity(SeverityLevel.BLOCKER)
+    @Description("Teste que verifica se lista atividade sem estar logado retorna 403 e body com error correto")
     public void testListarAtividadesEnviadas_semEstarLogado_esperaErro() {
         final String SIZE = "10";
         final String PAGE = "0";
@@ -174,8 +174,8 @@ public class AtividadesEnviadasGetFuncionalTest {
     @Test
     @Feature("Espera Erro")
     @Story("[CTAXXX] listar todas as atividades logado como instrutor")
-    @Severity(SeverityLevel.NORMAL)
-    @Description("Teste listar todas as atividades logado como instrutor")
+    @Severity(SeverityLevel.BLOCKER)
+    @Description("Teste que verifica se lista atividade logado como instrutor retorna 403 e body com error correto")
     public void testListarAtividadesEnviadas_logadoComoInstrutor_esperaErro() {
         final String SIZE = "10";
         final String PAGE = "0";
