@@ -18,8 +18,15 @@ public class CriarAtividadeDataFactory {
 
     public static ArrayList<Integer> listaIdDuasQuestoesValidasParaAtividade() {
         ArrayList<Integer> questoes = new ArrayList<>();
+
         QuestaoDto questao = QuestaoDataFactory.questaoDadosValidos(0);
         QuestaoResponseDto questaoResult = QuestaoClient.cadastrarQuestao(questao).then()
+                .statusCode(201)
+                .extract().as(QuestaoResponseDto.class);
+        questoes.add(questaoResult.getQuestaoDTO().getQuestaoId());
+
+        questao = QuestaoDataFactory.questaoDadosValidos(0);
+        questaoResult = QuestaoClient.cadastrarQuestao(questao).then()
                 .statusCode(201)
                 .extract().as(QuestaoResponseDto.class);
         questoes.add(questaoResult.getQuestaoDTO().getQuestaoId());
