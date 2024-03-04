@@ -1,4 +1,4 @@
-package com.vemser.correcao.dto;
+package com.vemser.correcao.dto.atividade;
 
 import com.vemser.correcao.dto.paginacao.PageableDto;
 import com.vemser.correcao.dto.paginacao.SortDto;

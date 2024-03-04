@@ -1,6 +1,6 @@
 package com.vemser.correcao.data.factory;
 
-import com.vemser.correcao.dto.CorrigirAtividadeDto;
+import com.vemser.correcao.dto.atividade.CorrigirAtividadeDto;
 import net.datafaker.Faker;
 
 public class CorrigirAtividadeDataFactory {

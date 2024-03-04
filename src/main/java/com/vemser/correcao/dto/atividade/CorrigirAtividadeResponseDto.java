@@ -1,4 +1,4 @@
-package com.vemser.correcao.dto;
+package com.vemser.correcao.dto.atividade;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
