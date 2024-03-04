@@ -22,5 +22,6 @@ public class QuestaoDto {
     private ArrayList<TesteDto> testes;
     private String criado;
     private String editado;
+    private  boolean resolvida;
     private String ativo;
 }

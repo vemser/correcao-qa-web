@@ -80,4 +80,20 @@ public class AtividadesEnviadaClient {
             .when()
                 .get(ATIVIDADE_RELATORIO_COM_QUESTOES_POR_ID);
     }
+
+    public static Response buscarAtividadeRelatorioPeloIdSemEstarLogado(Integer atividadeEnviadaId) {
+        return given()
+                .spec(LoginSpecs.reqSemTokenSpec())
+                .pathParam("id", atividadeEnviadaId)
+                .when()
+                .get(ATIVIDADE_RELATORIO_COM_QUESTOES_POR_ID);
+    }
+
+    public static Response buscarAtividadeRelatorioPeloIdLogadoComoInstrutor(Integer atividadeEnviadaId) {
+        return given()
+                .spec(LoginSpecs.loginInstrutorReqSpec())
+                .pathParam("id", atividadeEnviadaId)
+                .when()
+                .get(ATIVIDADE_RELATORIO_COM_QUESTOES_POR_ID);
+    }
 }
