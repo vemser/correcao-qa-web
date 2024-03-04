@@ -2,7 +2,7 @@ package com.vemser.correcao.client;
 
 import com.vemser.correcao.dto.atividade.CriarAtividadeDto;
 import com.vemser.correcao.enums.QuestoesParametro;
-import com.vemser.correcao.dto.CorrigirAtividadeDto;
+import com.vemser.correcao.dto.atividade.CorrigirAtividadeDto;
 import com.vemser.correcao.specs.AtividadesSpecs;
 import com.vemser.correcao.specs.LoginSpecs;
 import io.restassured.response.Response;

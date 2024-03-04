@@ -1,11 +1,9 @@
 package com.vemser.correcao.test.funcional;
 
 import com.vemser.correcao.client.AtividadesInstrutorClient;
-import com.vemser.correcao.client.QuestaoClient;
 import com.vemser.correcao.dto.atividade.PaginacaoAtividadeInstrutorDto;
 import com.vemser.correcao.dto.erro.ErroAlternativoDto;
 import com.vemser.correcao.dto.erro.ErroDto;
-import com.vemser.correcao.dto.questao.ListaTodasQuestaoResponseDto;
 import com.vemser.correcao.enums.QuestoesParametro;
 import io.qameta.allure.*;
 import org.junit.jupiter.api.DisplayName;
