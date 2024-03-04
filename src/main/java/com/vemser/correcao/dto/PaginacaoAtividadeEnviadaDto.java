@@ -14,7 +14,7 @@ public class PaginacaoAtividadeEnviadaDto {
     private boolean first;
     private Integer number;
     private Integer numberOfElements;
-    private String pageable;
+    private PageableDto pageable;
     private Integer size;
     private boolean last;
     private SortDto sort;
