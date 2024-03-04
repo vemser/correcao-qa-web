@@ -217,7 +217,7 @@ public class SolucaoQuestaoPostFuncionalTest {
                 .extract()
                 .as(ErroDto.class);
 
-        assertAll("Testes de enviar questao inexistente para solucao",
+        assertAll("Testes de enviar com questao nao pertencente a atividade",
                 () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
                 () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
                 () -> assertFalse(erro.getErrors().isEmpty(), "Lista de erros não deve está vazia"),
@@ -269,7 +269,7 @@ public class SolucaoQuestaoPostFuncionalTest {
                 .extract()
                 .as(ErroDto.class);
 
-        assertAll("Testes de enviar questao inexistente para solucao",
+        assertAll("Testes de enviar com questao nao pertencente a atividade",
                 () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
                 () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
                 () -> assertFalse(erro.getErrors().isEmpty(), "Lista de erros não deve está vazia"),
@@ -392,7 +392,7 @@ public class SolucaoQuestaoPostFuncionalTest {
     }
     @Test
     @Feature("Espera Erro")
-    @Story("[CTAXXX] Enviar Solucao De Questao Total sem id de Questao")
+    @Story("[CTAXXX] Enviar Solucao De Questao Total Sem id de Questao")
     @Severity(SeverityLevel.NORMAL)
     @Description("Teste que verifica se ao enviar uma requisição sem id de questao a API retorna 404 e a mensagem 'Houve um erro ao tentar ler a requisição. Verifique se o corpo da requisição está correto'")
     public void testSolucaoQuestao_mandarSolucaoTotalSemIdQuestao_esperaErro() {
@@ -411,6 +411,109 @@ public class SolucaoQuestaoPostFuncionalTest {
                 () -> assertEquals(404, erro.getStatus(), "Status do erro deve ser igual ao esperado"),
                 () -> assertEquals("Houve um erro ao tentar ler a requisição. Verifique se o corpo da requisição está correto", erro.getErrors().get("error"), "Mensagem de erro deve ser igual a esperada")
         );
+    }
+
+    @Test
+    @Feature("Espera Erro")
+    @Story("[CTAXXX] Enviar Teste de Solucao De Questao com trilha errada")
+    @Severity(SeverityLevel.NORMAL)
+    @Description("Teste que verifica se ao testar uma solução da trilha errada a API retorna 400 e a mensagem 'Esta atividade não pertence a este usuário.'")
+    public void testSolucaoQuestao_mandarSolucaoDeExemplosComTrilhaErrada_esperaErro() {
+        QuestaoDto questao = QuestaoDataFactory.questaoDadosValidos(2);
+        QuestaoResponseDto questaoResult = QuestaoClient.cadastrarQuestao(questao)
+                .then()
+                .statusCode(201)
+                .extract()
+                .as(QuestaoResponseDto.class);
+        ArrayList<Integer> questoes = new ArrayList<>();
+        questoes.add(questaoResult.getQuestaoDTO().getQuestaoId());
+
+        CriarAtividadeDto atividade = CriarAtividadeDataFactory.atividadeComDadosValidosTrilhaFront(questoes);
+        CriarAtividadeResponseDto atividadeResult = AtividadesInstrutorClient.criarAtividade(atividade)
+                .then()
+                .statusCode(201)
+                .extract().as(CriarAtividadeResponseDto.class);
+
+        Integer atividadeId = atividadeResult.getAtividadeId();
+
+        PaginacaoAtividadeEnviadaDto atividadesEnviadas = AtividadesEnviadaClient.listarAtividadesDoAluno()
+                .then()
+                .statusCode(200)
+                .extract().as(PaginacaoAtividadeEnviadaDto.class);
+        Integer atividadesEnviadasId = atividadesEnviadas.getContent().get(0).getAtividadesEnviadasId();
+
+        SolucaoQuestaoDto solucao = SolucaoQuestaoDataFactory.solucaoJavaScriptValida(atividadesEnviadasId, questoes);
+        ErroDto erro = SolucaoQuestaoClient.testarSolucaoExemplos(solucao)
+                .then()
+                .statusCode(400)
+                .extract()
+                .as(ErroDto.class);
+
+        assertAll("Testes de enviar solução com trilha errada",
+                () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
+                () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
+                () -> assertFalse(erro.getErrors().isEmpty(), "Lista de erros não deve está vazia"),
+                () -> assertEquals(400, erro.getStatus(), "Status do erro deve ser igual ao esperado"),
+                () -> assertEquals("Esta atividade não pertence a este usuário.", erro.getErrors().get("error"), "Mensagem de erro deve ser igual a esperada")
+        );
+
+        QuestaoClient.excluirQuestao(questaoResult.getQuestaoDTO().getQuestaoId())
+                .then()
+                .statusCode(200);
+        AtividadesInstrutorClient.excluirAtividade(atividadeResult.getAtividadeId())
+                .then()
+                .statusCode(200);
+    }
+
+    @Test
+    @Feature("Espera Erro")
+    @Story("[CTAXXX] Enviar Solucao De Questao Total com trilha errada")
+    @Severity(SeverityLevel.NORMAL)
+    @Description("Teste que verifica se ao enviar uma solução da trilha errada a API retorna 400 e a mensagem 'Esta atividade não pertence a este usuário.'")
+    public void testSolucaoQuestao_mandarSolucaoTotalComTrilhaErrada_esperaErro() {
+        QuestaoDto questao = QuestaoDataFactory.questaoDadosValidos(2);
+
+        QuestaoResponseDto questaoResult = QuestaoClient.cadastrarQuestao(questao)
+            .then()
+                .statusCode(201)
+                .extract()
+                .as(QuestaoResponseDto.class);
+        ArrayList<Integer> questoes = new ArrayList<>();
+        questoes.add(questaoResult.getQuestaoDTO().getQuestaoId());
+
+        CriarAtividadeDto atividade = CriarAtividadeDataFactory.atividadeComDadosValidosTrilhaFront(questoes);
+        CriarAtividadeResponseDto atividadeResult = AtividadesInstrutorClient.criarAtividade(atividade)
+            .then()
+                .statusCode(201)
+                .extract().as(CriarAtividadeResponseDto.class);
+
+        PaginacaoAtividadeEnviadaDto atividadesEnviadas = AtividadesEnviadaClient.listarAtividadesDoAluno()
+            .then()
+                .statusCode(200)
+                .extract().as(PaginacaoAtividadeEnviadaDto.class);
+        Integer atividadesEnviadasId = atividadesEnviadas.getContent().get(0).getAtividadesEnviadasId();
+
+        SolucaoQuestaoDto solucao = SolucaoQuestaoDataFactory.solucaoJavaScriptValida(atividadesEnviadasId, questoes);
+        ErroDto erro = SolucaoQuestaoClient.testarSolucaoCompleta(solucao)
+            .then()
+                .statusCode(400)
+                .extract()
+                .as(ErroDto.class);
+
+        assertAll("Testes de enviar solução com trilha errada",
+                () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
+                () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
+                () -> assertFalse(erro.getErrors().isEmpty(), "Lista de erros não deve está vazia"),
+                () -> assertEquals(400, erro.getStatus(), "Status do erro deve ser igual ao esperado"),
+                () -> assertEquals("Esta atividade não pertence a este usuário.", erro.getErrors().get("error"), "Mensagem de erro deve ser igual a esperada")
+        );
+
+        QuestaoClient.excluirQuestao(questaoResult.getQuestaoDTO().getQuestaoId())
+            .then()
+                .statusCode(200);
+        AtividadesInstrutorClient.excluirAtividade(atividadeResult.getAtividadeId())
+            .then()
+                .statusCode(200);
     }
 }
 

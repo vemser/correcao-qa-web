@@ -176,7 +176,7 @@ public class CriarAtividadeDataFactory {
         return criarAtividadeValida;
     }
 
-    public static CriarAtividadeDto atividadeComDadosValidosTrilhaQA(ArrayList<Integer> questoes) {
+    public static CriarAtividadeDto atividadeComDadosValidosTrilhaFront(ArrayList<Integer> questoes) {
         CriarAtividadeDto criarAtividadeValida = new CriarAtividadeDto();
 
         criarAtividadeValida.setDescricao(faker.lorem().paragraph());
@@ -184,7 +184,7 @@ public class CriarAtividadeDataFactory {
         criarAtividadeValida.setPrazoEntrega("2025-03-01T13:01:41.065Z");
         criarAtividadeValida.setQuestoes(questoes);
         criarAtividadeValida.setTitulo(faker.book().title());
-        criarAtividadeValida.setTrilha(Trilha.QA);
+        criarAtividadeValida.setTrilha(Trilha.FRONT);
 
         return criarAtividadeValida;
     }
