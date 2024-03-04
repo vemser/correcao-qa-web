@@ -2,6 +2,9 @@ package com.vemser.correcao.test.funcional;
 
 import com.vemser.correcao.client.AtividadesInstrutorClient;
 import com.vemser.correcao.client.QuestaoClient;
+import com.vemser.correcao.data.factory.CriarAtividadeDataFactory;
+import com.vemser.correcao.dto.atividade.CriarAtividadeDto;
+import com.vemser.correcao.dto.atividade.CriarAtividadeResponseDto;
 import com.vemser.correcao.dto.atividade.PaginacaoAtividadeInstrutorDto;
 import com.vemser.correcao.dto.erro.ErroAlternativoDto;
 import com.vemser.correcao.dto.erro.ErroDto;
@@ -80,67 +83,6 @@ public class AtividadeInstrutorGetFuncionalTest {
 
     @Test
     @Feature("Espera Sucesso")
-    @Story("[CTAXXX] Listar Atividades Do Instrutor Ao Não Informar Token")
-    @Severity(SeverityLevel.NORMAL)
-    @Description("Teste que verifica se ao listar as atividades do instrutor não informando o token retorna 403 e a mensagem 'Forbidden'")
-    public void testListarAtividadesInstrutor_naoInformarToken_esperaSucesso() {
-        ErroAlternativoDto erro = AtividadesInstrutorClient.listarAtividadesSemAutenticacao().then()
-                .statusCode(403)
-                .extract().as(ErroAlternativoDto.class);
-
-        assertAll("Testes de listar atividades do instrutor não informando token",
-                () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
-                () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
-                () -> assertEquals(403, erro.getStatus(), "Status do erro deve ser igual ao esperado"),
-                () -> assertEquals("Forbidden", erro.getError(), "Mensagem de erro deve ser igual ao esperado")
-        );
-    }
-
-    @Test
-    @Feature("Espera Sucesso")
-    @Story("[CTAXXX] Listar Atividades Do Instrutor Ao Não Informar Token")
-    @Severity(SeverityLevel.NORMAL)
-    @Description("Teste que verifica se ao listar as atividades do instrutor não informando o token retorna 403 e a mensagem 'Forbidden'")
-    public void testListarAtividadesInstrutor_informarTokenAluno_esperaSucesso() {
-        ErroAlternativoDto erro = AtividadesInstrutorClient.listarAtividadesComoAluno().then()
-                .statusCode(403)
-                .extract().as(ErroAlternativoDto.class);
-
-        assertAll("Testes de listar atividades do instrutor não informando token",
-                () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
-                () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
-                () -> assertEquals(403, erro.getStatus(), "Status do erro deve ser igual ao esperado"),
-                () -> assertEquals("Forbidden", erro.getError(), "Mensagem de erro deve ser igual ao esperado")
-        );
-    }
-
-    @Test
-    @Feature("Espera Sucesso")
-    @Story("[CTAXXX] Listar Atividades Do Instrutor Ao Informar Pagina Que Não Existe")
-    @Severity(SeverityLevel.NORMAL)
-    @Description("Teste que verifica se ao listar as atividades do instrutor passando uma página que não existe retorna 404 e a mensagem 'Nenhuma atividade encontrada.")
-    public void testListarAtividadesInstrutor_informarPaginaQueNaoExiste_esperaSucesso() {
-        String page = "0";
-        String size = "10";
-
-        PaginacaoAtividadeInstrutorDto questaoResult = AtividadesInstrutorClient.listarAtividades(page, size).then()
-                .extract().as(PaginacaoAtividadeInstrutorDto.class);
-
-        String pageQueNaoExiste = Integer.toString(questaoResult.getTotalPages() + 1);
-
-        ErroDto erro = AtividadesInstrutorClient.listarAtividades(pageQueNaoExiste, size).then()
-                .statusCode(404)
-                .extract().as(ErroDto.class);
-
-        assertAll("Testes de listar questões informando página que não existe",
-                () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
-                () -> assertEquals(erro.getStatus(), 404, "Status do erro deve ser igual ao esperado"),
-                () -> assertEquals("Nenhuma atividade encontrada.", erro.getErrors().get("error"), "Mensagem de erro deve ser igual a esperada")
-        );
-    }
-
-    @Test
-    @Feature("Espera Sucesso")
     @Story("[CTAXXX] Listar Atividades Do Instrutor Sem Passar Parâmetros")
     @Severity(SeverityLevel.NORMAL)
     @Description("Teste que verifica se ao listar as atividades do instrutor não informando parâmetros retorna 200 e todas as atividades cadastradas")
@@ -190,5 +132,89 @@ public class AtividadeInstrutorGetFuncionalTest {
                 () -> assertEquals(questaoResult.getContent().size(), questaoResult.getNumberOfElements(), "Tamanho do conteúdo deve ser igual ao número de elementos"),
                 () -> assertEquals(0, questaoResult.getPageable().getPageNumber(),"Número da página deve ser igual ao esperado")
         );
+    }
+
+    @Test
+    @Feature("Espera Erro")
+    @Story("[CTAXXX] Listar Atividades Do Instrutor Ao Não Informar Token")
+    @Severity(SeverityLevel.NORMAL)
+    @Description("Teste que verifica se ao listar as atividades do instrutor não informando o token retorna 403 e a mensagem 'Forbidden'")
+    public void testListarAtividadesInstrutor_naoInformarToken_esperaSucesso() {
+        ErroAlternativoDto erro = AtividadesInstrutorClient.listarAtividadesSemAutenticacao().then()
+                .statusCode(403)
+                .extract().as(ErroAlternativoDto.class);
+
+        assertAll("Testes de listar atividades do instrutor não informando token",
+                () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
+                () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
+                () -> assertEquals(403, erro.getStatus(), "Status do erro deve ser igual ao esperado"),
+                () -> assertEquals("Forbidden", erro.getError(), "Mensagem de erro deve ser igual ao esperado")
+        );
+    }
+
+    @Test
+    @Feature("Espera Erro")
+    @Story("[CTAXXX] Listar Atividades Do Instrutor Ao Não Informar Token")
+    @Severity(SeverityLevel.NORMAL)
+    @Description("Teste que verifica se ao listar as atividades do instrutor não informando o token retorna 403 e a mensagem 'Forbidden'")
+    public void testListarAtividadesInstrutor_informarTokenAluno_esperaSucesso() {
+        ErroAlternativoDto erro = AtividadesInstrutorClient.listarAtividadesComoAluno().then()
+                .statusCode(403)
+                .extract().as(ErroAlternativoDto.class);
+
+        assertAll("Testes de listar atividades do instrutor não informando token",
+                () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
+                () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
+                () -> assertEquals(403, erro.getStatus(), "Status do erro deve ser igual ao esperado"),
+                () -> assertEquals("Forbidden", erro.getError(), "Mensagem de erro deve ser igual ao esperado")
+        );
+    }
+
+    @Test
+    @Feature("Espera Erro")
+    @Story("[CTAXXX] Listar Atividades Do Instrutor Ao Informar Pagina Que Não Existe")
+    @Severity(SeverityLevel.NORMAL)
+    @Description("Teste que verifica se ao listar as atividades do instrutor passando uma página que não existe retorna 404 e a mensagem 'Nenhuma atividade encontrada.")
+    public void testListarAtividadesInstrutor_informarPaginaQueNaoExiste_esperaSucesso() {
+        String page = "0";
+        String size = "10";
+
+        PaginacaoAtividadeInstrutorDto questaoResult = AtividadesInstrutorClient.listarAtividades(page, size).then()
+                .extract().as(PaginacaoAtividadeInstrutorDto.class);
+
+        String pageQueNaoExiste = Integer.toString(questaoResult.getTotalPages() + 1);
+
+        ErroDto erro = AtividadesInstrutorClient.listarAtividades(pageQueNaoExiste, size).then()
+                .statusCode(404)
+                .extract().as(ErroDto.class);
+
+        assertAll("Testes de listar questões informando página que não existe",
+                () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
+                () -> assertEquals(erro.getStatus(), 404, "Status do erro deve ser igual ao esperado"),
+                () -> assertEquals("Nenhuma atividade encontrada.", erro.getErrors().get("error"), "Mensagem de erro deve ser igual a esperada")
+        );
+    }
+
+    @Test
+    @Feature("Espera Sucesso")
+    @Story("[CTAXXX] Buscar Atividades Do Instrutor Por Id Ao Informar ID Existente")
+    @Severity(SeverityLevel.NORMAL)
+    @Description("Teste que verifica se ao listar as atividades do instrutor informando ID existente retorna 200 e todos os dados da atividade")
+    public void testBuscarAtividadePorIdInstrutor_informarPaginaETamanhoValidos_esperaSucesso() {
+        CriarAtividadeDto atividade = CriarAtividadeDataFactory.atividadeComDadosValidos();
+
+        CriarAtividadeResponseDto atividadeResult = AtividadesInstrutorClient.criarAtividade(atividade)
+                .then()
+                .statusCode(201)
+                .extract().as(CriarAtividadeResponseDto.class);
+
+        PaginacaoAtividadeInstrutorDto questaoResult = AtividadesInstrutorClient.buscarAtividadePorID(String.valueOf(atividadeResult.getAtividadeId())).then()
+                .statusCode(200)
+                .extract().as(PaginacaoAtividadeInstrutorDto.class);
+
+        AtividadesInstrutorClient.excluirAtividade(atividadeResult.getAtividadeId());
+
+
+
     }
 }
