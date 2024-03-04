@@ -1,10 +1,12 @@
 package com.vemser.correcao.test.funcional;
 
+import com.vemser.correcao.client.AtividadesEnviadaClient;
 import com.vemser.correcao.client.AtividadesInstrutorClient;
 import com.vemser.correcao.data.factory.CriarAtividadeDataFactory;
 import com.vemser.correcao.dto.CriarAtividadeDto;
 import com.vemser.correcao.dto.CriarAtividadeResponseDto;
 import com.vemser.correcao.dto.ErroDto;
+import com.vemser.correcao.dto.ErroForbiddenDto;
 import io.qameta.allure.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -304,6 +306,35 @@ public class AtividadeInstrutorPutFuncionalTest {
                 () -> assertFalse(erro.getErrors().isEmpty(), "Lista de erros não deve está vazia"),
                 () -> assertEquals(erro.getStatus(), 400, "Status do erro deve ser igual ao esperado"),
                 () -> assertEquals(erro.getErrors().get("edicaoVemSer"), "A edição vem ser é obrigatória")
+        );
+    }
+
+    @Test
+    @Feature("Espera Erro")
+    @Story("[CTAXXX] Editar Sem Autenticação")
+    @Severity(SeverityLevel.CRITICAL)
+    @Description("Teste que verifica se ao editar atividade sem ter autenticação a API retorna 403 e erro 'Você não tem autorização para acessar este serviço'")
+    public void testEditarAtividade_naoInformarAutenticacao_esperaErro() {
+
+        CriarAtividadeDto atividade = CriarAtividadeDataFactory.atividadeComDadosValidos();
+        CriarAtividadeResponseDto atividadeResult = AtividadesInstrutorClient.criarAtividade(atividade)
+                .then()
+                .statusCode(201)
+                .extract().as(CriarAtividadeResponseDto.class);
+
+        CriarAtividadeDto atividadeEditada = CriarAtividadeDataFactory.atividadeComDadosValidos();
+
+        ErroForbiddenDto erro = AtividadesInstrutorClient.editarAtividadeSemAutenticacao(atividadeResult.getAtividadeId(), atividadeEditada)
+                .then()
+                .statusCode(403)
+                .extract()
+                .as(ErroForbiddenDto.class);
+
+        assertAll("Testes de editar atividade sem autenticação",
+                () -> assertEquals(erro.getStatus(), 403, "Status da erro não deve ser nulo"),
+                () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
+                () -> assertNotNull(erro.getPath()),
+                () -> assertEquals(erro.getError(),"Você não tem autorização para acessar este serviço" )
         );
     }
 }

@@ -2,6 +2,7 @@ package com.vemser.correcao.client;
 
 import com.vemser.correcao.dto.CriarAtividadeDto;
 import com.vemser.correcao.specs.AtividadesSpecs;
+import com.vemser.correcao.specs.LoginSpecs;
 import io.restassured.response.Response;
 
 import static io.restassured.RestAssured.given;
@@ -69,6 +70,15 @@ public class AtividadesInstrutorClient {
     public static Response editarAtividadeComoString(Integer atividadeId, String atividadeEditada) {
         return given()
                 .spec(AtividadesSpecs.atividadeInstrutorSpec())
+                .pathParam("idAtividade", atividadeId)
+                .body(atividadeEditada)
+                .when()
+                .put(EDITAR_ATIVIDADE);
+    }
+
+    public static Response editarAtividadeSemAutenticacao(Integer atividadeId, CriarAtividadeDto atividadeEditada) {
+        return given()
+                .spec(LoginSpecs.reqSemTokenSpec())
                 .pathParam("idAtividade", atividadeId)
                 .body(atividadeEditada)
                 .when()
