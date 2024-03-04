@@ -1,4 +1,4 @@
-package com.vemser.correcao.dto;
+package com.vemser.correcao.dto.atividade;
 
 import com.vemser.correcao.enums.Exemplo;
 import com.vemser.correcao.enums.Trilha;

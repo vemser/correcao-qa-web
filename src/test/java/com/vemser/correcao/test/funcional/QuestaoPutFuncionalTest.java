@@ -3,14 +3,16 @@ package com.vemser.correcao.test.funcional;
 import com.vemser.correcao.client.QuestaoClient;
 import com.vemser.correcao.data.factory.QuestaoDataFactory;
 import com.vemser.correcao.data.factory.TesteDataFactory;
-import com.vemser.correcao.dto.*;
+import com.vemser.correcao.dto.erro.ErroDto;
+import com.vemser.correcao.dto.erro.ErroForbiddenDto;
+import com.vemser.correcao.dto.questao.EditarQuestaoDto;
+import com.vemser.correcao.dto.questao.QuestaoDto;
+import com.vemser.correcao.dto.questao.QuestaoResponseDto;
+import com.vemser.correcao.dto.teste.EditarTesteDto;
 import io.qameta.allure.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;

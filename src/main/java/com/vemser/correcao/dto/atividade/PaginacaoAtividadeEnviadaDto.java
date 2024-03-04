@@ -1,16 +1,18 @@
-package com.vemser.correcao.dto;
+package com.vemser.correcao.dto.atividade;
 
+import com.vemser.correcao.dto.atividade.AtividadeEnviadaDto;
+import com.vemser.correcao.dto.paginacao.PageableDto;
+import com.vemser.correcao.dto.paginacao.SortDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ListaTodasQuestaoResponseDto {
-    private List<QuestaoDto> content;
+public class PaginacaoAtividadeEnviadaDto {
+    private List<AtividadeEnviadaDto> content;
     private boolean empty;
     private boolean first;
     private Integer number;

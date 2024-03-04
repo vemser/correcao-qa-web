@@ -1,12 +1,11 @@
 package com.vemser.correcao.test.funcional;
 
-import com.vemser.correcao.client.AtividadesEnviadaClient;
 import com.vemser.correcao.client.AtividadesInstrutorClient;
 import com.vemser.correcao.data.factory.CriarAtividadeDataFactory;
-import com.vemser.correcao.dto.CriarAtividadeDto;
-import com.vemser.correcao.dto.CriarAtividadeResponseDto;
-import com.vemser.correcao.dto.ErroDto;
-import com.vemser.correcao.dto.ErroForbiddenDto;
+import com.vemser.correcao.dto.atividade.CriarAtividadeDto;
+import com.vemser.correcao.dto.atividade.CriarAtividadeResponseDto;
+import com.vemser.correcao.dto.erro.ErroDto;
+import com.vemser.correcao.dto.erro.ErroForbiddenDto;
 import io.qameta.allure.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

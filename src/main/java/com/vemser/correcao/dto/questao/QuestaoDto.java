@@ -1,14 +1,13 @@
-package com.vemser.correcao.dto;
+package com.vemser.correcao.dto.questao;
 
 import com.vemser.compilador.enums.Linguagem;
+import com.vemser.correcao.dto.teste.TesteDto;
 import com.vemser.correcao.enums.Dificuldade;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.List;
 
 @Data
 @NoArgsConstructor

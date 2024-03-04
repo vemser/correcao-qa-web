@@ -1,6 +1,6 @@
 package com.vemser.correcao.data.factory;
 
-import com.vemser.correcao.dto.LoginDto;
+import com.vemser.correcao.dto.login.LoginDto;
 import com.vemser.correcao.utils.Manipulation;
 
 public class LoginDataFactory {
