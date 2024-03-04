@@ -1,15 +1,12 @@
 package com.vemser.correcao.data.factory;
 
 import com.vemser.compilador.enums.Linguagem;
-import com.vemser.correcao.dto.EditarQuestaoDto;
-import com.vemser.correcao.dto.ListaTodasQuestaoResponseDto;
-import com.vemser.correcao.dto.QuestaoDto;
+import com.vemser.correcao.dto.questao.EditarQuestaoDto;
+import com.vemser.correcao.dto.questao.QuestaoDto;
 import com.vemser.correcao.enums.Dificuldade;
-import com.vemser.correcao.specs.QuestaoSpecs;
 import net.datafaker.Faker;
 
 import java.util.Locale;
-import java.util.Random;
 
 import static io.restassured.RestAssured.given;
 
@@ -86,6 +83,18 @@ public class QuestaoDataFactory {
         return questaoDto;
     }
 
+    public static QuestaoDto questaoTestesVazio(){
+        QuestaoDto questaoDto = new QuestaoDto();
+        questaoDto.setTitulo(tituloFaker());
+        questaoDto.setDescricao(descricaoFaker());
+        questaoDto.setDificuldade(dificuldadeFaker());
+        questaoDto.setLinguagem(linguagemFaker());
+        questaoDto.setCodigo(codigoFaker());
+        questaoDto.setTestes(TesteDataFactory.testesVazio());
+
+        return questaoDto;
+    }
+
     public static QuestaoDto questaoDificuldadeInvalida(){
         QuestaoDto questaoDto = new QuestaoDto();
         questaoDto.setTitulo(tituloFaker());
@@ -109,6 +118,17 @@ public class QuestaoDataFactory {
 
         return questaoDto;
     }
+    public static QuestaoDto questaoExemploInvalido(){
+        QuestaoDto questaoDto = new QuestaoDto();
+        questaoDto.setTitulo(tituloFaker());
+        questaoDto.setDescricao(descricaoFaker());
+        questaoDto.setDificuldade(dificuldadeFaker());
+        questaoDto.setLinguagem(linguagemFaker());
+        questaoDto.setCodigo(codigoFaker());
+        questaoDto.setTestes(TesteDataFactory.testesExemploInvalido());
+
+        return questaoDto;
+    }
 
     public static String questaoDificuldadeVazia(){
         return String.format("""
@@ -117,17 +137,17 @@ public class QuestaoDataFactory {
                     "descricao": "%s",
                     "dificuldade": "",
                     "linguagem": "%s",
-                    "codigo": "%s"
+                    "codigo": "%s",
                     "testes": [
                         {
-                            "exemplos": "NAO",
+                            "exemplo": "NAO",
                             "retornoEsperado": "20",
-                            "valorEntrada": "10 10",
+                            "valorEntrada": "10 10"
                         },
                         {
-                            "exemplos": "SIM",
+                            "exemplo": "SIM",
                             "retornoEsperado": "20",
-                            "valorEntrada": "10 10",
+                            "valorEntrada": "10 10"
                         }
                     ]
                 }
@@ -141,21 +161,45 @@ public class QuestaoDataFactory {
                     "descricao": "%s",
                     "dificuldade": "%s",
                     "linguagem": "",
-                    "codigo": "%s"
+                    "codigo": "%s",
                     "testes": [
                         {
-                            "exemplos": "NAO",
+                            "exemplo": "NAO",
                             "retornoEsperado": "20",
-                            "valorEntrada": "10 10",
+                            "valorEntrada": "10 10"
                         },
                         {
-                            "exemplos": "SIM",
+                            "exemplo": "SIM",
                             "retornoEsperado": "20",
-                            "valorEntrada": "10 10",
+                            "valorEntrada": "10 10"
                         }
                     ]
                 }
                 """, tituloFaker(), descricaoFaker(), dificuldadeFaker(), codigoFaker());
+    }
+
+    public static String questaoExemploTesteVazio(){
+        return String.format("""
+                {
+                    "titulo": "%s",
+                    "descricao": "%s",
+                    "dificuldade": "%s",
+                    "linguagem": "%s",
+                    "codigo": "%s",
+                    "testes": [
+                        {
+                            "exemplo": "",
+                            "retornoEsperado": "20",
+                            "valorEntrada": "10 10"
+                        },
+                        {
+                            "exemplo": "SIM",
+                            "retornoEsperado": "20",
+                            "valorEntrada": "10 10"
+                        }
+                    ]
+                }
+                """, tituloFaker(), descricaoFaker(), dificuldadeFaker(), linguagemFaker(), codigoFaker());
     }
 
     public static QuestaoDto questaoComTesteValorDeEntradaVazio() {
@@ -254,21 +298,6 @@ public class QuestaoDataFactory {
         return questaoDto;
     }
 
-    public static QuestaoDto questaoInvalida(){
-        return new QuestaoDto(
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null
-        );
-    }
-
     public static EditarQuestaoDto questaoEditada(){
         EditarQuestaoDto editarQuestaoDto = new EditarQuestaoDto();
         editarQuestaoDto.setCodigo(codigoFaker());
@@ -359,4 +388,199 @@ public class QuestaoDataFactory {
         return editarQuestaoDto;
     }
 
+    public static String questaoSemCampoTitulo(){
+        return String.format("""
+                {
+                    "descricao": "%s",
+                    "dificuldade": "%s",
+                    "linguagem": "%s",
+                    "codigo": "%s",
+                    "testes": [
+                        {
+                            "exemplo": "NAO",
+                            "retornoEsperado": "20",
+                            "valorEntrada": "10 10"
+                        },
+                        {
+                            "exemplo": "SIM",
+                            "retornoEsperado": "20",
+                            "valorEntrada": "10 10"
+                        }
+                    ]
+                }
+                """, descricaoFaker(), dificuldadeFaker(), linguagemFaker(), codigoFaker());
+    }
+
+    public static String questaoSemCampoDescricao(){
+        return String.format("""
+                {
+                    "titulo": "%s",
+                    "dificuldade": "%s",
+                    "linguagem": "%s",
+                    "codigo": "%s",
+                    "testes": [
+                        {
+                            "exemplo": "NAO",
+                            "retornoEsperado": "20",
+                            "valorEntrada": "10 10"
+                        },
+                        {
+                            "exemplo": "SIM",
+                            "retornoEsperado": "20",
+                            "valorEntrada": "10 10"
+                        }
+                    ]
+                }
+                """, tituloFaker(), dificuldadeFaker(), linguagemFaker(), codigoFaker());
+    }
+
+    public static String questaoSemCampoDificuldade(){
+        return String.format("""
+                {
+                    "titulo": "%s",
+                    "descricao": "%s",
+                    "linguagem": "%s",
+                    "codigo": "%s",
+                    "testes": [
+                        {
+                            "exemplo": "NAO",
+                            "retornoEsperado": "20",
+                            "valorEntrada": "10 10"
+                        },
+                        {
+                            "exemplo": "SIM",
+                            "retornoEsperado": "20",
+                            "valorEntrada": "10 10"
+                        }
+                    ]
+                }
+                """, tituloFaker(), descricaoFaker(), linguagemFaker(), codigoFaker());
+    }
+
+    public static String questaoSemCampoLinguagem(){
+        return String.format("""
+                {
+                    "titulo": "%s",
+                    "descricao": "%s",
+                    "dificuldade": "%s",
+                    "codigo": "%s",
+                    "testes": [
+                        {
+                            "exemplo": "NAO",
+                            "retornoEsperado": "20",
+                            "valorEntrada": "10 10"
+                        },
+                        {
+                            "exemplo": "SIM",
+                            "retornoEsperado": "20",
+                            "valorEntrada": "10 10"
+                        }
+                    ]
+                }
+                """, tituloFaker(), descricaoFaker(), dificuldadeFaker(), codigoFaker());
+    }
+
+    public static String questaoSemCampoCodigo(){
+        return String.format("""
+                {
+                    "titulo": "%s",
+                    "descricao": "%s",
+                    "dificuldade": "%s",
+                    "linguagem": "%s",
+                    "testes": [
+                        {
+                            "exemplo": "NAO",
+                            "retornoEsperado": "20",
+                            "valorEntrada": "10 10"
+                        },
+                        {
+                            "exemplo": "SIM",
+                            "retornoEsperado": "20",
+                            "valorEntrada": "10 10"
+                        }
+                    ]
+                }
+                """, tituloFaker(), descricaoFaker(), dificuldadeFaker(), linguagemFaker());
+    }
+
+    public static String questaoSemCampoTestes(){
+        return String.format("""
+                {
+                    "titulo": "%s",
+                    "descricao": "%s",
+                    "dificuldade": "%s",
+                    "linguagem": "%s",
+                    "codigo": "%s"
+                }
+                """, tituloFaker(), descricaoFaker(), dificuldadeFaker(), linguagemFaker(), codigoFaker());
+    }
+
+    public static String questaoSemCampoExemploDoTeste(){
+        return String.format("""
+                {
+                    "titulo": "%s",
+                    "descricao": "%s",
+                    "dificuldade": "%s",
+                    "linguagem": "%s",
+                    "codigo": "%s",
+                    "testes": [
+                        {
+                            "retornoEsperado": "20",
+                            "valorEntrada": "10 10"
+                        },
+                        {
+                            "exemplo": "NAO",
+                            "retornoEsperado": "20",
+                            "valorEntrada": "10 10"
+                        }
+                    ]
+                }
+                """, tituloFaker(), descricaoFaker(), dificuldadeFaker(), linguagemFaker(), codigoFaker());
+    }
+
+    public static String questaoSemCampoRetornoEsperadoDoTeste(){
+        return String.format("""
+                {
+                    "titulo": "%s",
+                    "descricao": "%s",
+                    "dificuldade": "%s",
+                    "linguagem": "%s",
+                    "codigo": "%s",
+                    "testes": [
+                        {
+                            "exemplo": "SIM",
+                            "valorEntrada": "10 10"
+                        },
+                        {
+                            "exemplo": "NAO",
+                            "retornoEsperado": "20",
+                            "valorEntrada": "10 10"
+                        }
+                    ]
+                }
+                """, tituloFaker(), descricaoFaker(), dificuldadeFaker(), linguagemFaker(), codigoFaker());
+    }
+
+    public static String questaoSemCampoValorEntradaDoTeste(){
+        return String.format("""
+                {
+                    "titulo": "%s",
+                    "descricao": "%s",
+                    "dificuldade": "%s",
+                    "linguagem": "%s",
+                    "codigo": "%s",
+                    "testes": [
+                        {
+                            "exemplo": "SIM",
+                            "retornoEsperado": "20"
+                        },
+                        {
+                            "exemplo": "NAO",
+                            "retornoEsperado": "20",
+                            "valorEntrada": "10 10"
+                        }
+                    ]
+                }
+                """, tituloFaker(), descricaoFaker(), dificuldadeFaker(), linguagemFaker(), codigoFaker());
+    }
 }

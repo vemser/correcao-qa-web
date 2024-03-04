@@ -1,7 +1,7 @@
 package com.vemser.correcao.client;
 
-import com.vemser.correcao.dto.EditarQuestaoDto;
-import com.vemser.correcao.dto.QuestaoDto;
+import com.vemser.correcao.dto.questao.EditarQuestaoDto;
+import com.vemser.correcao.dto.questao.QuestaoDto;
 import com.vemser.correcao.enums.QuestoesParametro;
 import com.vemser.correcao.specs.LoginSpecs;
 import com.vemser.correcao.specs.QuestaoSpecs;
@@ -79,7 +79,15 @@ public class QuestaoClient {
                 given()
                         .spec(QuestaoSpecs.questaoReqAuthInstrutorSpec())
                         .queryParams(parametrosMap)
-                        .when()
+                .when()
+                        .get(LISTAR_QUESTAO_URL);
+    }
+
+    public static Response buscarTodasQuestao() {
+        return
+                given()
+                        .spec(QuestaoSpecs.questaoReqAuthInstrutorSpec())
+                .when()
                         .get(LISTAR_QUESTAO_URL);
     }
 
@@ -199,6 +207,15 @@ public class QuestaoClient {
                 .pathParam("idQuestao", questaoId)
                 .body(questaoEditada)
             .when()
+                .put(EDITAR_QUESTAO_ID);
+    }
+
+    public static Response editarQuestaoSemAutenticacao(EditarQuestaoDto questaoEditada, Integer questaoId){
+        return given()
+                .spec(LoginSpecs.reqSemTokenSpec())
+                .pathParam("idQuestao", questaoId)
+                .body(questaoEditada)
+                .when()
                 .put(EDITAR_QUESTAO_ID);
     }
 }
