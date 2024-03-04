@@ -31,7 +31,7 @@ public class QuestaoPutFuncionalTest {
 
         QuestaoResponseDto questaoResult = QuestaoClient.cadastrarQuestao(questao)
                 .then()
-                .statusCode(200)
+                .statusCode(201)
                 .extract().as(QuestaoResponseDto.class);
 
         EditarQuestaoDto questaoEditada = QuestaoDataFactory.questaoEditada();
