@@ -4,8 +4,7 @@ import com.vemser.compilador.data.factory.CompiladorDataFactory;
 import com.vemser.compilador.enums.Linguagem;
 import com.vemser.correcao.dto.EditarQuestaoDto;
 import com.vemser.correcao.dto.QuestaoDto;
-import com.vemser.correcao.dto.SolucaoQuestaoDto;
-import com.vemser.correcao.enums.Dificuldade;
+import com.vemser.correcao.dto.solucao.SolucaoQuestaoDto;
 import net.datafaker.Faker;
 
 import java.util.ArrayList;
