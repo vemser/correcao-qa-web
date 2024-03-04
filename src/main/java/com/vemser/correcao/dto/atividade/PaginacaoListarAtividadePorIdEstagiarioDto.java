@@ -7,11 +7,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class PaginacaoAtividadeEnviadaDto {
-    private List<AtividadeEnviadaDto> content;
+public class PaginacaoListarAtividadePorIdEstagiarioDto {
+    private List<AtividadeEnviadaEstagiarioDto> content;
     private boolean empty;
     private boolean first;
     private Integer number;

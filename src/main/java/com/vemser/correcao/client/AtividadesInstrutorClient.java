@@ -1,5 +1,6 @@
 package com.vemser.correcao.client;
 
+import com.vemser.correcao.dto.atividade.CorrigirAtividadeDto;
 import com.vemser.correcao.dto.atividade.CriarAtividadeDto;
 import com.vemser.correcao.enums.QuestoesParametro;
 import com.vemser.correcao.specs.AtividadesSpecs;
@@ -20,6 +21,7 @@ public class AtividadesInstrutorClient {
     private static final String EDITAR_ATIVIDADE = "/atividades/editar/{idAtividade}";
     private static final String EDITAR_ATIVIDADE_SEM_ID = "/atividades/editar/";
     private static final String BUSCAR_ATIVIDADE_POR_ID = "/atividades/listar-atividades-estagiario/{id}";
+    private static final String LISTAR_ATIVIDADES_ESTAGIARIO_POR_ID = "/atividades/listar-atividades-estagiario/{id}";
 
     public AtividadesInstrutorClient(){}
 
@@ -38,6 +40,14 @@ public class AtividadesInstrutorClient {
                 .body(atividade)
                 .when()
                 .post(CRIAR_ATIVIDADE);
+    }
+
+    public static Response corrigirAtividade(CorrigirAtividadeDto correcao) {
+        return given()
+                .spec(AtividadesSpecs.atividadeInstrutorSpec())
+                .body(correcao)
+                .when()
+                .post(CORRIGIR_ATIVIDADE);
     }
 
     public static Response excluirAtividade(Integer atividadeId) {
@@ -135,15 +145,7 @@ public class AtividadesInstrutorClient {
                 .get(LISTAR_TODAS_ATIVIDADES);
     }
 
-    public static Response buscarAtividadePorID(String id) {
-        return given()
-                .spec(LoginSpecs.loginInstrutorReqSpec())
-                .pathParam("id", id)
-        .when()
-                .get(BUSCAR_ATIVIDADE_POR_ID);
-    }
-
-    public static Response buscarAtividadePorIDSemAutenticacao(String id) {
+    public static Response listarAtividadeEstagiarioPorIdSemAutenticacao(String id) {
         return given()
                 .spec(LoginSpecs.reqSemTokenSpec())
                 .pathParam("id", id)
@@ -151,11 +153,19 @@ public class AtividadesInstrutorClient {
                 .get(BUSCAR_ATIVIDADE_POR_ID);
     }
 
-    public static Response buscarAtividadePorComoAluno(String id) {
+    public static Response listarAtividadeEstagiarioPorIdComoAluno(String id) {
         return given()
                 .spec(LoginSpecs.loginAlunoReqSpec())
                 .pathParam("id", id)
         .when()
                 .get(BUSCAR_ATIVIDADE_POR_ID);
+    }
+
+    public static Response listarAtividadeEstagiarioPorId(Integer id) {
+        return given()
+                .spec(AtividadesSpecs.atividadeInstrutorSpec())
+                .pathParam("id", id)
+                .when()
+                .get(LISTAR_ATIVIDADES_ESTAGIARIO_POR_ID);
     }
 }

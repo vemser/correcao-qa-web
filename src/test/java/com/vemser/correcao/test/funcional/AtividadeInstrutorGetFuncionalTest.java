@@ -6,9 +6,9 @@ import com.vemser.correcao.data.factory.CriarAtividadeDataFactory;
 import com.vemser.correcao.dto.atividade.CriarAtividadeDto;
 import com.vemser.correcao.dto.atividade.CriarAtividadeResponseDto;
 import com.vemser.correcao.dto.atividade.PaginacaoAtividadeInstrutorDto;
+import com.vemser.correcao.dto.atividade.PaginacaoListarAtividadePorIdEstagiarioDto;
 import com.vemser.correcao.dto.erro.ErroAlternativoDto;
 import com.vemser.correcao.dto.erro.ErroDto;
-import com.vemser.correcao.dto.questao.ListaTodasQuestaoResponseDto;
 import com.vemser.correcao.enums.QuestoesParametro;
 import io.qameta.allure.*;
 import org.junit.jupiter.api.DisplayName;
@@ -206,15 +206,28 @@ public class AtividadeInstrutorGetFuncionalTest {
         CriarAtividadeResponseDto atividadeResult = AtividadesInstrutorClient.criarAtividade(atividade)
                 .then()
                 .statusCode(201)
+                .log().all()
                 .extract().as(CriarAtividadeResponseDto.class);
 
-        PaginacaoAtividadeInstrutorDto questaoResult = AtividadesInstrutorClient.buscarAtividadePorID(String.valueOf(atividadeResult.getAtividadeId())).then()
+        PaginacaoListarAtividadePorIdEstagiarioDto questaoResult = AtividadesInstrutorClient.listarAtividadeEstagiarioPorId(atividadeResult.getAtividadeId()).then()
                 .statusCode(200)
-                .extract().as(PaginacaoAtividadeInstrutorDto.class);
+                .log().all()
+                .extract().as(PaginacaoListarAtividadePorIdEstagiarioDto.class);
 
         AtividadesInstrutorClient.excluirAtividade(atividadeResult.getAtividadeId());
+        QuestaoClient.excluirQuestao(atividadeResult.getQuestoes().get(0));
+        QuestaoClient.excluirQuestao(atividadeResult.getQuestoes().get(1));
 
-
-
+        assertAll("Testes de buscar questão por ID informando ID existente",
+                () -> assertNotNull(questaoResult, "Questão buscada não deve ser nula"),
+                () -> assertEquals(atividadeResult.getAtividadeId(), questaoResult.getContent().get(0).getAtividadesId(), "ID da atividade buscada deve ser igual ao ID da atividade criada"),
+                () -> assertEquals(atividadeResult.getTitulo(), questaoResult.getContent().get(0).getAtividade().getTitulo(), "Titulo da atividade buscada deve ser igual ao titulo da atividade criada"),
+                () -> assertEquals(atividadeResult.getDescricao(), questaoResult.getContent().get(0).getAtividade().getDescricao(), "Descrição da atividade buscada deve ser igual ao descrição da atividade criada"),
+                () -> assertEquals(atividadeResult.getPrazoEntrega(), questaoResult.getContent().get(0).getAtividade().getPrazoEntrega(), "Prazo de entrega da atividade buscada deve ser igual ao prazo de entrega da atividade criada"),
+                () -> assertEquals(atividadeResult.getTrilha(), questaoResult.getContent().get(0).getAtividade().getTrilha(), "Trilha da atividade buscada deve ser igual ao trilha da atividade criada"),
+                () -> assertEquals(10, questaoResult.getNumberOfElements(), "Número de elementos deve ser igual ao esperado"),
+                () -> assertEquals(questaoResult.getContent().size(), questaoResult.getNumberOfElements(), "Tamanho do conteúdo deve ser igual ao número de elementos"),
+                () -> assertEquals(0, questaoResult.getPageable().getPageNumber(),"Número da página deve ser igual ao esperado")
+        );
     }
 }
