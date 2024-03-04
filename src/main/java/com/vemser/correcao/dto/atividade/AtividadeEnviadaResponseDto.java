@@ -1,6 +1,6 @@
 package com.vemser.correcao.dto.atividade;
 
-import com.vemser.correcao.enums.Exemplo;
+import com.vemser.correcao.dto.questao.QuestaoDto;
 import com.vemser.correcao.enums.Trilha;
 import lombok.AllArgsConstructor;
 import lombok.Data;

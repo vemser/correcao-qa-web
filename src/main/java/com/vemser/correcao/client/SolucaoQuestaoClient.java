@@ -1,6 +1,5 @@
 package com.vemser.correcao.client;
 
-import com.vemser.correcao.dto.LoginDto;
 import com.vemser.correcao.dto.solucao.SolucaoQuestaoDto;
 import com.vemser.correcao.specs.SolucaoQuestaoSpecs;
 import io.restassured.http.ContentType;

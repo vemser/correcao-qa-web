@@ -2,8 +2,7 @@ package com.vemser.correcao.data.factory;
 
 import com.vemser.compilador.data.factory.CompiladorDataFactory;
 import com.vemser.compilador.enums.Linguagem;
-import com.vemser.correcao.dto.EditarQuestaoDto;
-import com.vemser.correcao.dto.QuestaoDto;
+import com.vemser.correcao.dto.questao.QuestaoDto;
 import com.vemser.correcao.dto.solucao.SolucaoQuestaoDto;
 import net.datafaker.Faker;
 
