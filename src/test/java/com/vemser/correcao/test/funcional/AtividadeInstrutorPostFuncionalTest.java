@@ -102,7 +102,7 @@ public class AtividadeInstrutorPostFuncionalTest {
                 () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
                 () -> assertFalse(erro.getErrors().isEmpty(), "Lista de erros não deve está vazia"),
                 () -> assertEquals(erro.getStatus(), 400, "Status do erro deve ser igual ao esperado"),
-                () -> assertEquals(erro.getErrors().get("questoes"), "A lista de questões não pode nula ou vazia.")
+                () -> assertEquals(erro.getErrors().get("questoes"), "A lista de questões não pode ser nula ou vazia.")
         );
     }
 
@@ -200,7 +200,7 @@ public class AtividadeInstrutorPostFuncionalTest {
     @Severity(SeverityLevel.NORMAL)
     @Description("Teste que verifica se ao criar uma atividade preenchendo trilha inválida a ela a API retorna 400 e uma mensagem de erro na resposta")
     public void testCriarAtividade_informarTrilhaInvalida_esperaErro() {
-        String atividade = CriarAtividadeDataFactory.atividadePreenchendoTrilhaInvalido();
+        String atividade = CriarAtividadeDataFactory.atividadePreenchendoTrilhaInvalida();
 
         ErroDto erro = AtividadesInstrutorClient.criarAtividadeString(atividade)
                 .then()
