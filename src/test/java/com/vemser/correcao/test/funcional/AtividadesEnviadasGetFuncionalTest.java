@@ -1,9 +1,9 @@
 package com.vemser.correcao.test.funcional;
 
 import com.vemser.correcao.client.AtividadesEnviadaClient;
-import com.vemser.correcao.dto.ErroDto;
-import com.vemser.correcao.dto.ErroForbiddenDto;
-import com.vemser.correcao.dto.PaginacaoAtividadeEnviadaDto;
+import com.vemser.correcao.client.AtividadesInstrutorClient;
+import com.vemser.correcao.data.factory.CriarAtividadeDataFactory;
+import com.vemser.correcao.dto.*;
 import com.vemser.correcao.enums.QuestoesParametro;
 import io.qameta.allure.*;
 import org.junit.jupiter.api.DisplayName;
@@ -192,5 +192,35 @@ public class AtividadesEnviadasGetFuncionalTest {
                 () -> assertNotNull(erro.getPath()),
                 () -> assertEquals(erro.getError(),"Forbidden" )
         );
+    }
+
+    @Test
+    @Feature("Espera Erro")
+    @Story("[CTAXXX] listar todas as atividades logado como instrutor")
+    @Severity(SeverityLevel.BLOCKER)
+    @Description("Teste que verifica se lista atividade logado como instrutor retorna 403 e body com error correto")
+    public void testListarAtividadesEnviadasPorStatus_listarAtribuida_esperaErro() {
+
+        CriarAtividadeDto atividade = CriarAtividadeDataFactory.atividadeComDadosValidos();
+        CriarAtividadeResponseDto atividadeResult = AtividadesInstrutorClient.criarAtividade(atividade)
+                .then()
+                .statusCode(201)
+                .extract().as(CriarAtividadeResponseDto.class);
+
+//        final String SIZE = "10";
+//        final String PAGE = "0";
+//
+//        ErroForbiddenDto erro = AtividadesEnviadaClient.listarAtividadesDoAlunoComoInstrutor(PAGE, SIZE)
+//                .then()
+//                .statusCode(403)
+//                .extract()
+//                .as(ErroForbiddenDto.class);
+//
+//        assertAll("Verifica se retorna error correto",
+//                () -> assertEquals(erro.getStatus(), 403),
+//                () -> assertNotNull(erro.getTimestamp()),
+//                () -> assertNotNull(erro.getPath()),
+//                () -> assertEquals(erro.getError(),"Forbidden" )
+//        );
     }
 }
