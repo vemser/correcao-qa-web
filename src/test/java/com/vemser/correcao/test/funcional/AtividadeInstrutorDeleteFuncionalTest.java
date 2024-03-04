@@ -1,6 +1,7 @@
 package com.vemser.correcao.test.funcional;
 
 import com.vemser.correcao.client.AtividadesInstrutorClient;
+import com.vemser.correcao.client.QuestaoClient;
 import com.vemser.correcao.data.factory.CriarAtividadeDataFactory;
 import com.vemser.correcao.dto.atividade.CriarAtividadeDto;
 import com.vemser.correcao.dto.atividade.CriarAtividadeResponseDto;
@@ -32,6 +33,8 @@ public class AtividadeInstrutorDeleteFuncionalTest {
                 .then()
                 .statusCode(200)
                 .extract().as(DeletarAtividadeResponseDto.class);
+        QuestaoClient.excluirQuestao(atividadeResult.getQuestoesInt().get(0));
+        QuestaoClient.excluirQuestao(atividadeResult.getQuestoesInt().get(1));
 
         assertEquals("Excluída com sucesso!", response.getMessage(), "Mensagem de sucesso deve ser igual ao esperado");
     }
@@ -49,6 +52,8 @@ public class AtividadeInstrutorDeleteFuncionalTest {
                 .extract().as(CriarAtividadeResponseDto.class);
 
         AtividadesInstrutorClient.excluirAtividade(atividadeResult.getAtividadeId());
+        QuestaoClient.excluirQuestao(atividadeResult.getQuestoesInt().get(0));
+        QuestaoClient.excluirQuestao(atividadeResult.getQuestoesInt().get(1));
 
         ErroDto erro = AtividadesInstrutorClient.excluirAtividade(atividadeResult.getAtividadeId())
                 .then()
@@ -86,7 +91,7 @@ public class AtividadeInstrutorDeleteFuncionalTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTAXXX]Informar ID Inexistente")
+    @Story("[CTAXXX] Informar ID Inexistente")
     @Severity(SeverityLevel.CRITICAL)
     @Description("Teste que verifica se ao deletar uma atividade  por ID inexistente a API retorna 404 e a mensagem 'Nenhuma atividade encontrada.'")
     public void testDeletarAtividade_informarIDInexistente_esperaErro() {

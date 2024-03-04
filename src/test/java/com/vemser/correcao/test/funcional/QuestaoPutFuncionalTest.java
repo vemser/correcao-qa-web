@@ -29,7 +29,6 @@ public class QuestaoPutFuncionalTest {
     @Description("Teste que verifica se ao editar uma questão com todos os campos válidos a API retorna 200 e a todos os dados da questão editada no body")
     public void testEditarQuestao_informarCamposValidos_esperaSucesso() {
         QuestaoDto questao = QuestaoDataFactory.questaoDadosValidos(0);
-        EditarTesteDto testeDto = new EditarTesteDto();
 
         QuestaoResponseDto questaoResult = QuestaoClient.cadastrarQuestao(questao)
                 .then()
@@ -39,12 +38,15 @@ public class QuestaoPutFuncionalTest {
         EditarQuestaoDto questaoEditada = QuestaoDataFactory.questaoEditada();
         Integer questaoId = questaoResult.getQuestaoDTO().getQuestaoId();
 
-        questaoEditada.setTestes(TesteDataFactory.editarTesteValido(questaoResult, testeDto, 0));
+        questaoEditada.setTestes(TesteDataFactory.editarTesteValido(questaoResult));
 
         QuestaoResponseDto response = QuestaoClient.editarQuestao(questaoEditada, questaoId)
             .then()
                 .statusCode(200)
                 .extract().as(QuestaoResponseDto.class);
+
+        QuestaoClient.excluirQuestao(questaoResult.getQuestaoDTO().getQuestaoId());
+
         assertAll("Testes de editar questão informando campos validos",
                 () -> assertNotNull(response.getQuestaoDTO().getQuestaoId(), "Id da questão não deve ser nulo"),
                 () -> assertEquals(response.getQuestaoDTO().getTitulo(), questaoEditada.getTitulo(), "Título da questão deve ser igual"),
@@ -71,12 +73,16 @@ public class QuestaoPutFuncionalTest {
         EditarQuestaoDto questaoEditada = QuestaoDataFactory.questaoEditadaCodigoVazio();
         Integer questaoId = questaoResult.getQuestaoDTO().getQuestaoId();
 
-        questaoEditada.setTestes(TesteDataFactory.editarTesteValido(questaoResult, testeDto, 2));
+        questaoEditada.setTestes(TesteDataFactory.editarTesteValido(questaoResult));
 
         ErroDto erro = QuestaoClient.editarQuestao(questaoEditada, questaoId)
                 .then()
                 .statusCode(400)
+                .log().all()
                 .extract().as(ErroDto.class);
+
+        QuestaoClient.excluirQuestao(questaoResult.getQuestaoDTO().getQuestaoId());
+
         assertAll("Testes de editar questão informando código vazio",
                 () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
                 () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
@@ -93,7 +99,6 @@ public class QuestaoPutFuncionalTest {
     @Description("Teste que verifica se ao editar uma questão com o campo título vazio a API retorna 400 e a mensagem 'Título não pode ser nulo'")
     public void testEditarQuestao_informarTituloVazio_esperaErro() {
         QuestaoDto questao = QuestaoDataFactory.questaoDadosValidos(0);
-        EditarTesteDto testeDto = new EditarTesteDto();
 
         QuestaoResponseDto questaoResult = QuestaoClient.cadastrarQuestao(questao)
                 .then()
@@ -103,12 +108,15 @@ public class QuestaoPutFuncionalTest {
         EditarQuestaoDto questaoEditada = QuestaoDataFactory.questaoEditadaTituloVazio();
         Integer questaoId = questaoResult.getQuestaoDTO().getQuestaoId();
 
-        questaoEditada.setTestes(TesteDataFactory.editarTesteValido(questaoResult, testeDto, 2));
+        questaoEditada.setTestes(TesteDataFactory.editarTesteValido(questaoResult));
 
         ErroDto erro = QuestaoClient.editarQuestao(questaoEditada, questaoId)
             .then()
                 .statusCode(400)
                 .extract().as(ErroDto.class);
+
+        QuestaoClient.excluirQuestao(questaoResult.getQuestaoDTO().getQuestaoId());
+
         assertAll("Testes de editar questão informando título vazio",
                 () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
                 () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
@@ -125,7 +133,6 @@ public class QuestaoPutFuncionalTest {
     @Description("Teste que verifica se ao editar uma questão com o campo descrição vazio a API retorna 400 e a mensagem 'Descrição não pode ser nula'")
     public void testEditarQuestao_informarDescricaoVazia_esperaErro() {
         QuestaoDto questao = QuestaoDataFactory.questaoDadosValidos(0);
-        EditarTesteDto testeDto = new EditarTesteDto();
 
         QuestaoResponseDto questaoResult = QuestaoClient.cadastrarQuestao(questao)
                 .then()
@@ -135,12 +142,15 @@ public class QuestaoPutFuncionalTest {
         EditarQuestaoDto questaoEditada = QuestaoDataFactory.questaoEditadaDescricaoVazia();
         Integer questaoId = questaoResult.getQuestaoDTO().getQuestaoId();
 
-        questaoEditada.setTestes(TesteDataFactory.editarTesteValido(questaoResult, testeDto, 2));
+        questaoEditada.setTestes(TesteDataFactory.editarTesteValido(questaoResult));
 
         ErroDto erro = QuestaoClient.editarQuestao(questaoEditada, questaoId)
                 .then()
                 .statusCode(400)
                 .extract().as(ErroDto.class);
+
+        QuestaoClient.excluirQuestao(questaoResult.getQuestaoDTO().getQuestaoId());
+
         assertAll("Testes de editar questão informando descrição vazia",
                 () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
                 () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
@@ -157,7 +167,6 @@ public class QuestaoPutFuncionalTest {
     @Description("Teste que verifica se ao editar uma questão com o campo dificuldade vazia a API retorna 400 e a mensagem 'Dificuldade não pode ser nula'")
     public void testEditarQuestao_informarDificuldadeVazia_esperaErro() {
         QuestaoDto questao = QuestaoDataFactory.questaoDadosValidos(0);
-        EditarTesteDto testeDto = new EditarTesteDto();
 
         QuestaoResponseDto questaoResult = QuestaoClient.cadastrarQuestao(questao)
                 .then()
@@ -167,12 +176,15 @@ public class QuestaoPutFuncionalTest {
         EditarQuestaoDto questaoEditada = QuestaoDataFactory.questaoEditadaDificuldadeVazia();
         Integer questaoId = questaoResult.getQuestaoDTO().getQuestaoId();
 
-        questaoEditada.setTestes(TesteDataFactory.editarTesteValido(questaoResult, testeDto, 2));
+        questaoEditada.setTestes(TesteDataFactory.editarTesteValido(questaoResult));
 
         ErroDto erro = QuestaoClient.editarQuestao(questaoEditada, questaoId)
                 .then()
                 .statusCode(400)
                 .extract().as(ErroDto.class);
+
+        QuestaoClient.excluirQuestao(questaoResult.getQuestaoDTO().getQuestaoId());
+
         assertAll("Testes de editar questão informando dificuldade vazia",
                 () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
                 () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
@@ -189,7 +201,6 @@ public class QuestaoPutFuncionalTest {
     @Description("Teste que verifica se ao editar uma questão com o campo dificuldade inválida a API retorna 400 e a mensagem 'Dificuldade não é válida'")
     public void testEditarQuestao_informarDificuldadeInvalida_esperaErro() {
         QuestaoDto questao = QuestaoDataFactory.questaoDadosValidos(0);
-        EditarTesteDto testeDto = new EditarTesteDto();
 
         QuestaoResponseDto questaoResult = QuestaoClient.cadastrarQuestao(questao)
                 .then()
@@ -199,7 +210,7 @@ public class QuestaoPutFuncionalTest {
         EditarQuestaoDto questaoEditada = QuestaoDataFactory.questaoEditadaDificuldadeInvalida();
         Integer questaoId = questaoResult.getQuestaoDTO().getQuestaoId();
 
-        questaoEditada.setTestes(TesteDataFactory.editarTesteValido(questaoResult, testeDto, 2));
+        questaoEditada.setTestes(TesteDataFactory.editarTesteValido(questaoResult));
 
         ErroDto erro = QuestaoClient.editarQuestao(questaoEditada, questaoId)
                 .then()
@@ -221,7 +232,6 @@ public class QuestaoPutFuncionalTest {
     @Description("Teste que verifica se ao editar uma questão com o campo linguagem vazio a API retorna 400 e a mensagem 'Linguagem não é válida'")
     public void testEditarQuestao_informarLinguagemVazia_esperaErro() {
         QuestaoDto questao = QuestaoDataFactory.questaoDadosValidos(0);
-        EditarTesteDto testeDto = new EditarTesteDto();
 
         QuestaoResponseDto questaoResult = QuestaoClient.cadastrarQuestao(questao)
                 .then()
@@ -231,12 +241,15 @@ public class QuestaoPutFuncionalTest {
         EditarQuestaoDto questaoEditada = QuestaoDataFactory.questaoEditadaLinguagemVazia();
         Integer questaoId = questaoResult.getQuestaoDTO().getQuestaoId();
 
-        questaoEditada.setTestes(TesteDataFactory.editarTesteValido(questaoResult, testeDto, 2));
+        questaoEditada.setTestes(TesteDataFactory.editarTesteValido(questaoResult));
 
         ErroDto erro = QuestaoClient.editarQuestao(questaoEditada, questaoId)
                 .then()
                 .statusCode(400)
                 .extract().as(ErroDto.class);
+
+        QuestaoClient.excluirQuestao(questaoResult.getQuestaoDTO().getQuestaoId());
+
         assertAll("Testes de editar questão informando linguagem vazia",
                 () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
                 () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
@@ -253,7 +266,6 @@ public class QuestaoPutFuncionalTest {
     @Description("Teste que verifica se ao editar uma questão com o campo linguagem inválido a API retorna 400 e a mensagem 'Linguagem não é válida'")
     public void testEditarQuestao_informarLinguagemInvalida_esperaErro() {
         QuestaoDto questao = QuestaoDataFactory.questaoDadosValidos(0);
-        EditarTesteDto testeDto = new EditarTesteDto();
 
         QuestaoResponseDto questaoResult = QuestaoClient.cadastrarQuestao(questao)
                 .then()
@@ -263,12 +275,15 @@ public class QuestaoPutFuncionalTest {
         EditarQuestaoDto questaoEditada = QuestaoDataFactory.questaoEditadaLinguagemInvalida();
         Integer questaoId = questaoResult.getQuestaoDTO().getQuestaoId();
 
-        questaoEditada.setTestes(TesteDataFactory.editarTesteValido(questaoResult, testeDto, 2));
+        questaoEditada.setTestes(TesteDataFactory.editarTesteValido(questaoResult));
 
         ErroDto erro = QuestaoClient.editarQuestao(questaoEditada, questaoId)
                 .then()
                 .statusCode(400)
                 .extract().as(ErroDto.class);
+
+        QuestaoClient.excluirQuestao(questaoResult.getQuestaoDTO().getQuestaoId());
+
         assertAll("Testes de editar questão informando linguagem vazia",
                 () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
                 () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
@@ -285,7 +300,6 @@ public class QuestaoPutFuncionalTest {
     @Description("Teste que verifica se ao editar questão sem ter autenticação a API retorna 403 e erro 'Você não tem autorização para acessar este serviço'")
     public void testEditarQuestao_naoInformarAutenticacao_esperaSucesso() {
         QuestaoDto questao = QuestaoDataFactory.questaoDadosValidos(0);
-        EditarTesteDto testeDto = new EditarTesteDto();
 
         QuestaoResponseDto questaoResult = QuestaoClient.cadastrarQuestao(questao)
                 .then()
@@ -295,12 +309,16 @@ public class QuestaoPutFuncionalTest {
         EditarQuestaoDto questaoEditada = QuestaoDataFactory.questaoEditada();
         Integer questaoId = questaoResult.getQuestaoDTO().getQuestaoId();
 
-        questaoEditada.setTestes(TesteDataFactory.editarTesteValido(questaoResult, testeDto, 0));
+        questaoEditada.setTestes(TesteDataFactory.editarTesteValido(questaoResult));
 
         ErroForbiddenDto erro = QuestaoClient.editarQuestaoSemAutenticacao(questaoEditada, questaoId)
                 .then()
                 .statusCode(403)
                 .extract().as(ErroForbiddenDto.class);
+
+        QuestaoClient.excluirQuestao(questaoResult.getQuestaoDTO().getQuestaoId());
+
+
         assertAll("Testes de editar atividade sem autenticação",
                 () -> assertEquals(erro.getStatus(), 403, "Status da erro não deve ser nulo"),
                 () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),

@@ -1,6 +1,7 @@
 package com.vemser.correcao.test.funcional;
 
 import com.vemser.correcao.client.AtividadesInstrutorClient;
+import com.vemser.correcao.client.QuestaoClient;
 import com.vemser.correcao.data.factory.CriarAtividadeDataFactory;
 import com.vemser.correcao.dto.atividade.CriarAtividadeDto;
 import com.vemser.correcao.dto.atividade.CriarAtividadeResponseDto;
@@ -79,7 +80,7 @@ public class AtividadeInstrutorPutFuncionalTest {
     @Feature("Espera Erro")
     @Story("[CTAXXX] Não Informar ID")
     @Severity(SeverityLevel.CRITICAL)
-    @Description("Teste que verifica se ao editar sem enviar o ID a API retorna 400 e o erro 'O Id não pode ser nulo ou vazio'")
+    @Description("Teste que verifica se ao editar sem enviar o ID a API retorna 404 e o erro 'Not Found'")
     public void testEditarAtividade_naoInformarId_esperaErro() {
 
         CriarAtividadeDto atividade = CriarAtividadeDataFactory.atividadeComDadosValidos();
@@ -92,15 +93,15 @@ public class AtividadeInstrutorPutFuncionalTest {
 
         ErroDto erro = AtividadesInstrutorClient.editarAtividadeSemId(atividadeEditada)
                 .then()
-                .statusCode(400)
+                .statusCode(404)
                 .extract().as(ErroDto.class);
 
         assertAll("Testes de editar atividade sem informar ID",
                 () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
                 () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
                 () -> assertFalse(erro.getErrors().isEmpty(), "Lista de erros não deve está vazia"),
-                () -> assertEquals(erro.getStatus(), 400, "Status do erro deve ser igual ao esperado"),
-                () -> assertEquals(erro.getErrors().get("error"), "O Id não pode ser nulo ou vazio")
+                () -> assertEquals(erro.getStatus(), 404, "Status do erro deve ser igual ao esperado"),
+                () -> assertEquals(erro.getErrors().get("error"), "Not Found")
         );
     }
 

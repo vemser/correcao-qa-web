@@ -313,7 +313,7 @@ public class QuestaoDeleteFuncionalTest {
     }
 
     @Test
-    @Feature("Deletar Teste Por ID")
+    @Feature("Espera Erro")
     @Story("[CTAXX] Deletar Teste Ao Informar ID Inválido")
     @Severity(SeverityLevel.NORMAL)
     @Description("Teste que verifica se ao deletar um teste com ID inválido a API retorna 400 e a mensagem 'Failed to convert value of type'")
@@ -333,7 +333,7 @@ public class QuestaoDeleteFuncionalTest {
     }
 
     @Test
-    @Feature("Deletar Teste Por ID")
+    @Feature("Espera Erro")
     @Story("[CTAXX] Deletar Testes Ao Informar ID Inexistente")
     @Severity(SeverityLevel.NORMAL)
     @Description("Teste que verifica se ao deletar um teste com ID inexistente a API retorna 404 e a mensagem ''")

@@ -210,6 +210,15 @@ public class QuestaoClient {
                 .put(EDITAR_QUESTAO_ID);
     }
 
+    public static Response editarQuestao(String questaoEditada, Integer questaoId){
+        return given()
+                .spec(QuestaoSpecs.questaoReqAuthInstrutorSpec())
+                .pathParam("idQuestao", questaoId)
+                .body(questaoEditada)
+                .when()
+                .put(EDITAR_QUESTAO_ID);
+    }
+
     public static Response editarQuestaoSemAutenticacao(EditarQuestaoDto questaoEditada, Integer questaoId){
         return given()
                 .spec(LoginSpecs.reqSemTokenSpec())

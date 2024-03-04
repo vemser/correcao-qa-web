@@ -27,6 +27,7 @@ public class QuestaoGetFuncionalTest {
         ListaTodasQuestaoResponseDto questaoResult = QuestaoClient.buscarTodasQuestao("0", "10")
                 .then()
                     .statusCode(200)
+                .log().all()
                     .extract()
                     .as(ListaTodasQuestaoResponseDto.class);
 
@@ -219,6 +220,8 @@ public class QuestaoGetFuncionalTest {
                 .then()
                     .statusCode(200)
                     .extract().as(QuestaoResponseDto.class);
+
+        QuestaoClient.excluirQuestao(questaoCriada.getQuestaoDTO().getQuestaoId());
 
         assertAll("Testes de buscar questão por ID informando ID existente",
                 () -> assertNotNull(questaoBuscada, "Questão buscada não deve ser nula"),
