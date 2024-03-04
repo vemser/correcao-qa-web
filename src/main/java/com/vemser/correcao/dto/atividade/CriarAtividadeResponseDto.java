@@ -14,7 +14,7 @@ public class CriarAtividadeResponseDto {
     private int atividadeId;
     private String titulo;
     private String descricao;
-    private List<Integer> questoes;
+    private List<Integer> questoesInt;
     private String trilha;
     private String prazoEntrega;
 }

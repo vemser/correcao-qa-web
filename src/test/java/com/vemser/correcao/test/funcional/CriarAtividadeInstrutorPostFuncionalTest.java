@@ -34,7 +34,7 @@ public class CriarAtividadeInstrutorPostFuncionalTest {
                 () -> assertNotNull(atividadeResult.getAtividadeId(), "ID da Atividade não deve ser nulo"),
                 () -> assertEquals(atividade.getTitulo(), atividadeResult.getTitulo(), "Título deve ser igual ao esperado"),
                 () -> assertEquals(atividade.getDescricao(), atividadeResult.getDescricao(), "Descrição deve ser igual a esperada"),
-                () -> assertEquals(atividade.getQuestoes(), atividadeResult.getQuestoes(), "Questões devem ser iguais as esperadas"),
+                () -> assertEquals(atividade.getQuestoesInt(), atividadeResult.getQuestoesInt(), "Questões devem ser iguais as esperadas"),
                 () -> assertEquals(atividade.getTrilha().name(), atividadeResult.getTrilha(), "Trilha deve ser igual a esperada"),
                 () -> assertTrue(atividadeResult.getPrazoEntrega().contains(atividade.getPrazoEntrega().replace("Z", "")), "Prazo de Entrega deve ser igual ao esperado")
         );
