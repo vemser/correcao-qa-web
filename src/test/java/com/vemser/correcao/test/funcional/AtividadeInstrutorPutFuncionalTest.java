@@ -134,7 +134,7 @@ public class AtividadeInstrutorPutFuncionalTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTAXXX] Informar Data Inválida")
+    @Story("[CTAXXX] Não Informar Questões")
     @Severity(SeverityLevel.CRITICAL)
     @Description("Teste que verifica se ao editar uma atividade sem atribuir questões a API retorna 400 e a mensagem 'A lista de questões não pode ser nula ou vazia.'")
     public void testEditarAtividade_semQuestoes_esperaErro() {
@@ -159,5 +159,63 @@ public class AtividadeInstrutorPutFuncionalTest {
                 () -> assertEquals(erro.getStatus(), 400, "Status do erro deve ser igual ao esperado"),
                 () -> assertEquals(erro.getErrors().get("questoes"), "A lista de questões não pode ser nula ou vazia.")
         );
+    }
+
+    @Test
+    @Feature("Espera Erro")
+    @Story("[CTAXXX] Não Informar Titulo")
+    @Severity(SeverityLevel.CRITICAL)
+    @Description("Teste que verifica se ao editar uma atividade sem um título a API retorna 400 e a mensagem 'O título é obrigatório'")
+    public void testEditarAtividade_semTitulo_esperaErro() {
+
+        CriarAtividadeDto atividade = CriarAtividadeDataFactory.atividadeComDadosValidos();
+        CriarAtividadeResponseDto atividadeResult = AtividadesInstrutorClient.criarAtividade(atividade)
+                .then()
+                .statusCode(201)
+                .extract().as(CriarAtividadeResponseDto.class);
+
+        CriarAtividadeDto atividadeEditada = CriarAtividadeDataFactory.atividadeSemPreencherTitulo();
+
+        ErroDto erro = AtividadesInstrutorClient.editarAtividade(atividadeResult.getAtividadeId(), atividadeEditada)
+                .then()
+                .statusCode(400)
+                .extract().as(ErroDto.class);
+
+        assertAll("Testes de criar atividade sem preencher título",
+                () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
+                () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
+                () -> assertFalse(erro.getErrors().isEmpty(), "Lista de erros não deve está vazia"),
+                () -> assertEquals(erro.getStatus(), 400, "Status do erro deve ser igual ao esperado"),
+                () -> assertEquals(erro.getErrors().get("titulo"), "O título é obrigatório")
+        );
+    }
+
+    @Test
+    @Feature("Espera Sucesso")
+    @Story("[CTAXXX] Não Informar Descrição")
+    @Severity(SeverityLevel.CRITICAL)
+    @Description("Teste que verifica se ao editar uma atividade sem uma descrição a API retorna 200 e a ")
+    public void testEditarAtividade_semDescricao_esperaSucesso() {
+
+        CriarAtividadeDto atividade = CriarAtividadeDataFactory.atividadeComDadosValidos();
+        CriarAtividadeResponseDto atividadeResult = AtividadesInstrutorClient.criarAtividade(atividade)
+                .then()
+                .statusCode(201)
+                .extract().as(CriarAtividadeResponseDto.class);
+
+        CriarAtividadeDto atividadeEditada = CriarAtividadeDataFactory.atividadeSemPreencherTitulo();
+
+        CriarAtividadeResponseDto response = AtividadesInstrutorClient.editarAtividade(atividadeResult.getAtividadeId(), atividadeEditada)
+                .then()
+                .statusCode(400)
+                .extract().as(CriarAtividadeResponseDto.class);
+
+        assertAll("Testes de criar atividade sem preencher título",
+                () -> assertEquals(response.getAtividadeId(), atividadeResult.getAtividadeId()),
+                () -> assertEquals(response.getTitulo(), atividadeEditada.getTitulo()),
+                () -> assertEquals(response.getDescricao(), atividadeEditada.getDescricao()),
+                () -> assertEquals(response.getQuestoes(), atividadeEditada.getQuestoes()),
+                () -> assertTrue(response.getPrazoEntrega().contains(atividadeEditada.getPrazoEntrega().replace("Z", "")))
+                );
     }
 }
