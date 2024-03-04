@@ -10,10 +10,10 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-@Epic("Funcional Atividades Instrutor - POST")
-@DisplayName("Atividades Instrutor - POST")
+@Epic("Funcional Atividades Instrutor - POST (CRIAR ATIVIDADE)")
+@DisplayName("Atividades Instrutor - POST (CRIAR ATIVIDADE)")
 @Owner("Brayan Benet")
-public class AtividadeInstrutorPostFuncionalTest {
+public class CriarAtividadeInstrutorPostFuncionalTest {
 
     @Test
     @Feature("Espera Sucesso")

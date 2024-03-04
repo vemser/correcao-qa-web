@@ -1,5 +1,6 @@
 package com.vemser.correcao.client;
 
+import com.vemser.correcao.dto.CorrigirAtividadeDto;
 import com.vemser.correcao.dto.CriarAtividadeDto;
 import com.vemser.correcao.specs.AtividadesSpecs;
 import io.restassured.response.Response;
@@ -46,5 +47,13 @@ public class AtividadesInstrutorClient {
                 .pathParam("id", atividadeId)
                 .when()
                 .delete(DELETAR_ATIVIDADE_POR_ID);
+    }
+
+    public static Response corrigirAtividade(CorrigirAtividadeDto correcao) {
+        return given()
+                    .spec(AtividadesSpecs.atividadeInstrutorSpec())
+                    .body(correcao)
+                .when()
+                    .post(CORRIGIR_ATIVIDADE);
     }
 }
