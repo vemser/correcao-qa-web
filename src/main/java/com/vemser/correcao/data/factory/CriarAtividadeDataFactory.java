@@ -7,7 +7,6 @@ import com.vemser.correcao.dto.QuestaoResponseDto;
 import com.vemser.correcao.enums.Trilha;
 import net.datafaker.Faker;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 
 public class CriarAtividadeDataFactory {
@@ -145,7 +144,7 @@ public class CriarAtividadeDataFactory {
                 """,faker.lorem(), idQuestoes.get(0), idQuestoes.get(1),  faker.book().title());
     }
 
-    public static String atividadePreenchendoTrilhaInvalido(){
+    public static String atividadePreenchendoTrilhaInvalida(){
         ArrayList<Integer> idQuestoes = listaIdDuasQuestoesValidasParaAtividade();
         return String.format("""
                 {

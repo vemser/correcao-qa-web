@@ -65,4 +65,13 @@ public class AtividadesInstrutorClient {
                 .when()
                 .put(EDITAR_ATIVIDADE_SEM_ID);
     }
+
+    public static Response editarAtividadeComoString(Integer atividadeId, String atividadeEditada) {
+        return given()
+                .spec(AtividadesSpecs.atividadeInstrutorSpec())
+                .pathParam("idAtividade", atividadeId)
+                .body(atividadeEditada)
+                .when()
+                .put(EDITAR_ATIVIDADE);
+    }
 }

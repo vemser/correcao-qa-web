@@ -200,7 +200,7 @@ public class AtividadeInstrutorPostFuncionalTest {
     @Severity(SeverityLevel.NORMAL)
     @Description("Teste que verifica se ao criar uma atividade preenchendo trilha inválida a ela a API retorna 400 e uma mensagem de erro na resposta")
     public void testCriarAtividade_informarTrilhaInvalida_esperaErro() {
-        String atividade = CriarAtividadeDataFactory.atividadePreenchendoTrilhaInvalido();
+        String atividade = CriarAtividadeDataFactory.atividadePreenchendoTrilhaInvalida();
 
         ErroDto erro = AtividadesInstrutorClient.criarAtividadeString(atividade)
                 .then()
