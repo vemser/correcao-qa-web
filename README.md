@@ -31,6 +31,7 @@ Esse projeto é dedicado à implementação e armazenamento de testes para a API
 - **[Plano de Teste](https://docs.google.com/document/d/1SxLgyNhLnXAYeXYCTrsq6NWP6tMdFnrjHGIxlEaN9G4/edit)**
 - **[Teste Exploratórios](https://docs.google.com/document/d/1SKQBuc9KmqkJDnJjGq9zEj3r1nSP5qJZxXwKIN-kibs/edit)**
 - **[Pesquisa de Projeto](https://docs.google.com/forms/d/1_6oCTheYJjrXvQU1D5m4M7oordWl4G608pYQvKzt2mA/edit#responses)**
+- **[Trello](https://trello.com/b/pPZydmbX/vem-ser-corre%C3%A7%C3%A3o)**
 
 ## 🛣️ Como executar
 
