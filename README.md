@@ -39,7 +39,6 @@ Esse projeto é dedicado à implementação e armazenamento de testes para a API
 
 Antes de começar, você vai precisar ter instalado em sua máquina as seguintes ferramentas: [IntelliJ IDEA](https://www.jetbrains.com/idea/) e [JDK 17](https://www.oracle.com/java/technologies/downloads/).
 
-
 ### Clonar o repositório
 
 ```bash
