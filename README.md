@@ -18,23 +18,42 @@ Testes API Correção
 
 <p align="center">
   <a href="#-sobre-o-projeto">Sobre o projeto</a> •
-  <a href="#-tecnologias">Tecnologias</a> •
+  <a href="#-ferramentas">Ferramentas</a> •
   <a href="#-integrantes">Integrantes</a>
 </p>
 
-## 💻 Sobre o projeto
+## 💻 Sobre o Projeto
 
 Esse projeto é dedicado à implementação e armazenamento de testes para a API do sistema Correção. Trata-se de testes funcionais e de integração destinados a verificar o comportamento e a robustez da API em diferentes cenários. Desde testes básicos de CRUD (Create, Read, Update, Delete) até casos mais complexos de autenticação, manipulação de dados e interações com outros sistemas, todos os aspectos da API são minuciosamente testados para garantir sua qualidade e confiabilidade. O projeto busca assegurar que a API opere de forma consistente e sem problemas, contribuindo para uma experiência de usuário fluida e satisfatória.
 
-## 📑Documentos
+## 📑 Documentos
 
 - **[Plano de Teste](https://docs.google.com/document/d/1SxLgyNhLnXAYeXYCTrsq6NWP6tMdFnrjHGIxlEaN9G4/edit)**
 - **[Teste Exploratórios](https://docs.google.com/document/d/1SKQBuc9KmqkJDnJjGq9zEj3r1nSP5qJZxXwKIN-kibs/edit)**
+- **[Pesquisa de Projeto](https://docs.google.com/forms/d/1_6oCTheYJjrXvQU1D5m4M7oordWl4G608pYQvKzt2mA/edit#responses)**
 
-## 🛠 Tecnologias
+## 🛠 Ferramentas
 
-- **[REST Assured](https://rest-assured.io/)**
-- **[Postman](https://www.postman.com/)**
+<details>
+  <summary><b>Tecnologias</b></summary>
+  
+  - **[REST Assured](https://rest-assured.io/)**
+  - **[JUnit5](https://junit.org/junit5/)**
+  - **[Docker](https://www.docker.com/)**
+  - **[Postman](https://www.postman.com/)**
+  - **[Jenkins](https://www.jenkins.io/)**
+  - **[Allure Report](https://allurereport.org/)**
+
+</details>
+
+<details>
+  <summary><b>Organização e Documentação</b></summary>
+  
+  - **[Google Docs](https://docs.google.com/)**
+  - **[Trello](https://trello.com/)**
+  - **[Discord](https://discord.com/)**
+  
+</details>
 
 ## 👥 Integrantes
 
