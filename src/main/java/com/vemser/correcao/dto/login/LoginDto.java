@@ -1,4 +1,4 @@
-package com.vemser.correcao.dto;
+package com.vemser.correcao.dto.login;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class LoginResponseDto {
-    private String token;
+public class LoginDto {
+    private String username;
+    private String password;
 }

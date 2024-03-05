@@ -1,4 +1,4 @@
-package com.vemser.correcao.dto;
+package com.vemser.correcao.dto.teste;
 
 import com.vemser.compilador.enums.Linguagem;
 import com.vemser.correcao.enums.Exemplo;

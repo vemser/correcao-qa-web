@@ -1,0 +1,89 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "questaoDTO": {
+      "type": "object",
+      "properties": {
+        "questaoId": {
+          "type": "integer"
+        },
+        "titulo": {
+          "type": "string"
+        },
+        "descricao": {
+          "type": "string"
+        },
+        "codigo": {
+          "type": "string"
+        },
+        "dificuldade": {
+          "type": "string"
+        },
+        "linguagem": {
+          "type": "string"
+        },
+        "criado": {
+          "type": "string"
+        },
+        "editado": {
+          "type": "string"
+        },
+        "ativo": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "questaoId",
+        "titulo",
+        "descricao",
+        "codigo",
+        "dificuldade",
+        "linguagem",
+        "criado",
+        "editado",
+        "ativo"
+      ]
+    },
+    "testes": {
+      "type": "array",
+      "items": [
+        {
+          "type": "object",
+          "properties": {
+            "testeId": {
+              "type": "integer"
+            },
+            "valorEntrada": {
+              "type": "string"
+            },
+            "retornoEsperado": {
+              "type": "string"
+            },
+            "exemplo": {
+              "type": "string"
+            },
+            "criado": {
+              "type": "string"
+            },
+            "editado": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "testeId",
+            "valorEntrada",
+            "retornoEsperado",
+            "exemplo",
+            "criado",
+            "editado"
+          ]
+        }
+      ]
+    }
+  },
+  "required": [
+    "questaoDTO",
+    "testes"
+  ]
+}

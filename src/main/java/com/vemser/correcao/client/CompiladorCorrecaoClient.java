@@ -10,14 +10,14 @@ public class CompiladorCorrecaoClient {
     public static Response compilarCodigo(CompiladorDto compiladorDto) {
         return given()
                 .spec(CompiladorCorrecaoSpecs.compiladorCorrecaoReqAuthInstrutor(compiladorDto))
-                .when()
+        .when()
                 .post("/compilador");
     }
 
     public static Response compilarCodigo(String compiladorJson) {
         return given()
                 .spec(CompiladorCorrecaoSpecs.compiladorCorrecaoReqAuthInstrutor(compiladorJson))
-                .when()
+        .when()
                 .post("/compilador");
     }
 }

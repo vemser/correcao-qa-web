@@ -2,5 +2,6 @@ package com.vemser.correcao.enums;
 
 public enum Exemplo {
     SIM,
-    NAO
+    NAO,
+    NAO_SEI
 }

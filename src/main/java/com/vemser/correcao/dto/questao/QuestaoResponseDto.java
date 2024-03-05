@@ -1,6 +1,6 @@
-package com.vemser.correcao.dto;
+package com.vemser.correcao.dto.questao;
 
-import com.vemser.compilador.enums.Linguagem;
+import com.vemser.correcao.dto.teste.TesteResponseDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

@@ -1,17 +1,17 @@
-package com.vemser.correcao.dto;
+package com.vemser.correcao.dto.erro;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
 import java.util.Map;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ErrorDto {
+public class ErroForbiddenDto {
     private String timestamp;
     private Integer status;
-    private Map<String, String> errors;
+    private String error;
+    private String path;
 }

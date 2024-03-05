@@ -9,15 +9,17 @@ import static io.restassured.RestAssured.given;
 public class CompiladorClient {
     public static Response compilarCodigo(CompiladorDto compiladorDto) {
         return given()
-                .spec(CompiladorSpecs.compiladorRequest(compiladorDto))
+                .spec(CompiladorSpecs.compiladorRequest())
+                .body(compiladorDto)
         .when()
                 .post("/compilador");
     }
 
     public static Response compilarCodigo(String compiladorJson) {
         return given()
-                .spec(CompiladorSpecs.compiladorRequest(compiladorJson))
-                .when()
+                .spec(CompiladorSpecs.compiladorRequest())
+                .body(compiladorJson)
+        .when()
                 .post("/compilador");
     }
 }
