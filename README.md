@@ -44,7 +44,7 @@ Antes de começar, você vai precisar ter instalado em sua máquina as seguintes
 ```bash
 
 # Clone este repositório
-$ git clone https://github.com/vemser/correcao-qa-ui.git
+$ git clone https://github.com/vemser/correcao-qa-web.git
 
 # Acesse a pasta do projeto no seu terminal/cmd
 $ cd correcao-qa-ui
