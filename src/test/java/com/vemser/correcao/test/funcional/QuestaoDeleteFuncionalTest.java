@@ -22,7 +22,7 @@ public class QuestaoDeleteFuncionalTest {
 
     @Test
     @Feature("Espera Sucesso")
-    @Story("[CTAXXX] Deletar Questão Ao Informar ID Existente")
+    @Story("[CTA093] Deletar Questão Ao Informar ID Existente")
     @Severity(SeverityLevel.CRITICAL)
     @Description("Teste que verifica se ao deletar uma questão existente por ID a API retorna 200 e a mensagem 'Questão deletada com sucesso!'")
     public void testDeletarQuestao_informarIDExistente_esperaSucesso() {
@@ -42,7 +42,7 @@ public class QuestaoDeleteFuncionalTest {
 
     @Test
     @Feature("Espera Sucesso")
-    @Story("[CTAXXX] Deletar Teste Ao Informar ID Existente")
+    @Story("[CTA094] Deletar Teste Ao Informar ID Existente")
     @Severity(SeverityLevel.CRITICAL)
     @Description("Teste que verifica se ao deletar um teste existente por ID a API retorna 200 e a mensagem 'Questão deletada com sucesso!'")
     public void testDeletarTeste_informarIDExistente_esperaSucesso() {
@@ -73,7 +73,7 @@ public class QuestaoDeleteFuncionalTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTAXXX] Deletar Questão Ao Informar ID Existente Com Permissão De Aluno")
+    @Story("[CTA095] Deletar Questão Ao Informar ID Existente Com Permissão De Aluno")
     @Severity(SeverityLevel.CRITICAL)
     @Description("Teste que verifica se ao deletar uma questão existente por ID como aluno a API retorna 403 e a mensagem 'Forbidden'")
     public void testDeletarQuestao_informarIDExistenteComoAluno_esperaErro() {
@@ -102,7 +102,7 @@ public class QuestaoDeleteFuncionalTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTAXX] Deletar Questão Ao Informar ID Existente Sem Token")
+    @Story("[CTA096] Deletar Questão Ao Informar ID Existente Sem Token")
     @Severity(SeverityLevel.CRITICAL)
     @Description("Teste que verifica se ao deletar uma questão informando ID existente sem token de acesso a API retorna 403 e a mensagem 'Forbidden'")
     public void testDeletarQuestao_informarIDExistenteSemToken_esperaErro() {
@@ -131,7 +131,7 @@ public class QuestaoDeleteFuncionalTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTAXX] Deletar Questão Ao Informar ID De Questão Já Deletada")
+    @Story("[CTA097] Deletar Questão Ao Informar ID De Questão Já Deletada")
     @Severity(SeverityLevel.NORMAL)
     @Description("Teste que verifica se ao deletar uma questão já deletada a API retorna 404 e a mensagem 'Questão não encontrada'")
     public void testDeletarQuestao_informarIDDeQuestaoJaDeletada_esperaErro() {
@@ -160,7 +160,7 @@ public class QuestaoDeleteFuncionalTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTAXX] Deletar Questão Ao Informar ID inexistente")
+    @Story("[CTA098] Deletar Questão Ao Informar ID inexistente")
     @Severity(SeverityLevel.NORMAL)
     @Description("Teste que verifica se ao deletar uma questão com ID inexistente a API retorna 404 e a mensagem ''")
     public void testDeletarQuestao_informarIdInexistente_esperaErro() {
@@ -180,7 +180,7 @@ public class QuestaoDeleteFuncionalTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTAXX] Deletar Questão Ao Informar ID Nulo")
+    @Story("[CTA099] Deletar Questão Ao Informar ID Nulo")
     @Severity(SeverityLevel.NORMAL)
     @Description("Teste que verifica se ao deletar uma questão com ID nulo a API retorna 404 e a mensagem 'Not Found'")
     public void testDeletarQuestao_informarIdNulo_esperaErro() {
@@ -200,7 +200,7 @@ public class QuestaoDeleteFuncionalTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTAXX] Deletar Questão Ao Informar ID Invalido")
+    @Story("[CTA100] Deletar Questão Ao Informar ID Invalido")
     @Severity(SeverityLevel.NORMAL)
     @Description("Teste que verifica se ao deletar uma questão com ID inválido a API retorna 500")
     public void testDeletarQuestao_informarIdInvalido_esperaErro() {
@@ -221,7 +221,7 @@ public class QuestaoDeleteFuncionalTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTAXX] Deletar Testes Quando Deleta Questão")
+    @Story("[CTA101] Deletar Testes Quando Deleta Questão")
     @Severity(SeverityLevel.NORMAL)
     @Description("Teste que verifica se ao deletar uma questão com ID inválido a API retorna 400 e a mensagem 'Falha ao deletar a teste: Teste não encontrado com o ID fornecido'")
     public void testDeletarQuestao_deletarQuestaoExistenteComTestes_esperaErro() {
@@ -257,7 +257,7 @@ public class QuestaoDeleteFuncionalTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTAXX] Deletar Testes Até Limite Mínimo")
+    @Story("[CTA102] Deletar Testes Até Limite Mínimo")
     @Severity(SeverityLevel.CRITICAL)
     @Description("Teste que verifica se ao deletar um teste até o limite mínimo a API retorna 400")
     public void testDeletarTeste_ateLimiteMinimo_esperaErro() {
@@ -295,7 +295,7 @@ public class QuestaoDeleteFuncionalTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTAXX] Deletar Testes Ao Informar Token De Aluno")
+    @Story("[CTA103] Deletar Testes Ao Informar Token De Aluno")
     @Severity(SeverityLevel.CRITICAL)
     @Description("Teste que verifica se ao deletar um teste informando token de aluno a API retorna 403 e a mensagem 'Forbidden'")
     public void testDeletarTeste_informarTokenDeAluno_esperaErro() {
@@ -314,7 +314,7 @@ public class QuestaoDeleteFuncionalTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTAXX] Deletar Teste Ao Informar ID Inválido")
+    @Story("[CTA104] Deletar Teste Ao Informar ID Inválido")
     @Severity(SeverityLevel.NORMAL)
     @Description("Teste que verifica se ao deletar um teste com ID inválido a API retorna 400 e a mensagem 'Failed to convert value of type'")
     public void testDeletarTeste_informarIDInvalido_esperaErro() {
@@ -334,7 +334,7 @@ public class QuestaoDeleteFuncionalTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTAXX] Deletar Testes Ao Informar ID Inexistente")
+    @Story("[CTA105] Deletar Testes Ao Informar ID Inexistente")
     @Severity(SeverityLevel.NORMAL)
     @Description("Teste que verifica se ao deletar um teste com ID inexistente a API retorna 404 e a mensagem ''")
     public void testDeletarTeste_informarIDInexistente_esperaErro() {

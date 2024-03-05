@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class QuestaoGetContratoTest {
     @Test
     @Feature("Espera Sucesso")
-    @Story("[CTAXXX] Listar Questões Ao Informar Página e Tamanho Válidos Para Validar Corpo Da Resposta De Sucesso")
+    @Story("[CTA012] Listar Questões Ao Informar Página e Tamanho Válidos Para Validar Corpo Da Resposta De Sucesso")
     @Severity(SeverityLevel.NORMAL)
     @Description("Teste que verifica se ao listar as questões informando página e tamanho válido retorna corpo válido da resposta de sucesso")
     public void testListarQuestoes_informarPaginaETamanhoValidosParaValidarCorpoDaRespostaDeSucesso_esperaSucesso() {
@@ -35,7 +35,7 @@ public class QuestaoGetContratoTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTAXXX] Listar Questões Ao Informar Página Que Não Existe Para Validar Corpo Da Resposta De Erro")
+    @Story("[CTA013] Listar Questões Ao Informar Página Que Não Existe Para Validar Corpo Da Resposta De Erro")
     @Severity(SeverityLevel.NORMAL)
     @Description("Teste que verifica se ao listar as questões passando uma página que não existe retorna corpo válido de resposta de erro")
     public void testListarQuestoes_informarPaginaQueNaoExisteParaValidarCorpoDaRespostaDeErro_esperaErro() {
@@ -55,7 +55,7 @@ public class QuestaoGetContratoTest {
 
     @Test
     @Feature("Espera Sucesso")
-    @Story("[CTAXXX] Buscar Questão Por ID Ao Informar ID Existente Para Validar Corpo Da Resposta De Sucesso")
+    @Story("[CTA014] Buscar Questão Por ID Ao Informar ID Existente Para Validar Corpo Da Resposta De Sucesso")
     @Severity(SeverityLevel.NORMAL)
     @Description("Teste que verifica se ao buscar uma questão informando ID Existente retorna corpo válido da resposta de sucesso")
     public void testBuscarQuestaoPorID_informarIDExistenteParaValidarCorpoDaRespostaDeSucesso_esperaSucesso() {
@@ -76,7 +76,7 @@ public class QuestaoGetContratoTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTAXXX] Buscar Questão Por ID Ao Informar ID Inexistente Para Validar Corpo Da Resposta De Erro")
+    @Story("[CTA015] Buscar Questão Por ID Ao Informar ID Inexistente Para Validar Corpo Da Resposta De Erro")
     @Severity(SeverityLevel.NORMAL)
     @Description("Teste que verifica se ao buscar uma questão informando ID inexistente retorna corpo válido de resposta de erro")
     public void testBuscarQuestaoPorID_informarIDInexistenteParaValidarCorpoDaRespostaDeErro_esperaErro() {

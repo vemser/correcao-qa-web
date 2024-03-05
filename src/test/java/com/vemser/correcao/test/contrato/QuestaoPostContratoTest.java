@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class QuestaoPostContratoTest {
     @Test
     @Feature("Espera Sucesso")
-    @Story("[CTAXXX] Informar Campos Válidos Para Validar Corpo Da Resposta De Sucesso")
+    @Story("[CTA016] Informar Campos Válidos Para Validar Corpo Da Resposta De Sucesso")
     @Description("Teste que verifica se ao criar uma questão informando campos válidos retorna corpo válido da resposta de sucesso")
     @Severity(SeverityLevel.CRITICAL)
     public void testCriarQuestao_informarCamposValidosParaValidarCorpoDaRespostaDeSucesso_esperaSucesso() {
@@ -36,7 +36,7 @@ public class QuestaoPostContratoTest {
 
     @Test
     @Feature("Espera Sucesso")
-    @Story("[CTAXXX] Não Informar Retorno Esperado Do Teste")
+    @Story("[CTA017] Não Informar Retorno Esperado Do Teste")
     @Description("Teste que verifica se ao criar uma questão não informando retorno esperado do teste retorna 201 e todos os dados da questão criada no body")
     @Severity(SeverityLevel.CRITICAL)
     public void testCriarQuestao_naoInformarRetornoEsperadoTeste_esperaSucesso() {
@@ -59,7 +59,7 @@ public class QuestaoPostContratoTest {
 
     @Test
     @Feature("Espera Sucesso")
-    @Story("[CTAXXX] Não Informar Valor De Entrada Do Teste")
+    @Story("[CTA018] Não Informar Valor De Entrada Do Teste")
     @Description("Teste que verifica se ao criar uma questão não informando valor de entrada do teste retorna 201 e todos os dados da questão criada no body")
     @Severity(SeverityLevel.CRITICAL)
     public void testCriarQuestao_naoInformarValorEntradaTeste_esperaSucesso() {
@@ -82,7 +82,7 @@ public class QuestaoPostContratoTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTAXXX] Não Informar Titulo Para Validar Corpo Da Resposta De Erro")
+    @Story("[CTA019] Não Informar TÍtulo Para Validar Corpo Da Resposta De Erro")
     @Description("Teste que verifica se ao criar uma questão não informando titulo retorna corpo válido de resposta de erro")
     @Severity(SeverityLevel.CRITICAL)
     public void testCriarQuestao_naoInformarTituloParaValidarCorpoDaRespostaDeErro_esperaErro() {
@@ -97,7 +97,7 @@ public class QuestaoPostContratoTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTAXXX] Não Informar Titulo")
+    @Story("[CTA020] Não Informar Titulo")
     @Description("Teste que verifica se ao criar uma questão não informando titulo retorna 400 e a mensagem 'Título não pode ser vazio'")
     @Severity(SeverityLevel.CRITICAL)
     public void testCriarQuestao_naoInformarTitulo_esperaErro() {
@@ -118,7 +118,7 @@ public class QuestaoPostContratoTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTAXXX] Não Informar Descrição")
+    @Story("[CTA021] Não Informar Descrição")
     @Description("Teste que verifica se ao criar uma questão não informando descrição retorna 400 e a mensagem 'Descrição não pode ser vazio'")
     @Severity(SeverityLevel.CRITICAL)
     public void testCriarQuestao_naoInformarDescricao_esperaErro() {
@@ -139,7 +139,7 @@ public class QuestaoPostContratoTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTAXXX] Não Informar Dificuldade")
+    @Story("[CTA022] Não Informar Dificuldade")
     @Description("Teste que verifica se ao criar uma questão não informando dificuldade retorna 400 e a mensagem 'Dificuldade não é válida. Valores válidos: FACIL, MEDIO, DIFICIL'")
     @Severity(SeverityLevel.CRITICAL)
     public void testCriarQuestao_naoInformarDificuldade_esperaErro() {
@@ -160,7 +160,7 @@ public class QuestaoPostContratoTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTAXXX] Não Informar Linguagem")
+    @Story("[CTA023] Não Informar Linguagem")
     @Description("Teste que verifica se ao criar uma questão não informando linguagem retorna 400 e a mensagem 'Linguagem não é válida. Valores válidos: JAVA, JAVASCRIPT'")
     @Severity(SeverityLevel.CRITICAL)
     public void testCriarQuestao_naoInformarLinguagem_esperaErro() {
@@ -181,7 +181,7 @@ public class QuestaoPostContratoTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTAXXX] Não Informar Código")
+    @Story("[CTA024] Não Informar Código")
     @Description("Teste que verifica se ao criar uma questão não informando código retorna 400 e a mensagem 'Código não pode ser vazio'")
     @Severity(SeverityLevel.CRITICAL)
     public void testCriarQuestao_naoInformarCodigo_esperaErro() {
@@ -202,7 +202,7 @@ public class QuestaoPostContratoTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTAXXX] Não Informar Testes")
+    @Story("[CTA025] Não Informar Testes")
     @Description("Teste que verifica se ao criar uma questão não informando testes retorna 400 e a mensagem 'Testes não pode ser vazio'")
     @Severity(SeverityLevel.CRITICAL)
     public void testCriarQuestao_naoInformarTestes_esperaErro() {
@@ -223,7 +223,7 @@ public class QuestaoPostContratoTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTAXXX] Não Informar Exemplo Do Teste")
+    @Story("[CTA026] Não Informar Exemplo Do Teste")
     @Description("Teste que verifica se ao criar uma questão não informando exemplo do teste retorna 400 e a mensagem 'Opção não é válida, digite SIM ou NAO'")
     @Severity(SeverityLevel.CRITICAL)
     public void testCriarQuestao_naoInformarExemploTeste_esperaErro() {

@@ -33,7 +33,7 @@ public class SolucaoQuestaoPostFuncionalTest {
 
     @Test
     @Feature("Espera Sucesso")
-    @Story("[CTAXXX] Enviar Solucao De Questao Total Com Codigo JAVA Válido")
+    @Story("[CTA145] Enviar Solucao De Questao Total Com Codigo JAVA Válido")
     @Severity(SeverityLevel.CRITICAL)
     @Description("Teste que verifica se ao enviar uma solução de questão total com codigo java valido. A API retorna 200 e os dados da solução.")
     public void testSolucaoQuestao_mandarSolucaoTotalEnvioJAVA_esperaSucesso() {
@@ -87,7 +87,7 @@ public class SolucaoQuestaoPostFuncionalTest {
     }
     @Test
     @Feature("Espera Sucesso")
-    @Story("[CTAXXX] Enviar Solucao De Questao Total Com Codigo JavaScript Válido")
+    @Story("[CTA146] Enviar Solucao De Questao Total Com Codigo JavaScript Válido")
     @Severity(SeverityLevel.CRITICAL)
     @Description("Teste que verifica se ao enviar uma solução de questão total com codigo javascript valido. A API retorna 200 e os dados da solução.")
     public void testSolucaoQuestao_mandarSolucaoTotalEnvioJS_esperaSucesso() {
@@ -141,7 +141,7 @@ public class SolucaoQuestaoPostFuncionalTest {
     }
     @Test
     @Feature("Espera Sucesso")
-    @Story("[CTAXXX] Enviar Teste de Solucao De Questao JAVA Válido")
+    @Story("[CTA147] Enviar Teste de Solucao De Questao JAVA Válido")
     @Severity(SeverityLevel.CRITICAL)
     @Description("Teste que verifica se ao testar uma solução de questão com exemplos JAVA. A API retorna 200 e os testes totais e testes passados.")
     public void testSolucaoQuestao_mandarSolucaoDeExemplosTeste_esperaSucesso() {
@@ -192,7 +192,7 @@ public class SolucaoQuestaoPostFuncionalTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTAXXX] Enviar Teste de Solucao De Questao com questao nao pertencente a atividade")
+    @Story("[CTA148] Enviar Teste de Solucao De Questao com questao nao pertencente a atividade")
     @Severity(SeverityLevel.NORMAL)
     @Description("Teste que verifica se ao testar uma solução de questão com exemplos a API retorna 400 e a mensagem 'Esta questão não pertence a esta atividade.'")
     public void testSolucaoQuestao_mandarSolucaoDeExemplosComQuestaoNaoAssociada_esperaErro() {
@@ -243,7 +243,7 @@ public class SolucaoQuestaoPostFuncionalTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTAXXX] Enviar Solucao De Questao Total com questao nao pertencente a atividade")
+    @Story("[CTA149] Enviar Solucao De Questao Total com questao nao pertencente a atividade")
     @Severity(SeverityLevel.NORMAL)
     @Description("Teste que verifica se ao enviar uma solução de questão total a API retorna 400 e a mensagem 'Esta questão não pertence a esta atividade.'")
     public void testSolucaoQuestao_mandarSolucaoTotalComQuestaoNaoAssociada_esperaErro() {
@@ -295,7 +295,7 @@ public class SolucaoQuestaoPostFuncionalTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTAXXX] Enviar Teste de Solucao De Questao com questao não existente")
+    @Story("[CTA150] Enviar Teste de Solucao De Questao com questao não existente")
     @Severity(SeverityLevel.NORMAL)
     @Description("Teste que verifica se ao testar uma solução de questão com exemplos a API retorna 404 e a mensagem 'Questão não encontrada'")
     public void testSolucaoQuestao_mandarSolucaoDeExemplosComQuestaoNaoExistente_esperaErro() {
@@ -348,7 +348,7 @@ public class SolucaoQuestaoPostFuncionalTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTAXXX] Enviar Solucao De Questao Total com questao não existente")
+    @Story("[CTA151] Enviar Solucao De Questao Total com questao não existente")
     @Severity(SeverityLevel.NORMAL)
     @Description("Teste que verifica se ao enviar uma solução de questão total a API retorna 404 e a mensagem 'Questão não encontrada'")
     public void testSolucaoQuestao_mandarSolucaoTotalComQuestaoNaoExistente_esperaErro() {
@@ -400,7 +400,7 @@ public class SolucaoQuestaoPostFuncionalTest {
     }
     @Test
     @Feature("Espera Erro")
-    @Story("[CTAXXX] Enviar Solucao De Questao Total Sem id de Questao")
+    @Story("[CTA152] Enviar Solucao De Questao Total Sem id de Questao")
     @Severity(SeverityLevel.NORMAL)
     @Description("Teste que verifica se ao enviar uma requisição sem id de questao a API retorna 404 e a mensagem 'Houve um erro ao tentar ler a requisição. Verifique se o corpo da requisição está correto'")
     public void testSolucaoQuestao_mandarSolucaoTotalSemIdQuestao_esperaErro() {
@@ -423,7 +423,7 @@ public class SolucaoQuestaoPostFuncionalTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTAXXX] Enviar Teste de Solucao De Questao com trilha errada")
+    @Story("[CTA153] Enviar Teste de Solucao De Questao com trilha errada")
     @Severity(SeverityLevel.NORMAL)
     @Description("Teste que verifica se ao testar uma solução da trilha errada a API retorna 400 e a mensagem 'Esta atividade não pertence a este usuário.'")
     public void testSolucaoQuestao_mandarSolucaoDeExemplosComTrilhaErrada_esperaErro() {
@@ -475,7 +475,7 @@ public class SolucaoQuestaoPostFuncionalTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTAXXX] Enviar Solucao De Questao Total com trilha errada")
+    @Story("[CTA154] Enviar Solucao De Questao Total com trilha errada")
     @Severity(SeverityLevel.NORMAL)
     @Description("Teste que verifica se ao enviar uma solução da trilha errada a API retorna 400 e a mensagem 'Esta atividade não pertence a este usuário.'")
     public void testSolucaoQuestao_mandarSolucaoTotalComTrilhaErrada_esperaErro() {

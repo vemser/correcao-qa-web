@@ -18,7 +18,7 @@ import org.junit.jupiter.api.Test;
 public class QuestaoDeleteContratoTest {
     @Test
     @Feature("Espera Sucesso")
-    @Story("[CTAXXX] Deletar Questão Ao Informar ID Existente Para Validar Corpo Da Resposta De Sucesso")
+    @Story("[CTA010] Deletar Questão Ao Informar ID Existente Para Validar Corpo Da Resposta De Sucesso")
     @Severity(SeverityLevel.CRITICAL)
     @Description("Teste que verifica se ao deletar uma questão existente por ID a API retorna corpo válido da resposta de sucesso")
     public void testDeletarQuestao_informarIDExistenteParaValidarCorpoDaRespostaDeSucesso_esperaSucesso() {
@@ -37,7 +37,7 @@ public class QuestaoDeleteContratoTest {
 
     @Test
     @Feature("Espera Sucesso")
-    @Story("[CTAXXX] Deletar Questão Ao Informar ID Existente Para Validar Corpo Da Resposta De Sucesso")
+    @Story("[CTA011] Deletar Questão Ao Informar ID Existente Para Validar Corpo Da Resposta De Sucesso")
     @Severity(SeverityLevel.CRITICAL)
     @Description("Teste que verifica se ao deletar uma questão existente por ID a API retorna corpo válido da resposta de sucesso")
     public void testDeletarQuestao_informarIDExistenteValidarCorpoDaRespostaDeErro_esperaSucesso() {

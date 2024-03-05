@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class QuestaoPostFuncionalTest {
     @Test
     @Feature("Espera Sucesso")
-    @Story("[CTA015] Informar Campos Válidos")
+    @Story("[CTA118] Informar Campos Válidos")
     @Severity(SeverityLevel.CRITICAL)
     @Description("Teste que verifica se ao criar uma questão informando campos válidos retorna 201 e todos os dados da questão criada no body")
     public void testCriarQuestao_informarCamposValidos_esperaSucesso() {
@@ -40,7 +40,7 @@ public class QuestaoPostFuncionalTest {
 
     @Test
     @Feature("Espera Sucesso")
-    @Story("[CTA016] Informar Testes Com Valor De Entrada Vazio")
+    @Story("[CTA119] Informar Testes Com Valor De Entrada Vazio")
     @Severity(SeverityLevel.CRITICAL)
     @Description("Teste que verifica se ao criar uma questão informando testes com valor de entrada vazio retorna 201 e todos os dados da questão criada no body")
     public void testCriarQuestao_informarTestesComValorDeEntradaVazio_esperaErro() {
@@ -63,7 +63,7 @@ public class QuestaoPostFuncionalTest {
 
     @Test
     @Feature("Espera Sucesso")
-    @Story("[CTA017] Informar Testes Com Retorno Esperado Vazio")
+    @Story("[CTA120] Informar Testes Com Retorno Esperado Vazio")
     @Severity(SeverityLevel.CRITICAL)
     @Description("Teste que verifica se ao criar uma questão informando testes com retorno vazio retorna 201 e todos os dados da questão criada no body")
     public void testCriarQuestao_informarTestesComRetornoEsperadoVazio_esperaErro() {
@@ -86,7 +86,7 @@ public class QuestaoPostFuncionalTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTA018] Informar Código Vazio")
+    @Story("[CTA121] Informar Código Vazio")
     @Description("Teste que verifica se ao criar uma questão informando código vazio retorna 400 e a mensagem 'Código não pode ser vazio'")
     @Severity(SeverityLevel.CRITICAL)
     public void testCriarQuestao_informarCodigoVazio_esperaSucesso() {
@@ -107,7 +107,7 @@ public class QuestaoPostFuncionalTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTA019] Informar Título Vazio")
+    @Story("[CTA122] Informar Título Vazio")
     @Severity(SeverityLevel.CRITICAL)
     @Description("Teste que verifica se ao criar uma questão informando título vazio retorna 400 e a mensagem 'Título não pode ser vazio'")
     public void testCriarQuestao_informarTituloVazio_esperaErro() {
@@ -129,7 +129,7 @@ public class QuestaoPostFuncionalTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTA020] Informar Descrição Vazia")
+    @Story("[CTA123] Informar Descrição Vazia")
     @Severity(SeverityLevel.CRITICAL)
     @Description("Teste que verifica se ao criar uma questão informando descrição vazia retorna 400 e a mensagem 'Descrição não pode ser vazio'")
     public void testCriarQuestao_informarDescricaoVazia_esperaErro() {
@@ -150,7 +150,7 @@ public class QuestaoPostFuncionalTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTA021] Informar Dificuldade Vazia")
+    @Story("[CTA124] Informar Dificuldade Vazia")
     @Severity(SeverityLevel.CRITICAL)
     @Description("Teste que verifica se ao criar uma questão informando dificuldade vazia retorna 400 e a mensagem 'Dificuldade não é válida. Valores válidos: FACIL, MEDIO, DIFICIL'")
     public void testCriarQuestao_informarDificuldadeVazia_esperaErro() {
@@ -173,7 +173,7 @@ public class QuestaoPostFuncionalTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTA022] Informar Linguagem Vazia")
+    @Story("[CTA125] Informar Linguagem Vazia")
     @Description("Teste que verifica se ao criar uma questão informando linguagem vazia retorna 400 e a mensagem 'Linguagem não é válida. Valores válidos: JAVA, JAVASCRIPT'")
     @Severity(SeverityLevel.CRITICAL)
     public void testCriarQuestao_informarLinguagemVazia_esperaErro() {
@@ -194,7 +194,7 @@ public class QuestaoPostFuncionalTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTA023] Não Informar Teste Oculto")
+    @Story("[CTA126] Não Informar Teste Oculto")
     @Severity(SeverityLevel.CRITICAL)
     @Description("Teste que verifica se ao criar uma questão não informando teste oculto retorna 400 e a mensagem 'É necessário pelo menos um exemplo e um não-exemplo.'")
     public void testCriarQuestao_naoInformarTesteOculto_esperaErro() {
@@ -215,7 +215,7 @@ public class QuestaoPostFuncionalTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTA024] Não Informar Teste De Exemplo")
+    @Story("[CTA127] Não Informar Teste De Exemplo")
     @Severity(SeverityLevel.CRITICAL)
     @Description("Teste que verifica se ao criar uma questão não informando teste de exemplo retorna 400 e a mensagem 'É necessário pelo menos um exemplo e um não-exemplo.'")
     public void testCriarQuestao_naoInformarTesteDeExemplo_esperaErro() {
@@ -237,7 +237,7 @@ public class QuestaoPostFuncionalTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTA025] Informar 4 Testes De Exemplo")
+    @Story("[CTA128] Informar 4 Testes De Exemplo")
     @Severity(SeverityLevel.CRITICAL)
     @Description("Teste que verifica se ao criar uma questão informando quatro testes de exemplo retorna 400 e a mensagem 'A questão atingiu o limite máximo de exemplos.'")
     public void testCriarQuestao_informar4TestesDeExemplo_esperaErro() {
@@ -258,7 +258,7 @@ public class QuestaoPostFuncionalTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTA026] Informar 8 Testes Ocultos")
+    @Story("[CTA129] Informar 8 Testes Ocultos")
     @Severity(SeverityLevel.CRITICAL)
     @Description("Teste que verifica se ao criar uma questão informando oito testes ocultos retorna 400 e a mensagem 'A questão atingiu o limite máximo de não-exemplos.'")
     public void testCriarQuestao_informar8TestesOcultos_esperaErro() {
@@ -279,7 +279,7 @@ public class QuestaoPostFuncionalTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTA027] Informar Apenas Um Teste")
+    @Story("[CTA130] Informar Apenas Um Teste")
     @Severity(SeverityLevel.CRITICAL)
     @Description("Teste que verifica se ao criar uma questão informando apenas um teste retorna 400 e a mensagem 'É necessário pelo menos um exemplo e um não-exemplo.'")
     public void testCriarQuestao_informarApenasUmTeste_esperaErro() {
@@ -300,7 +300,7 @@ public class QuestaoPostFuncionalTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTA028] Informar Dificuldade Inválida")
+    @Story("[CTA131] Informar Dificuldade Inválida")
     @Severity(SeverityLevel.CRITICAL)
     @Description("Teste que verifica se ao criar uma questão informando dificuldade inválida retorna 400 e a mensagem 'Dificuldade não é válida. Valores válidos: FACIL, MEDIO, DIFICIL'")
     public void testCriarQuestao_informarDificuldadeInvalida_esperaErro() {
@@ -321,7 +321,7 @@ public class QuestaoPostFuncionalTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTA029] Informar Linguagem Inválida")
+    @Story("[CTA132] Informar Linguagem Inválida")
     @Severity(SeverityLevel.CRITICAL)
     @Description("Teste que verifica se ao criar uma questão informando linguagem inválida retorna 400 e a mensagem 'Trilha não é válida. Valores válidos: JAVA, JAVASCRIPT'")
     public void testCriarQuestao_informarLinguagemInvalida_esperaErro() {
@@ -343,7 +343,7 @@ public class QuestaoPostFuncionalTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTA030] Informar Teste Com Exemplo Vazio")
+    @Story("[CTA133] Informar Teste Com Exemplo Vazio")
     @Severity(SeverityLevel.CRITICAL)
     @Description("Teste que verifica se ao criar uma questão informando teste com exemplo vazio retorna 400 e a mensagem 'Exemplo não pode ser vazio'")
     public void testCriarQuestao_informarTesteComExemploVazio_esperaErro() {
@@ -364,7 +364,7 @@ public class QuestaoPostFuncionalTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTA031] Informar Teste Com Exemplo Inválido")
+    @Story("[CTA134] Informar Teste Com Exemplo Inválido")
     @Severity(SeverityLevel.CRITICAL)
     @Description("Teste que verifica se ao criar uma questão informando teste com exemplo inválido retorna 400 e a mensagem 'Opção não é válida, digite SIM ou NAO'")
     public void testCriarQuestao_informarTesteComExemploInvalido_esperaErro() {
@@ -385,7 +385,7 @@ public class QuestaoPostFuncionalTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTA031] Informar Testes Vazio")
+    @Story("[CTA135] Informar Testes Vazio")
     @Severity(SeverityLevel.CRITICAL)
     @Description("Teste que verifica se ao criar uma questão informando testes vazio retorna 400 e a mensagem 'É necessário pelo menos um exemplo e um não-exemplo.'")
     public void testCriarQuestao_informarTestesVazio_esperaErro() {
