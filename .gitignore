@@ -37,3 +37,9 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
+### Arquivos ###
+*.properties
+
+### Arquivos ###
+allure-results/
