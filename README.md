@@ -32,6 +32,65 @@ Esse projeto é dedicado à implementação e armazenamento de testes para a API
 - **[Teste Exploratórios](https://docs.google.com/document/d/1SKQBuc9KmqkJDnJjGq9zEj3r1nSP5qJZxXwKIN-kibs/edit)**
 - **[Pesquisa de Projeto](https://docs.google.com/forms/d/1_6oCTheYJjrXvQU1D5m4M7oordWl4G608pYQvKzt2mA/edit#responses)**
 
+## 🛣️ Como executar
+
+### Pré-requisitos
+
+Antes de começar, você vai precisar ter instalado em sua máquina as seguintes ferramentas: [IntelliJ IDEA](https://www.jetbrains.com/idea/) e [JDK 17](https://www.oracle.com/java/technologies/downloads/).
+
+
+### Clonar o repositório
+
+```bash
+
+# Clone este repositório
+$ git clone https://github.com/vemser/correcao-qa-ui.git
+
+# Acesse a pasta do projeto no seu terminal/cmd
+$ cd correcao-qa-ui
+
+```
+
+### Adicionar as propriedades
+
+```properties
+
+# Crie um arquivo configsettings.properties na pasta ./src/main/resources
+
+CompiladorURL={COMPILADOR_URL}
+ApiURL={API_URL}
+AlunoUsername={ALUNO_USERNAME}
+AlunoPassword={ALUNO_PASSWORD}
+InstrutorUsername={INSTRUTOR_USERNAME}
+InstrutorPassword={INSTRUTOR_PASSWORD}
+
+```
+
+```properties
+# Crie um arquivo allure.properties na pasta ./src/test/resources
+
+allure.results.directory=target/allure-results
+
+```
+
+### Executar os testes
+
+```bash
+
+# Execute os teste com o Maven
+$ mvn clean test
+
+```
+
+### Gerar relatório
+
+```bash
+
+# Após a execução dos testes, gere um relatório
+$ mvn allure:serve
+
+```
+
 ## 🛠 Ferramentas
 
 <details>
@@ -43,6 +102,8 @@ Esse projeto é dedicado à implementação e armazenamento de testes para a API
   - **[Postman](https://www.postman.com/)**
   - **[Jenkins](https://www.jenkins.io/)**
   - **[Allure Report](https://allurereport.org/)**
+  - **[IntelliJ IDEA](https://www.jetbrains.com/idea/)**
+  - **[JDK 17](https://www.oracle.com/java/technologies/downloads/)**
 
 </details>
 
