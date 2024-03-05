@@ -22,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class QuestaoPutContratoTest {
     @Test
     @Feature("Espera Sucesso")
-    @Story("[CTAXXX] Informar Campos Válidos Para Validar Corpo Da Resposta De Sucesso")
+    @Story("[CTA027] Informar Campos Válidos Para Validar Corpo Da Resposta De Sucesso")
     @Description("Teste que verifica se ao editar uma questão informando campos válidos retorna corpo válido da resposta de sucesso")
     @Severity(SeverityLevel.CRITICAL)
     public void testEditarQuestao_informarCamposValidosParaValidarCorpoDaRespostaDeSucesso_esperaErro() {
@@ -50,7 +50,7 @@ public class QuestaoPutContratoTest {
 
     @Test
     @Feature("Espera Sucesso")
-    @Story("[CTAXXX] Não Informar Retorno Esperado Do Teste")
+    @Story("[CTA028] Não Informar Retorno Esperado Do Teste")
     @Description("Teste que verifica se ao editar uma questão informando não informando retorno esperado do teste retorna 200 e todos os dados da questão editada no body")
     @Severity(SeverityLevel.CRITICAL)
     public void testEditarQuestao_naoInformarRetornoEsperadoTeste_esperaErro() {
@@ -89,7 +89,7 @@ public class QuestaoPutContratoTest {
 
     @Test
     @Feature("Espera Sucesso")
-    @Story("[CTAXXX] Não Informar Valor De Entrada Do Teste")
+    @Story("[CTA029] Não Informar Valor De Entrada Do Teste")
     @Description("Teste que verifica se ao editar uma questão não informando valor de entrada do teste retorna 200 e todos os dados da questão editada no body")
     @Severity(SeverityLevel.CRITICAL)
     public void testEditarQuestao_naoInformarValorEntradaTeste_esperaErro() {
@@ -128,7 +128,7 @@ public class QuestaoPutContratoTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTAXXX] Não Informar Titulo Para Validar Corpo Da Resposta De Erro")
+    @Story("[CTA030] Não Informar Titulo Para Validar Corpo Da Resposta De Erro")
     @Description("Teste que verifica se ao editar uma questão não informando titulo retorna corpo válido de resposta de erro")
     @Severity(SeverityLevel.CRITICAL)
     public void testEditarQuestao_naoInformarTituloParaValidarCorpoDaRespostaDeErro_esperaErro() {
@@ -152,7 +152,7 @@ public class QuestaoPutContratoTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTAXXX] Não Informar Titulo")
+    @Story("[CTA031] Não Informar Titulo")
     @Description("Teste que verifica se ao editar uma questão não informando titulo retorna 400 e a mensagem 'Título não pode ser nulo'")
     @Severity(SeverityLevel.CRITICAL)
     public void testEditarQuestao_naoInformarTitulo_esperaErro() {
@@ -182,7 +182,7 @@ public class QuestaoPutContratoTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTAXXX] Não Informar Descrição")
+    @Story("[CTA032] Não Informar Descrição")
     @Description("Teste que verifica se ao editar uma questão não informando descrição retorna 400 e a mensagem 'Descrição não pode ser nula'")
     @Severity(SeverityLevel.CRITICAL)
     public void testEditarQuestao_naoInformarDescricao_esperaErro() {
@@ -212,7 +212,7 @@ public class QuestaoPutContratoTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTAXXX] Não Informar Dificuldade")
+    @Story("[CTA033] Não Informar Dificuldade")
     @Description("Teste que verifica se ao editar uma questão não informando dificuldade retorna 400 e a mensagem 'Dificuldade não é válida'")
     @Severity(SeverityLevel.CRITICAL)
     public void testEditarQuestao_naoInformarDificuldade_esperaErro() {
@@ -242,7 +242,7 @@ public class QuestaoPutContratoTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTAXXX] Não Informar Linguagem")
+    @Story("[CTA034] Não Informar Linguagem")
     @Description("Teste que verifica se ao editar uma questão não informando linguagem retorna 400 e a mensagem 'Linguagem não é válida'")
     @Severity(SeverityLevel.CRITICAL)
     public void testEditarQuestao_naoInformarLinguagem_esperaErro() {
@@ -273,7 +273,7 @@ public class QuestaoPutContratoTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTAXXX] Não Informar Código")
+    @Story("[CTA035] Não Informar Código")
     @Description("Teste que verifica se ao editar uma questão não informando código retorna 400 e a mensagem 'Código não pode ser nulo'")
     @Severity(SeverityLevel.CRITICAL)
     public void testEditarQuestao_naoInformarCodigo_esperaErro() {
@@ -304,7 +304,7 @@ public class QuestaoPutContratoTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTAXXX] Não Informar Testes")
+    @Story("[CTA036] Não Informar Testes")
     @Description("Teste que verifica se ao editar uma questão não informando testes retorna 400 e a mensagem 'Testes não pode ser nulo'")
     @Severity(SeverityLevel.CRITICAL)
     public void testEditarQuestao_naoInformarTestes_esperaErro() {
@@ -335,7 +335,7 @@ public class QuestaoPutContratoTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTAXXX] Não Informar Exemplo do Teste")
+    @Story("[CTA037] Não Informar Exemplo do Teste")
     @Description("Teste que verifica se ao editar uma questão não informando exemplo do teste retorna 400 e a mensagem 'Opção não é válida, digite SIM ou NAO'")
     @Severity(SeverityLevel.CRITICAL)
     public void testEditarQuestao_naoInformarExemploDoTeste_esperaErro() {
@@ -367,7 +367,7 @@ public class QuestaoPutContratoTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTAXXX] Não Informar ID Do Teste")
+    @Story("[CTA038] Não Informar ID Do Teste")
     @Description("Teste que verifica se ao editar uma questão não informando ID do teste retorna 400 e a mensagem 'Id do teste não pode ser nulo.'")
     @Severity(SeverityLevel.CRITICAL)
     public void testEditarQuestao_naoInformarIDDoTeste_esperaErro() {

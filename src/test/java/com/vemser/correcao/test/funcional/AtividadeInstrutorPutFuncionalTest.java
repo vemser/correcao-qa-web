@@ -20,7 +20,7 @@ public class AtividadeInstrutorPutFuncionalTest {
 
     @Test
     @Feature("Espera Sucesso")
-    @Story("[CTAXXX] Informar Campos Válidos")
+    @Story("[CTA056] Informar Campos Válidos")
     @Severity(SeverityLevel.NORMAL)
     @Description("Teste que verifica se ao editar uma atividade existente a API retorna 200 e a atividade editada no body")
     public void testEditarAtividade_informarCamposValidos_esperaSucesso() {
@@ -49,7 +49,7 @@ public class AtividadeInstrutorPutFuncionalTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTAXXX] Informar Questões Inativas")
+    @Story("[CTA057] Informar Questões Inativas")
     @Severity(SeverityLevel.CRITICAL)
     @Description("Teste que verifica se ao editar uma atividade com questões inválidas a API retorna 404 e a mensagem 'Questão não encontrada'")
     public void testEditarAtividade_informarQuestoesInativas_esperaErro() {
@@ -78,7 +78,7 @@ public class AtividadeInstrutorPutFuncionalTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTAXXX] Não Informar ID")
+    @Story("[CTA058] Não Informar ID")
     @Severity(SeverityLevel.CRITICAL)
     @Description("Teste que verifica se ao editar sem enviar o ID a API retorna 404 e o erro 'Not Found'")
     public void testEditarAtividade_naoInformarId_esperaErro() {
@@ -107,7 +107,7 @@ public class AtividadeInstrutorPutFuncionalTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTAXXX] Informar Data Inválida")
+    @Story("[CTA059] Informar Data Inválida")
     @Severity(SeverityLevel.CRITICAL)
     @Description("Teste que verifica se ao editar uma atividade com data inválida a API retorna 400 e a mensagem 'A data de entrega deve ser no futuro'")
     public void testEditarAtividade_informarDataInvalida_esperaErro() {
@@ -136,7 +136,7 @@ public class AtividadeInstrutorPutFuncionalTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTAXXX] Não Informar Questões")
+    @Story("[CTA060] Não Informar Questões")
     @Severity(SeverityLevel.CRITICAL)
     @Description("Teste que verifica se ao editar uma atividade sem atribuir questões a API retorna 400 e a mensagem 'A lista de questões não pode ser nula ou vazia.'")
     public void testEditarAtividade_naoInformarQuestoes_esperaErro() {
@@ -165,7 +165,7 @@ public class AtividadeInstrutorPutFuncionalTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTAXXX] Não Informar Titulo")
+    @Story("[CTA061] Não Informar Título")
     @Severity(SeverityLevel.CRITICAL)
     @Description("Teste que verifica se ao editar uma atividade sem um título a API retorna 400 e a mensagem 'O título é obrigatório'")
     public void testEditarAtividade_naoInformarTitulo_esperaErro() {
@@ -194,7 +194,7 @@ public class AtividadeInstrutorPutFuncionalTest {
 
     @Test
     @Feature("Espera Sucesso")
-    @Story("[CTAXXX] Não Informar Descrição")
+    @Story("[CTA062] Não Informar Descrição")
     @Severity(SeverityLevel.NORMAL)
     @Description("Teste que verifica se ao editar uma atividade sem uma descrição a API retorna 200 e a atividade editada no body")
     public void testEditarAtividade_naoInformarDescricao_esperaSucesso() {
@@ -224,7 +224,7 @@ public class AtividadeInstrutorPutFuncionalTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTAXXX] Não Informar Trilha Da Atividade")
+    @Story("[CTA063] Não Informar Trilha Da Atividade")
     @Severity(SeverityLevel.CRITICAL)
     @Description("Teste que verifica se ao editar uma atividade sem informar trilha a API retorna 400 e a mensagem 'Trilha nula ou inválida. Valores válidos: BACK, FRONT, QA'")
     public void testEditarAtividade_naoInformarTrilha_esperaErro() {
@@ -253,7 +253,7 @@ public class AtividadeInstrutorPutFuncionalTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTAXXX] Informar Trilha Inválida")
+    @Story("[CTA064] Informar Trilha Inválida")
     @Severity(SeverityLevel.CRITICAL)
     @Description("Teste que verifica se ao editar uma atividade informando uma trilha inválida a API retorna 400 e a mensagem 'Trilha nula ou inválida. Valores válidos: BACK, FRONT, QA'")
     public void testEditarAtividade_InformarTrilhaInvalida_esperaErro() {
@@ -282,7 +282,7 @@ public class AtividadeInstrutorPutFuncionalTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTAXXX] Não Informar Edição do Vem Ser")
+    @Story("[CTA065] Não Informar Edição do Vem Ser")
     @Severity(SeverityLevel.CRITICAL)
     @Description("Teste que verifica se ao editar uma atividade sem informar a edição do Vem Ser a API retorna 400 e a mensagem 'A edição vem ser é obrigatória'")
     public void testEditarAtividade_naoInformarEdicao_esperaErro() {
@@ -311,7 +311,7 @@ public class AtividadeInstrutorPutFuncionalTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTAXXX] Editar Sem Autenticação")
+    @Story("[CTA066] Sem Autenticação")
     @Severity(SeverityLevel.CRITICAL)
     @Description("Teste que verifica se ao editar atividade sem ter autenticação a API retorna 403 e erro 'Você não tem autorização para acessar este serviço'")
     public void testEditarAtividade_naoInformarAutenticacao_esperaErro() {

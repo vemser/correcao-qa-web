@@ -24,7 +24,7 @@ public class QuestaoPutFuncionalTest {
 
     @Test
     @Feature("Espera Sucesso")
-    @Story("[CTAXXX] Informar Campos Válidos")
+    @Story("[CTA136] Informar Campos Válidos")
     @Severity(SeverityLevel.CRITICAL)
     @Description("Teste que verifica se ao editar uma questão com todos os campos válidos a API retorna 200 e a todos os dados da questão editada no body")
     public void testEditarQuestao_informarCamposValidos_esperaSucesso() {
@@ -58,7 +58,7 @@ public class QuestaoPutFuncionalTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTAXXX] Informar Código Vazio")
+    @Story("[CTA137] Informar Código Vazio")
     @Severity(SeverityLevel.NORMAL)
     @Description("Teste que verifica se ao editar uma questão com o campo código vazio a API retorna 400 e a mensagem 'Código não pode ser nulo'")
     public void testEditarQuestao_informarCodigoVazio_esperaErro() {
@@ -94,7 +94,7 @@ public class QuestaoPutFuncionalTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTAXXX] Informar Título Vazio")
+    @Story("[CTA138] Informar Título Vazio")
     @Severity(SeverityLevel.NORMAL)
     @Description("Teste que verifica se ao editar uma questão com o campo título vazio a API retorna 400 e a mensagem 'Título não pode ser nulo'")
     public void testEditarQuestao_informarTituloVazio_esperaErro() {
@@ -128,7 +128,7 @@ public class QuestaoPutFuncionalTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTAXXX] Informar Descrição Vazia")
+    @Story("[CTA139] Informar Descrição Vazia")
     @Severity(SeverityLevel.NORMAL)
     @Description("Teste que verifica se ao editar uma questão com o campo descrição vazio a API retorna 400 e a mensagem 'Descrição não pode ser nula'")
     public void testEditarQuestao_informarDescricaoVazia_esperaErro() {
@@ -162,7 +162,7 @@ public class QuestaoPutFuncionalTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTAXXX] Informar Dificuldade Vazia")
+    @Story("[CTA140] Informar Dificuldade Vazia")
     @Severity(SeverityLevel.NORMAL)
     @Description("Teste que verifica se ao editar uma questão com o campo dificuldade vazia a API retorna 400 e a mensagem 'Dificuldade não pode ser nula'")
     public void testEditarQuestao_informarDificuldadeVazia_esperaErro() {
@@ -196,7 +196,7 @@ public class QuestaoPutFuncionalTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTAXXX] Informar Dificuldade Inválida")
+    @Story("[CTA141] Informar Dificuldade Inválida")
     @Severity(SeverityLevel.NORMAL)
     @Description("Teste que verifica se ao editar uma questão com o campo dificuldade inválida a API retorna 400 e a mensagem 'Dificuldade não é válida'")
     public void testEditarQuestao_informarDificuldadeInvalida_esperaErro() {
@@ -227,7 +227,7 @@ public class QuestaoPutFuncionalTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTAXXX] Informar Linguagem Vazia")
+    @Story("[CTA142] Informar Linguagem Vazia")
     @Severity(SeverityLevel.NORMAL)
     @Description("Teste que verifica se ao editar uma questão com o campo linguagem vazio a API retorna 400 e a mensagem 'Linguagem não é válida'")
     public void testEditarQuestao_informarLinguagemVazia_esperaErro() {
@@ -261,7 +261,7 @@ public class QuestaoPutFuncionalTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTAXXX] Informar Linguagem Inválida")
+    @Story("[CTA143] Informar Linguagem Inválida")
     @Severity(SeverityLevel.NORMAL)
     @Description("Teste que verifica se ao editar uma questão com o campo linguagem inválido a API retorna 400 e a mensagem 'Linguagem não é válida'")
     public void testEditarQuestao_informarLinguagemInvalida_esperaErro() {
@@ -295,7 +295,7 @@ public class QuestaoPutFuncionalTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTAXXX] Editar Sem Autenticação")
+    @Story("[CTA144] Editar Sem Autenticação")
     @Severity(SeverityLevel.CRITICAL)
     @Description("Teste que verifica se ao editar questão sem ter autenticação a API retorna 403 e erro 'Você não tem autorização para acessar este serviço'")
     public void testEditarQuestao_naoInformarAutenticacao_esperaSucesso() {

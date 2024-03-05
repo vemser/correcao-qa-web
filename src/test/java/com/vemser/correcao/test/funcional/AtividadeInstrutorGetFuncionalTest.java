@@ -23,7 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 public class AtividadeInstrutorGetFuncionalTest {
     @Test
     @Feature("Espera Sucesso")
-    @Story("[CTAXXX] Listar Atividades Do Instrutor Ao Informar Página e Tamanho Válidos")
+    @Story("[CTA043] Listar Atividades Do Instrutor Ao Informar Página e Tamanho Válidos")
     @Severity(SeverityLevel.NORMAL)
     @Description("Teste que verifica se ao listar as atividades do instrutor informando página e tamanho válido retorna 200 e todas as atividades cadastradas")
     public void testListarAtividadesInstrutor_informarPaginaETamanhoValidos_esperaSucesso() {
@@ -43,7 +43,7 @@ public class AtividadeInstrutorGetFuncionalTest {
 
     @Test
     @Feature("Espera Sucesso")
-    @Story("[CTAXXX] Listar Atividades Do Instrutor Ao Informar Página Inválida")
+    @Story("[CTA044] Listar Atividades Do Instrutor Ao Informar Página Inválida")
     @Severity(SeverityLevel.NORMAL)
     @Description("Teste que verifica se ao listar as atividades do instrutor informando página inválida retorna 200 e todas as atividades cadastradas")
     public void testListarAtividadesInstrutor_informarPaginaInvalida_esperaSucesso() {
@@ -63,7 +63,7 @@ public class AtividadeInstrutorGetFuncionalTest {
 
     @Test
     @Feature("Espera Sucesso")
-    @Story("[CTAXXX] Listar Atividades Do Instrutor Ao Informar Tamanho Inválido")
+    @Story("[CTA045] Listar Atividades Do Instrutor Ao Informar Tamanho Inválido")
     @Severity(SeverityLevel.NORMAL)
     @Description("Teste que verifica se ao listar as atividades do instrutor informando tamanho inválido retorna 200 e todas as atividades cadastradas")
     public void testListarAtividadesInstrutor_informarTamanhoInvalida_esperaSucesso() {
@@ -83,7 +83,7 @@ public class AtividadeInstrutorGetFuncionalTest {
 
     @Test
     @Feature("Espera Sucesso")
-    @Story("[CTAXXX] Listar Atividades Do Instrutor Sem Passar Parâmetros")
+    @Story("[CTA046] Listar Atividades Do Instrutor Sem Passar Parâmetros")
     @Severity(SeverityLevel.NORMAL)
     @Description("Teste que verifica se ao listar as atividades do instrutor não informando parâmetros retorna 200 e todas as atividades cadastradas")
     public void testListarAtividadesInstrutor_informarSemPassar_esperaSucesso() {
@@ -100,7 +100,7 @@ public class AtividadeInstrutorGetFuncionalTest {
 
     @Test
     @Feature("Espera Sucesso")
-    @Story("[CTAXXX] Listar Atividades Do Instrutor Ao Não Informar Parâmetro De Tamanho Da Página")
+    @Story("[CTA047] Listar Atividades Do Instrutor Ao Não Informar Parâmetro De Tamanho Da Página")
     @Severity(SeverityLevel.NORMAL)
     @Description("Teste que verifica se ao listar as atividades do instrutor não informando parâmetro de tamanho da página retorna 200 e todas as atividades cadastradas")
     public void testListarAtividadesInstrutor_naoInformarParametroDeTamanhoPagina_esperaSucesso() {
@@ -118,7 +118,7 @@ public class AtividadeInstrutorGetFuncionalTest {
 
     @Test
     @Feature("Espera Sucesso")
-    @Story("[CTAXXX] Listar Atividades Do Instrutor Ao Não Informar Parâmetro de Página Solicitada")
+    @Story("[CTA048] Listar Atividades Do Instrutor Ao Não Informar Parâmetro de Página Solicitada")
     @Severity(SeverityLevel.NORMAL)
     @Description("Teste que verifica se ao listar as atividades do instrutor não informando parâmetro de tamanho da página retorna 200 e todas as atividades cadastradas")
     public void testListarAtividadesInstrutor_naoInformarParametroDePaginaSolicitada_esperaSucesso() {
@@ -136,7 +136,7 @@ public class AtividadeInstrutorGetFuncionalTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTAXXX] Listar Atividades Do Instrutor Ao Não Informar Token")
+    @Story("[CTA049] Listar Atividades Do Instrutor Ao Não Informar Token")
     @Severity(SeverityLevel.NORMAL)
     @Description("Teste que verifica se ao listar as atividades do instrutor não informando o token retorna 403 e a mensagem 'Forbidden'")
     public void testListarAtividadesInstrutor_naoInformarToken_esperaSucesso() {
@@ -154,15 +154,15 @@ public class AtividadeInstrutorGetFuncionalTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTAXXX] Listar Atividades Do Instrutor Ao Não Informar Token")
+    @Story("[CTA050] Listar Atividades Do Instrutor Ao Informar Token De Aluno")
     @Severity(SeverityLevel.NORMAL)
-    @Description("Teste que verifica se ao listar as atividades do instrutor não informando o token retorna 403 e a mensagem 'Forbidden'")
+    @Description("Teste que verifica se ao listar as atividades do instrutor informando o token de aluno retorna 403 e a mensagem 'Forbidden'")
     public void testListarAtividadesInstrutor_informarTokenAluno_esperaSucesso() {
         ErroAlternativoDto erro = AtividadesInstrutorClient.listarAtividadesComoAluno().then()
                 .statusCode(403)
                 .extract().as(ErroAlternativoDto.class);
 
-        assertAll("Testes de listar atividades do instrutor não informando token",
+        assertAll("Testes de listar atividades do instrutor informando token de aluno",
                 () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
                 () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
                 () -> assertEquals(403, erro.getStatus(), "Status do erro deve ser igual ao esperado"),
@@ -172,7 +172,7 @@ public class AtividadeInstrutorGetFuncionalTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTAXXX] Listar Atividades Do Instrutor Ao Informar Pagina Que Não Existe")
+    @Story("[CTA051] Listar Atividades Do Instrutor Ao Informar Página Que Não Existe")
     @Severity(SeverityLevel.NORMAL)
     @Description("Teste que verifica se ao listar as atividades do instrutor passando uma página que não existe retorna 404 e a mensagem 'Nenhuma atividade encontrada.")
     public void testListarAtividadesInstrutor_informarPaginaQueNaoExiste_esperaSucesso() {
@@ -197,7 +197,7 @@ public class AtividadeInstrutorGetFuncionalTest {
 
     @Test
     @Feature("Espera Sucesso")
-    @Story("[CTAXXX] Buscar Atividades Do Instrutor Por Id Ao Informar ID Existente")
+    @Story("[CTA052] Buscar Atividades Do Instrutor Por Id Ao Informar ID Existente")
     @Severity(SeverityLevel.NORMAL)
     @Description("Teste que verifica se ao buscar atividades do instrutor por ID informando ID existente retorna 200 e todos os dados da atividade")
     public void testBuscarAtividadePorIdInstrutor_informarIDExistente_esperaSucesso() {
@@ -231,7 +231,7 @@ public class AtividadeInstrutorGetFuncionalTest {
 
     @Test
     @Feature("Espera Sucesso")
-    @Story("[CTAXXX] Buscar Atividades Do Instrutor Por Id Ao Informar ID Inexistente")
+    @Story("[CTA053] Buscar Atividades Do Instrutor Por Id Ao Informar ID Inexistente")
     @Severity(SeverityLevel.NORMAL)
     @Description("Teste que verifica se ao buscar atividades do instrutor por ID informando ID inexistente retorna 200 e nenhuma atividade")
     public void testBuscarAtividadePorIdInstrutor_informarPaginaETamanhoValidos_esperaSucesso() {
@@ -249,7 +249,7 @@ public class AtividadeInstrutorGetFuncionalTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTAXXX] Buscar Atividades Do Instrutor Por Id Ao Informar ID Maior Que O Limite")
+    @Story("[CTA054] Buscar Atividades Do Instrutor Por Id Ao Informar ID Maior Que O Limite")
     @Severity(SeverityLevel.NORMAL)
     @Description("Teste que verifica se ao buscar atividades do instrutor por ID informando ID maior que o limite 400 e a mensagem 'Houve um erro em um conversão. Verifique se os valores estão corretos.'")
     public void testBuscarAtividadePorIdInstrutor_informarIDMaiorQueOLimite_esperaSucesso() {
@@ -269,7 +269,7 @@ public class AtividadeInstrutorGetFuncionalTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTAXXX] Buscar Atividades Do Instrutor Por Id Ao Informar ID Inativo")
+    @Story("[CTA055] Buscar Atividades Do Instrutor Por Id Ao Informar ID Inativo")
     @Severity(SeverityLevel.NORMAL)
     @Description("Teste que verifica se ao buscar atividades do instrutor por ID informando ID inativo retorna 404 e a mensagem 'Atividade não encontrada'")
     public void testBuscarAtividadePorIdInstrutor_informarIDInativo_esperaSucesso() {

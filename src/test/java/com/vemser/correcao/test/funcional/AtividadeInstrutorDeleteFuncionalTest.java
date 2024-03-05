@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class AtividadeInstrutorDeleteFuncionalTest {
     @Test
     @Feature("Espera Sucesso")
-    @Story("[CTAXXX] Informar ID Existente")
+    @Story("[CTA039] Informar ID Existente")
     @Severity(SeverityLevel.CRITICAL)
     @Description("Teste que verifica se ao deletar uma atividade existente por ID a API retorna 200 e a mensagem 'Excluída com sucesso!'")
     public void testDeletarAtividade_informarIDExistente_esperaSucesso() {
@@ -41,7 +41,7 @@ public class AtividadeInstrutorDeleteFuncionalTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTAXXX] Informar ID Inativo")
+    @Story("[CTA040] Informar ID Inativo")
     @Severity(SeverityLevel.CRITICAL)
     @Description("Teste que verifica se ao deletar uma atividade inativa por ID a API retorna 404 e a mensagem 'Questão já se encontra excluída.'")
     public void testDeletarAtividade_informarIDInativo_esperaErro() {
@@ -71,7 +71,7 @@ public class AtividadeInstrutorDeleteFuncionalTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTAXXX] Deletar Atividade Ao Informar ID inválido")
+    @Story("[CTA041] Informar ID inválido")
     @Severity(SeverityLevel.CRITICAL)
     @Description("Teste que verifica se ao deletar uma atividade  por ID inválido a API retorna 400 e a mensagem 'Houve um erro em um conversão. Verifique se os valores estão corretos.'")
     public void testDeletarAtividade_informarIDInvalido_esperaErro() {
@@ -91,7 +91,7 @@ public class AtividadeInstrutorDeleteFuncionalTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTAXXX] Informar ID Inexistente")
+    @Story("[CTA042] Informar ID Inexistente")
     @Severity(SeverityLevel.CRITICAL)
     @Description("Teste que verifica se ao deletar uma atividade  por ID inexistente a API retorna 404 e a mensagem 'Nenhuma atividade encontrada.'")
     public void testDeletarAtividade_informarIDInexistente_esperaErro() {

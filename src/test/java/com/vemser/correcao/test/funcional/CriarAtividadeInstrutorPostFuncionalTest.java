@@ -17,7 +17,7 @@ public class CriarAtividadeInstrutorPostFuncionalTest {
 
     @Test
     @Feature("Espera Sucesso")
-    @Story("[CTAXXX] Informar Campos Válidos")
+    @Story("[CTA077] Informar Campos Válidos")
     @Severity(SeverityLevel.NORMAL)
     @Description("Teste que verifica se ao criar uma atividade com todos os campos válidos a API retorna 200 e a todos os dados da atividade criada no body")
     public void testCriarAtividade_informarCamposValidos_esperaSucesso() {
@@ -42,7 +42,7 @@ public class CriarAtividadeInstrutorPostFuncionalTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTAXXX] Informar Questões Inativas")
+    @Story("[CTA078] Informar Questões Inativas")
     @Severity(SeverityLevel.NORMAL)
     @Description("Teste que verifica se ao criar uma atividade com questões inativas a API retorna 404 e uma mensagem de erro na resposta")
     public void testCriarAtividade_informarQuestoesInativas_esperaErro() {
@@ -64,7 +64,7 @@ public class CriarAtividadeInstrutorPostFuncionalTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTAXXX] Informar Data Inválida")
+    @Story("[CTA079] Informar Data Inválida")
     @Severity(SeverityLevel.NORMAL)
     @Description("Teste que verifica se ao criar uma atividade com data inválida a API retorna 400 e uma mensagem de erro na resposta")
     public void testCriarAtividade_informarDataInvalida_esperaErro() {
@@ -86,7 +86,7 @@ public class CriarAtividadeInstrutorPostFuncionalTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTAXXX] Não Informar Questões")
+    @Story("[CTA080] Não Informar Questões")
     @Severity(SeverityLevel.NORMAL)
     @Description("Teste que verifica se ao criar uma atividade sem atribuir questões a ela a API retorna 400 e uma mensagem de erro na resposta")
     public void testCriarAtividade_naoInformarQuestoes_esperaErro() {
@@ -108,7 +108,7 @@ public class CriarAtividadeInstrutorPostFuncionalTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTAXXX] Não Informar Título Da Atividade")
+    @Story("[CTA081] Não Informar Título Da Atividade")
     @Severity(SeverityLevel.NORMAL)
     @Description("Teste que verifica se ao criar uma atividade sem preencher título a ela a API retorna 400 e uma mensagem de erro na resposta")
     public void testCriarAtividade_naoInformarTituloDaAtividade_esperaErro() {
@@ -130,7 +130,7 @@ public class CriarAtividadeInstrutorPostFuncionalTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTAXXX] Não Informar Descrição Da Atividade")
+    @Story("[CTA082] Não Informar Descrição Da Atividade")
     @Severity(SeverityLevel.NORMAL)
     @Description("Teste que verifica se ao criar uma atividade sem preencher descrição a ela a API retorna 400 e uma mensagem de erro na resposta")
     public void testCriarAtividade_naoInformarDescricaoDaAtividade_esperaErro() {
@@ -152,7 +152,7 @@ public class CriarAtividadeInstrutorPostFuncionalTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTAXXX] Não Informar Edição do Vem Ser Da Atividade")
+    @Story("[CTA083] Não Informar Edição do Vem Ser Da Atividade")
     @Severity(SeverityLevel.NORMAL)
     @Description("Teste que verifica se ao criar uma atividade sem preencher a edição do VemSer a ela a API retorna 400 e uma mensagem de erro na resposta")
     public void testCriarAtividade_naoInformarEdicaoDoVemSerDaAtividade_esperaErro() {
@@ -174,7 +174,7 @@ public class CriarAtividadeInstrutorPostFuncionalTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTAXXX] Não Informar Trilha Da Atividade")
+    @Story("[CTA084] Não Informar Trilha Da Atividade")
     @Severity(SeverityLevel.NORMAL)
     @Description("Teste que verifica se ao criar uma atividade sem preencher a trilha da atividade a ela a API retorna 400 e uma mensagem de erro na resposta")
     public void testCriarAtividade_naoInformarTrilhaDaAtividade_esperaErro() {
@@ -196,7 +196,7 @@ public class CriarAtividadeInstrutorPostFuncionalTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTAXXX] Informar Trilha Inválida")
+    @Story("[CTA085] Informar Trilha Inválida")
     @Severity(SeverityLevel.NORMAL)
     @Description("Teste que verifica se ao criar uma atividade preenchendo trilha inválida a ela a API retorna 400 e uma mensagem de erro na resposta")
     public void testCriarAtividade_informarTrilhaInvalida_esperaErro() {
@@ -218,7 +218,7 @@ public class CriarAtividadeInstrutorPostFuncionalTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTAXXX] Informar Edição Inválida")
+    @Story("[CTA086] Informar Edição Inválida")
     @Severity(SeverityLevel.NORMAL)
     @Description("Teste que verifica se ao criar uma atividade preenchendo edicao inválida a ela a API retorna 400 e uma mensagem de erro na resposta")
     public void testCriarAtividade_informarEdicaoInvalida_esperaErro() {

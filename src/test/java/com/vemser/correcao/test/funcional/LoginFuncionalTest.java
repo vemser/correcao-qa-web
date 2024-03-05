@@ -21,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class LoginFuncionalTest {
     @Test
     @Feature("Espera Sucesso")
-    @Story("[CTAXXX] Logar Como Instrutor Informando Dados Válidos")
+    @Story("[CTA087] Logar Como Instrutor Informando Dados Válidos")
     @Severity(SeverityLevel.BLOCKER)
     @Description("Teste que verifica se ao usuário logar como instrutor com as permissões devidas, a API permite request de cadastro e delete a partir deste token")
     public void testLogin_logarInstrutor_esperaSucesso() {
@@ -49,7 +49,7 @@ public class LoginFuncionalTest {
 
     @Test
     @Feature("Espera Sucesso")
-    @Story("[CTAXXX] Logar Como Aluno Informando Dados Válidos")
+    @Story("[CTA088] Logar Como Aluno Informando Dados Válidos")
     @Severity(SeverityLevel.BLOCKER)
     @Description("Teste que verifica se o usuário logou como aluno com as permissões devidas")
     public void testLogin_logarAluno_esperaSucesso() {
@@ -80,7 +80,7 @@ public class LoginFuncionalTest {
     // CENÁRIOS NEGATIVOS
     @Test
     @Feature("Espera Erro")
-    @Story("[CTAXXX] Informar Username Vazio")
+    @Story("[CTA089] Informar Username Vazio")
     @Severity(SeverityLevel.BLOCKER)
     @Description("Teste que verifica se ao informar username vazio e password válido a API retorna 400 e a mensagem 'username: não deve estar em branco'")
     public void testLogin_informarUsernameVazio_esperaErro() {
@@ -103,7 +103,7 @@ public class LoginFuncionalTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTAXXX] Informar Password Vazio")
+    @Story("[CTA090] Informar Password Vazio")
     @Severity(SeverityLevel.BLOCKER)
     @Description("Teste que verifica se ao informar username válido e password vazio a API retorna 400 e a mensagem 'password: não deve estar em branco'")
     public void testLogin_informarPasswordVazio_esperaErro() {
@@ -126,7 +126,7 @@ public class LoginFuncionalTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTAXXX] Informar Campos Vazios")
+    @Story("[CTA091] Informar Campos Vazios")
     @Severity(SeverityLevel.BLOCKER)
     @Description("Teste que verifica se ao informar campos vazios a API retorna 400 e as mensagens 'password: não deve estar em branco, username: não deve estar em branco'")
     public void testLogin_informarCamposVazios_esperaErro() {
@@ -151,7 +151,7 @@ public class LoginFuncionalTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTAXXX] Informar Senha Incorreta")
+    @Story("[CTA092] Informar Senha Incorreta")
     @Severity(SeverityLevel.BLOCKER)
     @Description("Teste que verifica se ao informar username válido e senha incorreta a API retorna 400 e a mensagem 'login e senha inválidos!'")
     public void testLogin_informarSenhaIncorreta_esperaErro() {

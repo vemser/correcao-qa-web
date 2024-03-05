@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class QuestaoGetFuncionalTest {
     @Test
     @Feature("Espera Sucesso")
-    @Story("[CTAXXX] Listar Questões Ao Informar Página e Tamanho Válidos")
+    @Story("[CTA0106] Listar Questões Ao Informar Página e Tamanho Válidos")
     @Severity(SeverityLevel.NORMAL)
     @Description("Teste que verifica se ao listar as questões informando página e tamanho válido retorna 200 e todas as questões cadastradas")
     public void testListarQuestoes_informarPaginaETamanhoValidos_esperaSucesso() {
@@ -40,7 +40,7 @@ public class QuestaoGetFuncionalTest {
 
     @Test
     @Feature("Espera Sucesso")
-    @Story("[CTAXXX] Listar Questões Ao Informar Página Inválida")
+    @Story("[CTA107] Listar Questões Ao Informar Página Inválida")
     @Severity(SeverityLevel.NORMAL)
     @Description("Teste que verifica se ao listar as questões informando página inválida retorna 200 e todas as questões cadastradas")
     public void testListarQuestoes_informarPaginaInvalida_esperaErro() {
@@ -62,7 +62,7 @@ public class QuestaoGetFuncionalTest {
 
     @Test
     @Feature("Espera Sucesso")
-    @Story("[CTAXXX] Listar Questões Ao Informar Tamanho Inválido")
+    @Story("[CTA108] Listar Questões Ao Informar Tamanho Inválido")
     @Severity(SeverityLevel.NORMAL)
     @Description("Teste que verifica se ao listar as questões informando tamanho inválido retorna 404 e a mensagem 'Página não encontrada'")
     public void testListarQuestoes_informarTamanhoInvalido_esperaErro() {
@@ -84,7 +84,7 @@ public class QuestaoGetFuncionalTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTAXXX] Listar Questões Ao Não Informar Token")
+    @Story("[CTA109] Listar Questões Ao Não Informar Token")
     @Severity(SeverityLevel.NORMAL)
     @Description("Teste que verifica se ao listar as questões não informando o token retorna 403 e a mensagem 'Forbidden'")
     public void testListarQuestoes_naoInformarToken_esperaErro() {
@@ -104,7 +104,7 @@ public class QuestaoGetFuncionalTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTAXXX] Listar Questões Informando Token De Aluno")
+    @Story("[CTA110] Listar Questões Informando Token De Aluno")
     @Severity(SeverityLevel.NORMAL)
     @Description("Teste que verifica se é possivel listar todas as questões logado como aluno")
     public void testListarQuestoes_informarTokenDeAluno_esperaErro() {
@@ -124,7 +124,7 @@ public class QuestaoGetFuncionalTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTAXXX] Listar Questões Ao Informar Página Que Não Existe")
+    @Story("[CTA111] Listar Questões Ao Informar Página Que Não Existe")
     @Severity(SeverityLevel.NORMAL)
     @Description("Teste que verifica se ao listar as questões passando uma página que não existe retorna 404 e a mensagem 'Página não encontrada'")
     public void testListarQuestoes_informarPaginaQueNaoExiste_esperaErro() {
@@ -149,7 +149,7 @@ public class QuestaoGetFuncionalTest {
 
     @Test
     @Feature("Espera Sucesso")
-    @Story("[CTAXXX] Listar Questões Sem Passar Parâmetros")
+    @Story("[CTA112] Listar Questões Sem Passar Parâmetros")
     @Severity(SeverityLevel.NORMAL)
     @Description("Teste que verifica se ao listar todas as questões não informando parâmetros retorna 200 e todas as atividades cadastradas")
     public void testQuestoes_listarQuestoesSemPassarParametro_esperaSucesso() {
@@ -168,7 +168,7 @@ public class QuestaoGetFuncionalTest {
 
     @Test
     @Feature("Espera Sucesso")
-    @Story("[CTAXXX] Listar Questões Ao Não Informar Parâmetro de Tamanho Da Página")
+    @Story("[CTA113] Listar Questões Ao Não Informar Parâmetro de Tamanho Da Página")
     @Severity(SeverityLevel.NORMAL)
     @Description("Teste que verifica se ao listar todas as questões sem o tamanho da página a API retorna 200 e a tamanho da página 10")
     public void testQuestoes_listarQuestoesSemParametroDeTamanhoPagina_esperaSucesso() {
@@ -187,7 +187,7 @@ public class QuestaoGetFuncionalTest {
 
     @Test
     @Feature("Espera Sucesso")
-    @Story("[CTAXXX] Listar Questões Ao Não Informar Parâmetro De Página Solicitada")
+    @Story("[CTA114] Listar Questões Ao Não Informar Parâmetro De Página Solicitada")
     @Severity(SeverityLevel.NORMAL)
     @Description("Teste que verifica se ao listar todas as questões sem a pagina solicitada a API retorna 200 e a página 0")
     public void testQuestoes_listarQuestoesSemParametroDePaginaSolicitada_esperaSucesso() {
@@ -206,7 +206,7 @@ public class QuestaoGetFuncionalTest {
 
     @Test
     @Feature("Espera Sucesso")
-    @Story("[CTAXXX] Buscar Questão Por ID Ao Informar ID Existente")
+    @Story("[CTA115] Buscar Questão Por ID Ao Informar ID Existente")
     @Severity(SeverityLevel.NORMAL)
     @Description("Teste que verifica se ao buscar uma questão informando ID Existente retorna 200 e todos os dados da questão")
     public void testBuscarQuestaoPorID_informarIDExistente_esperaSucesso() {
@@ -235,7 +235,7 @@ public class QuestaoGetFuncionalTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTAXXX] Buscar Questão Por ID Ao Informar ID Inexistente")
+    @Story("[CTA116] Buscar Questão Por ID Ao Informar ID Inexistente")
     @Severity(SeverityLevel.NORMAL)
     @Description("Teste que verifica se ao buscar uma questão informando ID inexistente retorna 400 e a mensagem 'Questão não encontrada com o ID fornecido'")
     public void testBuscarQuestaoPorID_informarIDInexistente_esperaErro() {
@@ -256,7 +256,7 @@ public class QuestaoGetFuncionalTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTAXXX] Buscar Questão Por ID Ao Informar ID Maior Que O Limite")
+    @Story("[CTA116] Buscar Questão Por ID Ao Informar ID Maior Que O Limite")
     @Severity(SeverityLevel.NORMAL)
     @Description("Teste que verifica se ao buscar uma questão informando ID maior que o limite retorna 400 e a mensagem 'Houve um erro em um conversão. Verifique se os valores estão corretos.'")
     public void testBuscarQuestaoPorId_informarIDMaiorQueOLimite_esperaErro() {
@@ -276,7 +276,7 @@ public class QuestaoGetFuncionalTest {
 
     @Test
     @Feature("Espera Erro")
-    @Story("[CTAXXX] Buscar Questão Por ID Ao Informar ID Inativo")
+    @Story("[CTA117] Buscar Questão Por ID Ao Informar ID Inativo")
     @Severity(SeverityLevel.NORMAL)
     @Description("Teste que verifica se ao buscar uma questão informando ID inativo retorna 404 e a mensagem 'Questão não encontrada'")
     public void testBuscarQuestaoPorID_informarIDInativo_esperaErro() {
