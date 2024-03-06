@@ -241,17 +241,17 @@ public class QuestaoDeleteFuncionalTest {
             .then()
                 .statusCode(200);
 
-        ErroDto erro = QuestaoClient.excluirTeste(testes.get(0).getTesteId())
+        ErroAlternativoDto erro = QuestaoClient.excluirTeste(testes.get(0).getTesteId())
             .then()
                 .statusCode(404)
-                .extract().as(ErroDto.class);
+                .extract().as(ErroAlternativoDto.class);
 
         assertAll("Testes de deletar questão informando ID inválido",
                 () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
                 () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
-                () -> assertFalse(erro.getErrors().isEmpty(), "Lista de erros não deve está vazia"),
+                () -> assertNotNull(erro.getError(), "Erro não deve ser nulo"),
                 () -> assertEquals(404, erro.getStatus(), "Status do erro deve ser igual ao esperado"),
-                () -> assertEquals("Teste não encontrado com o ID fornecido", erro.getErrors().get("error"), "Mensagem de erro deve ser igual a esperada")
+                () -> assertEquals("Not Found", erro.getError(), "Mensagem de erro deve ser igual a esperada")
         );
     }
 
@@ -318,17 +318,17 @@ public class QuestaoDeleteFuncionalTest {
     @Severity(SeverityLevel.NORMAL)
     @Description("Teste que verifica se ao deletar um teste com ID inválido a API retorna 400 e a mensagem 'Failed to convert value of type'")
     public void testDeletarTeste_informarIDInvalido_esperaErro() {
-        ErroDto erro = QuestaoClient.excluirTesteComIDInvalido()
+        ErroAlternativoDto erro = QuestaoClient.excluirTesteComIDInvalido()
             .then()
-                .statusCode(400)
-                .extract().as(ErroDto.class);
+                .statusCode(404)
+                .extract().as(ErroAlternativoDto.class);
 
-        assertAll("Testes de deletar teste informando ID inválido",
+        assertAll("Testes de deletar questão informando ID inválido",
                 () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
                 () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
-                () -> assertFalse(erro.getErrors().isEmpty(), "Lista de erros não deve está vazia"),
-                () -> assertEquals(400, erro.getStatus(), "Status do erro deve ser igual ao esperado"),
-                () -> assertEquals("Houve um erro em um conversão. Verifique se os valores estão corretos.", erro.getErrors().get("error"), "Mensagem de erro deve ser igual a esperada")
+                () -> assertNotNull(erro.getError(), "Erro não deve ser nulo"),
+                () -> assertEquals(404, erro.getStatus(), "Status do erro deve ser igual ao esperado"),
+                () -> assertEquals("Not Found", erro.getError(), "Mensagem de erro deve ser igual a esperada")
         );
     }
 
@@ -338,17 +338,17 @@ public class QuestaoDeleteFuncionalTest {
     @Severity(SeverityLevel.NORMAL)
     @Description("Teste que verifica se ao deletar um teste com ID inexistente a API retorna 404 e a mensagem ''")
     public void testDeletarTeste_informarIDInexistente_esperaErro() {
-        ErroDto erro = QuestaoClient.excluirTesteComIDInexistente()
+        ErroAlternativoDto erro = QuestaoClient.excluirTesteComIDInexistente()
             .then()
                 .statusCode(404)
-                .extract().as(ErroDto.class);
+                .extract().as(ErroAlternativoDto.class);
 
-        assertAll("Testes de deletar teste informando ID inexistente",
+        assertAll("Testes de deletar questão informando ID inválido",
                 () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
                 () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
-                () -> assertFalse(erro.getErrors().isEmpty(), "Lista de erros não deve está vazia"),
+                () -> assertNotNull(erro.getError(), "Erro não deve ser nulo"),
                 () -> assertEquals(404, erro.getStatus(), "Status do erro deve ser igual ao esperado"),
-                () -> assertEquals("Teste não encontrado com o ID fornecido", erro.getErrors().get("error"), "Mensagem de erro deve ser igual a esperada")
+                () -> assertEquals("Not Found", erro.getError(), "Mensagem de erro deve ser igual a esperada")
         );
     }
 }

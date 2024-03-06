@@ -119,6 +119,7 @@ public class SolucaoQuestaoPostFuncionalTest {
         SolucaoQuestaoResponseDto solucaoResponse = SolucaoQuestaoClient.testarSolucaoCompleta(solucao)
             .then()
                 .statusCode(200)
+                .log().all()
                 .extract()
                 .as(SolucaoQuestaoResponseDto.class);
 
@@ -408,7 +409,7 @@ public class SolucaoQuestaoPostFuncionalTest {
 
         ErroDto erro = SolucaoQuestaoClient.testarSolucaoCompleta(solucao)
             .then()
-                .statusCode(404)
+                .statusCode(400)
                 .extract()
                 .as(ErroDto.class);
 
@@ -417,7 +418,7 @@ public class SolucaoQuestaoPostFuncionalTest {
                 () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
                 () -> assertFalse(erro.getErrors().isEmpty(), "Lista de erros não deve está vazia"),
                 () -> assertEquals(404, erro.getStatus(), "Status do erro deve ser igual ao esperado"),
-                () -> assertEquals("Houve um erro ao tentar ler a requisição. Verifique se o corpo da requisição está correto", erro.getErrors().get("error"), "Mensagem de erro deve ser igual a esperada")
+                () -> assertEquals("O id da questão não pode ser nulo", erro.getErrors().get("questaoId"), "Mensagem de erro deve ser igual a esperada")
         );
     }
 

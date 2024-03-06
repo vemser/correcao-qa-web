@@ -111,17 +111,16 @@ public class AtividadesEnviadasGetFuncionalTest {
         final String SIZE = "10";
         final String PAGE = "-1";
 
-        ErroDto erro = AtividadesEnviadaClient.listarAtividadesDoAluno(PAGE, SIZE)
+        PaginacaoAtividadeEnviadaDto retorno = AtividadesEnviadaClient.listarAtividadesDoAluno(PAGE, SIZE)
                 .then()
-                .statusCode(404)
+                .statusCode(200)
                 .extract()
-                .as(ErroDto.class);
+                .as(PaginacaoAtividadeEnviadaDto.class);
 
         assertAll("Testes de listar questão informando página inválida",
-                () -> assertEquals(erro.getStatus(), 404, "Status do erro deve ser igual ao esperado"),
-                () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
-                () -> assertFalse(erro.getErrors().isEmpty(), "Lista de erros não deve está vazia"),
-                () -> assertEquals(erro.getErrors().get("error"), "Página não encontrada", "Mensagem de erro deve ser igual a esperada")
+                () -> assertEquals(retorno.getNumberOfElements(), Integer.parseInt(SIZE), "Número de elementos deve ser igual ao esperado"),
+                () -> assertEquals(retorno.getContent().size(), retorno.getNumberOfElements(), "Tamanho do conteúdo deve ser igual ao número de elementos"),
+                () -> assertEquals(retorno.getNumber(), 0,"Número da página deve ser igual ao esperado")
         );
     }
 

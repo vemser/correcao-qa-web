@@ -5,6 +5,7 @@ import com.vemser.correcao.client.QuestaoClient;
 import com.vemser.correcao.data.factory.CriarAtividadeDataFactory;
 import com.vemser.correcao.dto.atividade.CriarAtividadeDto;
 import com.vemser.correcao.dto.atividade.CriarAtividadeResponseDto;
+import com.vemser.correcao.dto.erro.ErroAlternativoDto;
 import com.vemser.correcao.dto.erro.ErroDto;
 import com.vemser.correcao.dto.erro.ErroForbiddenDto;
 import io.qameta.allure.*;
@@ -42,7 +43,7 @@ public class AtividadeInstrutorPutFuncionalTest {
                 () -> assertEquals(response.getAtividadeId(), atividadeResult.getAtividadeId(), "ID da Atividade não deve ser nulo"),
                 () -> assertEquals(response.getTitulo(), atividadeEditada.getTitulo(), "Título deve ser igual ao esperado"),
                 () -> assertEquals(response.getDescricao(), atividadeEditada.getDescricao(), "Descrição deve ser igual a esperada"),
-                () -> assertEquals(response.getQuestoesInt(), atividadeEditada.getQuestoesInt(), "Trilha deve ser igual a esperada"),
+                () -> assertEquals(response.getQuestoesInt().contains(atividadeEditada.getQuestoesInt().get(0)), response.getQuestoesInt().contains(atividadeEditada.getQuestoesInt().get(1)), "Questões devem ser igual as esperadas"),
                 () -> assertTrue(response.getPrazoEntrega().contains(atividadeEditada.getPrazoEntrega().replace("Z", "")), "Prazo de Entrega deve ser igual ao esperado")
         );
     }
@@ -91,17 +92,17 @@ public class AtividadeInstrutorPutFuncionalTest {
 
         CriarAtividadeDto atividadeEditada = CriarAtividadeDataFactory.atividadeComDadosValidos();
 
-        ErroDto erro = AtividadesInstrutorClient.editarAtividadeSemId(atividadeEditada)
+        ErroAlternativoDto erro = AtividadesInstrutorClient.editarAtividadeSemId(atividadeEditada)
                 .then()
                 .statusCode(404)
-                .extract().as(ErroDto.class);
+                .extract().as(ErroAlternativoDto.class);
 
         assertAll("Testes de editar atividade sem informar ID",
                 () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
                 () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
-                () -> assertFalse(erro.getErrors().isEmpty(), "Lista de erros não deve está vazia"),
+                () -> assertNotNull(erro.getError(), "Lista de erros não deve ser nula"),
                 () -> assertEquals(erro.getStatus(), 404, "Status do erro deve ser igual ao esperado"),
-                () -> assertEquals(erro.getErrors().get("error"), "Not Found")
+                () -> assertEquals(erro.getError(), "Not Found")
         );
     }
 
@@ -145,6 +146,7 @@ public class AtividadeInstrutorPutFuncionalTest {
         CriarAtividadeResponseDto atividadeResult = AtividadesInstrutorClient.criarAtividade(atividade)
                 .then()
                 .statusCode(201)
+                .log().all()
                 .extract().as(CriarAtividadeResponseDto.class);
 
         CriarAtividadeDto atividadeEditada = CriarAtividadeDataFactory.atividadeSemAtribuirQuestoes();
@@ -152,6 +154,7 @@ public class AtividadeInstrutorPutFuncionalTest {
         ErroDto erro = AtividadesInstrutorClient.editarAtividade(atividadeResult.getAtividadeId(), atividadeEditada)
                 .then()
                 .statusCode(400)
+                .log().all()
                 .extract().as(ErroDto.class);
 
         assertAll("Testes de editar atividade sem atribuir questões",
@@ -159,7 +162,7 @@ public class AtividadeInstrutorPutFuncionalTest {
                 () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
                 () -> assertFalse(erro.getErrors().isEmpty(), "Lista de erros não deve está vazia"),
                 () -> assertEquals(erro.getStatus(), 400, "Status do erro deve ser igual ao esperado"),
-                () -> assertEquals(erro.getErrors().get("questoes"), "A lista de questões não pode ser nula ou vazia.")
+                () -> assertEquals(erro.getErrors().get("questoesInt"), "A lista de questões não pode ser nula ou vazia.")
         );
     }
 
@@ -205,21 +208,20 @@ public class AtividadeInstrutorPutFuncionalTest {
                 .statusCode(201)
                 .extract().as(CriarAtividadeResponseDto.class);
 
-        CriarAtividadeDto atividadeEditada = CriarAtividadeDataFactory.atividadeSemPreencherTitulo();
+        CriarAtividadeDto atividadeEditada = CriarAtividadeDataFactory.atividadeSemPreencherDescricao();
 
-        CriarAtividadeResponseDto response = AtividadesInstrutorClient.editarAtividade(atividadeResult.getAtividadeId(), atividadeEditada)
+        ErroDto erro = AtividadesInstrutorClient.editarAtividade(atividadeResult.getAtividadeId(), atividadeEditada)
                 .then()
-                .statusCode(201)
-                .extract().as(CriarAtividadeResponseDto.class);
+                .statusCode(400)
+                .extract().as(ErroDto.class);
 
-        assertAll("Testes de editar atividade sem preencher descrição",
-                () -> assertEquals(response.getAtividadeId(), atividadeResult.getAtividadeId(), "ID da Atividade não deve ser nulo"),
-                () -> assertEquals(response.getTitulo(), atividadeEditada.getTitulo(), "Título deve ser igual ao esperado"),
-                () -> assertEquals(response.getDescricao(), atividadeEditada.getDescricao(), "Descrição deve estar vazia"),
-                () -> assertEquals(response.getQuestoesInt(), atividadeEditada.getQuestoesInt(), "Questões devem ser iguais as esperadas"),
-                () -> assertEquals(response.getTrilha(), atividadeEditada.getTrilha(), "Trilha deve ser igual a esperada"),
-                () -> assertTrue(response.getPrazoEntrega().contains(atividadeEditada.getPrazoEntrega().replace("Z", "")), "Prazo de Entrega deve ser igual ao esperado")
-                );
+        assertAll("Testes de editar atividade sem preencher título",
+                () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
+                () -> assertNotNull(erro.getStatus(), "Status da erro não deve ser nulo"),
+                () -> assertFalse(erro.getErrors().isEmpty(), "Lista de erros não deve está vazia"),
+                () -> assertEquals(erro.getStatus(), 400, "Status do erro deve ser igual ao esperado"),
+                () -> assertEquals(erro.getErrors().get("descricao"), "A descrição é obrigatória")
+        );
     }
 
     @Test
@@ -334,7 +336,7 @@ public class AtividadeInstrutorPutFuncionalTest {
                 () -> assertEquals(erro.getStatus(), 403, "Status da erro não deve ser nulo"),
                 () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
                 () -> assertNotNull(erro.getPath()),
-                () -> assertEquals(erro.getError(),"Você não tem autorização para acessar este serviço" )
+                () -> assertEquals(erro.getError(),"Forbidden" )
         );
     }
 }

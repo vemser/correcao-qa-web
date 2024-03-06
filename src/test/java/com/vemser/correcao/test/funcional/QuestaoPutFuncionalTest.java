@@ -323,7 +323,7 @@ public class QuestaoPutFuncionalTest {
                 () -> assertEquals(erro.getStatus(), 403, "Status da erro não deve ser nulo"),
                 () -> assertNotNull(erro.getTimestamp(), "Timestamp do erro não deve ser nulo"),
                 () -> assertNotNull(erro.getPath()),
-                () -> assertEquals(erro.getError(),"Você não tem autorização para acessar este serviço" )
+                () -> assertEquals(erro.getError(),"Forbidden" )
         );
     }
 }
