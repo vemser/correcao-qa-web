@@ -16,7 +16,7 @@ public class QuestaoDataFactory {
     private QuestaoDataFactory() {}
 
     public static String tituloFaker() {
-        return faker.lorem().sentence();
+        return faker.lorem().characters(60);
     }
 
     public static String descricaoFaker() {

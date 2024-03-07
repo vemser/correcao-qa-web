@@ -20,7 +20,6 @@ public class AtividadesInstrutorClient {
     private static final String CORRIGIR_ATIVIDADE = "/atividades/retorno-do-professor";
     private static final String EDITAR_ATIVIDADE = "/atividades/editar/{idAtividade}";
     private static final String EDITAR_ATIVIDADE_SEM_ID = "/atividades/editar/";
-    private static final String BUSCAR_ATIVIDADE_POR_ID = "/atividades/listar-atividades-estagiario/{id}";
     private static final String LISTAR_ATIVIDADES_ESTAGIARIO_POR_ID = "/atividades/listar-atividades-estagiario/{id}";
 
     public AtividadesInstrutorClient(){}
@@ -143,22 +142,6 @@ public class AtividadesInstrutorClient {
                 .spec(LoginSpecs.loginAlunoReqSpec())
                 .when()
                 .get(LISTAR_TODAS_ATIVIDADES);
-    }
-
-    public static Response listarAtividadeEstagiarioPorIdSemAutenticacao(String id) {
-        return given()
-                .spec(LoginSpecs.reqSemTokenSpec())
-                .pathParam("id", id)
-        .when()
-                .get(BUSCAR_ATIVIDADE_POR_ID);
-    }
-
-    public static Response listarAtividadeEstagiarioPorIdComoAluno(String id) {
-        return given()
-                .spec(LoginSpecs.loginAlunoReqSpec())
-                .pathParam("id", id)
-        .when()
-                .get(BUSCAR_ATIVIDADE_POR_ID);
     }
 
     public static Response listarAtividadeEstagiarioPorId(Integer id) {

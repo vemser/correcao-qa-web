@@ -41,7 +41,7 @@ public class CriarAtividadeDataFactory {
         criarAtividadeValida.setEdicaoVemSer("13");
         criarAtividadeValida.setPrazoEntrega("2025-03-01T13:01:41.065Z");
         criarAtividadeValida.setQuestoesInt(listaIdDuasQuestoesValidasParaAtividade());
-        criarAtividadeValida.setTitulo(faker.book().title());
+        criarAtividadeValida.setTitulo(faker.lorem().characters(60));
         criarAtividadeValida.setTrilha(Trilha.BACK);
 
         return criarAtividadeValida;
@@ -56,7 +56,7 @@ public class CriarAtividadeDataFactory {
         criarAtividadeValida.setEdicaoVemSer("13");
         criarAtividadeValida.setPrazoEntrega("2025-03-01T13:01:41.065Z");
         criarAtividadeValida.setQuestoesInt(questoes);
-        criarAtividadeValida.setTitulo(faker.book().title());
+        criarAtividadeValida.setTitulo(faker.lorem().characters(60));
         criarAtividadeValida.setTrilha(Trilha.BACK);
 
         return criarAtividadeValida;
@@ -69,7 +69,7 @@ public class CriarAtividadeDataFactory {
         criarAtividadeValida.setEdicaoVemSer("13");
         criarAtividadeValida.setPrazoEntrega("2022-03-01T13:01:41.065Z");
         criarAtividadeValida.setQuestoesInt(listaIdDuasQuestoesValidasParaAtividade());
-        criarAtividadeValida.setTitulo(faker.book().title());
+        criarAtividadeValida.setTitulo(faker.lorem().characters(60));
         criarAtividadeValida.setTrilha(Trilha.BACK);
 
         return criarAtividadeValida;
@@ -83,7 +83,7 @@ public class CriarAtividadeDataFactory {
         criarAtividadeValida.setEdicaoVemSer("13");
         criarAtividadeValida.setPrazoEntrega("2022-03-01T13:01:41.065Z");
         criarAtividadeValida.setQuestoesInt(questoes);
-        criarAtividadeValida.setTitulo(faker.book().title());
+        criarAtividadeValida.setTitulo(faker.lorem().characters(60));
         criarAtividadeValida.setTrilha(Trilha.BACK);
 
         return criarAtividadeValida;
@@ -109,7 +109,7 @@ public class CriarAtividadeDataFactory {
         criarAtividadeValida.setEdicaoVemSer("13");
         criarAtividadeValida.setPrazoEntrega("2025-03-01T13:01:41.065Z");
         criarAtividadeValida.setQuestoesInt(listaIdDuasQuestoesValidasParaAtividade());
-        criarAtividadeValida.setTitulo(faker.book().title());
+        criarAtividadeValida.setTitulo(faker.lorem().characters(60));
         criarAtividadeValida.setTrilha(Trilha.BACK);
 
         return criarAtividadeValida;
@@ -122,7 +122,7 @@ public class CriarAtividadeDataFactory {
         criarAtividadeValida.setEdicaoVemSer("");
         criarAtividadeValida.setPrazoEntrega("2025-03-01T13:01:41.065Z");
         criarAtividadeValida.setQuestoesInt(listaIdDuasQuestoesValidasParaAtividade());
-        criarAtividadeValida.setTitulo(faker.book().title());
+        criarAtividadeValida.setTitulo(faker.lorem().characters(60));
         criarAtividadeValida.setTrilha(Trilha.BACK);
 
         return criarAtividadeValida;
@@ -142,7 +142,8 @@ public class CriarAtividadeDataFactory {
                     "titulo": "%s",
                     "trilha": ""
                     }
-                """,faker.lorem(), idQuestoes.get(0), idQuestoes.get(1),  faker.book().title());
+                """,
+                faker.lorem(), idQuestoes.get(0), idQuestoes.get(1),  faker.lorem().characters(60));
     }
 
     public static String atividadePreenchendoTrilhaInvalida(){
@@ -159,7 +160,7 @@ public class CriarAtividadeDataFactory {
                     "titulo": "%s",
                     "trilha": "invalido"
                     }
-                """,faker.lorem(), idQuestoes.get(0), idQuestoes.get(1), faker.book().title());
+                """,faker.lorem(), idQuestoes.get(0), idQuestoes.get(1), faker.lorem().characters(60));
     }
 
     public static CriarAtividadeDto atividadeComEdicaoInvalida() {
@@ -169,7 +170,7 @@ public class CriarAtividadeDataFactory {
         criarAtividadeValida.setEdicaoVemSer("Invalido");
         criarAtividadeValida.setPrazoEntrega("2025-03-01T13:01:41.065Z");
         criarAtividadeValida.setQuestoesInt(listaIdDuasQuestoesValidasParaAtividade());
-        criarAtividadeValida.setTitulo(faker.book().title());
+        criarAtividadeValida.setTitulo(faker.lorem().characters(60));
         criarAtividadeValida.setTrilha(Trilha.BACK);
 
         return criarAtividadeValida;
@@ -182,7 +183,7 @@ public class CriarAtividadeDataFactory {
         criarAtividadeValida.setEdicaoVemSer("13");
         criarAtividadeValida.setPrazoEntrega("2025-03-01T13:01:41.065Z");
         criarAtividadeValida.setQuestoesInt(questoes);
-        criarAtividadeValida.setTitulo(faker.book().title());
+        criarAtividadeValida.setTitulo(faker.lorem().characters(60));
         criarAtividadeValida.setTrilha(Trilha.FRONT);
 
         return criarAtividadeValida;
@@ -194,7 +195,7 @@ public class CriarAtividadeDataFactory {
         criarAtividadeValida.setEdicaoVemSer("13");
         criarAtividadeValida.setPrazoEntrega("2025-03-01T13:01:41.065Z");
         criarAtividadeValida.setQuestoesInt(questoes);
-        criarAtividadeValida.setTitulo(faker.book().title());
+        criarAtividadeValida.setTitulo(faker.lorem().characters(60));
         criarAtividadeValida.setTrilha(Trilha.BACK);
 
         return criarAtividadeValida;
